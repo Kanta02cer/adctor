@@ -1,0 +1,21 @@
+name = "adctor-gateway"
+main = "src/index.ts"
+compatibility_date = "2024-07-01"
+compatibility_flags = ["nodejs_compat"]
+
+# KV namespace for access tokens (run: wrangler kv namespace create TOKENS)
+# [[kv_namespaces]]
+# binding = "TOKENS"
+# id = "YOUR_KV_NAMESPACE_ID"
+
+[vars]
+PRICE_PER_CRAWL_JPY = "800"
+PLATFORM_FEE_PERCENT = "20"
+DASHBOARD_URL = "https://adctor.io"
+
+# Environment variables (set via wrangler secret or .dev.vars):
+# STRIPE_SECRET_KEY
+# STRIPE_WEBHOOK_SECRET
+# PUBLISHER_API_KEY (the site owner's Adctor API key)
+# STRIPE_CONNECTED_ACCOUNT_ID (the site owner's Stripe Connect account)
+# ORIGIN_URL (the actual origin server to proxy to after payment)

@@ -1,0 +1,32 @@
+{
+  "memories": [],
+  "manual_memories": [],
+  "realtime_memories": [
+    {
+      "type": "claude_response",
+      "content": "---\n\n## 完了レポート\n\n### 作成した外注資料（`/Users/wantan/adctor/docs/outsourcing/`）\n\n| ファイル | 内容 |\n|---------|------|\n| `00_INDEX.md` | 全資料の目次・プロジェクト概要 |\n| `01_RFP.md` | **提案依頼書** — 開発会社への要求仕様・スコープ |\n| `02_require",
+      "added_at": "2026-06-09T10:00:54.324880",
+      "source": "realtime_capture"
+    },
+    {
+      "type": "message",
+      "content": "GitHubにプッシュできましたか？",
+      "added_at": "2026-06-09T10:00:54.324891",
+      "source": "realtime_capture"
+    },
+    {
+      "type": "claude_response",
+      "content": "まだ実行できていません。gitリポジトリが未初期化でした。今から実行します。\n\nまず `.gitignore` を作成してから初期化します（`.env` などの機密情報は除外）。",
+      "added_at": "2026-06-09T10:02:45.558673",
+      "source": "realtime_capture"
+    },
+    {
+      "type": "message",
+      "content": "反映をされていないのですが",
+      "added_at": "2026-06-09T10:02:45.558686",
+      "source": "realtime_capture"
+    }
+  ],
+  "created_at": "2026-06-09T10:00:54.315879",
+  "updated_at": "2026-06-09T10:02:45.558688"
+}
