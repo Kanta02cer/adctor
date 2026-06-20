@@ -7,6 +7,7 @@ import {
   BarChart3, Search, ChevronDown
 } from "lucide-react";
 import { getHeroImage } from "@/lib/adctor-services";
+import Link from "next/link";
 
 // ── Fade-in section wrapper ────────────────────────────────────────────────
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
@@ -142,9 +143,12 @@ export default function LPPage() {
             <a href="#packages" className="hidden sm:inline-block hover:text-white transition-colors">サービス</a>
             <a href="#why" className="hidden sm:inline-block hover:text-white transition-colors">なぜ今？</a>
             <a href="#roadmap" className="hidden sm:inline-block hover:text-white transition-colors">ロードマップ</a>
-            <a href="/diagnosis" className="px-4 py-1.5 bg-[#B89F5D]/10 text-[#B89F5D] rounded-full border border-[#B89F5D]/20 hover:bg-[#B89F5D]/20 transition-colors text-xs sm:text-sm">
+            <Link href="/dashboard" className="hover:text-white transition-colors">
+              ダッシュボード
+            </Link>
+            <Link href="/diagnosis" className="px-4 py-1.5 bg-[#B89F5D]/10 text-[#B89F5D] rounded-full border border-[#B89F5D]/20 hover:bg-[#B89F5D]/20 transition-colors text-xs sm:text-sm">
               無料診断 →
-            </a>
+            </Link>
           </div>
         </div>
       </nav>
@@ -189,10 +193,10 @@ export default function LPPage() {
 
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="/diagnosis"
+            <Link href="/diagnosis"
               className="w-full sm:w-auto flex items-center justify-center gap-2 px-7 py-3.5 bg-[#B89F5D] text-black font-bold rounded-xl hover:bg-[#B89F5D]/90 transition-all text-sm">
               無料のAIクローラー診断を受ける <ArrowRight className="w-4 h-4" />
-            </a>
+            </Link>
             <a href="#packages"
               className="w-full sm:w-auto flex items-center justify-center gap-2 px-7 py-3.5 border border-white/15 text-white/70 rounded-xl hover:border-white/30 hover:text-white transition-all text-sm">
               サービス詳細を見る
@@ -459,10 +463,10 @@ export default function LPPage() {
                   URLを入力するだけで、どのAIクローラーがどれくらいアクセスしているか、
                   どのくらいの「機会損失」が発生しているかをレポート形式で提示します。
                 </p>
-                <a href="/diagnosis"
+                <Link href="/diagnosis"
                   className="inline-flex items-center gap-2 px-8 py-4 bg-[#B89F5D] text-black font-bold rounded-xl hover:bg-[#B89F5D]/90 transition-all">
                   無料診断をスタートする <ArrowRight className="w-4 h-4" />
-                </a>
+                </Link>
                 <p className="text-xs text-white/20">診断は無料・登録不要。通常48時間以内に結果をお届けします。</p>
               </div>
             </div>

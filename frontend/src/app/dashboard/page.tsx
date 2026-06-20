@@ -123,7 +123,12 @@ export default function DashboardPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white">ダッシュボード</h1>
+          <div className="flex items-center gap-3">
+            <h1 className="text-2xl font-bold text-white">ダッシュボード</h1>
+            <a href="/adctor/REGALIS%20Platform.dc.html" target="_blank" className="text-xs px-2 py-0.5 rounded border border-[#B89F5D]/30 text-[#B89F5D] hover:bg-[#B89F5D]/10 transition-colors">
+              設計モック画面を表示 ↗
+            </a>
+          </div>
           <p className="text-sm text-white/40 mt-0.5">2026年6月 — リアルタイム収益モニター</p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
