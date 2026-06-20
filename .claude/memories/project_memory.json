@@ -25,8 +25,14 @@
       "content": "反映をされていないのですが",
       "added_at": "2026-06-09T10:02:45.558686",
       "source": "realtime_capture"
+    },
+    {
+      "type": "message",
+      "content": "Import the attached adctor.zip — read the README inside. Implement: REGALIS Platform.dc.html",
+      "added_at": "2026-06-21T00:34:23.774716",
+      "source": "realtime_capture"
     }
   ],
   "created_at": "2026-06-09T10:00:54.315879",
-  "updated_at": "2026-06-09T10:02:45.558688"
+  "updated_at": "2026-06-21T00:34:23.774723"
 }

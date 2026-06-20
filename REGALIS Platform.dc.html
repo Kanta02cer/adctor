@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<template id="__bundler_thumbnail" data-bg-color="#09090b">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#09090b"/>
+    <rect x="470" y="300" width="120" height="120" rx="26" fill="#fafafa"/>
+    <text x="530" y="388" font-family="Inter, sans-serif" font-size="78" font-weight="700" fill="#09090b" text-anchor="middle">R</text>
+    <text x="630" y="372" font-family="Inter, sans-serif" font-size="64" font-weight="700" letter-spacing="14" fill="#fafafa">REGALIS</text>
+    <text x="632" y="418" font-family="monospace" font-size="22" letter-spacing="8" fill="#a1a1aa">AI INTELLIGENCE PLATFORM</text>
+  </svg>
+</template>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  ::-webkit-scrollbar{width:10px;height:10px;}
+  ::-webkit-scrollbar-thumb{background:#e4e4e7;border-radius:8px;border:2px solid #fafafa;}
+  ::-webkit-scrollbar-thumb:hover{background:#d4d4d8;}
+  @keyframes regpulse{0%{opacity:1;transform:scale(1);}50%{opacity:.35;transform:scale(.85);}100%{opacity:1;transform:scale(1);}}
+  @keyframes regfade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes regtoast{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+</style>
+</helmet>
+<div style="display:flex;height:100vh;width:100%;overflow:hidden;font-family:'Inter','Noto Sans JP',sans-serif;color:#18181b;background:#fafafa;">
+
+  <aside style="{{ sidebarStyle }}">
+    <div style="display:flex;align-items:center;gap:10px;padding:22px 20px 20px 20px;border-bottom:1px solid #f0f0f1;">
+      <div style="width:30px;height:30px;flex:none;background:#09090b;border-radius:7px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:15px;font-family:'Inter',sans-serif;">R</div>
+      <sc-if value="{{ expanded }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;line-height:1.15;overflow:hidden;">
+          <span style="font-size:15px;font-weight:700;letter-spacing:.14em;color:#09090b;white-space:nowrap;">REGALIS</span>
+          <span style="font-size:9px;letter-spacing:.14em;color:#a1a1aa;white-space:nowrap;text-transform:uppercase;">AI Intelligence</span>
+        </div>
+      </sc-if>
+    </div>
+
+    <nav style="flex:1;padding:14px 12px;display:flex;flex-direction:column;gap:3px;overflow-y:auto;">
+      <sc-if value="{{ expanded }}" hint-placeholder-val="{{ true }}"><div style="font-size:9px;font-weight:600;letter-spacing:.12em;color:#c4c4cc;text-transform:uppercase;padding:8px 12px 4px 12px;">Platform</div></sc-if>
+
+      <button onClick="{{ goHome }}" title="ダッシュボード" style="position:relative;display:flex;align-items:center;gap:12px;padding:10px 12px;border:none;background:transparent;border-radius:9px;cursor:pointer;text-align:left;color:#3f3f46;width:100%;" style-hover="background:#fafafa;">
+        <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}"><span style="position:absolute;inset:0;background:#f4f4f5;border-radius:9px;box-shadow:inset 2.5px 0 0 #09090b;"></span></sc-if>
+        <span style="position:relative;z-index:1;display:flex;width:20px;justify-content:center;flex:none;color:#18181b;">{{ icoHome }}</span>
+        <sc-if value="{{ expanded }}" hint-placeholder-val="{{ true }}"><span style="position:relative;z-index:1;display:flex;flex-direction:column;line-height:1.2;overflow:hidden;"><span style="font-size:13px;font-weight:600;white-space:nowrap;">ダッシュボード</span><span style="font-size:10px;color:#a1a1aa;white-space:nowrap;">Overview</span></span></sc-if>
+      </button>
+
+      <button onClick="{{ goHack }}" title="HackⅡ" style="position:relative;display:flex;align-items:center;gap:12px;padding:10px 12px;border:none;background:transparent;border-radius:9px;cursor:pointer;text-align:left;color:#3f3f46;width:100%;" style-hover="background:#fafafa;">
+        <sc-if value="{{ isHack }}" hint-placeholder-val="{{ true }}"><span style="position:absolute;inset:0;background:#f4f4f5;border-radius:9px;box-shadow:inset 2.5px 0 0 #09090b;"></span></sc-if>
+        <span style="position:relative;z-index:1;display:flex;width:20px;justify-content:center;flex:none;color:#18181b;">{{ icoHack }}</span>
+        <sc-if value="{{ expanded }}" hint-placeholder-val="{{ true }}"><span style="position:relative;z-index:1;display:flex;flex-direction:column;line-height:1.2;overflow:hidden;"><span style="font-size:13px;font-weight:600;white-space:nowrap;">HackⅡ</span><span style="font-size:10px;color:#a1a1aa;white-space:nowrap;">AI検索測定</span></span></sc-if>
+      </button>
+
+      <button onClick="{{ goTsukull }}" title="Tsukull" style="position:relative;display:flex;align-items:center;gap:12px;padding:10px 12px;border:none;background:transparent;border-radius:9px;cursor:pointer;text-align:left;color:#3f3f46;width:100%;" style-hover="background:#fafafa;">
+        <sc-if value="{{ isTsukull }}" hint-placeholder-val="{{ true }}"><span style="position:absolute;inset:0;background:#f4f4f5;border-radius:9px;box-shadow:inset 2.5px 0 0 #09090b;"></span></sc-if>
+        <span style="position:relative;z-index:1;display:flex;width:20px;justify-content:center;flex:none;color:#18181b;">{{ icoTsukull }}</span>
+        <sc-if value="{{ expanded }}" hint-placeholder-val="{{ true }}"><span style="position:relative;z-index:1;display:flex;flex-direction:column;line-height:1.2;overflow:hidden;"><span style="font-size:13px;font-weight:600;white-space:nowrap;">Tsukull</span><span style="font-size:10px;color:#a1a1aa;white-space:nowrap;">AIパッチ配信</span></span></sc-if>
+      </button>
+
+      <button onClick="{{ goAdctor }}" title="Adctor" style="position:relative;display:flex;align-items:center;gap:12px;padding:10px 12px;border:none;background:transparent;border-radius:9px;cursor:pointer;text-align:left;color:#3f3f46;width:100%;" style-hover="background:#fafafa;">
+        <sc-if value="{{ isAdctor }}" hint-placeholder-val="{{ true }}"><span style="position:absolute;inset:0;background:#f4f4f5;border-radius:9px;box-shadow:inset 2.5px 0 0 #09090b;"></span></sc-if>
+        <span style="position:relative;z-index:1;display:flex;width:20px;justify-content:center;flex:none;color:#18181b;">{{ icoAdctor }}</span>
+        <sc-if value="{{ expanded }}" hint-placeholder-val="{{ true }}"><span style="position:relative;z-index:1;display:flex;flex-direction:column;line-height:1.2;overflow:hidden;"><span style="font-size:13px;font-weight:600;white-space:nowrap;">Adctor</span><span style="font-size:10px;color:#a1a1aa;white-space:nowrap;">PPC売上管理</span></span></sc-if>
+      </button>
+
+      <div style="height:1px;background:#f0f0f1;margin:10px 12px;"></div>
+      <sc-if value="{{ expanded }}" hint-placeholder-val="{{ true }}"><div style="font-size:9px;font-weight:600;letter-spacing:.12em;color:#c4c4cc;text-transform:uppercase;padding:4px 12px 4px 12px;">System</div></sc-if>
+
+      <button onClick="{{ goSettings }}" title="システム設定" style="position:relative;display:flex;align-items:center;gap:12px;padding:10px 12px;border:none;background:transparent;border-radius:9px;cursor:pointer;text-align:left;color:#3f3f46;width:100%;" style-hover="background:#fafafa;">
+        <sc-if value="{{ isSettings }}" hint-placeholder-val="{{ true }}"><span style="position:absolute;inset:0;background:#f4f4f5;border-radius:9px;box-shadow:inset 2.5px 0 0 #09090b;"></span></sc-if>
+        <span style="position:relative;z-index:1;display:flex;width:20px;justify-content:center;flex:none;color:#18181b;">{{ icoSettings }}</span>
+        <sc-if value="{{ expanded }}" hint-placeholder-val="{{ true }}"><span style="position:relative;z-index:1;display:flex;flex-direction:column;line-height:1.2;overflow:hidden;"><span style="font-size:13px;font-weight:600;white-space:nowrap;">システム設定</span><span style="font-size:10px;color:#a1a1aa;white-space:nowrap;">Settings</span></span></sc-if>
+      </button>
+    </nav>
+
+    <div style="border-top:1px solid #f0f0f1;padding:14px 12px;">
+      <button onClick="{{ toggleSidebar }}" style="display:flex;align-items:center;gap:12px;padding:9px 12px;border:none;background:transparent;border-radius:9px;cursor:pointer;color:#a1a1aa;width:100%;" style-hover="background:#fafafa;color:#52525b;">
+        <span style="display:flex;width:20px;justify-content:center;flex:none;">{{ icoCollapse }}</span>
+        <sc-if value="{{ expanded }}" hint-placeholder-val="{{ true }}"><span style="font-size:12px;font-weight:500;white-space:nowrap;">サイドバーを閉じる</span></sc-if>
+      </button>
+    </div>
+  </aside>
+
+  <main style="flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;">
+    <header style="flex:none;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 28px;background:rgba(250,250,250,.85);backdrop-filter:blur(8px);border-bottom:1px solid #e4e4e7;">
+      <div style="flex:1;min-width:0;">
+        <h1 style="margin:0;font-size:18px;font-weight:700;letter-spacing:-.01em;color:#09090b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ pageTitle }}</h1>
+        <div style="font-size:11px;color:#a1a1aa;letter-spacing:.02em;white-space:nowrap;">{{ pageEn }} · {{ pageDesc }}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;flex:none;">
+        <div style="display:flex;background:#f4f4f5;border-radius:9px;padding:3px;gap:2px;">
+          <sc-for list="{{ periods }}" as="p" hint-placeholder-count="4">
+            <button onClick="{{ p.onClick }}" style="{{ p.style }}">{{ p.label }}</button>
+          </sc-for>
+        </div>
+        <button onClick="{{ onExport }}" style="display:flex;align-items:center;gap:7px;padding:9px 15px;background:#09090b;color:#fff;border:none;border-radius:9px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;" style-hover="background:#27272a;">
+          <span style="display:flex;">{{ icoExport }}</span>レポート出力
+        </button>
+        <div style="display:flex;align-items:center;gap:9px;padding-left:14px;border-left:1px solid #e4e4e7;">
+          <div style="width:32px;height:32px;border-radius:8px;background:#e4e4e7;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#52525b;flex:none;">サ</div>
+          <div style="line-height:1.2;">
+            <div style="font-size:12.5px;font-weight:600;color:#18181b;white-space:nowrap;">株式会社サンプル製造</div>
+            <div style="font-size:10px;color:#a1a1aa;white-space:nowrap;">Enterprise · sample-mfg.co.jp</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div style="flex:1;overflow-y:auto;padding:28px;">
+
+      <!-- ====================== HOME ====================== -->
+      <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:18px;max-width:1280px;animation:regfade .3s ease;">
+
+        <div style="display:flex;gap:16px;flex-wrap:wrap;">
+          <div style="flex:1;min-width:240px;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:20px 22px;display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
+              <div><div style="font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#71717a;font-weight:600;">総合AI引用シェアスコア</div><div style="font-size:10px;color:#c4c4cc;">Overall AI Citation Share</div></div>
+            </div>
+            <div style="display:flex;align-items:baseline;gap:6px;"><span style="font-family:'JetBrains Mono',monospace;font-size:36px;font-weight:600;color:#09090b;letter-spacing:-.02em;">22.4</span><span style="font-size:14px;color:#71717a;font-family:'JetBrains Mono',monospace;">pt</span></div>
+            <div style="display:flex;align-items:center;gap:8px;"><span style="display:inline-flex;align-items:center;gap:3px;color:#b91c1c;font-size:12px;font-weight:600;font-family:'JetBrains Mono',monospace;">▼ 4.2%</span><span style="font-size:11px;color:#a1a1aa;">前月比 / MoM</span></div>
+            <div style="margin-top:2px;height:44px;">{{ kpiSpark1 }}</div>
+          </div>
+
+          <div style="flex:1;min-width:240px;background:#fef2f2;border:1px solid #fca5a5;border-radius:12px;padding:20px 22px;display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
+              <div><div style="font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#991b1b;font-weight:600;">月間機会損失推計額</div><div style="font-size:10px;color:#dc8a8a;">Est. Monthly Opportunity Loss</div></div>
+              <span style="display:flex;color:#b91c1c;">{{ icoAlert }}</span>
+            </div>
+            <div style="display:flex;align-items:baseline;gap:4px;"><span style="font-size:18px;color:#b91c1c;font-family:'JetBrains Mono',monospace;font-weight:500;">¥</span><span style="font-family:'JetBrains Mono',monospace;font-size:36px;font-weight:600;color:#b91c1c;letter-spacing:-.02em;">8,450,000</span></div>
+            <div style="display:flex;align-items:center;gap:8px;"><span style="display:inline-flex;align-items:center;gap:3px;color:#dc2626;font-size:12px;font-weight:600;font-family:'JetBrains Mono',monospace;">▲ 9.8%</span><span style="font-size:11px;color:#dc8a8a;">主要AIでの非引用による流出</span></div>
+            <div style="margin-top:2px;height:44px;">{{ kpiSpark2 }}</div>
+          </div>
+
+          <div style="flex:1;min-width:240px;background:#f0fdf4;border:1px solid #a7f3d0;border-radius:12px;padding:20px 22px;display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
+              <div><div style="font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#065f46;font-weight:600;">Adctor 通行料収益</div><div style="font-size:10px;color:#6ee7b7;">Pay per Crawl Revenue</div></div>
+            </div>
+            <div style="display:flex;align-items:baseline;gap:4px;"><span style="font-size:18px;color:#047857;font-family:'JetBrains Mono',monospace;font-weight:500;">¥</span><span style="font-family:'JetBrains Mono',monospace;font-size:36px;font-weight:600;color:#047857;letter-spacing:-.02em;">{{ adRevenue }}</span></div>
+            <div style="display:flex;align-items:center;gap:8px;"><span style="display:inline-flex;align-items:center;gap:3px;color:#047857;font-size:12px;font-weight:600;font-family:'JetBrains Mono',monospace;">▲ 18.3%</span><span style="font-size:11px;color:#34d399;">課金リクエスト {{ adRequests }} 件</span></div>
+            <div style="margin-top:2px;height:44px;">{{ kpiSpark3 }}</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:16px;flex-wrap:wrap;">
+          <div style="flex:2;min-width:380px;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:20px 22px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;"><div><div style="font-size:13px;font-weight:700;color:#18181b;">総合AI引用シェアスコア推移</div><div style="font-size:10.5px;color:#a1a1aa;">Citation Share Score · 過去6ヶ月</div></div><span style="font-size:10px;color:#71717a;background:#f4f4f5;padding:4px 9px;border-radius:6px;font-weight:600;">HackⅡ</span></div>
+            <div style="height:210px;">{{ homeScoreChart }}</div>
+          </div>
+          <div style="flex:1;min-width:300px;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:20px 22px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;"><div><div style="font-size:13px;font-weight:700;color:#18181b;">通行料収益推移</div><div style="font-size:10.5px;color:#a1a1aa;">Toll Revenue · ¥K</div></div><span style="font-size:10px;color:#047857;background:#ecfdf5;padding:4px 9px;border-radius:6px;font-weight:600;">Adctor</span></div>
+            <div style="height:210px;">{{ homeRevenueChart }}</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:16px;flex-wrap:wrap;">
+          <div style="flex:1;min-width:300px;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:20px 22px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;"><div><div style="font-size:13px;font-weight:700;color:#18181b;">月間機会損失推移</div><div style="font-size:10.5px;color:#a1a1aa;">Opportunity Loss · ¥M</div></div><span style="font-size:10px;color:#b91c1c;background:#fef2f2;padding:4px 9px;border-radius:6px;font-weight:600;">HackⅡ</span></div>
+            <div style="height:210px;">{{ homeLossChart }}</div>
+          </div>
+          <div style="flex:1;min-width:300px;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:20px 22px;display:flex;flex-direction:column;">
+            <div style="font-size:13px;font-weight:700;color:#18181b;margin-bottom:4px;">3システム稼働ステータス</div>
+            <div style="font-size:10.5px;color:#a1a1aa;margin-bottom:16px;">Platform Status · 攻め・最適化・守り</div>
+            <div style="display:flex;flex-direction:column;gap:12px;flex:1;">
+              <div style="display:flex;align-items:center;gap:14px;padding:13px 15px;border:1px solid #f0f0f1;border-radius:10px;"><span style="width:8px;height:8px;border-radius:50%;background:#b45309;flex:none;animation:regpulse 2s infinite;"></span><div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:600;color:#18181b;">HackⅡ <span style="font-weight:400;color:#a1a1aa;font-size:11px;">/ AI検索測定</span></div><div style="font-size:11px;color:#71717a;">スコア低下を検知中 · 要対策</div></div><div style="text-align:right;"><div style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:600;color:#b45309;">22.4pt</div></div></div>
+              <div style="display:flex;align-items:center;gap:14px;padding:13px 15px;border:1px solid #f0f0f1;border-radius:10px;"><span style="width:8px;height:8px;border-radius:50%;background:#047857;flex:none;animation:regpulse 2s infinite;"></span><div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:600;color:#18181b;">Tsukull <span style="font-weight:400;color:#a1a1aa;font-size:11px;">/ AIパッチ配信</span></div><div style="font-size:11px;color:#71717a;">自動配信ON · v4.7.2 稼働中</div></div><div style="text-align:right;"><div style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:600;color:#047857;">+38pt</div></div></div>
+              <div style="display:flex;align-items:center;gap:14px;padding:13px 15px;border:1px solid #f0f0f1;border-radius:10px;"><span style="width:8px;height:8px;border-radius:50%;background:#047857;flex:none;animation:regpulse 2s infinite;"></span><div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:600;color:#18181b;">Adctor <span style="font-weight:400;color:#a1a1aa;font-size:11px;">/ PPC課金</span></div><div style="font-size:11px;color:#71717a;">課金ゲートウェイ稼働中</div></div><div style="text-align:right;"><div style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:600;color:#047857;">¥124,580</div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:20px 22px;">
+          <div style="font-size:13px;font-weight:700;color:#18181b;margin-bottom:4px;">最近のアクティビティ</div>
+          <div style="font-size:10.5px;color:#a1a1aa;margin-bottom:16px;">Recent Activity · 全システム横断</div>
+          <div style="display:flex;flex-direction:column;">
+            <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid #f4f4f5;"><span style="font-size:9px;font-weight:700;letter-spacing:.04em;color:#047857;background:#ecfdf5;padding:4px 8px;border-radius:6px;width:62px;text-align:center;flex:none;">Adctor</span><span style="flex:1;font-size:13px;color:#3f3f46;">GPTBot に HTTP 402 を返却し、通行料 ¥0.11 を徴収しました</span><span style="font-size:11px;color:#a1a1aa;font-family:'JetBrains Mono',monospace;white-space:nowrap;">2分前</span></div>
+            <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid #f4f4f5;"><span style="font-size:9px;font-weight:700;letter-spacing:.04em;color:#18181b;background:#f4f4f5;padding:4px 8px;border-radius:6px;width:62px;text-align:center;flex:none;">HackⅡ</span><span style="flex:1;font-size:13px;color:#3f3f46;">「協働ロボット 価格」で Perplexity の引用ソースに採用されました</span><span style="font-size:11px;color:#a1a1aa;font-family:'JetBrains Mono',monospace;white-space:nowrap;">18分前</span></div>
+            <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid #f4f4f5;"><span style="font-size:9px;font-weight:700;letter-spacing:.04em;color:#047857;background:#ecfdf5;padding:4px 8px;border-radius:6px;width:62px;text-align:center;flex:none;">Tsukull</span><span style="flex:1;font-size:13px;color:#3f3f46;">スコア低下を検知し llms.txt を自動再配信しました <span style="color:#047857;font-weight:600;font-family:'JetBrains Mono',monospace;">(+12pt)</span></span><span style="font-size:11px;color:#a1a1aa;font-family:'JetBrains Mono',monospace;white-space:nowrap;">1時間前</span></div>
+            <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid #f4f4f5;"><span style="font-size:9px;font-weight:700;letter-spacing:.04em;color:#047857;background:#ecfdf5;padding:4px 8px;border-radius:6px;width:62px;text-align:center;flex:none;">Adctor</span><span style="flex:1;font-size:13px;color:#3f3f46;">ClaudeBot をホワイトリスト設定により無償通過させました</span><span style="font-size:11px;color:#a1a1aa;font-family:'JetBrains Mono',monospace;white-space:nowrap;">2時間前</span></div>
+            <div style="display:flex;align-items:center;gap:14px;padding:12px 0;"><span style="font-size:9px;font-weight:700;letter-spacing:.04em;color:#b91c1c;background:#fef2f2;padding:4px 8px;border-radius:6px;width:62px;text-align:center;flex:none;">HackⅡ</span><span style="flex:1;font-size:13px;color:#3f3f46;">総合AI引用シェアスコアが 22.4pt に低下しました <span style="color:#b91c1c;font-weight:600;font-family:'JetBrains Mono',monospace;">(-4.2%)</span></span><span style="font-size:11px;color:#a1a1aa;font-family:'JetBrains Mono',monospace;white-space:nowrap;">本日 09:00</span></div>
+          </div>
+        </div>
+
+      </div>
+      </sc-if>
+
+      <!-- ====================== HACK II ====================== -->
+      <sc-if value="{{ isHack }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:18px;max-width:1280px;animation:regfade .3s ease;">
+
+        <div style="display:flex;gap:16px;flex-wrap:wrap;">
+          <div style="flex:1;min-width:200px;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:18px 20px;"><div style="font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#71717a;font-weight:600;">追跡キーワード数</div><div style="font-size:10px;color:#c4c4cc;margin-bottom:8px;">Tracked Keywords</div><div style="font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:600;color:#09090b;">248</div></div>
+          <div style="flex:1;min-width:200px;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:18px 20px;"><div style="font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#71717a;font-weight:600;">平均引用シェア</div><div style="font-size:10px;color:#c4c4cc;margin-bottom:8px;">Avg. Share of Voice</div><div style="display:flex;align-items:baseline;gap:4px;"><span style="font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:600;color:#09090b;">22.4</span><span style="font-size:13px;color:#71717a;font-family:'JetBrains Mono',monospace;">pt</span></div></div>
+          <div style="flex:1;min-width:200px;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:18px 20px;"><div style="font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#065f46;font-weight:600;">引用獲得クエリ</div><div style="font-size:10px;color:#c4c4cc;margin-bottom:8px;">Cited Queries</div><div style="display:flex;align-items:baseline;gap:4px;"><span style="font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:600;color:#047857;">96</span><span style="font-size:13px;color:#71717a;font-family:'JetBrains Mono',monospace;">/ 248</span></div></div>
+          <div style="flex:1;min-width:200px;background:#fef2f2;border:1px solid #fca5a5;border-radius:12px;padding:18px 20px;"><div style="font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#991b1b;font-weight:600;">未引用クエリ</div><div style="font-size:10px;color:#dc8a8a;margin-bottom:8px;">Not Cited</div><div style="display:flex;align-items:baseline;gap:4px;"><span style="font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:600;color:#b91c1c;">152</span><span style="font-size:13px;color:#dc8a8a;font-family:'JetBrains Mono',monospace;">/ 248</span></div></div>
+        </div>
+
+        <div style="background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:20px 22px;overflow:hidden;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><div style="font-size:13px;font-weight:700;color:#18181b;">AI別 引用状況・クロール履歴</div><span style="font-size:10px;color:#71717a;background:#f4f4f5;padding:4px 9px;border-radius:6px;font-weight:600;">Last crawl: 5/28 14:32</span></div>
+          <div style="font-size:10.5px;color:#a1a1aa;margin-bottom:16px;">Citation Status by AI Engine</div>
+          <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;min-width:760px;">
+            <thead><tr style="border-bottom:1.5px solid #e4e4e7;">
+              <th style="text-align:left;padding:10px 12px;font-size:11px;font-weight:600;color:#71717a;text-transform:uppercase;letter-spacing:.04em;">キーワード / Keyword</th>
+              <th style="text-align:right;padding:10px 12px;font-size:11px;font-weight:600;color:#71717a;">検索Vol.</th>
+              <th style="text-align:center;padding:10px 12px;font-size:11px;font-weight:600;color:#71717a;">Perplexity</th>
+              <th style="text-align:center;padding:10px 12px;font-size:11px;font-weight:600;color:#71717a;">Gemini</th>
+              <th style="text-align:center;padding:10px 12px;font-size:11px;font-weight:600;color:#71717a;">GPT-4o</th>
+              <th style="text-align:center;padding:10px 12px;font-size:11px;font-weight:600;color:#71717a;">Claude</th>
+              <th style="text-align:right;padding:10px 12px;font-size:11px;font-weight:600;color:#71717a;">SOV</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid #f4f4f5;"><td style="padding:12px;font-size:13px;font-weight:500;color:#18181b;">産業用ロボット 導入</td><td style="padding:12px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;color:#52525b;">8,100</td><td style="padding:12px;text-align:center;"><span style="display:inline-block;font-size:11px;font-weight:600;color:#047857;background:#ecfdf5;padding:3px 9px;border-radius:5px;">引用</span></td><td style="padding:12px;text-align:center;"><span style="display:inline-block;font-size:11px;font-weight:500;color:#a1a1aa;background:#f4f4f5;padding:3px 9px;border-radius:5px;">なし</span></td><td style="padding:12px;text-align:center;"><span style="display:inline-block;font-size:11px;font-weight:600;color:#047857;background:#ecfdf5;padding:3px 9px;border-radius:5px;">引用</span></td><td style="padding:12px;text-align:center;"><span style="display:inline-block;font-size:11px;font-weight:600;color:#047857;background:#ecfdf5;padding:3px 9px;border-radius:5px;">引用</span></td><td style="padding:12px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:#18181b;">24.1</td></tr>
+              <tr style="border-bottom:1px solid #f4f4f5;"><td style="padding:12px;font-size:13px;font-weight:500;color:#18181b;">協働ロボット 価格</td><td style="padding:12px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;color:#52525b;">2,900</td><td style="padding:12px;text-align:center;"><span style="display:inline-block;font-size:11px;font-weight:600;color:#047857;background:#ecfdf5;padding:3px 9px;border-radius:5px;">引用</span></td><td style="padding:12px;text-align:center;"><span style="display:inline-block;font-size:11px;font-weight:600;color:#047857;background:#ecfdf5;padding:3px 9px;border-radius:5px;">引用</span></td><td style="padding:12px;text-align:center;"><span style="display:inline-block;font-size:11px;font-weight:600;color:#047857;background:#ecfdf5;padding:3px 9px;border-radius:5px;">引用</span></td><td style="padding:12px;text-align:center;"><span style="display:inline-block;font-size:11px;font-weight:600;color:#047857;background:#ecfdf5;padding:3px 9px;border-radius:5px;">引用</span></td><td style="padding:12px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:#18181b;">31.5</td></tr>
+              <tr style="border-bottom:1px solid #f4f4f5;"><td style="padding:12px;font-size:13px;font-weight:500;color:#18181b;">工場 自動化 ソリューション</td><td style="padding:12px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;color:#52525b;">5,400</td><td style="padding:12px;text-align:center;"><span style="display:inline-block;font-size:11px;font-weight:600;color:#047857;background:#ecfdf5;padding:3px 9px;border-radius:5px;">引用</span></td><td style="padding:12px;text-align:center;"><span style="display:inline-block;font-size:11px;font-weight:600;color:#047857;background:#ecfdf5;padding:3px 9px;border-radius:5px;">引用</span></td><td style="padding:12px;text-align:center;"><span style="display:inline-block;font-size:11px;font-weight:500;color:#a1a1aa;background:#f4f4f5;padding:3px 9px;border-radius:5px;">なし</span></td><td style="padding:12px;text-align:center;"><span style="display:inline-block;font-size:11px;font-weight:500;color:#a1a1aa;background:#f4f4f5;padding:3px 9px;border-radius:5px;">なし</span></td><td style="padding:12px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:#18181b;">12.8</td></tr>
+              <tr style="border-bottom:1px solid #f4f4f5;"><td style="padding:12px;font-size:13px;font-weight:500;color:#18181b;">精密板金 加工 短納期</td><td style="padding:12px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;color:#52525b;">1,800</td><td style="padding:12px;text-align:center;"><span style="display:inline-block;font-size:11px;font-weight:600;color:#047857;background:#ecfdf5;padding:3px 9px;border-radius:5px;">引用</span></td><td style="padding:12px;text-align:center;"><span style="display:inline-block;font-size:11px;font-weight:500;color:#a1a1aa;background:#f4f4f5;padding:3px 9px;border-radius:5px;">なし</span></td><td style="padding:12px;text-align:center;"><span style="display:inline-block;font-size:11px;font-weight:600;color:#047857;background:#ecfdf5;padding:3px 9px;border-radius:5px;">引用</span></td><td style="padding:12px;text-align:center;"><span style="display:inline-block;font-size:11px;font-weight:500;color:#a1a1aa;background:#f4f4f5;padding:3px 9px;border-radius:5px;">なし</span></td><td style="padding:12px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:#18181b;">18.7</td></tr>
+              <tr style="border-bottom:1px solid #f4f4f5;"><td style="padding:12px;font-size:13px;font-weight:500;color:#18181b;">生産ライン IoT</td><td style="padding:12px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;color:#52525b;">4,400</td><td style="padding:12px;text-align:center;"><span style="display:inline-block;font-size:11px;font-weight:500;color:#a1a1aa;background:#f4f4f5;padding:3px 9px;border-radius:5px;">なし</span></td><td style="padding:12px;text-align:center;"><span style="display:inline-block;font-size:11px;font-weight:600;color:#047857;background:#ecfdf5;padding:3px 9px;border-radius:5px;">引用</span></td><td style="padding:12px;text-align:center;"><span style="display:inline-block;font-size:11px;font-weight:500;color:#a1a1aa;background:#f4f4f5;padding:3px 9px;border-radius:5px;">なし</span></td><td style="padding:12px;text-align:center;"><span style="display:inline-block;font-size:11px;font-weight:600;color:#047857;background:#ecfdf5;padding:3px 9px;border-radius:5px;">引用</span></td><td style="padding:12px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:#18181b;">9.2</td></tr>
+              <tr><td style="padding:12px;font-size:13px;font-weight:500;color:#18181b;">FA機器 メーカー 比較</td><td style="padding:12px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;color:#52525b;">3,600</td><td style="padding:12px;text-align:center;"><span style="display:inline-block;font-size:11px;font-weight:500;color:#a1a1aa;background:#f4f4f5;padding:3px 9px;border-radius:5px;">なし</span></td><td style="padding:12px;text-align:center;"><span style="display:inline-block;font-size:11px;font-weight:500;color:#a1a1aa;background:#f4f4f5;padding:3px 9px;border-radius:5px;">なし</span></td><td style="padding:12px;text-align:center;"><span style="display:inline-block;font-size:11px;font-weight:600;color:#047857;background:#ecfdf5;padding:3px 9px;border-radius:5px;">引用</span></td><td style="padding:12px;text-align:center;"><span style="display:inline-block;font-size:11px;font-weight:500;color:#a1a1aa;background:#f4f4f5;padding:3px 9px;border-radius:5px;">なし</span></td><td style="padding:12px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:#18181b;">6.4</td></tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+
+        <div style="background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:20px 22px;">
+          <div style="font-size:13px;font-weight:700;color:#18181b;margin-bottom:4px;">競合シェア・オブ・ボイス (SOV) 比較</div>
+          <div style="font-size:10.5px;color:#a1a1aa;margin-bottom:18px;">Competitive Share of Voice · 100% 積み上げ · 過去6ヶ月</div>
+          <div style="display:flex;gap:20px;margin-bottom:18px;flex-wrap:wrap;">
+            <div style="display:flex;align-items:center;gap:7px;"><span style="width:11px;height:11px;border-radius:3px;background:#09090b;"></span><span style="font-size:11px;color:#52525b;font-weight:500;">自社 (Sample)</span></div>
+            <div style="display:flex;align-items:center;gap:7px;"><span style="width:11px;height:11px;border-radius:3px;background:#a1a1aa;"></span><span style="font-size:11px;color:#52525b;">競合A</span></div>
+            <div style="display:flex;align-items:center;gap:7px;"><span style="width:11px;height:11px;border-radius:3px;background:#d4d4d8;"></span><span style="font-size:11px;color:#52525b;">競合B</span></div>
+            <div style="display:flex;align-items:center;gap:7px;"><span style="width:11px;height:11px;border-radius:3px;background:#ececef;"></span><span style="font-size:11px;color:#52525b;">競合C</span></div>
+          </div>
+          {{ sovBars }}
+        </div>
+
+      </div>
+      </sc-if>
+
+      <!-- ====================== TSUKULL ====================== -->
+      <sc-if value="{{ isTsukull }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:18px;max-width:1280px;animation:regfade .3s ease;">
+
+        <div style="display:flex;gap:16px;flex-wrap:wrap;">
+          <div style="flex:1;min-width:210px;background:#f0fdf4;border:1px solid #a7f3d0;border-radius:12px;padding:18px 20px;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;"><span style="width:8px;height:8px;border-radius:50%;background:#047857;animation:regpulse 2s infinite;"></span><div style="font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#065f46;font-weight:600;">配信ステータス</div></div><div style="font-size:18px;font-weight:700;color:#047857;">自動配信 稼働中</div><div style="font-size:10.5px;color:#34d399;margin-top:3px;">llms.txt · llms-full.txt · ai-context.json</div></div>
+          <div style="flex:1;min-width:210px;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:18px 20px;"><div style="font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#71717a;font-weight:600;margin-bottom:8px;">最終パッチ配信</div><div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:600;color:#18181b;">05-28 14:32</div><div style="font-size:10.5px;color:#a1a1aa;margin-top:3px;">CDN 配信完了 · 全エッジ反映済</div></div>
+          <div style="flex:1;min-width:210px;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:18px 20px;"><div style="font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#71717a;font-weight:600;margin-bottom:8px;">現行バージョン</div><div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:600;color:#18181b;">v4.7.2</div><div style="font-size:10.5px;color:#a1a1aa;margin-top:3px;">累計 1,284 回の自動再生成</div></div>
+          <div style="flex:1;min-width:210px;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:18px 20px;"><div style="font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#065f46;font-weight:600;margin-bottom:8px;">平均スコア改善</div><div style="display:flex;align-items:baseline;gap:3px;"><span style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;color:#047857;">+38</span><span style="font-size:12px;color:#71717a;font-family:'JetBrains Mono',monospace;">pt</span></div><div style="font-size:10.5px;color:#34d399;margin-top:3px;">パッチ適用前後の5AI平均</div></div>
+        </div>
+
+        <div style="background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:20px 22px;overflow:hidden;">
+          <div style="font-size:13px;font-weight:700;color:#18181b;margin-bottom:4px;">自動パッチ トリガー履歴</div>
+          <div style="font-size:10.5px;color:#a1a1aa;margin-bottom:16px;">Automated Patch Trigger Log</div>
+          <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;min-width:760px;">
+            <thead><tr style="border-bottom:1.5px solid #e4e4e7;">
+              <th style="text-align:left;padding:10px 12px;font-size:11px;font-weight:600;color:#71717a;text-transform:uppercase;letter-spacing:.04em;">日時</th>
+              <th style="text-align:left;padding:10px 12px;font-size:11px;font-weight:600;color:#71717a;">検知イベント / Trigger</th>
+              <th style="text-align:left;padding:10px 12px;font-size:11px;font-weight:600;color:#71717a;">実行アクション</th>
+              <th style="text-align:center;padding:10px 12px;font-size:11px;font-weight:600;color:#71717a;">結果</th>
+              <th style="text-align:right;padding:10px 12px;font-size:11px;font-weight:600;color:#71717a;">スコア変化</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid #f4f4f5;"><td style="padding:12px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#52525b;white-space:nowrap;">05-28 14:32</td><td style="padding:12px;font-size:13px;color:#18181b;">HackⅡスコア低下を検知</td><td style="padding:12px;font-size:12.5px;color:#52525b;">llms.txt 再生成・CDN配信</td><td style="padding:12px;text-align:center;"><span style="font-size:11px;font-weight:600;color:#047857;background:#ecfdf5;padding:3px 9px;border-radius:5px;">成功</span></td><td style="padding:12px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:#047857;">+12pt</td></tr>
+              <tr style="border-bottom:1px solid #f4f4f5;"><td style="padding:12px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#52525b;white-space:nowrap;">05-21 09:15</td><td style="padding:12px;font-size:13px;color:#18181b;">競合 llms.txt 書き換えを検知</td><td style="padding:12px;font-size:12.5px;color:#52525b;">ai-context.json 更新</td><td style="padding:12px;text-align:center;"><span style="font-size:11px;font-weight:600;color:#047857;background:#ecfdf5;padding:3px 9px;border-radius:5px;">成功</span></td><td style="padding:12px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:#047857;">+6pt</td></tr>
+              <tr style="border-bottom:1px solid #f4f4f5;"><td style="padding:12px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#52525b;white-space:nowrap;">05-14 18:40</td><td style="padding:12px;font-size:13px;color:#18181b;">コンテンツ更新 (製品ページ)</td><td style="padding:12px;font-size:12.5px;color:#52525b;">llms-full.txt 再生成</td><td style="padding:12px;text-align:center;"><span style="font-size:11px;font-weight:600;color:#047857;background:#ecfdf5;padding:3px 9px;border-radius:5px;">成功</span></td><td style="padding:12px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:#047857;">+9pt</td></tr>
+              <tr style="border-bottom:1px solid #f4f4f5;"><td style="padding:12px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#52525b;white-space:nowrap;">05-07 03:00</td><td style="padding:12px;font-size:13px;color:#18181b;">定期スケジュール実行</td><td style="padding:12px;font-size:12.5px;color:#52525b;">全パッチ整合性検証</td><td style="padding:12px;text-align:center;"><span style="font-size:11px;font-weight:600;color:#047857;background:#ecfdf5;padding:3px 9px;border-radius:5px;">成功</span></td><td style="padding:12px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;color:#a1a1aa;">±0pt</td></tr>
+              <tr style="background:#fafafa;"><td style="padding:12px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#52525b;white-space:nowrap;">04-30 11:22</td><td style="padding:12px;font-size:13px;color:#18181b;font-weight:600;">手動トリガー (初回最適化)</td><td style="padding:12px;font-size:12.5px;color:#52525b;">llms.txt 全面最適化</td><td style="padding:12px;text-align:center;"><span style="font-size:11px;font-weight:600;color:#047857;background:#ecfdf5;padding:3px 9px;border-radius:5px;">成功</span></td><td style="padding:12px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#047857;">+39pt</td></tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+
+        <div style="background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:20px 22px;">
+          <div style="font-size:13px;font-weight:700;color:#18181b;margin-bottom:4px;">5AI 検証バリデーション結果</div>
+          <div style="font-size:10.5px;color:#a1a1aa;margin-bottom:6px;">Pre / Post Patch · AIモデル理解度スコア</div>
+          <div style="display:flex;gap:20px;margin:14px 0 18px;flex-wrap:wrap;">
+            <div style="display:flex;align-items:center;gap:7px;"><span style="width:11px;height:11px;border-radius:3px;background:#d4d4d8;"></span><span style="font-size:11px;color:#52525b;">適用前 / Before</span></div>
+            <div style="display:flex;align-items:center;gap:7px;"><span style="width:11px;height:11px;border-radius:3px;background:#047857;"></span><span style="font-size:11px;color:#52525b;">適用後 / After</span></div>
+          </div>
+          {{ validationBars }}
+        </div>
+
+      </div>
+      </sc-if>
+
+      <!-- ====================== ADCTOR ====================== -->
+      <sc-if value="{{ isAdctor }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:18px;max-width:1280px;animation:regfade .3s ease;">
+
+        <div style="display:flex;gap:16px;flex-wrap:wrap;">
+          <div style="flex:1;min-width:210px;background:#f0fdf4;border:1px solid #a7f3d0;border-radius:12px;padding:18px 20px;"><div style="font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#065f46;font-weight:600;margin-bottom:8px;">今月の通行料収益</div><div style="display:flex;align-items:baseline;gap:3px;"><span style="font-size:15px;color:#047857;font-family:'JetBrains Mono',monospace;">¥</span><span style="font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:#047857;">{{ adRevenue }}</span></div><div style="font-size:10.5px;color:#34d399;margin-top:4px;font-family:'JetBrains Mono',monospace;">▲ 18.3% MoM</div></div>
+          <div style="flex:1;min-width:210px;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:18px 20px;"><div style="font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#71717a;font-weight:600;margin-bottom:8px;">課金リクエスト総数</div><div style="font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:#09090b;">{{ adRequests }}</div><div style="font-size:10.5px;color:#a1a1aa;margin-top:4px;">402 返却 / クロール検知</div></div>
+          <div style="flex:1;min-width:210px;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:18px 20px;"><div style="font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#71717a;font-weight:600;margin-bottom:8px;">決済通過率</div><div style="display:flex;align-items:baseline;gap:3px;"><span style="font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:#09090b;">{{ payRate }}</span><span style="font-size:13px;color:#71717a;font-family:'JetBrains Mono',monospace;">%</span></div><div style="font-size:10.5px;color:#a1a1aa;margin-top:4px;">Stripe 決済成立率 · リアルタイム</div></div>
+          <div style="flex:1;min-width:210px;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:18px 20px;"><div style="font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#71717a;font-weight:600;margin-bottom:8px;">平均通行単価</div><div style="display:flex;align-items:baseline;gap:3px;"><span style="font-size:15px;color:#18181b;font-family:'JetBrains Mono',monospace;">¥</span><span style="font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:#09090b;">{{ avgPrice }}</span></div><div style="font-size:10.5px;color:#a1a1aa;margin-top:4px;">リソース価値で変動 · 加重平均</div></div>
+        </div>
+
+        <div style="background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+              <div style="font-size:13px;font-weight:700;color:#18181b;">リアルタイム クローラー検知ログ</div>
+              <sc-if value="{{ liveOn }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:600;color:#047857;background:#ecfdf5;padding:4px 10px;border-radius:6px;"><span style="width:7px;height:7px;border-radius:50%;background:#047857;animation:regpulse 1.4s infinite;"></span>LIVE · SSE</span></sc-if>
+            </div>
+            <div style="font-size:10.5px;color:#a1a1aa;margin-bottom:14px;">Edge Interception Log · Cloudflare Workers</div>
+            <div style="overflow-x:auto;">
+            <table style="width:100%;border-collapse:collapse;min-width:700px;">
+              <thead><tr style="border-bottom:1.5px solid #e4e4e7;">
+                <th style="text-align:left;padding:8px 10px;font-size:10.5px;font-weight:600;color:#71717a;">時刻</th>
+                <th style="text-align:left;padding:8px 10px;font-size:10.5px;font-weight:600;color:#71717a;">Bot / 所有者</th>
+                <th style="text-align:left;padding:8px 10px;font-size:10.5px;font-weight:600;color:#71717a;">アクセス先 / リソース</th>
+                <th style="text-align:left;padding:8px 10px;font-size:10.5px;font-weight:600;color:#71717a;">IP · ASN</th>
+                <th style="text-align:center;padding:8px 10px;font-size:10.5px;font-weight:600;color:#71717a;">ステータス</th>
+                <th style="text-align:right;padding:8px 10px;font-size:10.5px;font-weight:600;color:#71717a;">課金</th>
+              </tr></thead>
+              <tbody>
+                <sc-for list="{{ liveLog }}" as="row" hint-placeholder-count="7">
+                  <tr style="border-bottom:1px solid #f4f4f5;animation:regfade .35s ease;">
+                    <td style="padding:9px 10px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#52525b;white-space:nowrap;">{{ row.time }}</td>
+                    <td style="padding:9px 10px;"><div style="font-size:12.5px;font-weight:600;color:#18181b;font-family:'JetBrains Mono',monospace;">{{ row.bot }}</div><div style="font-size:10px;color:#a1a1aa;">{{ row.owner }}</div></td>
+                    <td style="padding:9px 10px;"><div style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#3f3f46;">{{ row.path }}</div><div style="font-size:10px;color:#a1a1aa;">{{ row.rtype }}</div></td>
+                    <td style="padding:9px 10px;"><div style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#52525b;">{{ row.ip }}</div><div style="font-size:10px;color:#a1a1aa;font-family:'JetBrains Mono',monospace;">{{ row.asn }}</div></td>
+                    <td style="padding:9px 10px;text-align:center;"><span style="{{ row.badgeStyle }}">{{ row.status }}</span></td>
+                    <td style="padding:9px 10px;text-align:right;"><span style="{{ row.amtStyle }}">{{ row.amount }}</span></td>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+            </div>
+          </div>
+
+        <div style="display:flex;gap:16px;flex-wrap:wrap;">
+          <div style="flex:1;min-width:300px;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:18px 20px;">
+            <div style="font-size:13px;font-weight:700;color:#18181b;margin-bottom:4px;">通行料収益推移</div>
+            <div style="font-size:10.5px;color:#a1a1aa;margin-bottom:14px;">Daily Toll Revenue · ¥K · 過去14日</div>
+            <div style="height:200px;">{{ adctorRevenueChart }}</div>
+          </div>
+          <div style="flex:1.4;min-width:380px;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:18px 20px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;"><div style="font-size:13px;font-weight:700;color:#18181b;">リソース別 通行料単価・データ価値</div><span style="font-size:10px;color:#71717a;background:#f4f4f5;padding:4px 9px;border-radius:6px;font-weight:600;">ページ別 価格設定</span></div>
+            <div style="font-size:10.5px;color:#a1a1aa;margin-bottom:14px;">Per-Resource Pricing & Data Value · アクセス先の価値で単価を決定</div>
+            {{ pricingTable }}
+          </div>
+        </div>
+
+        <div style="background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:20px 22px;">
+          <div style="font-size:13px;font-weight:700;color:#18181b;margin-bottom:4px;">集約課金メーター (Metered Billing)</div>
+          <div style="font-size:10.5px;color:#a1a1aa;margin-bottom:18px;">AI企業別クレジット消費 · 月末請求予定額</div>
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px;"><div style="display:flex;align-items:center;gap:9px;"><span style="font-size:13px;font-weight:600;color:#18181b;">OpenAI</span><span style="font-size:11px;color:#a1a1aa;font-family:'JetBrains Mono',monospace;">GPTBot · 482,300 req</span></div><span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#047857;">¥48,230</span></div><div style="height:8px;background:#f4f4f5;border-radius:5px;overflow:hidden;"><div style="width:38.7%;height:100%;background:#18181b;border-radius:5px;"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px;"><div style="display:flex;align-items:center;gap:9px;"><span style="font-size:13px;font-weight:600;color:#18181b;">Anthropic</span><span style="font-size:11px;color:#a1a1aa;font-family:'JetBrains Mono',monospace;">ClaudeBot · 311,900 req</span></div><span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#047857;">¥31,190</span></div><div style="height:8px;background:#f4f4f5;border-radius:5px;overflow:hidden;"><div style="width:25%;height:100%;background:#3f3f46;border-radius:5px;"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px;"><div style="display:flex;align-items:center;gap:9px;"><span style="font-size:13px;font-weight:600;color:#18181b;">Perplexity AI</span><span style="font-size:11px;color:#a1a1aa;font-family:'JetBrains Mono',monospace;">PerplexityBot · 218,400 req</span></div><span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#047857;">¥21,840</span></div><div style="height:8px;background:#f4f4f5;border-radius:5px;overflow:hidden;"><div style="width:17.5%;height:100%;background:#71717a;border-radius:5px;"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px;"><div style="display:flex;align-items:center;gap:9px;"><span style="font-size:13px;font-weight:600;color:#18181b;">ByteDance</span><span style="font-size:11px;color:#a1a1aa;font-family:'JetBrains Mono',monospace;">Bytespider · 142,700 req</span></div><span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#047857;">¥14,270</span></div><div style="height:8px;background:#f4f4f5;border-radius:5px;overflow:hidden;"><div style="width:11.5%;height:100%;background:#a1a1aa;border-radius:5px;"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px;"><div style="display:flex;align-items:center;gap:9px;"><span style="font-size:13px;font-weight:600;color:#18181b;">Common Crawl</span><span style="font-size:11px;color:#a1a1aa;font-family:'JetBrains Mono',monospace;">CCBot · 90,500 req</span></div><span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#047857;">¥9,050</span></div><div style="height:8px;background:#f4f4f5;border-radius:5px;overflow:hidden;"><div style="width:7.3%;height:100%;background:#c4c4cc;border-radius:5px;"></div></div></div>
+          </div>
+        </div>
+
+      </div>
+      </sc-if>
+
+      <!-- ====================== SETTINGS ====================== -->
+      <sc-if value="{{ isSettings }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:18px;max-width:880px;animation:regfade .3s ease;">
+        <div style="background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:22px 24px;">
+          <div style="font-size:13px;font-weight:700;color:#18181b;margin-bottom:16px;">テナント情報 / Tenant</div>
+          <div style="display:flex;flex-direction:column;gap:0;">
+            <div style="display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid #f4f4f5;"><span style="font-size:12.5px;color:#71717a;">企業名</span><span style="font-size:13px;font-weight:600;color:#18181b;">株式会社サンプル製造</span></div>
+            <div style="display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid #f4f4f5;"><span style="font-size:12.5px;color:#71717a;">対象ドメイン</span><span style="font-size:13px;font-weight:600;color:#18181b;font-family:'JetBrains Mono',monospace;">sample-mfg.co.jp</span></div>
+            <div style="display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid #f4f4f5;"><span style="font-size:12.5px;color:#71717a;">契約プラン</span><span style="font-size:12px;font-weight:600;color:#18181b;background:#f4f4f5;padding:3px 10px;border-radius:6px;">Enterprise</span></div>
+            <div style="display:flex;justify-content:space-between;padding:13px 0;"><span style="font-size:12.5px;color:#71717a;">認証方式</span><span style="font-size:13px;font-weight:600;color:#18181b;">Clerk · マルチテナント SSO</span></div>
+          </div>
+        </div>
+        <div style="background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:22px 24px;">
+          <div style="font-size:13px;font-weight:700;color:#18181b;margin-bottom:16px;">システム連携 / Integrations</div>
+          <div style="display:flex;flex-direction:column;gap:0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid #f4f4f5;"><div><div style="font-size:13px;font-weight:600;color:#18181b;">Cloudflare Workers</div><div style="font-size:11px;color:#a1a1aa;">エッジでのクローラー インターセプト</div></div><span style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:#047857;"><span style="width:7px;height:7px;border-radius:50%;background:#047857;"></span>接続済</span></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid #f4f4f5;"><div><div style="font-size:13px;font-weight:600;color:#18181b;">Stripe</div><div style="font-size:11px;color:#a1a1aa;">通行料の従量課金・請求</div></div><span style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:#047857;"><span style="width:7px;height:7px;border-radius:50%;background:#047857;"></span>接続済</span></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid #f4f4f5;"><div><div style="font-size:13px;font-weight:600;color:#18181b;">CDN 配信 (llms.txt)</div><div style="font-size:11px;color:#a1a1aa;">Tsukull パッチの自動デプロイ</div></div><span style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:#047857;"><span style="width:7px;height:7px;border-radius:50%;background:#047857;"></span>接続済</span></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;"><div><div style="font-size:13px;font-weight:600;color:#18181b;">Slack 通知</div><div style="font-size:11px;color:#a1a1aa;">スコア低下・収益アラート</div></div><span style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:#a1a1aa;"><span style="width:7px;height:7px;border-radius:50%;background:#d4d4d8;"></span>未接続</span></div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+    </div>
+  </main>
+
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;bottom:24px;right:24px;background:#09090b;color:#fff;padding:13px 18px;border-radius:10px;font-size:13px;font-weight:500;box-shadow:0 8px 24px rgba(0,0,0,.18);display:flex;align-items:center;gap:10px;animation:regtoast .25s ease;z-index:50;">
+      <span style="width:7px;height:7px;border-radius:50%;background:#34d399;"></span>{{ toast }}
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:860},&quot;defaultScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;hack&quot;,&quot;tsukull&quot;,&quot;adctor&quot;,&quot;settings&quot;],&quot;default&quot;:&quot;home&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;liveFeed&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;collapsedSidebar&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = {
+    screen: (this.props && this.props.defaultScreen) || 'home',
+    collapsed: !!(this.props && this.props.collapsedSidebar),
+    period: '今月',
+    liveLog: [],
+    toast: null,
+    revenue: 124580,
+    requests: 1245800,
+    paidCount: 155850,
+  };
+
+  componentDidMount() {
+    this.setState({ liveLog: this.seedLog(7) });
+    const live = !(this.props && this.props.liveFeed === false);
+    if (live) {
+      this._t = setInterval(() => {
+        const totalTick = this.rint(1400, 4200);
+        const paidTick = Math.round(totalTick * (0.10 + Math.random() * 0.055));
+        const avgP = 0.74 + Math.random() * 0.16;
+        const revTick = Math.round(paidTick * avgP * 100) / 100;
+        this.setState(s => ({
+          liveLog: [this.makeRow(), ...s.liveLog].slice(0, 13),
+          requests: s.requests + totalTick,
+          paidCount: s.paidCount + paidTick,
+          revenue: s.revenue + revTick,
+        }));
+      }, 2300);
+    }
+  }
+  componentWillUnmount() { if (this._t) clearInterval(this._t); if (this._tt) clearTimeout(this._tt); }
+
+  // ---- crawler log ----
+  bots() {
+    return [
+      { bot: 'GPTBot', owner: 'OpenAI LLC', asn: 'AS40027', ip: '20.171' },
+      { bot: 'ClaudeBot', owner: 'Anthropic PBC', asn: 'AS399358', ip: '160.79' },
+      { bot: 'PerplexityBot', owner: 'Perplexity AI', asn: 'AS396982', ip: '34.142' },
+      { bot: 'Bytespider', owner: 'ByteDance Ltd', asn: 'AS138699', ip: '110.249' },
+      { bot: 'Google-Extended', owner: 'Google LLC', asn: 'AS15169', ip: '66.249' },
+      { bot: 'CCBot', owner: 'Common Crawl', asn: 'AS54321', ip: '52.91' },
+      { bot: 'anthropic-ai', owner: 'Anthropic PBC', asn: 'AS399358', ip: '160.79' },
+    ];
+  }
+  statusMeta() {
+    return {
+      '決済通過': { c: '#047857', bg: '#ecfdf5', amt: '+¥0.11' },
+      '402返却': { c: '#b45309', bg: '#fffbeb', amt: '課金要求' },
+      'ホワイトリスト': { c: '#71717a', bg: '#f4f4f5', amt: '免除' },
+      'ブロック': { c: '#b91c1c', bg: '#fef2f2', amt: '遮断' },
+    };
+  }
+  rint(a, b) { return Math.floor(Math.random() * (b - a + 1)) + a; }
+  pick(a) { return a[Math.floor(Math.random() * a.length)]; }
+  resources() {
+    return [
+      { type: 'AI構造化データ', price: 2.40, w: 6, paths: ['/api/llms-full.txt', '/api/products.json', '/.well-known/ai-context.json'] },
+      { type: '製品仕様・技術資料', price: 1.80, w: 12, paths: ['/products/rx-200/specs', '/tech/datasheet-v4', '/products/arm-7/specs'] },
+      { type: '価格・見積', price: 1.30, w: 10, paths: ['/pricing', '/estimate/form', '/pricing/enterprise'] },
+      { type: '製品カタログ (PDF)', price: 1.00, w: 9, paths: ['/catalog/2026.pdf', '/dl/lineup.pdf'] },
+      { type: '導入事例', price: 0.60, w: 18, paths: ['/cases/auto-line', '/cases/food-iot', '/cases/logistics'] },
+      { type: 'ブログ・コラム', price: 0.25, w: 26, paths: ['/blog/ai-factory', '/blog/dx-2026', '/column/fa-trend'] },
+      { type: '一般ページ', price: 0.10, w: 17, paths: ['/', '/about', '/news/20260518'] },
+    ];
+  }
+  pickWeighted(list) { const t = list.reduce((a, x) => a + x.w, 0); let r = Math.random() * t; for (const x of list) { if ((r -= x.w) <= 0) return x; } return list[0]; }
+
+  makeRow() {
+    const b = this.pick(this.bots());
+    const res = this.pickWeighted(this.resources());
+    const r = Math.random();
+    const st = r < 0.52 ? '402返却' : r < 0.78 ? '決済通過' : r < 0.92 ? 'ホワイトリスト' : 'ブロック';
+    const m = this.statusMeta()[st];
+    const price = res.price;
+    let amount, amtColor;
+    if (st === '決済通過') { amount = '+¥' + price.toFixed(2); amtColor = '#047857'; }
+    else if (st === '402返却') { amount = '¥' + price.toFixed(2); amtColor = '#b45309'; }
+    else if (st === 'ホワイトリスト') { amount = '免除'; amtColor = '#a1a1aa'; }
+    else { amount = '遮断'; amtColor = '#b91c1c'; }
+    const d = new Date();
+    const time = [d.getHours(), d.getMinutes(), d.getSeconds()].map(n => String(n).padStart(2, '0')).join(':');
+    this._id = (this._id || 0) + 1;
+    return {
+      id: 'r' + Date.now() + '_' + this._id,
+      time,
+      bot: b.bot, owner: b.owner, asn: b.asn,
+      ip: b.ip + '.' + this.rint(1, 254) + '.' + this.rint(1, 254),
+      path: this.pick(res.paths), rtype: res.type,
+      status: st, amount: amount,
+      amtStyle: "font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:600;white-space:nowrap;color:" + amtColor + ";",
+      badgeStyle: 'display:inline-block;font-size:11px;font-weight:600;color:' + m.c + ';background:' + m.bg + ';padding:3px 9px;border-radius:5px;white-space:nowrap;',
+    };
+  }
+  seedLog(n) { const a = []; for (let i = 0; i < n; i++) a.push(this.makeRow()); return a; }
+
+  pricingTable() {
+    const e = React.createElement;
+    const mono = "'JetBrains Mono',monospace";
+    const total = 124580;
+    const rows = [
+      { type: 'AI構造化データ', path: '/api · *.json · ai-context', price: '2.40', acc: 11150, rev: 26760 },
+      { type: '製品仕様・技術資料', path: '/products/*/specs · /tech', price: '1.80', acc: 18400, rev: 33120 },
+      { type: '価格・見積', path: '/pricing · /estimate', price: '1.30', acc: 16200, rev: 21060 },
+      { type: '製品カタログ (PDF)', path: '/catalog/*.pdf', price: '1.00', acc: 13500, rev: 13500 },
+      { type: '導入事例', path: '/cases/*', price: '0.60', acc: 28600, rev: 17160 },
+      { type: 'ブログ・コラム', path: '/blog/* · /column/*', price: '0.25', acc: 41200, rev: 10300 },
+      { type: '一般ページ', path: '/ · /about · /news', price: '0.10', acc: 26800, rev: 2680 },
+    ];
+    const th = (t, align) => e('th', { style: { textAlign: align || 'left', padding: '7px 8px', fontSize: '10px', fontWeight: 600, color: '#71717a', whiteSpace: 'nowrap' } }, t);
+    const head = e('thead', null, e('tr', { style: { borderBottom: '1.5px solid #e4e4e7' } },
+      th('リソース種別 / パス'), th('単価', 'right'), th('月間アクセス', 'right'), th('収益', 'right'), th('構成比', 'right')));
+    const body = e('tbody', null, rows.map((r, i) => {
+      const pct = r.rev / total * 100;
+      return e('tr', { key: i, style: { borderBottom: '1px solid #f4f4f5' } },
+        e('td', { style: { padding: '8px' } },
+          e('div', { style: { fontSize: '12px', fontWeight: 600, color: '#18181b' } }, r.type),
+          e('div', { style: { fontSize: '10px', color: '#a1a1aa', fontFamily: mono } }, r.path)),
+        e('td', { style: { padding: '8px', textAlign: 'right', fontFamily: mono, fontSize: '12px', fontWeight: 600, color: '#18181b', whiteSpace: 'nowrap' } }, '¥' + r.price),
+        e('td', { style: { padding: '8px', textAlign: 'right', fontFamily: mono, fontSize: '11.5px', color: '#52525b' } }, r.acc.toLocaleString('en-US')),
+        e('td', { style: { padding: '8px', textAlign: 'right', fontFamily: mono, fontSize: '11.5px', fontWeight: 600, color: '#047857' } }, '¥' + r.rev.toLocaleString('en-US')),
+        e('td', { style: { padding: '8px' } },
+          e('div', { style: { display: 'flex', alignItems: 'center', gap: '6px', justifyContent: 'flex-end' } },
+            e('span', { style: { fontSize: '10.5px', color: '#71717a', fontFamily: mono } }, pct.toFixed(1) + '%'),
+            e('span', { style: { width: '40px', height: '6px', background: '#f4f4f5', borderRadius: '4px', overflow: 'hidden', flex: 'none' } },
+              e('span', { style: { display: 'block', width: pct + '%', height: '100%', background: '#18181b', borderRadius: '4px' } })))));
+    }));
+    const foot = e('tfoot', null, e('tr', { style: { borderTop: '1.5px solid #e4e4e7' } },
+      e('td', { style: { padding: '9px 8px', fontSize: '12px', fontWeight: 700, color: '#18181b' } }, '合計 / Total'),
+      e('td', null),
+      e('td', { style: { padding: '9px 8px', textAlign: 'right', fontFamily: mono, fontSize: '11.5px', fontWeight: 700, color: '#18181b' } }, '155,850'),
+      e('td', { style: { padding: '9px 8px', textAlign: 'right', fontFamily: mono, fontSize: '12px', fontWeight: 700, color: '#047857' } }, '¥124,580'),
+      e('td', null)));
+    return e('div', { style: { overflowX: 'auto' } }, e('table', { style: { width: '100%', borderCollapse: 'collapse', minWidth: '440px' } }, head, body, foot));
+  }
+
+  // ---- charts ----
+  lineChart(values, opts) {
+    opts = opts || {};
+    const e = React.createElement;
+    const w = opts.w || 620, h = opts.h || 200;
+    const pad = opts.pad || { t: 14, r: 14, b: 26, l: 14 };
+    const color = opts.color || '#18181b';
+    const id = 'grad' + Math.round(Math.random() * 1e7);
+    const labels = opts.labels || [];
+    const max = Math.max.apply(null, values), min = Math.min.apply(null, values);
+    const range = (max - min) || 1;
+    const yMax = max + range * 0.18, yMin = min - range * 0.30, yr = (yMax - yMin) || 1;
+    const iw = w - pad.l - pad.r, ih = h - pad.t - pad.b;
+    const X = i => pad.l + iw * (values.length <= 1 ? 0 : i / (values.length - 1));
+    const Y = v => pad.t + ih * (1 - (v - yMin) / yr);
+    const pts = values.map((v, i) => [X(i), Y(v)]);
+    const line = pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+    const areaD = 'M' + pts[0][0].toFixed(1) + ',' + (pad.t + ih).toFixed(1) + ' L' + pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' L') + ' L' + pts[pts.length - 1][0].toFixed(1) + ',' + (pad.t + ih).toFixed(1) + ' Z';
+    const kids = [];
+    for (let g = 0; g < 3; g++) { const gy = pad.t + ih * (g / 2); kids.push(e('line', { key: 'g' + g, x1: pad.l, x2: w - pad.r, y1: gy, y2: gy, stroke: '#f4f4f5', strokeWidth: 1 })); }
+    if (opts.area !== false) {
+      kids.push(e('defs', { key: 'd' }, e('linearGradient', { id: id, x1: 0, y1: 0, x2: 0, y2: 1 },
+        e('stop', { offset: '0%', stopColor: color, stopOpacity: 0.13 }),
+        e('stop', { offset: '100%', stopColor: color, stopOpacity: 0 }))));
+      kids.push(e('path', { key: 'a', d: areaD, fill: 'url(#' + id + ')' }));
+    }
+    kids.push(e('polyline', { key: 'l', points: line, fill: 'none', stroke: color, strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' }));
+    const last = pts[pts.length - 1];
+    kids.push(e('circle', { key: 'h', cx: last[0], cy: last[1], r: 6, fill: color, opacity: 0.14 }));
+    kids.push(e('circle', { key: 'c', cx: last[0], cy: last[1], r: 3.5, fill: color }));
+    labels.forEach((lb, i) => { if (lb) kids.push(e('text', { key: 't' + i, x: X(i), y: h - 5, fontSize: 10, fill: '#a1a1aa', textAnchor: 'middle', fontFamily: 'Inter, sans-serif' }, lb)); });
+    return e('svg', { viewBox: '0 0 ' + w + ' ' + h, width: '100%', height: '100%', style: { display: 'block' } }, kids);
+  }
+  barChart(values, opts) {
+    opts = opts || {};
+    const e = React.createElement;
+    const w = opts.w || 620, h = opts.h || 200;
+    const pad = { t: 14, r: 12, b: 26, l: 12 };
+    const color = opts.color || '#b91c1c';
+    const labels = opts.labels || [];
+    const max = Math.max.apply(null, values) * 1.18 || 1;
+    const iw = w - pad.l - pad.r, ih = h - pad.t - pad.b;
+    const n = values.length, bw = (iw / n) * 0.5;
+    const kids = [];
+    for (let g = 0; g < 3; g++) { const gy = pad.t + ih * (g / 2); kids.push(e('line', { key: 'g' + g, x1: pad.l, x2: w - pad.r, y1: gy, y2: gy, stroke: '#f4f4f5', strokeWidth: 1 })); }
+    values.forEach((v, i) => {
+      const cx = pad.l + iw * ((i + 0.5) / n);
+      const bh = ih * (v / max);
+      const last = i === n - 1;
+      kids.push(e('rect', { key: 'b' + i, x: cx - bw / 2, y: pad.t + ih - bh, width: bw, height: bh, rx: 3, fill: last ? color : '#e4e4e7' }));
+    });
+    labels.forEach((lb, i) => { const cx = pad.l + iw * ((i + 0.5) / n); kids.push(e('text', { key: 't' + i, x: cx, y: h - 5, fontSize: 10, fill: '#a1a1aa', textAnchor: 'middle', fontFamily: 'Inter, sans-serif' }, lb)); });
+    return e('svg', { viewBox: '0 0 ' + w + ' ' + h, width: '100%', height: '100%', style: { display: 'block' } }, kids);
+  }
+
+  // ---- SOV stacked bars (DOM) ----
+  sovBars() {
+    const e = React.createElement;
+    const months = ['12月', '1月', '2月', '3月', '4月', '5月'];
+    const rows = [
+      [28, 31, 27, 14], [27, 31, 28, 14], [27, 32, 27, 14],
+      [26, 33, 27, 14], [23, 34, 28, 15], [22, 34, 29, 15],
+    ];
+    const cols = ['#09090b', '#a1a1aa', '#d4d4d8', '#ececef'];
+    return e('div', { style: { display: 'flex', flexDirection: 'column', gap: '12px' } },
+      rows.map((r, i) => e('div', { key: i, style: { display: 'flex', alignItems: 'center', gap: '12px' } },
+        e('span', { style: { width: '34px', fontSize: '11px', color: '#71717a', fontFamily: "'JetBrains Mono',monospace", flex: 'none', textAlign: 'right' } }, months[i]),
+        e('div', { style: { flex: 1, display: 'flex', height: '24px', borderRadius: '5px', overflow: 'hidden', background: '#f4f4f5' } },
+          r.map((seg, j) => e('div', { key: j, style: { width: seg + '%', background: cols[j], display: 'flex', alignItems: 'center', justifyContent: 'center' } },
+            j === 0 ? e('span', { style: { fontSize: '10.5px', fontWeight: 700, color: '#fff', fontFamily: "'JetBrains Mono',monospace" } }, seg) : null))
+        )
+      ))
+    );
+  }
+
+  // ---- validation before/after (DOM) ----
+  validationBars() {
+    const e = React.createElement;
+    const data = [
+      { ai: 'Perplexity', b: 41, a: 78 }, { ai: 'Gemini', b: 38, a: 71 },
+      { ai: 'GPT-4o', b: 45, a: 83 }, { ai: 'Claude', b: 40, a: 79 },
+      { ai: 'Copilot', b: 36, a: 68 },
+    ];
+    return e('div', { style: { display: 'flex', flexDirection: 'column', gap: '16px' } },
+      data.map((d, i) => e('div', { key: i },
+        e('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '6px' } },
+          e('span', { style: { fontSize: '12.5px', fontWeight: 600, color: '#18181b' } }, d.ai),
+          e('span', { style: { fontSize: '12px', fontWeight: 700, color: '#047857', fontFamily: "'JetBrains Mono',monospace" } }, '+' + (d.a - d.b) + 'pt')
+        ),
+        e('div', { style: { display: 'flex', flexDirection: 'column', gap: '4px' } },
+          e('div', { style: { display: 'flex', alignItems: 'center', gap: '8px' } },
+            e('div', { style: { flex: 1, height: '9px', background: '#f4f4f5', borderRadius: '5px', overflow: 'hidden' } }, e('div', { style: { width: d.b + '%', height: '100%', background: '#d4d4d8', borderRadius: '5px' } })),
+            e('span', { style: { width: '28px', fontSize: '11px', color: '#a1a1aa', fontFamily: "'JetBrains Mono',monospace", textAlign: 'right' } }, d.b)
+          ),
+          e('div', { style: { display: 'flex', alignItems: 'center', gap: '8px' } },
+            e('div', { style: { flex: 1, height: '9px', background: '#f4f4f5', borderRadius: '5px', overflow: 'hidden' } }, e('div', { style: { width: d.a + '%', height: '100%', background: '#047857', borderRadius: '5px' } })),
+            e('span', { style: { width: '28px', fontSize: '11px', color: '#047857', fontWeight: 600, fontFamily: "'JetBrains Mono',monospace", textAlign: 'right' } }, d.a)
+          )
+        )
+      ))
+    );
+  }
+
+  // ---- icons ----
+  ico(name) {
+    const e = React.createElement;
+    const p = { width: 18, height: 18, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.7, strokeLinecap: 'round', strokeLinejoin: 'round' };
+    const map = {
+      home: [e('rect', { key: 1, x: 3, y: 3, width: 7, height: 8, rx: 1 }), e('rect', { key: 2, x: 14, y: 3, width: 7, height: 5, rx: 1 }), e('rect', { key: 3, x: 14, y: 12, width: 7, height: 9, rx: 1 }), e('rect', { key: 4, x: 3, y: 15, width: 7, height: 6, rx: 1 })],
+      hack: [e('circle', { key: 1, cx: 11, cy: 11, r: 7 }), e('path', { key: 2, d: 'm21 21-4.3-4.3' })],
+      tsukull: [e('path', { key: 1, d: 'M12.8 2.2a2 2 0 0 0-1.6 0L2.6 6.1a1 1 0 0 0 0 1.8l8.6 3.9a2 2 0 0 0 1.6 0l8.6-3.9a1 1 0 0 0 0-1.8Z' }), e('path', { key: 2, d: 'm22 17.7-9.2 4.1a2 2 0 0 1-1.6 0L2 17.7' }), e('path', { key: 3, d: 'm22 12.7-9.2 4.1a2 2 0 0 1-1.6 0L2 12.7' })],
+      adctor: [e('path', { key: 1, d: 'M20 13c0 5-3.5 7.5-7.7 9a1 1 0 0 1-.6 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.2-2.7a1.2 1.2 0 0 1 1.5 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1Z' }), e('path', { key: 2, d: 'm9 12 2 2 4-4' })],
+      settings: [e('line', { key: 1, x1: 21, x2: 14, y1: 5, y2: 5 }), e('line', { key: 2, x1: 10, x2: 3, y1: 5, y2: 5 }), e('line', { key: 3, x1: 21, x2: 12, y1: 12, y2: 12 }), e('line', { key: 4, x1: 8, x2: 3, y1: 12, y2: 12 }), e('line', { key: 5, x1: 21, x2: 16, y1: 19, y2: 19 }), e('line', { key: 6, x1: 12, x2: 3, y1: 19, y2: 19 }), e('circle', { key: 7, cx: 12, cy: 5, r: 2 }), e('circle', { key: 8, cx: 10, cy: 12, r: 2 }), e('circle', { key: 9, cx: 14, cy: 19, r: 2 })],
+      alert: [e('path', { key: 1, d: 'm21.7 18-8-14a2 2 0 0 0-3.4 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3Z' }), e('line', { key: 2, x1: 12, x2: 12, y1: 9, y2: 13 }), e('line', { key: 3, x1: 12, x2: 12, y1: 17, y2: 17 })],
+      collapse: [e('rect', { key: 1, x: 3, y: 3, width: 18, height: 18, rx: 2 }), e('line', { key: 2, x1: 9, x2: 9, y1: 3, y2: 21 })],
+      export: [e('path', { key: 1, d: 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z' }), e('path', { key: 2, d: 'M14 2v6h6' }), e('line', { key: 3, x1: 12, x2: 12, y1: 18, y2: 12 }), e('path', { key: 4, d: 'm9 15 3 3 3-3' })],
+    };
+    return e('svg', p, map[name]);
+  }
+
+  go(k) { this.setState({ screen: k }); }
+  fireToast(msg) { this.setState({ toast: msg }); if (this._tt) clearTimeout(this._tt); this._tt = setTimeout(() => this.setState({ toast: null }), 2600); }
+
+  renderVals() {
+    const s = this.state;
+    const meta = {
+      home: ['ダッシュボード', 'Overview', '3システム統合サマリー'],
+      hack: ['HackⅡ — AI検索測定', 'AI Search Visibility', '生成AIにおける引用シェアの実測'],
+      tsukull: ['Tsukull — AIパッチ配信', 'Realtime Patch Delivery', '構造化データの自動最適化と配信'],
+      adctor: ['Adctor — PPC売上管理', 'Pay per Crawl', 'クローラー課金ゲートウェイと収益'],
+      settings: ['システム設定', 'Settings', 'テナント・連携・課金設定'],
+    }[s.screen];
+    const expanded = !s.collapsed;
+    const periods = ['今日', '今週', '今月', '四半期'].map(p => ({
+      label: p,
+      onClick: () => this.setState({ period: p }),
+      style: 'padding:6px 12px;border:none;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap;' +
+        (s.period === p ? 'background:#fff;color:#09090b;box-shadow:0 1px 2px rgba(0,0,0,.08);' : 'background:transparent;color:#71717a;'),
+    }));
+
+    return {
+      sidebarStyle: 'flex:none;width:' + (expanded ? '252px' : '74px') + ';background:#fff;border-right:1px solid #e4e4e7;display:flex;flex-direction:column;transition:width .22s ease;overflow:hidden;',
+      expanded,
+      isHome: s.screen === 'home', isHack: s.screen === 'hack', isTsukull: s.screen === 'tsukull', isAdctor: s.screen === 'adctor', isSettings: s.screen === 'settings',
+      goHome: () => this.go('home'), goHack: () => this.go('hack'), goTsukull: () => this.go('tsukull'), goAdctor: () => this.go('adctor'), goSettings: () => this.go('settings'),
+      toggleSidebar: () => this.setState(x => ({ collapsed: !x.collapsed })),
+      pageTitle: meta[0], pageEn: meta[1], pageDesc: meta[2],
+      periods,
+      onExport: () => this.fireToast('レポートを生成しました / Report generated'),
+      liveOn: !(this.props && this.props.liveFeed === false),
+      icoHome: this.ico('home'), icoHack: this.ico('hack'), icoTsukull: this.ico('tsukull'), icoAdctor: this.ico('adctor'), icoSettings: this.ico('settings'), icoCollapse: this.ico('collapse'), icoAlert: this.ico('alert'), icoExport: this.ico('export'),
+      kpiSpark1: this.lineChart([27.8, 27.1, 26.6, 25.9, 23.4, 22.4], { w: 200, h: 44, pad: { t: 6, r: 6, b: 6, l: 6 }, color: '#18181b' }),
+      kpiSpark2: this.lineChart([4.1, 4.9, 5.6, 6.8, 7.7, 8.45], { w: 200, h: 44, pad: { t: 6, r: 6, b: 6, l: 6 }, color: '#b91c1c' }),
+      kpiSpark3: this.lineChart([38, 52, 67, 89, 104, 124.6], { w: 200, h: 44, pad: { t: 6, r: 6, b: 6, l: 6 }, color: '#047857' }),
+      homeScoreChart: this.lineChart([27.8, 27.1, 26.6, 25.9, 23.4, 22.4], { labels: ['12月', '1月', '2月', '3月', '4月', '5月'], color: '#18181b' }),
+      homeRevenueChart: this.lineChart([38, 52, 67, 89, 104, 124.6], { labels: ['12月', '1月', '2月', '3月', '4月', '5月'], color: '#047857' }),
+      homeLossChart: this.barChart([4.1, 4.9, 5.6, 6.8, 7.7, 8.45], { labels: ['12月', '1月', '2月', '3月', '4月', '5月'], color: '#b91c1c' }),
+      adctorRevenueChart: this.lineChart([6.2, 5.8, 7.1, 6.9, 8.3, 7.6, 9.1, 8.8, 10.2, 9.7, 11.4, 10.9, 12.1, 12.46], { labels: ['5/18', '', '', '', '', '', '5/24', '', '', '', '', '', '', '5/31'], color: '#047857' }),
+      sovBars: this.sovBars(),
+      validationBars: this.validationBars(),
+      liveLog: s.liveLog,
+      adRevenue: Math.round(s.revenue).toLocaleString('en-US'),
+      adRequests: s.requests.toLocaleString('en-US'),
+      payRate: (s.paidCount / s.requests * 100).toFixed(1),
+      avgPrice: (s.revenue / s.paidCount).toFixed(2),
+      pricingTable: this.pricingTable(),
+      toast: s.toast,
+    };
+  }
+}
+</script>
+</body>
+</html>
