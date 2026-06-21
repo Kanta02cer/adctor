@@ -31,8 +31,14 @@
       "content": "Import the attached adctor.zip — read the README inside. Implement: REGALIS Platform.dc.html",
       "added_at": "2026-06-21T00:34:23.774716",
       "source": "realtime_capture"
+    },
+    {
+      "type": "claude_response",
+      "content": "You're out of extra usage · resets 1:20am (Asia/Tokyo)",
+      "added_at": "2026-06-21T03:48:11.179937",
+      "source": "realtime_capture"
     }
   ],
   "created_at": "2026-06-09T10:00:54.315879",
-  "updated_at": "2026-06-21T00:34:23.774723"
+  "updated_at": "2026-06-21T03:48:11.179955"
 }

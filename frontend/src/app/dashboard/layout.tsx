@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, BarChart3, Globe, Settings, Zap, LogOut, Menu, X } from "lucide-react";
+import { LayoutDashboard, BarChart3, Globe, Settings, Zap, LogOut, Menu, X, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { NotificationBell } from "@/components/notification-bell";
 import { useEffect, useState } from "react";
@@ -9,6 +9,7 @@ import { notifyBot, notifyPayment } from "@/lib/adctor-services";
 
 const nav = [
   { href: "/dashboard", icon: LayoutDashboard, label: "概要" },
+  { href: "/dashboard/hackii", icon: Search, label: "HackⅡ (AI検索測定)" },
   { href: "/dashboard/analytics", icon: BarChart3, label: "分析" },
   { href: "/dashboard/sites", icon: Globe, label: "サイト管理" },
   { href: "/dashboard/settings", icon: Settings, label: "設定" },
