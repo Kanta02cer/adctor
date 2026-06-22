@@ -415,7 +415,7 @@ th { color: var(--muted); font-size: 11px; text-transform: uppercase; }
   display: grid;
   gap: 10px;
 }
-.dense-list div, .operator-row, .policy-row, .rule-card, .simulation-result {
+.dense-list div, .operator-row, .policy-row, .rule-card, .simulation-result, .settlement-board div {
   border: 1px solid var(--line);
   border-radius: 8px;
   background: rgba(255, 250, 240, 0.05);
@@ -511,6 +511,30 @@ th { color: var(--muted); font-size: 11px; text-transform: uppercase; }
   color: var(--muted);
   font-size: 12px;
 }
+.settlement-board {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+.settlement-board div {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+}
+.settlement-board span {
+  color: var(--muted);
+  font-size: 12px;
+}
+.settlement-board strong {
+  color: var(--white);
+  font-size: 22px;
+  line-height: 1.1;
+}
+.settlement-board small {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
 
 @media (max-width: 1040px) {
   .login-shell, .app-shell { grid-template-columns: 1fr; }
@@ -523,6 +547,7 @@ th { color: var(--muted); font-size: 11px; text-transform: uppercase; }
   .requirement-grid, .simulator { grid-template-columns: 1fr; }
   .operator-row, .rule-card { grid-template-columns: 1fr; }
   .live-panel { grid-template-columns: 1fr; }
+  .settlement-board { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 640px) {
@@ -530,6 +555,6 @@ th { color: var(--muted); font-size: 11px; text-transform: uppercase; }
   .login-panel, .signal-board { padding: 20px; }
   .topbar-actions { width: 100%; }
   .topbar-actions button { flex: 1; }
-  table { min-width: 720px; }
+  table { min-width: 920px; }
   .table-wrap { overflow-x: auto; }
 }

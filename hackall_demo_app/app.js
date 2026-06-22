@@ -35,10 +35,11 @@ const state = {
     { path: "/api/*", price: 12, mode: "Block by default", action: "Manual approval", monthly: 740, acceptRate: 0.01, reason: "DB的価値が高い" },
   ],
   ppcEvents: [
-    { time: "10:12", crawler: "Bytespider", path: "/blog/style-guide", price: 4, max: 3, status: "rejected", reason: "max price below rule" },
-    { time: "10:08", crawler: "GPTBot", path: "/collections/executive", price: 8, max: 10, status: "candidate", reason: "payment intent detected" },
-    { time: "09:57", crawler: "AI-Scraper/1.2", path: "/api/menu", price: 12, max: 0, status: "blocked", reason: "unverified crawler" },
-    { time: "09:42", crawler: "PerplexityBot", path: "/solutions/iot-gateway", price: 0, max: 0, status: "allowed", reason: "search referral allowed" },
+    { time: "10:12", crawler: "Bytespider", path: "/blog/style-guide", accesses: 480, price: 4, max: 3, passRate: 0, chargeAmount: 1920, passedAmount: 0, status: "rejected", chargeState: "rejected", reason: "max price below rule" },
+    { time: "10:08", crawler: "GPTBot", path: "/collections/executive", accesses: 320, price: 8, max: 10, passRate: 0.62, chargeAmount: 2560, passedAmount: 1587, status: "candidate", chargeState: "passed", reason: "payment intent detected" },
+    { time: "09:57", crawler: "AI-Scraper/1.2", path: "/api/menu", accesses: 120, price: 12, max: 0, passRate: 0, chargeAmount: 1440, passedAmount: 0, status: "blocked", chargeState: "blocked", reason: "unverified crawler" },
+    { time: "09:42", crawler: "PerplexityBot", path: "/solutions/iot-gateway", accesses: 260, price: 6, max: 0, passRate: 0, chargeAmount: 0, passedAmount: 0, status: "allowed", chargeState: "free_allowed", reason: "search referral allowed" },
+    { time: "09:31", crawler: "ClaudeBot", path: "/whitepaper/robot-cost", accesses: 180, price: 12, max: 15, passRate: 0, chargeAmount: 2160, passedAmount: 0, status: "candidate", chargeState: "sent", reason: "402 sent / awaiting settlement" },
   ],
   invoices: [
     { id: "INV-2026-001", client: "代理店 Standard 月額", amount: 300000, status: "入金確認済" },
@@ -172,11 +173,39 @@ function crawlerMetrics() {
 }
 
 function ppcMetrics() {
+  const totalAccesses = state.ppcEvents.reduce((sum, event) => sum + (event.accesses || 0), 0);
+  const billableAccesses = state.ppcEvents
+    .filter((event) => ["candidate", "sent", "passed"].includes(event.chargeState))
+    .reduce((sum, event) => sum + (event.accesses || 0), 0);
+  const passedAccesses = state.ppcEvents
+    .filter((event) => event.chargeState === "passed")
+    .reduce((sum, event) => sum + Math.round((event.accesses || 0) * (event.passRate || 0)), 0);
+  const chargeAmount = state.ppcEvents.reduce((sum, event) => sum + (event.chargeAmount || 0), 0);
+  const passedAmount = state.ppcEvents.reduce((sum, event) => sum + (event.passedAmount || 0), 0);
+  const sentAmount = state.ppcEvents
+    .filter((event) => event.chargeState === "sent" || event.status === "candidate")
+    .reduce((sum, event) => sum + Math.max(0, (event.chargeAmount || 0) - (event.passedAmount || 0)), 0);
+  const weightedPriceBase = state.ppcEvents.reduce((sum, event) => sum + ((event.price || 0) * (event.accesses || 0)), 0);
+  const averagePrice = totalAccesses ? weightedPriceBase / totalAccesses : 0;
+  const passageRate = billableAccesses ? passedAccesses / billableAccesses * 100 : 0;
   const candidateRequests = state.ppcRules.reduce((sum, rule) => sum + rule.monthly, 0);
   const expectedRevenue = state.ppcRules.reduce((sum, rule) => sum + rule.monthly * rule.acceptRate * rule.price, 0);
   const blocked = state.ppcEvents.filter((event) => event.status === "blocked" || event.status === "rejected").length;
   const payable = state.ppcEvents.filter((event) => event.status === "candidate").length;
-  return { candidateRequests, expectedRevenue, blocked, payable };
+  return {
+    totalAccesses,
+    billableAccesses,
+    passedAccesses,
+    chargeAmount,
+    passedAmount,
+    sentAmount,
+    averagePrice,
+    passageRate,
+    candidateRequests,
+    expectedRevenue,
+    blocked,
+    payable,
+  };
 }
 
 function renderOverview() {
@@ -300,12 +329,19 @@ function renderMeasure() {
 
 function renderCrawlerDetection() {
   const metrics = crawlerMetrics();
+  const ppc = ppcMetrics();
   return `
     <section class="grid-4">
       ${metricCard("AI crawler requests", metrics.totalRequests.toLocaleString("ja-JP"), "対象期間内の検知数")}
       ${metricCard("Verified率", `${metrics.verifiedRate.toFixed(1)}%`, "署名・既知bot判定")}
       ${metricCard("Blocked / 402", metrics.blockedRequests.toLocaleString("ja-JP"), "遮断または支払い要求")}
       ${metricCard("転送量", `${metrics.bytes.toFixed(1)}GB`, "crawler別bytes")}
+    </section>
+    <section class="grid-4">
+      ${metricCard("PPCアクセス合計", ppc.totalAccesses.toLocaleString("ja-JP"), "請求判定に入ったaccess")}
+      ${metricCard("平均単価", `${ppc.averagePrice.toFixed(1)}円`, "weighted price / access")}
+      ${metricCard("通行率", `${ppc.passageRate.toFixed(1)}%`, "通過済みaccess / 請求対象")}
+      ${metricCard("通過済み請求", yen(Math.round(ppc.passedAmount)), "settledまたは通過確認済み")}
     </section>
     <section class="card">
       <h3>企業向けに取得・分析すべきデータ</h3>
@@ -332,6 +368,10 @@ function renderCrawlerDetection() {
       <h3>AI crawler event detail</h3>
       ${crawlerEventTable()}
     </section>
+    <section class="card">
+      <h3>PPC請求ステータス</h3>
+      ${ppcSettlementBoard()}
+    </section>
     <section class="grid-2">
       <div class="card">
         <h3>robots / policy audit</h3>
@@ -350,9 +390,14 @@ function renderPPC() {
   const metrics = ppcMetrics();
   return `
     <section class="grid-4">
-      ${metricCard("PPC候補req", metrics.candidateRequests.toLocaleString("ja-JP"), "価格ルール対象")}
-      ${metricCard("想定月間回収", yen(Math.round(metrics.expectedRevenue)), "受諾率込みの保守値")}
-      ${metricCard("支払い意思候補", `${metrics.payable}件`, "署名・max price確認待ち")}
+      ${metricCard("アクセス合計", metrics.totalAccesses.toLocaleString("ja-JP"), "PPC判定ログの総access")}
+      ${metricCard("平均単価", `${metrics.averagePrice.toFixed(1)}円`, "path別単価の加重平均")}
+      ${metricCard("通行率", `${metrics.passageRate.toFixed(1)}%`, "請求対象accessのうち通過済み")}
+      ${metricCard("請求総額", yen(Math.round(metrics.chargeAmount)), "投げた請求 + 通過済み + 拒否分")}
+    </section>
+    <section class="grid-3">
+      ${metricCard("通過済み請求", yen(Math.round(metrics.passedAmount)), "settled / confirmed")}
+      ${metricCard("請求送信中", yen(Math.round(metrics.sentAmount)), "402送信済み・未確定")}
       ${metricCard("拒否/遮断", `${metrics.blocked}件`, "価格不足・未検証")}
     </section>
     <section class="card">
@@ -403,10 +448,35 @@ function ppcSummaryList() {
   const metrics = ppcMetrics();
   return `
     <div class="dense-list">
-      <div><span>候補リクエスト</span><strong>${metrics.candidateRequests.toLocaleString("ja-JP")}</strong></div>
-      <div><span>想定回収</span><strong>${yen(Math.round(metrics.expectedRevenue))}</strong></div>
+      <div><span>PPCアクセス合計</span><strong>${metrics.totalAccesses.toLocaleString("ja-JP")}</strong></div>
+      <div><span>平均単価</span><strong>${metrics.averagePrice.toFixed(1)}円/access</strong></div>
+      <div><span>通行率</span><strong>${metrics.passageRate.toFixed(1)}%</strong></div>
+      <div><span>請求送信中</span><strong>${yen(Math.round(metrics.sentAmount))}</strong></div>
+      <div><span>通過済み請求</span><strong>${yen(Math.round(metrics.passedAmount))}</strong></div>
       <div><span>初期営業</span><strong>収益保証ではなく検証枠</strong></div>
       <div><span>運用判断</span><strong>検索許可 / 学習有料 / 未検証遮断</strong></div>
+    </div>
+  `;
+}
+
+function ppcSettlementBoard() {
+  const metrics = ppcMetrics();
+  const rows = [
+    ["アクセス合計", metrics.totalAccesses.toLocaleString("ja-JP"), "PPC判定対象になったAI crawlerアクセス"],
+    ["請求対象access", metrics.billableAccesses.toLocaleString("ja-JP"), "402または支払い意思確認に進んだaccess"],
+    ["通過済みaccess", metrics.passedAccesses.toLocaleString("ja-JP"), "通過確認済みとして扱うaccess"],
+    ["請求だけ送信中", yen(Math.round(metrics.sentAmount)), "402は投げたが決済・通過は未確定"],
+    ["通過済み請求", yen(Math.round(metrics.passedAmount)), "通過済みまたはsettled相当として表示"],
+  ];
+  return `
+    <div class="settlement-board">
+      ${rows.map(([label, value, help]) => `
+        <div>
+          <span>${label}</span>
+          <strong>${value}</strong>
+          <small>${help}</small>
+        </div>
+      `).join("")}
     </div>
   `;
 }
@@ -492,6 +562,9 @@ function crawlerEventTable() {
 function ppcRuleCards() {
   return `<div class="policy-stack">${state.ppcRules.map((rule) => {
     const revenue = Math.round(rule.monthly * rule.acceptRate * rule.price);
+    const matchingEvents = state.ppcEvents.filter((event) => event.path.startsWith(rule.path.replace("*", "")));
+    const accessCount = matchingEvents.reduce((sum, event) => sum + (event.accesses || 0), 0);
+    const passedAmount = matchingEvents.reduce((sum, event) => sum + (event.passedAmount || 0), 0);
     return `
       <div class="rule-card">
         <div>
@@ -500,6 +573,7 @@ function ppcRuleCards() {
         </div>
         <div class="rule-price">${rule.price}円/request</div>
         <div class="small">${rule.mode} / ${rule.action} / 想定 ${yen(revenue)}</div>
+        <div class="small">実ログ ${accessCount.toLocaleString("ja-JP")} access / 通過済み ${yen(Math.round(passedAmount))}</div>
       </div>
     `;
   }).join("")}</div>`;
@@ -516,6 +590,9 @@ function ppcDecisionSimulator() {
       <label>crawler max price
         <input id="ppcMaxInput" type="number" value="6">
       </label>
+      <label>access count
+        <input id="ppcAccessInput" type="number" value="120">
+      </label>
       <label>crawler identity
         <select id="ppcVerifiedInput">
           <option value="verified">verified</option>
@@ -531,22 +608,42 @@ function ppcDecisionSimulator() {
 function ppcEventTable() {
   return `
     <table>
-      <thead><tr><th>Time</th><th>Crawler</th><th>Path</th><th>Rule price</th><th>Max</th><th>Status</th><th>Reason</th></tr></thead>
+      <thead><tr><th>Time</th><th>Crawler</th><th>Path</th><th>Access</th><th>単価</th><th>請求額</th><th>通過額</th><th>通行率</th><th>請求状態</th><th>Reason</th></tr></thead>
       <tbody>
         ${state.ppcEvents.map((event) => `
           <tr>
             <td>${event.time}</td>
             <td>${event.crawler}</td>
             <td>${event.path}</td>
-            <td>${event.price}円</td>
-            <td>${event.max}円</td>
-            <td><span class="tag ${event.status === "candidate" ? "warn" : event.status === "allowed" ? "good" : "hot"}">${event.status}</span></td>
+            <td>${(event.accesses || 0).toLocaleString("ja-JP")}</td>
+            <td>${event.price}円<br><span class="small">max ${event.max}円</span></td>
+            <td>${yen(Math.round(event.chargeAmount || 0))}</td>
+            <td>${yen(Math.round(event.passedAmount || 0))}</td>
+            <td>${((event.passRate || 0) * 100).toFixed(1)}%</td>
+            <td><span class="tag ${ppcStateTone(event)}">${ppcStateLabel(event)}</span><br><span class="small">${event.status}</span></td>
             <td>${event.reason}</td>
           </tr>
         `).join("")}
       </tbody>
     </table>
   `;
+}
+
+function ppcStateLabel(event) {
+  const labels = {
+    passed: "通過済み",
+    sent: "請求送信中",
+    rejected: "拒否",
+    blocked: "遮断",
+    free_allowed: "無料許可",
+  };
+  return labels[event.chargeState] || "請求候補";
+}
+
+function ppcStateTone(event) {
+  if (event.chargeState === "passed" || event.chargeState === "free_allowed") return "good";
+  if (event.chargeState === "sent" || event.status === "candidate") return "warn";
+  return "hot";
 }
 
 function renderReports() {
@@ -765,31 +862,47 @@ function buildCrawlerEventSample() {
 function simulatePpcDecision() {
   const path = document.querySelector("#ppcPathInput").value;
   const max = Number(document.querySelector("#ppcMaxInput").value || 0);
+  const accesses = Number(document.querySelector("#ppcAccessInput").value || 0);
   const verified = document.querySelector("#ppcVerifiedInput").value === "verified";
   const rule = state.ppcRules.find((item) => item.path === path);
   const result = document.querySelector("#ppcSimulationResult");
   if (!rule) return;
 
   let status = "candidate";
+  let chargeState = "sent";
   let reason = "payment intent accepted";
+  let passRate = 0;
   if (!verified) {
     status = "blocked";
+    chargeState = "blocked";
     reason = "unverified crawler";
   } else if (max < rule.price) {
     status = "rejected";
+    chargeState = "rejected";
     reason = "max price below rule";
+  } else if (max >= rule.price + 2) {
+    chargeState = "passed";
+    passRate = 0.62;
+    reason = "payment passed";
   }
+  const chargeAmount = rule.price * accesses;
+  const passedAmount = chargeState === "passed" ? Math.round(chargeAmount * passRate) : 0;
 
   state.ppcEvents.unshift({
     time: new Date().toLocaleTimeString("ja-JP", { hour: "2-digit", minute: "2-digit" }),
     crawler: verified ? "VerifiedCrawler" : "UnknownCrawler",
     path,
+    accesses,
     price: rule.price,
     max,
+    passRate,
+    chargeAmount,
+    passedAmount,
     status,
+    chargeState,
     reason,
   });
-  result.innerHTML = `<strong>${status}</strong><span>${reason} / rule ${rule.price}円 / max ${max}円</span>`;
+  result.innerHTML = `<strong>${ppcStateLabel({ chargeState, status })}</strong><span>${reason} / ${accesses.toLocaleString("ja-JP")} access × ${rule.price}円 = ${yen(chargeAmount)} / 通過額 ${yen(passedAmount)}</span>`;
   pushEvent(`${path}のPPC判定: ${status}`);
   showToast("PPC判定をイベント台帳に追加しました。");
 }
@@ -859,22 +972,38 @@ function buildLivePpcEvent() {
   const rule = state.ppcRules[Math.floor(Math.random() * state.ppcRules.length)];
   const verified = Math.random() > 0.18;
   const max = verified ? Math.max(0, rule.price + Math.floor(Math.random() * 7) - 2) : 0;
+  const accesses = 80 + Math.floor(Math.random() * 420);
   let status = "candidate";
+  let chargeState = "sent";
   let reason = "payment intent detected";
+  let passRate = 0;
   if (!verified) {
     status = "blocked";
+    chargeState = "blocked";
     reason = "unverified crawler";
   } else if (max < rule.price) {
     status = "rejected";
+    chargeState = "rejected";
     reason = "max price below rule";
+  } else if (Math.random() > 0.42) {
+    chargeState = "passed";
+    passRate = Number((0.38 + Math.random() * 0.34).toFixed(2));
+    reason = "payment passed";
   }
+  const chargeAmount = rule.price * accesses;
+  const passedAmount = chargeState === "passed" ? Math.round(chargeAmount * passRate) : 0;
   return {
     time: new Date().toLocaleTimeString("ja-JP", { hour: "2-digit", minute: "2-digit" }),
     crawler: verified ? "VerifiedCrawler" : "UnknownCrawler",
     path: rule.path.replace("*", ["executive", "style-guide", "robot-cost", "pricing"][Math.floor(Math.random() * 4)]),
+    accesses,
     price: rule.price,
     max,
+    passRate,
+    chargeAmount,
+    passedAmount,
     status,
+    chargeState,
     reason,
   };
 }
@@ -912,9 +1041,9 @@ function downloadCsv() {
 
   if (state.activeView === "ppc") {
     filename = "hackall_ppc_events.csv";
-    header = "time,crawler,path,rule_price,max_price,status,reason\n";
+    header = "time,crawler,path,accesses,unit_price,max_price,charge_amount,passed_amount,passage_rate,charge_state,status,reason\n";
     rows = state.ppcEvents.map((item) => [
-      item.time, item.crawler, item.path, item.price, item.max, item.status, item.reason,
+      item.time, item.crawler, item.path, item.accesses, item.price, item.max, item.chargeAmount, item.passedAmount, item.passRate, item.chargeState, item.status, item.reason,
     ].map(csvCell).join(",")).join("\n");
   }
 
