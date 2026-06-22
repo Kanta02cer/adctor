@@ -1,0 +1,61 @@
+deck:
+  title: "Hackall: AI検索時代の代理店向けAEO/GEO運用基盤"
+  audience:
+    - 広告代理店
+    - SEO会社
+    - 投資家
+    - 有償PoC候補企業
+  tone: "営業現場で説明できる、数値と実操作を重視した資料"
+slides:
+  - id: 1
+    title: "AI検索で、見えない機会損失が起きている"
+    message: "顧客はGoogle検索だけでなくAI回答を見て意思決定する。AI回答で競合だけが引用される状態は営業損失になる。"
+    visual: "AI回答画面とcitation順位の比較"
+  - id: 2
+    title: "Hackallが測るもの"
+    message: "キーワードごとにPerplexity等のAI回答を取得し、自社・競合ドメインのcitation有無、順位、SOVを保存する。"
+    visual: "keyword -> AI API -> citations_raw JSONB -> dashboard"
+  - id: 3
+    title: "代理店が売れる理由"
+    message: "既存SEO顧客にAEO/GEO運用を追加提案できる。3社でHackall利用料を回収し、4社目以降が粗利になる。"
+    visual: "3社回収、4社目粗利の収益ブリッジ"
+  - id: 4
+    title: "デモ画面"
+    message: "ログイン、顧客管理、AI検索計測、レポート、請求、PPC Showroomを1つの営業デモで見せる。"
+    visual: "Hackall Sales Demo MVPの画面キャプチャ"
+  - id: 5
+    title: "初期の売上柱"
+    message: "PPC/x402ではなく、診断SaaS、月次レポート、AEO/GEO運用を本線売上にする。"
+    visual: "本線売上と将来オプションの切り分け"
+  - id: 6
+    title: "料金設計"
+    message: "Standard 30万円、Advanced 60万円、Enterprise個別。代理店には30〜40%の粗利余地を残す。"
+    visual: "プラン比較表"
+  - id: 7
+    title: "技術構成"
+    message: "FastAPI、PostgreSQL、GCP Cloud Tasks、Cloud Run Worker、Perplexity APIで本番化する。"
+    visual: "システム構成図"
+  - id: 8
+    title: "リスク管理"
+    message: "PPC課金保証、AI企業からの強制徴収、法務未確認のデータ販売は初期営業表現から外す。"
+    visual: "禁止表現と推奨表現"
+  - id: 9
+    title: "有償PoCの提案"
+    message: "初期診断費50万円、月額15〜30万円で3か月PoCを開始し、実データで継続判断する。"
+    visual: "PoCスケジュール"
+  - id: 10
+    title: "次の30日"
+    message: "営業デモ、代理店ヒアリング、Perplexity実測、請求条件、法務レビューを並行して進める。"
+    visual: "30日ロードマップ"
+appendix:
+  metrics:
+    - AI引用率
+    - 競合SOV
+    - citation順位
+    - 引用URL
+    - 未露出キーワード
+    - API原価
+    - 代理店粗利
+  demo_login:
+    email: "agency@hackall.jp"
+    password: "demo2026"

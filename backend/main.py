@@ -49,6 +49,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+try:
+    from .hackii_api import router as hackii_router
+except ImportError:
+    from hackii_api import router as hackii_router
+
+app.include_router(hackii_router)
+
 # ── AI crawler detection ──────────────────────────────────────────────────────
 AI_CRAWLERS = [
     r"GPTBot", r"ChatGPT-User", r"OAI-SearchBot",
@@ -611,4 +618,3 @@ async def run_diagnosis(body: DiagnosisRequest):
         await _notify_slack(f"🔍 新規診断: {body.url} | 推奨: Package {recommendation} | 潜在収益: ¥{potential_revenue:,}/月")
 
     return result
-

@@ -6,11 +6,15 @@ import {
   CartesianGrid, Tooltip, ResponsiveContainer, Legend
 } from "recharts";
 import {
-  Search, ShieldAlert, Award, FileSpreadsheet, Plus, ArrowUpRight,
-  TrendingUp, TrendingDown, RefreshCw, CheckCircle2, XCircle, ChevronRight,
-  Settings, Users, Trash2, ArrowRightLeft, Upload, Download, Sparkles
+  Search, ShieldAlert, Award, FileSpreadsheet, Plus,
+  TrendingUp, TrendingDown, RefreshCw, CheckCircle2, ChevronRight,
+  Settings, Users, Trash2, Upload, Sparkles
 } from "lucide-react";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? "http://localhost:8000";
+const WS_BASE = API_BASE.replace(/^http/, "ws");
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 // ─── Interfaces ──────────────────────────────────────────────────────────────
 interface KeywordItem {
@@ -282,10 +286,75 @@ export default function HackIIPage() {
   const [showAddKeywordModal, setShowAddKeywordModal] = useState(false);
   
   const currentProject = projects[currentProjIndex];
+  const isPersistedProject = UUID_RE.test(currentProject?.id ?? "");
+
+  const loadProjects = useCallback(async () => {
+    try {
+      const response = await fetch(`${API_BASE}/api/v1/projects`, { cache: "no-store" });
+      if (!response.ok) return;
+      const data = (await response.json()) as ProjectData[];
+      if (data.length === 0) return;
+      setProjects(data);
+      setCurrentProjIndex((index) => (data[index] ? index : 0));
+    } catch {
+      // Keep the bundled sample data when the backend is not running.
+    }
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch(`${API_BASE}/api/v1/projects`, { cache: "no-store" })
+      .then((response) => (response.ok ? response.json() : []))
+      .then((data: ProjectData[]) => {
+        if (cancelled || data.length === 0) return;
+        setProjects(data);
+        setCurrentProjIndex((index) => (data[index] ? index : 0));
+      })
+      .catch(() => {
+        // Keep the bundled sample data when the backend is not running.
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isPersistedProject) return;
+
+    const ws = new WebSocket(`${WS_BASE}/api/v1/ws/hackii/${currentProject.id}`);
+    ws.onmessage = (event) => {
+      try {
+        const message = JSON.parse(event.data);
+        if (["crawl_result", "crawler_event", "ppc_event"].includes(message.type)) {
+          void loadProjects();
+        }
+      } catch {
+        // Ignore non-JSON keepalive messages.
+      }
+    };
+    return () => {
+      ws.close();
+    };
+  }, [currentProject.id, isPersistedProject, loadProjects]);
 
   // Refresh (simulate crawler)
-  const handleRefresh = () => {
+  const handleRefresh = async () => {
     setIsRefreshing(true);
+
+    if (isPersistedProject) {
+      try {
+        await fetch(`${API_BASE}/api/v1/projects/${currentProject.id}/crawl`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ engines: ["perplexity"] }),
+        });
+        await loadProjects();
+      } finally {
+        setIsRefreshing(false);
+      }
+      return;
+    }
+
     setTimeout(() => {
       setIsRefreshing(false);
       // Simulate slightly improved stats when refreshed to show interactivity
@@ -313,8 +382,23 @@ export default function HackIIPage() {
   };
 
   // Add Competitor
-  const handleAddCompetitor = () => {
+  const handleAddCompetitor = async () => {
     if (!newCompetitor.trim()) return;
+
+    if (isPersistedProject) {
+      const domain = newCompetitor.trim();
+      const response = await fetch(`${API_BASE}/api/v1/projects/${currentProject.id}/competitors`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ domain }),
+      });
+      if (response.ok) {
+        await loadProjects();
+        setNewCompetitor("");
+      }
+      return;
+    }
+
     const updated = [...projects];
     const p = updated[currentProjIndex];
     if (!p.competitors.includes(newCompetitor.trim())) {
@@ -332,7 +416,18 @@ export default function HackIIPage() {
   };
 
   // Delete Competitor
-  const handleDeleteCompetitor = (domain: string) => {
+  const handleDeleteCompetitor = async (domain: string) => {
+    if (isPersistedProject) {
+      const response = await fetch(
+        `${API_BASE}/api/v1/projects/${currentProject.id}/competitors/${encodeURIComponent(domain)}`,
+        { method: "DELETE" }
+      );
+      if (response.ok) {
+        await loadProjects();
+      }
+      return;
+    }
+
     const updated = [...projects];
     const p = updated[currentProjIndex];
     p.competitors = p.competitors.filter(c => c !== domain);
@@ -341,8 +436,31 @@ export default function HackIIPage() {
   };
 
   // Add Keyword
-  const handleAddKeyword = () => {
+  const handleAddKeyword = async () => {
     if (!newKeyword.trim()) return;
+
+    if (isPersistedProject) {
+      const response = await fetch(`${API_BASE}/api/v1/projects/${currentProject.id}/keywords`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          keywords: [
+            {
+              keyword: newKeyword.trim(),
+              search_volume: Number(newVol),
+              query_template: "{keyword}について教えて",
+            },
+          ],
+        }),
+      });
+      if (response.ok) {
+        await loadProjects();
+        setNewKeyword("");
+        setShowAddKeywordModal(false);
+      }
+      return;
+    }
+
     const updated = [...projects];
     const p = updated[currentProjIndex];
     

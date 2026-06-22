@@ -1,0 +1,603 @@
+openapi: 3.1.0
+info:
+  title: Hackall Demo API Contract
+  version: 0.1.0
+  description: 営業デモを本番APIへ接続するための最小契約
+servers:
+  - url: http://localhost:8000
+paths:
+  /api/v1/projects:
+    get:
+      summary: プロジェクト一覧
+      responses:
+        "200":
+          description: 代理店配下プロジェクト
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Project"
+  /api/v1/projects/{project_id}/keywords:
+    post:
+      summary: キーワード登録またはCSVインポート
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                keywords:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/KeywordCreate"
+                csv_text:
+                  type: string
+      responses:
+        "200":
+          description: 登録結果
+  /api/v1/projects/{project_id}/competitors:
+    post:
+      summary: 競合ドメイン追加
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [domain]
+              properties:
+                domain:
+                  type: string
+      responses:
+        "200":
+          description: 追加された競合
+  /api/v1/projects/{project_id}/competitors/{competitor_ref}:
+    delete:
+      summary: 競合ドメイン削除
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+        - name: competitor_ref
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 削除結果
+  /api/v1/projects/{project_id}/crawl:
+    post:
+      summary: 手動計測ジョブ投入
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                engines:
+                  type: array
+                  items:
+                    type: string
+                    enum: [perplexity, gemini, openai]
+                keyword_ids:
+                  type: array
+                  items:
+                    type: string
+                    format: uuid
+      responses:
+        "200":
+          description: キュー投入結果
+  /api/v1/projects/{project_id}/jobs:
+    get:
+      summary: 測定ジョブ一覧
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [queued, running, succeeded, failed, rate_limited]
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 50
+      responses:
+        "200":
+          description: 測定ジョブ状態
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MeasurementJob"
+  /api/v1/projects/{project_id}/sov-trend:
+    get:
+      summary: SOV推移
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      responses:
+        "200":
+          description: 月次SOV
+  /api/v1/workers/crawl:
+    post:
+      summary: Cloud Run Worker測定保存
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CrawlWorkerPayload"
+      responses:
+        "200":
+          description: 保存結果
+  /api/v1/projects/{project_id}/crawler-events:
+    get:
+      summary: AIクローラー検知イベント一覧
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+        - name: operator
+          in: query
+          schema:
+            type: string
+        - name: risk
+          in: query
+          schema:
+            type: string
+            enum: [low, medium, high]
+      responses:
+        "200":
+          description: crawler event detail
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CrawlerEvent"
+    post:
+      summary: AIクローラー検知イベント保存
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CrawlerEvent"
+      responses:
+        "200":
+          description: saved crawler event
+  /api/v1/projects/{project_id}/crawler-events/export.csv:
+    get:
+      summary: AIクローラー検知イベントCSV
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      responses:
+        "200":
+          description: crawler event CSV
+  /api/v1/projects/{project_id}/ppc/rules:
+    get:
+      summary: PPC価格ルール一覧
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      responses:
+        "200":
+          description: price rules
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PPCPriceRule"
+    post:
+      summary: PPC価格ルール作成
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PPCPriceRule"
+      responses:
+        "200":
+          description: created rule
+  /api/v1/projects/{project_id}/ppc/events:
+    get:
+      summary: PPCイベント台帳
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      responses:
+        "200":
+          description: ppc events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PPCEvent"
+    post:
+      summary: PPCイベント保存
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PPCEvent"
+      responses:
+        "200":
+          description: saved ppc event
+  /api/v1/projects/{project_id}/ppc/dry-run:
+    post:
+      summary: PPC判定ドライラン
+      description: 本決済は行わず、価格ルール・crawler identity・署名状態から allow/block/402候補/review を返す。
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PPCDryRunRequest"
+      responses:
+        "200":
+          description: decision result
+  /api/v1/projects/{project_id}/ppc/events/export.csv:
+    get:
+      summary: PPCイベントCSV
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      responses:
+        "200":
+          description: PPC CSV
+  /api/v1/projects/{project_id}/integrations/cloudflare/sync:
+    post:
+      summary: Cloudflare AI Crawl Controlログ同期
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      responses:
+        "200":
+          description: created count
+  /api/v1/projects/{project_id}/monthly-report:
+    get:
+      summary: 有償PoC向け月次レポートJSON
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      responses:
+        "200":
+          description: monthly report
+  /api/v1/projects/{project_id}/audit-logs:
+    get:
+      summary: 監査ログ
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      responses:
+        "200":
+          description: audit logs
+  /api/v1/ws/hackii/{project_id}:
+    get:
+      summary: Hackall/HackIIリアルタイム通知
+      description: WebSocket endpoint. crawl_resultイベントで画面を再取得する。
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      responses:
+        "101":
+          description: WebSocket upgrade
+components:
+  parameters:
+    ProjectId:
+      name: project_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+  schemas:
+    Project:
+      type: object
+      required: [id, name, targetDomain, competitors, stats, monthlySOV, competitorSOV, keywords]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        targetDomain:
+          type: string
+        competitors:
+          type: array
+          items:
+            type: string
+        stats:
+          type: object
+          properties:
+            trackedCount:
+              type: integer
+            avgSOV:
+              type: number
+            citedCount:
+              type: integer
+            notCitedCount:
+              type: integer
+            sovTrendChange:
+              type: number
+        monthlySOV:
+          type: array
+          items:
+            type: object
+        competitorSOV:
+          type: array
+          items:
+            type: object
+        keywords:
+          type: array
+          items:
+            $ref: "#/components/schemas/KeywordResult"
+    KeywordCreate:
+      type: object
+      required: [keyword]
+      properties:
+        keyword:
+          type: string
+        search_volume:
+          type: integer
+        query_template:
+          type: string
+        is_active:
+          type: boolean
+    KeywordResult:
+      type: object
+      properties:
+        keyword:
+          type: string
+        vol:
+          type: integer
+        perplexity:
+          type: boolean
+        gemini:
+          type: boolean
+        gpt4:
+          type: boolean
+        claude:
+          type: boolean
+        sov:
+          type: number
+        answer_text:
+          type: string
+        cited_url:
+          type: string
+        cited_position:
+          type: integer
+        citations:
+          type: array
+          items:
+            type: string
+    CrawlWorkerPayload:
+      type: object
+      required: [engine, project_id, keyword_id]
+      properties:
+        engine:
+          type: string
+          enum: [perplexity, gemini, openai]
+        project_id:
+          type: string
+          format: uuid
+        keyword_id:
+          type: string
+          format: uuid
+        keyword:
+          type: string
+        query_template:
+          type: string
+        target_domain:
+          type: string
+        answer_text:
+          type: string
+        raw_response:
+          type:
+            - object
+            - array
+    MeasurementJob:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        project_id:
+          type: string
+          format: uuid
+        keyword_id:
+          type:
+            - string
+            - "null"
+          format: uuid
+        ai_engine:
+          type: string
+          enum: [perplexity, gemini, openai]
+        status:
+          type: string
+          enum: [queued, running, succeeded, failed, rate_limited]
+        idempotency_key:
+          type: string
+        requested_at:
+          type: string
+          format: date-time
+        started_at:
+          type:
+            - string
+            - "null"
+          format: date-time
+        completed_at:
+          type:
+            - string
+            - "null"
+          format: date-time
+        retry_count:
+          type: integer
+        error_message:
+          type:
+            - string
+            - "null"
+    CrawlerEvent:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        observed_at:
+          type: string
+          format: date-time
+        source:
+          type: string
+        operator:
+          type: string
+        crawler_name:
+          type: string
+        category:
+          type: string
+        host:
+          type: string
+        path:
+          type: string
+        path_pattern:
+          type: string
+        method:
+          type: string
+        status_code:
+          type: integer
+        request_count:
+          type: integer
+        bytes_transferred:
+          type: integer
+        detection_id:
+          type: string
+        user_agent:
+          type: string
+        verified:
+          type: boolean
+        ip_hash:
+          type: string
+        asn:
+          type: string
+        country:
+          type: string
+        robots_status:
+          type: string
+        referrer_host:
+          type: string
+        risk_level:
+          type: string
+          enum: [low, medium, high, review]
+        policy_action:
+          type: string
+          enum: [allow, block, charge, review, monitor]
+        raw_event:
+          type: object
+    PPCPriceRule:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        path_pattern:
+          type: string
+        operator:
+          type: string
+        crawler_name:
+          type: string
+        category:
+          type: string
+        currency:
+          type: string
+          default: JPY
+        price_minor:
+          type: integer
+        priority:
+          type: integer
+        is_active:
+          type: boolean
+        action:
+          type: string
+          enum: [allow, block, charge, review]
+        reason:
+          type: string
+    PPCEvent:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        crawler_event_id:
+          type: string
+          format: uuid
+        price_rule_id:
+          type: string
+          format: uuid
+        observed_at:
+          type: string
+          format: date-time
+        crawler_name:
+          type: string
+        operator:
+          type: string
+        path:
+          type: string
+        status_code:
+          type: integer
+        decision:
+          type: string
+          enum: [candidate, charged, rejected, blocked, allowed, review]
+        currency:
+          type: string
+        rule_price_minor:
+          type: integer
+        crawler_exact_price_minor:
+          type: integer
+        crawler_max_price_minor:
+          type: integer
+        signature_status:
+          type: string
+          enum: [valid, missing, invalid, not_applicable]
+        payment_header_signed:
+          type: boolean
+        charge_status:
+          type: string
+          enum: [not_attempted, recorded, reconciled, payout_pending, paid, failed]
+        charge_reference:
+          type: string
+        rejection_reason:
+          type: string
+        raw_event:
+          type: object
+    PPCDryRunRequest:
+      type: object
+      properties:
+        path:
+          type: string
+        operator:
+          type: string
+        crawler_name:
+          type: string
+        category:
+          type: string
+        verified:
+          type: boolean
+        crawler_exact_price_minor:
+          type: integer
+        crawler_max_price_minor:
+          type: integer
+        signature_status:
+          type: string
+          enum: [valid, missing, invalid, not_applicable]
+        payment_header_signed:
+          type: boolean
