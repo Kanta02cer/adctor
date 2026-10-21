@@ -65,11 +65,14 @@ export async function verifyWebhookSignature(
   secret: string
 ): Promise<boolean> {
   // Stripe webhook signature verification using Web Crypto API
-  const parts = signature.split(",");
+  if (!secret) return false;
+  const parts = signature.split(",").map((p) => p.trim());
   const timestamp = parts.find((p) => p.startsWith("t="))?.split("=")[1];
-  const v1 = parts.find((p) => p.startsWith("v1="))?.split("=")[1];
+  const signatures = parts.filter((p) => p.startsWith("v1=")).map((p) => p.slice(3));
 
-  if (!timestamp || !v1) return false;
+  if (!timestamp || !/^\d+$/.test(timestamp) || !signatures.length) return false;
+  const age = Math.floor(Date.now() / 1000) - Number(timestamp);
+  if (!Number.isSafeInteger(Number(timestamp)) || Math.abs(age) > 300) return false;
 
   const signedPayload = `${timestamp}.${payload}`;
   const key = await crypto.subtle.importKey(
@@ -88,5 +91,11 @@ export async function verifyWebhookSignature(
     .map((b) => b.toString(16).padStart(2, "0"))
     .join("");
 
-  return expected === v1;
+  return signatures.some((candidate) => {
+    if (!/^[a-f0-9]{64}$/i.test(candidate)) return false;
+    let difference = 0;
+    for (let i = 0; i < expected.length; i++) difference |= expected.charCodeAt(i) ^ candidate.toLowerCase().charCodeAt(i);
+    return difference === 0;
+  });
 }
+

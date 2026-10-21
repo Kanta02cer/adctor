@@ -310,20 +310,16 @@ async def stripe_webhook(request: Request):
     - Grant 1-hour access token to the crawler
     - Revenue is automatically routed by Stripe Connect
     """
+    if not STRIPE_WEBHOOK_SECRET:
+        raise HTTPException(status_code=503, detail="Webhook verification is not configured")
     payload = await request.body()
     sig_header = request.headers.get("stripe-signature", "")
 
-    # Verify signature if webhook secret is configured
-    if STRIPE_WEBHOOK_SECRET and stripe.api_key:
-        try:
-            event = stripe.Webhook.construct_event(payload, sig_header, STRIPE_WEBHOOK_SECRET)
-        except stripe.SignatureVerificationError:
-            raise HTTPException(status_code=400, detail="Invalid signature")
-    else:
-        try:
-            event = json.loads(payload)
-        except Exception:
-            raise HTTPException(status_code=400, detail="Invalid payload")
+    # Local signature verification does not require a Stripe API key.
+    try:
+        event = stripe.Webhook.construct_event(payload, sig_header, STRIPE_WEBHOOK_SECRET)
+    except (stripe.SignatureVerificationError, ValueError):
+        raise HTTPException(status_code=400, detail="Invalid webhook")
 
     if event["type"] == "checkout.session.completed":
         session = event["data"]["object"]
@@ -611,4 +607,5 @@ async def run_diagnosis(body: DiagnosisRequest):
         await _notify_slack(f"🔍 新規診断: {body.url} | 推奨: Package {recommendation} | 潜在収益: ¥{potential_revenue:,}/月")
 
     return result
+
 
