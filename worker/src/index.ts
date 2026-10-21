@@ -142,6 +142,9 @@ async function proxyToOrigin(
 
 // ── Stripe Webhook handler ──────────────────────────────────────────────────
 async function handleWebhook(request: Request, env: Env): Promise<Response> {
+  if (!env.STRIPE_WEBHOOK_SECRET) {
+    return new Response("Webhook verification is not configured", { status: 503 });
+  }
   const payload = await request.text();
   const signature = request.headers.get("Stripe-Signature") || "";
 
@@ -185,7 +188,7 @@ async function handleWebhook(request: Request, env: Env): Promise<Response> {
       // Clean up pending session
       await env.TOKENS.delete(`pending:${session.id}`);
 
-      console.log(`[Adctor] Access token granted: ${tokenId}`);
+      console.log("[Adctor] Access token granted");
     }
   }
 
@@ -193,3 +196,4 @@ async function handleWebhook(request: Request, env: Env): Promise<Response> {
     headers: { "Content-Type": "application/json" },
   });
 }
+
