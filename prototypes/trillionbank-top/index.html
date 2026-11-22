@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>株式会社Trillion Bank｜AIから発信者に還元をするインフラをつくる</title>
+<meta name="description" content="株式会社Trillion Bankは、AI検索とAIエージェント時代の情報流通を、測定・証跡・運用へ変えるテクノロジー企業です。AirReachでAI検索での見つかり方を測り、Adctorで情報利用の証跡・契約・対価をつなぎます。">
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400..700&amp;family=Noto+Sans+JP:wght@400;500;700&amp;display=swap">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+<!-- ロゴシンボル（3枚のフレームを青い線が通り抜ける形）を再利用できるように定義 -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="tb-frames">
+      <path d="M103 74 L168 42 L168 214 L103 247 Z"/>
+      <path d="M183 97 L248 64 L248 236 L183 268 Z"/>
+      <path d="M263 108 L327 75 L327 248 L263 281 Z"/>
+    </g>
+    <path id="tb-wave" d="M25 165 H105 C130 165 140 137 166 137 C200 137 216 191 256 191 C286 191 296 165 322 165 H389"/>
+  </defs>
+</svg>
+
+<a class="skip" href="#main">本文へスキップ</a>
+
+<!-- ───────── OPENING ───────── -->
+<div class="opening" id="opening" aria-hidden="true">
+  <div class="opening__logo">
+    <svg class="opening__symbol" viewBox="0 0 414 318">
+      <g class="opening__frames">
+        <path pathLength="1" d="M103 74 L168 42 L168 214 L103 247 Z"/>
+        <path pathLength="1" d="M183 97 L248 64 L248 236 L183 268 Z"/>
+        <path pathLength="1" d="M263 108 L327 75 L327 248 L263 281 Z"/>
+      </g>
+      <use href="#tb-wave" class="opening__wave"/>
+    </svg>
+    <img class="opening__wordmark" src="assets/tb-wordmark.webp" alt="" width="2048" height="201">
+  </div>
+  <div class="opening__rings"><span></span><span></span><span></span><span></span></div>
+  <button type="button" class="opening__skip" id="openingSkip">スキップ</button>
+</div>
+
+<!-- ───────── HEADER ───────── -->
+<header class="header" id="header">
+  <div class="header__inner">
+    <a href="#top" class="header__logo" aria-label="Trillion Bank トップへ">
+      <svg class="header__symbol" viewBox="0 0 414 318" aria-hidden="true"><use href="#tb-frames" class="sym-frames"/><use href="#tb-wave" class="sym-wave"/></svg>
+      <img class="header__wordmark" src="assets/tb-wordmark.webp" alt="" width="2048" height="201">
+    </a>
+    <nav class="header__nav" aria-label="グローバルナビゲーション">
+      <ul>
+        <li><a href="#business">Business</a></li>
+        <li><a href="#usecases">Use Cases</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#company">Company</a></li>
+      </ul>
+    </nav>
+    <div class="header__actions">
+      <a class="pill pill--ghost" href="https://trillion-bank.jp/#diagnose">無料でAI検索診断</a>
+      <a class="pill pill--blue" href="https://trillion-bank.jp/trillionbank/contact/">Contact</a>
+      <button type="button" class="header__menu" id="menuButton" aria-expanded="false" aria-controls="drawer" aria-label="メニューを開く"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer" hidden>
+  <nav aria-label="メニュー">
+    <a href="#business"><span>Business</span>事業</a>
+    <a href="#usecases"><span>Use Cases</span>ユースケース</a>
+    <a href="#products"><span>Products</span>プロダクト</a>
+    <a href="#news"><span>News</span>ニュース</a>
+    <a href="#company"><span>Company</span>会社情報</a>
+  </nav>
+  <div class="drawer__actions">
+    <a class="pill pill--white pill--lg" href="https://trillion-bank.jp/#diagnose">無料でAI検索診断</a>
+    <a class="pill pill--outline-white pill--lg" href="https://trillion-bank.jp/trillionbank/contact/">お問い合わせ</a>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ───────── HERO ───────── -->
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="hero__shapes" aria-hidden="true">
+    <svg class="shape s1" viewBox="100 40 230 245"><use href="#tb-frames"/></svg>
+    <svg class="shape s2" viewBox="180 60 70 210"><path d="M183 97 L248 64 L248 236 L183 268 Z"/></svg>
+    <svg class="shape s3" viewBox="100 40 70 210"><path d="M103 74 L168 42 L168 214 L103 247 Z"/></svg>
+    <svg class="shape s4" viewBox="260 70 70 215"><path d="M263 108 L327 75 L327 248 L263 281 Z"/></svg>
+    <svg class="shape s5" viewBox="0 120 414 90"><use href="#tb-wave"/></svg>
+    <svg class="shape s6" viewBox="0 120 414 90"><use href="#tb-wave"/></svg>
+    <svg class="shape s7" viewBox="180 60 70 210"><path d="M183 97 L248 64 L248 236 L183 268 Z"/></svg>
+    <svg class="shape s8" viewBox="100 40 70 210"><path d="M103 74 L168 42 L168 214 L103 247 Z"/></svg>
+    <span class="shape dot d1"></span><span class="shape dot d2"></span><span class="shape dot d3"></span>
+  </div>
+  <div class="hero__copy">
+    <p class="hero__display" aria-hidden="true"><span>Measure</span> <span>to</span> <span>Return</span></p>
+    <h1 class="hero__title" id="hero-title">AIから発信者に<br class="sp">還元をする<br class="sp">インフラをつくる</h1>
+    <p class="hero__lead">情報の利用許諾・記録・精算をつなぐ。</p>
+  </div>
+  <button type="button" class="motion-toggle" id="motionToggle" aria-pressed="false">
+    <span class="motion-toggle__label">モーション</span>
+    <span class="motion-toggle__icon" aria-hidden="true"></span>
+    <span class="sr">を停止</span>
+  </button>
+  <a class="hero__scroll" href="#statement"><span>Scroll</span><i aria-hidden="true"></i></a>
+</section>
+
+<!-- ───────── STATEMENT ───────── -->
+<section class="statement" id="statement" aria-labelledby="statement-title">
+  <div class="statement__inner">
+    <div class="statement__text">
+      <h2 class="statement__title" id="statement-title" data-fill>
+        <span class="w is-blue">AI検索</span><span class="w">で</span><br>
+        <span class="w">選ばれる企業</span><span class="w">を</span><span class="w">増やし、</span><br>
+        <span class="w">AIに使われた</span><span class="w is-blue">情報</span><span class="w">を</span><br>
+        <span class="w is-blue">価値</span><span class="w">へ</span><span class="w">変える</span>
+      </h2>
+      <p class="statement__body reveal">
+        Trillion Bankは、AI検索とAIエージェント時代の情報流通を、<br class="pc">測定・証跡・運用へ変えるテクノロジー企業です。<br>
+        AI検索で見つかる状態をつくる「AirReach」と、<br class="pc">AIに使われた情報を記録し対価へつなぐ「Adctor」。<br class="pc">2つの事業で、情報をつくる人に価値が還る仕組みを整えます。
+      </p>
+    </div>
+    <div class="emblem reveal" aria-hidden="true">
+      <span class="emblem__ring r1"></span><span class="emblem__ring r2"></span><span class="emblem__ring r3"></span>
+      <span class="emblem__core">
+        <svg viewBox="0 0 414 318"><use href="#tb-frames" class="emblem__frames"/><use href="#tb-wave" class="emblem__wave"/></svg>
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── BUSINESS (2 services split) ───────── -->
+<section class="business" id="business" aria-labelledby="business-title">
+  <h2 class="sr" id="business-title">事業</h2>
+  <div class="business__axis" aria-hidden="true"><span></span></div>
+  <div class="business__grid">
+    <article class="biz biz--left reveal">
+      <p class="tag tag--blue">Adctor · AI情報利用管理</p>
+      <h3 class="biz__title"><span>Record the</span><span class="is-blue">Usage</span></h3>
+      <p class="biz__lead">AIに使われた情報を記録し、<br>契約・ライセンス・対価へつなぐ</p>
+      <p class="biz__body">AIクローラーやAIエージェントによるコンテンツのアクセス・取得を証跡として記録し、契約・価格ルールと紐づけ、将来的な請求へ接続する基盤を研究開発しています。</p>
+      <p class="biz__status"><span class="chip chip--line">研究開発・限定PoC</span></p>
+      <a class="more" href="https://trillion-bank.jp/trillionbank/business/pay-per-crawl/">View Details<i aria-hidden="true"></i></a>
+    </article>
+    <article class="biz biz--right reveal">
+      <p class="tag tag--blue">AirReach · AI集客マーケティング</p>
+      <h3 class="biz__title"><span>Grow in</span><span class="is-blue">AI Search</span></h3>
+      <p class="biz__lead">AI検索で見つかり、選ばれ、<br>問い合わせや予約につなげる</p>
+      <p class="biz__body">AirReach 無料診断で現状を調べ、AirReach Consultingで言及・引用・推薦を証拠付きで測定し、改善と再計測まで伴走します。</p>
+      <p class="biz__status"><span class="chip chip--solid">提供中</span></p>
+      <a class="more" href="https://trillion-bank.jp/trillionbank/business/hack2/">View Details<i aria-hidden="true"></i></a>
+    </article>
+  </div>
+  <div class="business__flow reveal">
+    <ol>
+      <li><span class="num">01</span><strong>測る</strong><em>AI検索での言及・引用・推薦を可視化</em><span class="chip chip--solid">提供中</span></li>
+      <li><span class="num">02</span><strong>守る</strong><em>AIクローラーのアクセス制御</em><span class="chip chip--line">研究開発</span></li>
+      <li><span class="num">03</span><strong>記録する</strong><em>利用イベントの台帳記録</em><span class="chip chip--line">検証中</span></li>
+      <li><span class="num">04</span><strong>正規化する</strong><em>ライセンス・請求・将来の分配へ接続</em><span class="chip chip--dot">構想</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ───────── USE CASES (Featured Work pattern) ───────── -->
+<section class="usecases" id="usecases" aria-labelledby="usecases-title">
+  <h2 class="big-title" id="usecases-title" aria-label="Use Cases">
+    <span class="split is-blue" aria-hidden="true">Use</span>
+    <span class="split" aria-hidden="true">Cases</span>
+  </h2>
+  <div class="usecases__body">
+    <aside class="filter" aria-label="ユースケースの絞り込み">
+      <ul>
+        <li><button type="button" class="is-active" data-filter="all" aria-pressed="true">All</button></li>
+        <li><button type="button" data-filter="airreach" aria-pressed="false">AirReach</button></li>
+        <li><button type="button" data-filter="adctor" aria-pressed="false">Adctor</button></li>
+        <li><button type="button" data-filter="partner" aria-pressed="false">パートナー</button></li>
+      </ul>
+    </aside>
+    <div class="cards" id="cards">
+      <a class="card reveal" data-cat="airreach" href="https://trillion-bank.jp/trillionbank/business/hack2/">
+        <figure class="card__img card__img--sky" aria-hidden="true">
+          <svg viewBox="0 0 400 300">
+            <rect x="60" y="70" width="280" height="170" rx="14" fill="#fff"/>
+            <rect x="84" y="94" width="120" height="12" rx="6" fill="#164BFF"/>
+            <rect x="84" y="116" width="180" height="8" rx="4" fill="#D5DDF0"/>
+            <rect x="84" y="196" width="26" height="24" fill="#D5DDF0"/><rect x="120" y="176" width="26" height="44" fill="#D5DDF0"/><rect x="156" y="160" width="26" height="60" fill="#9FB6FF"/><rect x="192" y="140" width="26" height="80" fill="#164BFF"/>
+            <circle cx="282" cy="180" r="34" fill="none" stroke="#164BFF" stroke-width="10" stroke-dasharray="150 214" transform="rotate(-90 282 180)"/>
+            <text x="282" y="187" text-anchor="middle" font-size="20" font-weight="700" fill="#1C2533" font-family="Google Sans Flex, sans-serif">72</text>
+          </svg>
+        </figure>
+        <p class="tag">AirReach</p>
+        <h3 class="card__title">中小・未着手の事業会社</h3>
+        <p class="card__text">AI検索対策へ予算を付ける根拠がほしい。競合がAIで選ばれている理由を知りたい。施策の前後を数字で比較したい経営者・マーケ・広報の方へ。</p>
+      </a>
+      <a class="card reveal" data-cat="adctor" href="https://trillion-bank.jp/trillionbank/business/pay-per-crawl/">
+        <figure class="card__img card__img--ink" aria-hidden="true">
+          <svg viewBox="0 0 400 300">
+            <g transform="translate(40 18) scale(0.78)" fill="none" stroke="#F5F4F0" stroke-width="6"><use href="#tb-frames"/></g>
+            <path d="M0 147 H122 C142 147 150 125 170 125 C197 125 210 167 241 167 C265 167 273 147 293 147 H400" fill="none" stroke="#164BFF" stroke-width="6"/>
+            <g font-family="Google Sans Flex, sans-serif" font-size="12" fill="#AEB6C6" letter-spacing="2"><text x="40" y="270">CRAWL</text><text x="170" y="270">LEDGER</text><text x="300" y="270">LICENSE</text></g>
+          </svg>
+        </figure>
+        <p class="tag">Adctor</p>
+        <h3 class="card__title">メディア・専門データベース</h3>
+        <p class="card__text">AIに読まれても対価・証跡が残らない。守る情報と開く情報を分け、利用を記録・ライセンス化したいメディア・専門データベースの方へ。</p>
+      </a>
+      <a class="card reveal" data-cat="adctor" href="https://trillion-bank.jp/trillionbank/contact/">
+        <figure class="card__img card__img--paper" aria-hidden="true">
+          <svg viewBox="0 0 400 300">
+            <g stroke="#1C2533" stroke-width="2" fill="#fff">
+              <rect x="56" y="70" width="96" height="60" rx="10"/><rect x="56" y="170" width="96" height="60" rx="10"/>
+              <rect x="248" y="120" width="96" height="60" rx="10" fill="#164BFF" stroke="#164BFF"/>
+            </g>
+            <path d="M152 100 C200 100 200 150 248 150 M152 200 C200 200 200 150 248 150" fill="none" stroke="#164BFF" stroke-width="3"/>
+            <g font-family="Google Sans Flex, sans-serif" font-size="15" font-weight="600" text-anchor="middle"><text x="104" y="105" fill="#1C2533">API</text><text x="104" y="205" fill="#1C2533">LOG</text><text x="296" y="155" fill="#fff">RAG / MCP</text></g>
+          </svg>
+        </figure>
+        <p class="tag">Adctor</p>
+        <h3 class="card__title">AI・RAG・MCP事業者</h3>
+        <p class="card__text">安定・合法・監査可能な日本語データが必要なAI／RAG／MCP事業者の方へ。API・契約・ログを前提としたデータ提携をご相談ください。</p>
+      </a>
+      <a class="card reveal" data-cat="partner" href="https://trillion-bank.jp/trillionbank/business/airreach-tools-agency/">
+        <figure class="card__img card__img--blue" aria-hidden="true">
+          <svg viewBox="0 0 400 300">
+            <circle cx="150" cy="150" r="70" fill="none" stroke="#fff" stroke-width="3"/>
+            <circle cx="250" cy="150" r="70" fill="rgba(255,255,255,.16)" stroke="#fff" stroke-width="3"/>
+            <g font-family="Google Sans Flex, sans-serif" font-size="15" font-weight="600" fill="#fff" text-anchor="middle"><text x="120" y="155">Agency</text><text x="282" y="155">Trillion</text></g>
+          </svg>
+        </figure>
+        <p class="tag">パートナー</p>
+        <h3 class="card__title">販売代理店を検討する業者様</h3>
+        <p class="card__text">Trillion Bankサービスの販売代理店・共同提案パートナーとして関わりたいSEO・広告・制作会社の方へ。共同提案・レポート提供・役割分担をご相談ください。</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── MEDIA (Client Interview pattern) ───────── -->
+<section class="media" aria-labelledby="media-title">
+  <p class="media__bg" aria-hidden="true">In the Media</p>
+  <h2 class="media__title" id="media-title"><span class="split" aria-hidden="true">In the Media</span><span class="sr">メディア掲載</span></h2>
+  <ul class="media__list">
+    <li class="reveal"><a href="https://www.youtube.com/watch?v=tXTnZBE4-wM" class="mcard">
+      <img src="assets/media-reiwa-jinzai.webp" alt="" width="720" height="405" loading="lazy">
+      <p class="mcard__meta">YouTube</p>
+      <h3 class="mcard__title">令和の虎 CHANNEL（人財版）</h3>
+      <p class="mcard__tags">#累計1,600万円 #2連続完全ALL</p>
+    </a></li>
+    <li class="reveal"><a href="https://youtu.be/tvK855skBTM" class="mcard">
+      <img src="assets/media-reiwa-juken.webp" alt="" width="720" height="405" loading="lazy">
+      <p class="mcard__meta">YouTube</p>
+      <h3 class="mcard__title">令和の虎 CHANNEL（受験生版）</h3>
+      <p class="mcard__tags">#代表出演</p>
+    </a></li>
+    <li class="reveal"><a href="https://youtu.be/AcJNa6jw1IY" class="mcard">
+      <img src="assets/media-nontitle.webp" alt="" width="720" height="405" loading="lazy">
+      <p class="mcard__meta">YouTube</p>
+      <h3 class="mcard__title">Nontitle Season 6</h3>
+      <p class="mcard__tags">#起業リアリティ番組出演</p>
+    </a></li>
+    <li class="reveal"><a href="https://youtu.be/F2hO--D6Hd0" class="mcard">
+      <img src="assets/media-sbi.webp" alt="" width="720" height="405" loading="lazy">
+      <p class="mcard__meta">YouTube</p>
+      <h3 class="mcard__title">SBI証券ビジネスドライブ</h3>
+      <p class="mcard__tags">#代表出演</p>
+    </a></li>
+  </ul>
+</section>
+
+<!-- ───────── PRODUCTS (Platforms pattern) ───────── -->
+<section class="products" id="products" aria-labelledby="products-title">
+  <div class="products__head">
+    <h2 class="products__title" id="products-title" aria-label="Our Products">
+      <span class="split" aria-hidden="true">Our</span>
+      <span class="split indent" aria-hidden="true">Products</span>
+    </h2>
+    <p class="products__lead reveal">測る、守る、記録する。<br>AI時代の情報流通を支えるプロダクトを、<br>自ら開発し、提供しています。</p>
+  </div>
+  <ul class="products__list">
+    <li class="reveal"><a href="https://trillion-bank.jp/#diagnose">
+      <svg class="pmark" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 6 L10 3 V14 L4 17 Z"/></svg>
+      <span class="pname">AirReach 無料診断</span><span class="chip chip--white">無料</span>
+      <span class="pdesc">URLから約30秒で、AI検索・Google検索で見つけてもらうための情報がそろっているかを100点満点で診断</span>
+    </a></li>
+    <li class="reveal"><a href="https://trillion-bank.jp/trillionbank/business/hack2/">
+      <svg class="pmark" viewBox="0 0 20 20" aria-hidden="true"><path d="M2 10 H6 C8 10 8 6 10 6 C12 6 12 14 14 14 C16 14 16 10 18 10" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      <span class="pname">AirReach Consulting</span><span class="chip chip--white">導入相談受付中</span>
+      <span class="pdesc">AI回答での候補入り・勝敗・引用元を証拠付きで測定するAI Recommendation Intelligence</span>
+    </a></li>
+    <li class="reveal"><a href="https://trillion-bank.jp/trillionbank/business/airreach-selfserve/">
+      <svg class="pmark" viewBox="0 0 20 20" aria-hidden="true"><rect x="3" y="11" width="3" height="6"/><rect x="8.5" y="7" width="3" height="10"/><rect x="14" y="3" width="3" height="14"/></svg>
+      <span class="pname">AirReach Tools</span><span class="chip chip--white">月額19,800円（税別）</span>
+      <span class="pdesc">ご自身でAI検索での見え方を測って直す月額のサービス。代理店向けプランもあります</span>
+    </a></li>
+    <li class="reveal"><a href="https://trillion-bank.jp/trillionbank/business/pay-per-crawl/">
+      <svg class="pmark" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6 L8 3.5 V14 L3 16.5 Z M11 7 L16 4.5 V15 L11 17.5 Z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+      <span class="pname">Adctor / Pay per Crawl</span><span class="chip chip--white-line">研究開発・限定PoC</span>
+      <span class="pdesc">AIクローラーによるコンテンツ利用を制御・記録し、契約・請求へつなぐ基盤</span>
+    </a></li>
+  </ul>
+</section>
+
+<!-- ───────── LATEST ACTIVITIES ───────── -->
+<section class="latest" id="news" aria-labelledby="latest-title">
+  <div class="latest__marquee" aria-hidden="true">
+    <div class="latest__track">
+      <span>Trillion Bank <b>Latest Activities</b></span><span>Trillion Bank <b>Latest Activities</b></span>
+    </div>
+    <span class="latest__circle"></span>
+  </div>
+  <h2 class="sr" id="latest-title">最新の取り組み</h2>
+  <div class="latest__inner">
+    <div class="latest__block">
+      <div class="latest__head">
+        <h3>News</h3><p>ニュース・コラム</p>
+      </div>
+      <ul class="ncards">
+        <li class="reveal"><a class="ncard" href="https://trillion-bank.jp/trillionbank/news/google-november-2026-core-update/">
+          <figure class="ncard__img ncard__img--a" aria-hidden="true"><span>AI SEARCH</span><b>Core Update</b></figure>
+          <p class="ncard__row"><span class="tag tag--blue">AI検索・SEO</span><time datetime="2026-11-11">2026.11.11</time></p>
+          <h4>Googleの2026年11月コアアップデート開始｜AI検索施策の効果と流入変動を分けて判断する</h4>
+        </a></li>
+        <li class="reveal"><a class="ncard" href="https://trillion-bank.jp/trillionbank/news/pay-per-citation-ai-usage/">
+          <figure class="ncard__img ncard__img--b" aria-hidden="true"><span>AI DATA RIGHTS</span><b>Pay per Citation</b></figure>
+          <p class="ncard__row"><span class="tag tag--blue">AIデータ権利</span><time datetime="2026-11-04">2026.11.04</time></p>
+          <h4>Pay per Citationとは？AI引用課金とCloudflare Pay Per Useの違い</h4>
+        </a></li>
+        <li class="reveal"><a class="ncard" href="https://trillion-bank.jp/trillionbank/news/paywall-cybersecurity/">
+          <figure class="ncard__img ncard__img--c" aria-hidden="true"><span>TECH</span><b>Paywall</b></figure>
+          <p class="ncard__row"><span class="tag tag--blue">技術解説</span><time datetime="2026-11-04">2026.11.04</time></p>
+          <h4>Paywallとサイバーセキュリティ｜公式の実装事例から考える有料コンテンツの守り方</h4>
+        </a></li>
+        <li class="reveal"><a class="ncard" href="https://trillion-bank.jp/trillionbank/news/cloudflare-overview/">
+          <figure class="ncard__img ncard__img--d" aria-hidden="true"><span>TECH</span><b>Cloudflare</b></figure>
+          <p class="ncard__row"><span class="tag tag--blue">技術解説</span><time datetime="2026-11-04">2026.11.04</time></p>
+          <h4>Cloudflareとは？CDN・WAF・WorkersとAI時代の役割を整理</h4>
+        </a></li>
+      </ul>
+      <p class="viewall"><a class="more" href="https://trillion-bank.jp/trillionbank/insights/">View All<i aria-hidden="true"></i></a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── COMPANY (Vision / Mission) ───────── -->
+<section class="company" id="company" aria-labelledby="company-title">
+  <div class="company__inner">
+    <p class="label reveal">Company</p>
+    <p class="label label--sub reveal">Mission</p>
+    <h2 class="company__title reveal" id="company-title">AI革命で、<br class="sp">トリリオンの課題を担う。</h2>
+    <p class="company__body reveal">1,000の課題に向き合い、データ革命で社会に答える。<br>1,000の技術と向き合い、全てのデータに価値を見出す。</p>
+    <p class="company__links reveal">
+      <a class="more" href="https://trillion-bank.jp/trillionbank/company/">企業概要<i aria-hidden="true"></i></a>
+      <a class="more" href="https://trillion-bank.jp/trillionbank/mission/">企業理念<i aria-hidden="true"></i></a>
+    </p>
+  </div>
+  <div class="company__marquee" aria-hidden="true">
+    <div><span>Measure</span><span>Protect</span><span>Record</span><span>Normalize</span><span>Measure</span><span>Protect</span><span>Record</span><span>Normalize</span></div>
+  </div>
+</section>
+
+<!-- ───────── CONTACT (Get in touch pattern) ───────── -->
+<section class="contact" id="contact" aria-labelledby="contact-title">
+  <h2 class="contact__title" id="contact-title" aria-label="Contact Us">
+    <span class="split" aria-hidden="true">Contact Us</span>
+  </h2>
+  <p class="contact__lead reveal">AI検索未着手の中小企業の現状確認、AirReach Consultingの販売代理店のご検討、<br class="pc">Pay per CrawlのPoCまで、まずはお気軽にご相談ください。</p>
+  <ul class="bubbles">
+    <li class="reveal"><a class="bubble" href="https://trillion-bank.jp/trillionbank/contact/">
+      <span class="bubble__en">Contact</span><span class="bubble__ja">お問い合わせ</span>
+      <span class="bubble__desc">導入・PoC・提携・取材・その他のご質問</span><i aria-hidden="true"></i>
+    </a></li>
+    <li class="reveal"><a class="bubble" href="https://trillion-bank.jp/trillionbank/meeting/">
+      <span class="bubble__en">Meeting</span><span class="bubble__ja">商談を予約する</span>
+      <span class="bubble__desc">詳しい説明が必要な場合はオンライン商談で</span><i aria-hidden="true"></i>
+    </a></li>
+    <li class="reveal"><a class="bubble bubble--accent" href="https://trillion-bank.jp/#diagnose">
+      <span class="bubble__en">Free Check</span><span class="bubble__ja">無料でAI検索診断</span>
+      <span class="bubble__desc">URLを入れるだけ・登録不要・約30秒</span><i aria-hidden="true"></i>
+    </a></li>
+  </ul>
+</section>
+
+</main>
+
+<!-- ───────── FOOTER ───────── -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__brand">
+      <a href="#top" class="footer__logo" aria-label="Trillion Bank トップへ">
+        <svg viewBox="0 0 414 318" aria-hidden="true"><use href="#tb-frames" class="sym-frames"/><use href="#tb-wave" class="sym-wave"/></svg>
+        <img src="assets/tb-wordmark.webp" alt="" width="2048" height="201">
+      </a>
+      <p class="footer__company">株式会社Trillion Bank（トリリオンバンク）</p>
+      <address>〒102-0083 東京都千代田区麹町六丁目2番1号<br>麹町サイトビル6階 ROOMZ</address>
+    </div>
+    <nav class="footer__nav" aria-label="フッターナビゲーション">
+      <div><p>Business</p>
+        <a href="https://trillion-bank.jp/trillionbank/business/">事業概要</a>
+        <a href="https://trillion-bank.jp/trillionbank/business/hack2/">AirReach Consulting</a>
+        <a href="https://trillion-bank.jp/trillionbank/business/airreach-selfserve/">AirReach Tools</a>
+        <a href="https://trillion-bank.jp/trillionbank/business/airreach-tools-agency/">AirReach Tools（代理店向け）</a>
+        <a href="https://trillion-bank.jp/trillionbank/business/pay-per-crawl/">Adctor / Pay per Crawl</a>
+      </div>
+      <div><p>Company</p>
+        <a href="https://trillion-bank.jp/trillionbank/mission/">企業理念</a>
+        <a href="https://trillion-bank.jp/trillionbank/company/">企業概要</a>
+        <a href="https://trillion-bank.jp/trillionbank/insights/">コラム</a>
+      </div>
+      <div><p>Contact</p>
+        <a href="https://trillion-bank.jp/trillionbank/meeting/">商談を予約する</a>
+        <a href="https://trillion-bank.jp/trillionbank/contact/">お問い合わせフォーム</a>
+        <a href="https://trillion-bank.jp/#diagnose">無料でAI検索診断</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer__bottom">
+    <p>※ 当社は銀行業を営む会社ではありません。</p>
+    <ul>
+      <li><a href="https://trillion-bank.jp/trillionbank/privacy/">プライバシーポリシー</a></li>
+      <li><a href="https://trillion-bank.jp/trillionbank/terms/">利用規約</a></li>
+      <li><a href="https://trillion-bank.jp/trillionbank/security/">情報セキュリティ</a></li>
+      <li><a href="https://trillion-bank.jp/trillionbank/insights/editorial-policy/">編集方針</a></li>
+    </ul>
+    <p>© 2026 Trillion Bank</p>
+  </div>
+</footer>
+
+<!-- 右下に浮かぶマスコット（とりうる） -->
+<a class="mascot" id="mascot" href="https://trillion-bank.jp/#diagnose" aria-label="無料でAI検索診断（とりうる）">
+  <span class="mascot__bubble">30秒でAI検索診断！</span>
+  <img src="assets/toriuru-point.webp" alt="" width="480" height="480">
+</a>
+
+<script src="main.js"></script>
+</body>
+</html>
