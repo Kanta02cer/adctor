@@ -450,3 +450,80 @@
   window.addEventListener('resize', onScroll);
   update();
 })();
+
+/* =========================================================================
+   ⑬ 取締役・メンバー：スクロールで全員が立体的に横へ流れる
+      PC：セクションを画面に固定し、縦のスクロールを横の動きに変える
+      スマホ：横にスワイプ。どちらも、中央から離れたカードほど奥へ傾く
+   ========================================================================= */
+(() => {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const sec = document.getElementById('members');
+  if (!sec) return;
+  const vp = sec.querySelector('.members__viewport');
+  const track = sec.querySelector('.members__track');
+  const bar = sec.querySelector('.members__progress');
+  const items = Array.from(track.querySelectorAll('.mem'));
+  if (!items.length) return;
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  let pinned = false;
+  let dist = 0;
+
+  const tilt = (viewLeft, viewWidth) => {
+    if (reduce) return;
+    const mid = viewLeft + viewWidth / 2;
+    items.forEach((li) => {
+      const r = li.getBoundingClientRect();
+      const d = clamp((r.left + r.width / 2 - mid) / (viewWidth * 0.62), -1.4, 1.4);
+      li.style.setProperty('--ry', `${(-d * 34).toFixed(2)}deg`);
+      li.style.setProperty('--ms', (1 - Math.min(1, Math.abs(d)) * 0.12).toFixed(3));
+    });
+  };
+
+  const measure = () => {
+    pinned = !reduce && window.innerWidth >= 900 && window.innerHeight >= 640;
+    sec.classList.toggle('is-pinned', pinned);
+    sec.style.height = '';
+    track.style.removeProperty('--tx');
+    if (!pinned) return;
+    // 横に流す距離：最後の人が右端の余白まで来るまで
+    const gutter = parseFloat(getComputedStyle(vp).paddingLeft) || 0;
+    dist = Math.max(0, track.scrollWidth - (vp.clientWidth - gutter * 2));
+    sec.style.height = `${window.innerHeight + dist * 1.1}px`;
+  };
+
+  const update = () => {
+    if (pinned) {
+      const r = sec.getBoundingClientRect();
+      const range = Math.max(1, sec.offsetHeight - window.innerHeight);
+      const p = clamp(-r.top / range, 0, 1);
+      track.style.setProperty('--tx', `${(-p * dist).toFixed(1)}px`);
+      bar.style.setProperty('--mp', p.toFixed(4));
+      if (r.bottom > 0 && r.top < window.innerHeight) tilt(0, window.innerWidth);
+    } else {
+      const vr = vp.getBoundingClientRect();
+      if (vr.bottom > 0 && vr.top < window.innerHeight) tilt(vr.left, vr.width);
+    }
+  };
+
+  // キーボードで画面の外のカードに移ったら、そのカードが見える位置までスクロールする
+  items.forEach((li, i) => {
+    li.addEventListener('focusin', () => {
+      if (!pinned) return;
+      const range = Math.max(1, sec.offsetHeight - window.innerHeight);
+      const target = items.length > 1 ? i / (items.length - 1) : 0;
+      const top = sec.getBoundingClientRect().top + window.scrollY + range * target;
+      window.scrollTo({ top, behavior: 'instant' });
+      vp.scrollLeft = 0;
+    });
+  });
+
+  let raf = 0;
+  const kick = () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; update(); }); };
+  window.addEventListener('scroll', kick, { passive: true });
+  vp.addEventListener('scroll', kick, { passive: true });
+  window.addEventListener('resize', () => { measure(); kick(); });
+  window.addEventListener('load', () => { measure(); kick(); });
+  measure();
+  update();
+})();

@@ -143,6 +143,7 @@
     <a href="#media"><span>Media</span>メディア掲載</a>
     <a href="#news"><span>News</span>ニュース</a>
     <a href="#company"><span>Company</span>会社情報</a>
+    <a href="#members"><span>Members</span>取締役・メンバー</a>
   </nav>
   <div class="drawer__actions">
     <a class="pill pill--white pill--lg" href="https://trillion-bank.jp/#diagnose">無料でAI検索診断</a>
@@ -161,6 +162,7 @@
   <a href="#media" data-label="Media"><span class="sr">メディア掲載</span></a>
   <a href="#news" data-label="News"><span class="sr">ニュース</span></a>
   <a href="#company" data-label="Company"><span class="sr">会社情報</span></a>
+  <a href="#members" data-label="Members"><span class="sr">取締役・メンバー</span></a>
   <a href="#contact" data-label="Contact"><span class="sr">お問い合わせ</span></a>
 </nav>
 
@@ -589,6 +591,111 @@
   </div>
   <div class="company__marquee" aria-hidden="true">
     <div><span>Measure</span><span>Protect</span><span>Record</span><span>Normalize</span><span>Measure</span><span>Protect</span><span>Record</span><span>Normalize</span></div>
+  </div>
+</section>
+
+<!-- ───────── MEMBERS（取締役・メンバー。カードは tools/build_members.py が自動で作る） ───────── -->
+<section class="members" id="members" aria-labelledby="members-title">
+  <div class="members__pin">
+    <div class="members__stage">
+      <header class="members__head">
+        <p class="members__en" aria-hidden="true">Our <span>Members</span></p>
+        <h2 class="members__ja" id="members-title">取締役・メンバー</h2>
+        <p class="members__lead">2つの事業を、それぞれの持ち場から進めるメンバーです。<span class="pc-only">写真にカーソルを当てると、自己紹介が表示されます。</span></p>
+      </header>
+      <div class="members__viewport">
+        <ul class="members__track" id="membersTrack">
+      <!-- MEMBERS:START（tools/build_members.py が自動で書き換えます。直接編集しないでください） -->
+      <li class="mem" data-group="board">
+        <article class="mem__card" tabindex="0" aria-labelledby="mem-inoue-name">
+        <div class="mem__photo">
+          <img src="assets/members/inoue.webp" alt="井上 幹太の写真" width="800" height="1000" loading="lazy" decoding="async">
+          <span class="mem__hint" aria-hidden="true">Profile</span>
+        </div>
+        <p class="mem__en"><span>CEO</span><span class="mem__group">取締役</span></p>
+        <h3 class="mem__name" id="mem-inoue-name">井上 幹太</h3>
+        <p class="mem__role">CEO・創業者／代表取締役社長</p>
+        <div class="mem__bio"><p>不登校を経験するなかでプログラミングを独学し、14歳でWeb開発の受託を開始。N高グループで学び、ソフトバンクグループなどでのインターンを経て、2025年にTrillion Bankを設立。ソフトバンクアカデミア17期。起業リアリティ番組『Nontitle Season 6』や『令和の虎』に出演。現在は経営と事業戦略を統括し、AI検索での企業の見え方を測り、改善する「AirReach」と、AIによる情報利用を記録し、発信者に対価を還元する仕組みを目指す「Adctor」を推進する。</p></div>
+        <a class="mem__link" href="https://trillion-bank.jp/trillionbank/ceo/" target="_blank" rel="noopener noreferrer">公式代表プロフィール<span class="sr">（新しいタブで開きます）</span></a>
+        </article>
+      </li>
+      <li class="mem" data-group="board">
+        <article class="mem__card" tabindex="0" aria-labelledby="mem-haga-name">
+        <div class="mem__photo">
+          <img src="assets/members/haga.webp" alt="芳賀 翔大の写真" width="800" height="1000" loading="lazy" decoding="async">
+          <span class="mem__hint" aria-hidden="true">Profile</span>
+        </div>
+        <p class="mem__en"><span>CSO</span><span class="mem__group">取締役</span></p>
+        <h3 class="mem__name" id="mem-haga-name">芳賀 翔大</h3>
+        <p class="mem__role">CSO／取締役 兼 営業統括室長</p>
+        <div class="mem__bio"><p>北海道富良野市出身。立教大学経営学部に進学し、大学1年次に株式会社MICHIを創業。イベント運営やクリエイティブ事業を手がけるほか、学生団体Hokkaidonorsの副代表として、首都圏から北海道の魅力を発信する活動にも携わる。Trillion Bankでは、AirReachの法人営業を統括。新規顧客の開拓、販売パートナーとの連携、商談から成約までの営業体制づくりを担う。</p></div>
+        </article>
+      </li>
+      <li class="mem" data-group="board">
+        <article class="mem__card" tabindex="0" aria-labelledby="mem-hirakawa-name">
+        <div class="mem__photo mem__photo--none">
+          <svg class="mem__mark" viewBox="0 0 414 318" aria-hidden="true"><use href="#tb-frames" class="mem__mark-f"/><use href="#tb-wave" class="mem__mark-w"/></svg><span class="mem__initial" aria-hidden="true">平</span>
+          <span class="mem__hint" aria-hidden="true">Profile</span>
+        </div>
+        <p class="mem__en"><span>COO</span><span class="mem__group">取締役</span></p>
+        <h3 class="mem__name" id="mem-hirakawa-name">平川 凛乃丞</h3>
+        <p class="mem__role">COO・共同創業者／取締役副社長 兼 事業推進室長</p>
+        <div class="mem__bio"><p>上智大学。企業の実際の経営課題に取り組む学生ビジネスコンペ「B-Lab」に参加し、事業化を見据えた提案づくりを経験。Trillion Bankでは、事業計画を実行に移す役割を担う。営業・顧客支援・開発の優先順位と役割分担を整理し、提案から導入・運用までの流れを整える。協業先との取り組みでは、連携内容を具体的な実行計画に落とし込む。</p></div>
+        </article>
+      </li>
+      <li class="mem" data-group="member">
+        <article class="mem__card" tabindex="0" aria-labelledby="mem-ichinose-name">
+        <div class="mem__photo">
+          <img src="assets/members/ichinose.webp" alt="一瀬 光希の写真" width="800" height="1000" loading="lazy" decoding="async">
+          <span class="mem__hint" aria-hidden="true">Profile</span>
+        </div>
+        <p class="mem__en mem__en--long"><span>Executive Officer</span><span class="mem__group">メンバー</span></p>
+        <h3 class="mem__name" id="mem-ichinose-name">一瀬 光希</h3>
+        <p class="mem__role">執行役員 兼 社長室上席マネージャー</p>
+        <div class="mem__bio"><p>上智大学外国語学部英語学科。代表直下で広報と社長室の実務を担う。取材や撮影の窓口、動画企画、社外関係者との調整を担当。株主への連絡や部門をまたぐ案件の進行も支え、社外への発信と社内の動きをつなぐ。</p></div>
+        </article>
+      </li>
+      <li class="mem" data-group="member">
+        <article class="mem__card" tabindex="0" aria-labelledby="mem-masuyama-name">
+        <div class="mem__photo">
+          <img src="assets/members/masuyama.webp" alt="増山 とみきの写真" width="800" height="1000" loading="lazy" decoding="async">
+          <span class="mem__hint" aria-hidden="true">Profile</span>
+        </div>
+        <p class="mem__en"><span>CTO</span><span class="mem__group">メンバー</span></p>
+        <h3 class="mem__name" id="mem-masuyama-name">増山 とみき</h3>
+        <p class="mem__role">CTO／情報システム管理室長・ITシステム事業領域最高責任者</p>
+        <div class="mem__bio"><p>情報システムとプロダクト開発を統括。AirReachでは、AI検索の計測データ取得やレポートの品質、申し込みから利用開始までの流れを改善する。Adctorでは、検証環境の整備や本番運用に向けた技術面の準備を進める。両事業の機能を、顧客が安定して使える状態に整える役割を担う。</p></div>
+        </article>
+      </li>
+      <li class="mem" data-group="member">
+        <article class="mem__card" tabindex="0" aria-labelledby="mem-asai-name">
+        <div class="mem__photo">
+          <img src="assets/members/asai.webp" alt="William Asaiの写真" width="800" height="1000" loading="lazy" decoding="async">
+          <span class="mem__hint" aria-hidden="true">Profile</span>
+        </div>
+        <p class="mem__en"><span>CAIO</span><span class="mem__group">メンバー</span></p>
+        <h3 class="mem__name" id="mem-asai-name">William Asai</h3>
+        <p class="mem__role">CAIO／AI事業領域最高責任者</p>
+        <div class="mem__bio"><p>AIによる情報利用を扱うAdctorの技術要件と検証を担当する。AIがデータを取得した記録を起点に、利用量の集計、請求、入金照合、提供者への分配までを一貫して検証できる仕組みを設計。開発チームと連携し、実際の取引に向けて、どこまでの機能を用意し、何を確認するかを整理する。</p></div>
+        </article>
+      </li>
+      <li class="mem" data-group="member">
+        <article class="mem__card" tabindex="0" aria-labelledby="mem-yamane-name">
+        <div class="mem__photo mem__photo--none">
+          <svg class="mem__mark" viewBox="0 0 414 318" aria-hidden="true"><use href="#tb-frames" class="mem__mark-f"/><use href="#tb-wave" class="mem__mark-w"/></svg><span class="mem__initial" aria-hidden="true">山</span>
+          <span class="mem__hint" aria-hidden="true">Profile</span>
+        </div>
+        <p class="mem__en"><span>CTO Office</span><span class="mem__group">メンバー</span></p>
+        <h3 class="mem__name" id="mem-yamane-name">山根 たいち</h3>
+        <p class="mem__role">CTO室上席マネージャー</p>
+        <div class="mem__bio"><p>AirReachの計測機能とWeb実装を担当する。AI回答に企業名が出る「言及」と、公式サイトが情報源として使われる「引用」を分けて集計し、元の回答と照合して計測の精度を高める。サイトの改修と機能の動作確認にも携わり、顧客が改善の判断に使えるレポートづくりを支える。</p></div>
+        </article>
+      </li>
+      <!-- MEMBERS:END -->
+        </ul>
+      </div>
+      <div class="members__progress" aria-hidden="true"><span></span></div>
+    </div>
   </div>
 </section>
 

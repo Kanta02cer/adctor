@@ -362,3 +362,96 @@
   .bz-flood { transition: none; }
   .walker { display: none; }
 }
+
+/* =========================================================================
+   ⑬ 取締役・メンバー
+      - カードは青。カーソルを当てると白に変わり、写真も青の単色調 → 白黒に変わる
+        （写真は白黒の切り抜き。カードの色と「輝度」で重ねて色をつけている）
+      - 写真にカーソルを当てると、写真の上に自己紹介が下から現れる
+      - PC：画面に固定して、全員が立体的に横へ流れる。スマホ：横にスワイプ（自己紹介は常に表示）
+   ========================================================================= */
+.members { position: relative; background: #fff; padding: clamp(96px, 10vw, 160px) 0 clamp(88px, 9vw, 140px); }
+.members__head { max-width: calc(var(--max) + var(--gutter) * 2); margin: 0 auto; padding: 0 var(--gutter); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px clamp(32px, 6vw, 96px); align-items: end; }
+.members__en { grid-column: 1 / -1; font-family: var(--font); font-weight: 600; font-size: clamp(56px, 10vw, 164px); line-height: .95; letter-spacing: -.045em; color: var(--ink); }
+.members__en span { color: var(--blue); }
+.members__ja { font-size: clamp(22px, 2.4vw, 34px); font-weight: 700; line-height: 1.5; }
+.members__lead { font-size: 16px; line-height: 2; color: #3b4556; }
+.members__viewport { margin-top: clamp(36px, 4.5vw, 64px); overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); padding: 12px var(--gutter) 28px; scrollbar-width: thin; }
+.members__track { display: flex; gap: clamp(14px, 1.8vw, 26px); width: max-content; }
+.mem { width: clamp(250px, 74vw, 320px); scroll-snap-align: start; transform: perspective(1200px) rotateY(var(--ry, 0deg)) scale(var(--ms, 1)); transform-origin: 50% 50%; }
+.members__progress { max-width: calc(var(--max)); margin: 8px auto 0; height: 2px; background: var(--line); display: none; }
+.members__progress span { display: block; height: 100%; width: 100%; background: var(--blue); transform-origin: 0 50%; transform: scaleX(var(--mp, 0)); }
+
+.mem__card {
+  position: relative; display: flex; flex-direction: column; height: 100%; padding: 12px 12px 20px; border-radius: 24px;
+  background: var(--blue); color: #fff; isolation: isolate;
+  transition: background-color .45s var(--gp-out), color .45s var(--gp-out), box-shadow .5s var(--gp-out), translate .5s var(--gp-out);
+}
+.mem__card:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
+.mem__photo { position: relative; aspect-ratio: 4 / 5; border-radius: 16px; overflow: hidden; background: var(--blue); isolation: isolate; transition: background-color .45s var(--gp-out); }
+.mem__photo img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: luminosity; transition: scale .7s var(--gp-emph); }
+.mem__photo--none { display: grid; place-items: center; background: linear-gradient(160deg, #2a5cff, #1243e6); }
+.mem__mark { width: 62%; overflow: visible; }
+.mem__mark-f { fill: none; stroke: rgba(255, 255, 255, .5); stroke-width: 9; transition: stroke .45s; }
+.mem__mark-w { fill: none; stroke: rgba(255, 255, 255, .85); stroke-width: 12; stroke-linecap: round; transition: stroke .45s; }
+.mem__initial { position: absolute; right: 8%; bottom: 2%; font-size: clamp(80px, 8vw, 120px); font-weight: 700; line-height: 1; color: rgba(255, 255, 255, .14); transition: color .45s; }
+.mem__hint {
+  position: absolute; right: 10px; bottom: 10px; display: none; align-items: center; gap: 6px; padding: 4px 10px 4px 12px; border-radius: 999px;
+  background: rgba(255, 255, 255, .92); color: var(--blue); font-family: var(--font); font-size: 11px; font-weight: 700; transition: opacity .3s;
+}
+.mem__hint::after { content: "+"; font-size: 14px; line-height: 1; }
+.mem__en--long > span:first-child { font-size: .72em; white-space: nowrap; }
+.mem__en { margin-top: 16px; display: flex; align-items: center; justify-content: space-between; gap: 8px; font-family: var(--font); font-size: clamp(20px, 1.8vw, 26px); font-weight: 600; letter-spacing: -.02em; line-height: 1.15; }
+.mem__group { flex: none; padding: 1px 10px; border: 1px solid currentColor; border-radius: 999px; font-family: var(--font-ja); font-size: 11px; font-weight: 700; letter-spacing: .04em; opacity: .85; }
+.mem__name { margin-top: 6px; font-size: 20px; font-weight: 700; letter-spacing: .04em; }
+.mem__role { margin-top: 4px; font-size: 12px; line-height: 1.7; opacity: .88; }
+.mem__bio { margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, .3); font-size: 13px; line-height: 1.9; transition: border-color .45s; }
+.mem__link { align-self: flex-start; display: inline-flex; align-items: center; min-height: 44px; margin-top: 6px; font-size: 13px; font-weight: 700; color: inherit; text-underline-offset: 4px; }
+
+/* 青 → 白 */
+.mem__card:hover, .mem__card:focus-within { background: #fff; color: var(--ink); box-shadow: 0 30px 60px -28px rgba(16, 24, 43, .35), inset 0 0 0 1px var(--line); translate: 0 -6px; }
+.mem__card:hover .mem__photo, .mem__card:focus-within .mem__photo { background: #eef1f6; }
+.mem__card:hover .mem__photo img { scale: 1.04; }
+.mem__card:hover .mem__photo--none, .mem__card:focus-within .mem__photo--none { background: #eef1f6; }
+.mem__card:hover .mem__mark-f, .mem__card:focus-within .mem__mark-f { stroke: rgba(22, 75, 255, .35); }
+.mem__card:hover .mem__mark-w, .mem__card:focus-within .mem__mark-w { stroke: var(--blue); }
+.mem__card:hover .mem__initial, .mem__card:focus-within .mem__initial { color: rgba(22, 75, 255, .1); }
+.mem__card:hover .mem__group { color: var(--blue); }
+.mem__card:hover .mem__bio, .mem__card:focus-within .mem__bio { border-top-color: var(--line); }
+.mem__card:hover .mem__link { color: var(--blue); }
+
+/* カーソルのある画面：自己紹介は写真の上に重ね、写真に当てたときだけ下から現れる */
+@media (hover: hover) and (pointer: fine) and (min-width: 900px) {
+  .mem__hint { display: inline-flex; }
+  .mem__bio {
+    position: absolute; inset: 12px; z-index: 2; margin: 0; padding: 22px 20px; border: 0; border-radius: 16px;
+    overflow-y: auto; background: linear-gradient(to top, rgba(10, 34, 170, .96), rgba(22, 75, 255, .9) 70%, rgba(22, 75, 255, .82));
+    color: #fff; font-size: 12.5px; line-height: 1.85; display: flex; flex-direction: column; overscroll-behavior: contain;
+    clip-path: inset(100% 0 0 0 round 16px); pointer-events: none; transition: clip-path .6s var(--gp-emph);
+  }
+  .mem__card:has(.mem__link) .mem__bio { bottom: 62px; }
+  .mem__bio p { margin-top: auto; translate: 0 16px; opacity: 0; transition: translate .6s var(--gp-emph), opacity .4s var(--gp-out); }
+  .mem__photo:hover ~ .mem__bio, .mem__bio:hover, .mem__card:focus-visible .mem__bio {
+    clip-path: inset(0 0 0 0 round 16px); pointer-events: auto;
+  }
+  .mem__photo:hover ~ .mem__bio p, .mem__bio:hover p, .mem__card:focus-visible .mem__bio p { translate: 0 0; opacity: 1; transition-delay: .08s; }
+  .mem__card:has(.mem__bio:hover) .mem__hint, .mem__photo:hover .mem__hint { opacity: 0; }
+}
+
+/* PC：画面に固定して、全員が立体的に横へ流れる */
+.members.is-pinned { padding: 0; }
+.members.is-pinned .members__pin { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: flex; flex-direction: column; justify-content: center; padding-top: 64px; }
+.members.is-pinned .members__en { font-size: clamp(52px, 6.4vw, 104px); }
+.members.is-pinned .members__viewport { overflow: visible; scroll-snap-type: none; padding-bottom: 16px; }
+.members.is-pinned .members__track { transform: translate3d(var(--tx, 0px), 0, 0); will-change: transform; }
+.members.is-pinned .mem { width: clamp(220px, 17vw, 280px); }
+@media (max-height: 820px) { .members.is-pinned .mem { width: clamp(200px, 15vw, 250px); } .members.is-pinned .members__lead { display: none; } }
+.members.is-pinned .members__progress { display: block; width: calc(100% - var(--gutter) * 2); }
+
+@media (max-width: 767px) {
+  .members__head { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mem { transform: none; }
+  .mem__card, .mem__bio, .mem__bio p { transition: none; }
+}

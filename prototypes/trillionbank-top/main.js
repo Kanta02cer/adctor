@@ -95,7 +95,7 @@
   window.addEventListener('scroll', onScrollHeader, { passive: true });
   onScrollHeader();
 
-  const sectionIds = ['top', 'statement', 'business', 'airreach', 'adctor', 'usecases', 'media', 'news', 'company', 'contact'];
+  const sectionIds = ['top', 'statement', 'business', 'airreach', 'adctor', 'usecases', 'media', 'news', 'company', 'members', 'contact'];
   const sections = sectionIds.map((id) => document.getElementById(id)).filter(Boolean);
   if ('IntersectionObserver' in window) {
     const secIO = new IntersectionObserver((entries) => {
@@ -276,8 +276,12 @@
     // ニュースの上をトリウルが歩いている間は、右下のトリウルは隠れる
     const lr = latest ? latest.getBoundingClientRect() : null;
     const overWalk = !!(lr && document.querySelector('.walker') && lr.top < window.innerHeight * 0.8 && lr.top > -window.innerHeight * 0.6);
-    mascot.classList.toggle('is-away', ((nearFooter || overBiz || overWalk) && !mascotOpen) || drawerOpen);
-    hunt.classList.toggle('is-away', nearFooter || overBiz || drawerOpen);
+    // メンバー紹介が画面にある間も、カードにかぶらないよう退避する
+    const memEl = document.getElementById('members');
+    const mr = memEl ? memEl.getBoundingClientRect() : null;
+    const overMembers = !!(mr && mr.top < window.innerHeight * 0.9 && mr.bottom > window.innerHeight * 0.1);
+    mascot.classList.toggle('is-away', ((nearFooter || overBiz || overWalk || overMembers) && !mascotOpen) || drawerOpen);
+    hunt.classList.toggle('is-away', nearFooter || overBiz || overMembers || drawerOpen);
   };
 
   let ticking = false;
