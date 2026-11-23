@@ -386,13 +386,18 @@
     '<ellipse class="h" cx="18" cy="16" rx="6" ry="9" transform="rotate(-24 18 16)"/>',
     '<path class="m" d="M19 22 L27 18 L27 40 L19 44 Z M33 20 L41 16 L41 38 L33 42 Z"/>',
     '</svg></span>',
-    '<img src="assets/toriuru-neutral.webp" alt="" width="480" height="480">',
+    '<div class="run">',
+    '<img class="run__leg run__leg--l" src="assets/toriuru-neutral.webp" alt="" width="480" height="480">',
+    '<img class="run__leg run__leg--r" src="assets/toriuru-neutral.webp" alt="" width="480" height="480">',
+    '<img class="run__base" src="assets/toriuru-neutral.webp" alt="" width="480" height="480">',
+    '</div><div class="walker__dust"></div>',
     '</div>',
   ].join('');
   latest.appendChild(walker);
   latest.classList.add('has-walker');
 
-  let lastX = null; let dist = 0; let face = 1; let sway = 0; let swayV = 0;
+  let lastX = null; let dist = 0; let face = 1; let sway = 0; let swayV = 0; let lastStep = 0;
+  const dust = walker.querySelector('.walker__dust');
   const update = () => {
     const vh = window.innerHeight;
     const lr = latest.getBoundingClientRect();
@@ -429,11 +434,26 @@
     }
     lastX = x;
     const walking = hopP === 0 && walkP > 0 && walkP < 1;
-    const ph = dist * 0.055;
-    const tilt = walking ? Math.sin(ph) * 5 : (hopP > 0 && hopP < 1 ? -10 * Math.sin(hopP * Math.PI) : 0);
+    // 走る：歩幅を大きく、足を交互に振り、前のめりで弾む
+    const ph = dist * 0.11;
+    const lean = face * 10;
+    const tilt = walking ? lean + Math.sin(ph * 2) * 2 : (hopP > 0 && hopP < 1 ? -14 * Math.sin(hopP * Math.PI) * face : 0);
+    const swing = walking ? Math.sin(ph) * 26 : (hopP > 0 && hopP < 1 ? 18 : 0);
+    walker.style.setProperty('--legL', swing.toFixed(1) + 'deg');
+    walker.style.setProperty('--legR', (-swing).toFixed(1) + 'deg');
+    // 足が地面をけるたびに砂ぼこり
+    if (walking && Math.floor(ph / Math.PI) !== lastStep) {
+      lastStep = Math.floor(ph / Math.PI);
+      const puff = document.createElement('span');
+      puff.className = 'puff';
+      puff.style.left = (face > 0 ? 18 : 64) + '%';
+      puff.style.setProperty('--dx', (face > 0 ? -34 : 34) + 'px');
+      dust.appendChild(puff);
+      setTimeout(() => puff.remove(), 750);
+    }
     walker.style.setProperty('--wx', x.toFixed(1) + 'px');
     walker.style.setProperty('--wy', y.toFixed(1) + 'px');
-    walker.style.setProperty('--hop', (walking ? -Math.abs(Math.sin(ph)) * 9 : 0).toFixed(1) + 'px');
+    walker.style.setProperty('--hop', (walking ? -Math.abs(Math.sin(ph)) * 14 : 0).toFixed(1) + 'px');
     walker.style.setProperty('--tilt', tilt.toFixed(2) + 'deg');
     walker.style.setProperty('--face', String(face));
   };
@@ -452,9 +472,8 @@
 })();
 
 /* =========================================================================
-   ⑬ 取締役・メンバー：スクロールで全員が立体的に横へ流れる
-      PC：セクションを画面に固定し、縦のスクロールを横の動きに変える
-      スマホ：横にスワイプ。どちらも、中央から離れたカードほど奥へ傾く
+   ⑬ 取締役・メンバー：スクロールすると全員が横へ流れ、真ん中に来た人が順に
+      「当てた状態」（白いカード → 自己紹介）になる。PCもスマホも同じ動き
    ========================================================================= */
 (() => {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -464,55 +483,67 @@
   const track = sec.querySelector('.members__track');
   const bar = sec.querySelector('.members__progress');
   const items = Array.from(track.querySelectorAll('.mem'));
-  if (!items.length) return;
+  const n = items.length;
+  if (!n) return;
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const smooth = (t) => t * t * (3 - 2 * t);
   let pinned = false;
-  let dist = 0;
+  let txs = [];
 
-  const tilt = (viewLeft, viewWidth) => {
+  const measure = () => {
+    pinned = !reduce && window.innerHeight >= 560;
+    sec.classList.toggle('is-pinned', pinned);
+    sec.style.height = '';
+    track.style.setProperty('--tx', '0px');
+    items.forEach((li) => { li.classList.remove('is-active', 'is-bio'); li.style.removeProperty('--ry'); li.style.removeProperty('--ms'); });
+    if (!pinned) return;
+    // 1人ずつ画面の真ん中に来る位置（横の移動量）を求める
+    const t0 = track.getBoundingClientRect().left;
+    const mid = window.innerWidth / 2;
+    txs = items.map((li) => { const r = li.getBoundingClientRect(); return mid - (r.left - t0 + r.width / 2) - t0; });
+    sec.style.height = `${Math.round(window.innerHeight + n * window.innerHeight * 0.7)}px`;
+  };
+
+  const tilt = () => {
     if (reduce) return;
-    const mid = viewLeft + viewWidth / 2;
+    const mid = window.innerWidth / 2;
     items.forEach((li) => {
       const r = li.getBoundingClientRect();
-      const d = clamp((r.left + r.width / 2 - mid) / (viewWidth * 0.62), -1.4, 1.4);
-      li.style.setProperty('--ry', `${(-d * 34).toFixed(2)}deg`);
-      li.style.setProperty('--ms', (1 - Math.min(1, Math.abs(d)) * 0.12).toFixed(3));
+      const d = clamp((r.left + r.width / 2 - mid) / (window.innerWidth * 0.5), -1.6, 1.6);
+      li.style.setProperty('--ry', `${(-d * 30).toFixed(2)}deg`);
+      li.style.setProperty('--ms', (1 - Math.min(1, Math.abs(d)) * 0.14).toFixed(3));
     });
   };
 
-  const measure = () => {
-    pinned = !reduce && window.innerWidth >= 900 && window.innerHeight >= 640;
-    sec.classList.toggle('is-pinned', pinned);
-    sec.style.height = '';
-    track.style.removeProperty('--tx');
-    if (!pinned) return;
-    // 横に流す距離：最後の人が右端の余白まで来るまで
-    const gutter = parseFloat(getComputedStyle(vp).paddingLeft) || 0;
-    dist = Math.max(0, track.scrollWidth - (vp.clientWidth - gutter * 2));
-    sec.style.height = `${window.innerHeight + dist * 1.1}px`;
-  };
-
   const update = () => {
-    if (pinned) {
-      const r = sec.getBoundingClientRect();
-      const range = Math.max(1, sec.offsetHeight - window.innerHeight);
-      const p = clamp(-r.top / range, 0, 1);
-      track.style.setProperty('--tx', `${(-p * dist).toFixed(1)}px`);
-      bar.style.setProperty('--mp', p.toFixed(4));
-      if (r.bottom > 0 && r.top < window.innerHeight) tilt(0, window.innerWidth);
-    } else {
-      const vr = vp.getBoundingClientRect();
-      if (vr.bottom > 0 && vr.top < window.innerHeight) tilt(vr.left, vr.width);
-    }
+    if (!pinned) { tilt(); return; }
+    const r = sec.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > window.innerHeight) return;
+    const range = Math.max(1, sec.offsetHeight - window.innerHeight);
+    const p = clamp(-r.top / range, 0, 1);
+    // 1人あたりの区間：前半は止まって紹介（自己紹介を表示）、後半で次の人へ移る
+    const f = Math.min(n - 0.0001, p * n);
+    const i0 = Math.floor(f);
+    const local = f - i0;
+    const e = i0 < n - 1 ? smooth(clamp((local - 0.66) / 0.34, 0, 1)) : 0;
+    const tx = txs[i0] + ((txs[i0 + 1] ?? txs[i0]) - txs[i0]) * e;
+    track.style.setProperty('--tx', `${tx.toFixed(1)}px`);
+    bar.style.setProperty('--mp', p.toFixed(4));
+    const active = e < 0.5 ? i0 : i0 + 1;
+    const bioOn = e === 0 && local > 0.28; // まず顔、そのあと自己紹介
+    items.forEach((li, i) => {
+      li.classList.toggle('is-active', i === active);
+      li.classList.toggle('is-bio', i === active && bioOn);
+    });
+    tilt();
   };
 
-  // キーボードで画面の外のカードに移ったら、そのカードが見える位置までスクロールする
+  // キーボードでカードに移ったら、その人を紹介する位置までスクロールする
   items.forEach((li, i) => {
     li.addEventListener('focusin', () => {
       if (!pinned) return;
       const range = Math.max(1, sec.offsetHeight - window.innerHeight);
-      const target = items.length > 1 ? i / (items.length - 1) : 0;
-      const top = sec.getBoundingClientRect().top + window.scrollY + range * target;
+      const top = sec.getBoundingClientRect().top + window.scrollY + range * ((i + 0.4) / n);
       window.scrollTo({ top, behavior: 'instant' });
       vp.scrollLeft = 0;
     });
@@ -524,6 +555,43 @@
   vp.addEventListener('scroll', kick, { passive: true });
   window.addEventListener('resize', () => { measure(); kick(); });
   window.addEventListener('load', () => { measure(); kick(); });
+  measure();
+  update();
+})();
+
+/* =========================================================================
+   ⑭ サービスのモデル：スクロールに合わせて手順と画面が切り替わる
+   ========================================================================= */
+(() => {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const scenes = Array.from(document.querySelectorAll('[data-scene]')).map((el) => ({
+    el, steps: Array.from(el.querySelectorAll('.dscene__step')), pinned: false,
+  }));
+  if (!scenes.length) return;
+  const set = (sc, k) => {
+    if (sc.el.dataset.step === String(k)) return;
+    sc.el.dataset.step = String(k);
+    sc.steps.forEach((s, i) => s.classList.toggle('is-active', i === k));
+  };
+  const measure = () => scenes.forEach((sc) => {
+    sc.pinned = !reduce && window.innerHeight >= 560;
+    sc.el.classList.toggle('is-pinned', sc.pinned);
+  });
+  const update = () => scenes.forEach((sc) => {
+    if (!sc.pinned) return;
+    const r = sc.el.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > window.innerHeight) return;
+    const range = Math.max(1, sc.el.offsetHeight - window.innerHeight);
+    const p = clamp(-r.top / range, 0, 0.9999);
+    set(sc, Math.min(sc.steps.length - 1, Math.floor(p * sc.steps.length)));
+  });
+  // 動きを減らす設定のときは、手順を押すと画面が切り替わる
+  scenes.forEach((sc) => sc.steps.forEach((s, i) => s.addEventListener('click', () => { if (!sc.pinned) set(sc, i); })));
+  let raf = 0;
+  const kick = () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; update(); }); };
+  window.addEventListener('scroll', kick, { passive: true });
+  window.addEventListener('resize', () => { measure(); kick(); });
   measure();
   update();
 })();

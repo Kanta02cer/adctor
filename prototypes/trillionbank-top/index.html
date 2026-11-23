@@ -290,20 +290,71 @@
         </div>
       </header>
 
-      <figure class="loop3 reveal">
-        <svg class="loop3__orbit" viewBox="0 0 1000 520" aria-hidden="true">
-          <ellipse cx="500" cy="270" rx="430" ry="210" pathLength="1"/>
-          <path class="loop3__arrow" d="M640 72 L668 66 L652 90"/>
-          <path class="loop3__arrow" d="M902 360 L912 388 L886 376"/>
-          <path class="loop3__arrow" d="M118 196 L100 172 L128 172"/>
-        </svg>
-        <ol class="loop3__list">
-          <li class="loop3__node n1"><span class="loop3__no">01</span><b class="loop3__en" aria-hidden="true">Measure</b><strong>測る</strong><span>AIの回答での言及・推薦と、参考にされたページを、決まった質問で記録します。</span></li>
-          <li class="loop3__node n2"><span class="loop3__no">02</span><b class="loop3__en" aria-hidden="true">Improve</b><strong>直す</strong><span>足りない情報を見つけ、公式サイトの情報やよくある質問を改善します。</span></li>
-          <li class="loop3__node n3"><span class="loop3__no">03</span><b class="loop3__en" aria-hidden="true">Re-measure</b><strong>再計測</strong><span>同じ条件で測り直し、施策の前後を比べて、次に直すところを決めます。</span></li>
-        </ol>
-        <figcaption class="sr">AirReachの進め方：測る、直す、再計測の3つをくり返します。</figcaption>
-      </figure>
+      <div class="dscene dscene--airreach" data-scene data-step="0" style="--n:3">
+        <div class="dscene__pin">
+          <p class="dscene__label"><span>Service Model</span>AirReachの使い方を、画面で見る</p>
+          <div class="dscene__grid">
+            <ol class="dscene__steps">
+          <li class="dscene__step is-active" data-step="0">
+            <span class="dscene__no">01</span><b class="dscene__en" aria-hidden="true">Measure</b>
+            <strong>測る</strong><p>AIに決まった質問をして、回答に自社が出てくるか、どう紹介されるか、どのページが参考にされたかを記録します。</p>
+          </li>
+          <li class="dscene__step" data-step="1">
+            <span class="dscene__no">02</span><b class="dscene__en" aria-hidden="true">Improve</b>
+            <strong>直す</strong><p>足りない情報や食い違いを見つけ、公式サイトの情報やよくある質問を、優先順位をつけて直します。</p>
+          </li>
+          <li class="dscene__step" data-step="2">
+            <span class="dscene__no">03</span><b class="dscene__en" aria-hidden="true">Re-measure</b>
+            <strong>再計測</strong><p>同じ質問で測り直し、施策の前と後を比べて、次に直すところを決めます。</p>
+          </li>
+            </ol>
+            <div class="dscene__devices" aria-hidden="true">
+              <div class="dev-pc">
+                <div class="dev-pc__bar"><i></i><i></i><i></i><span>AirReach レポート</span></div>
+                <div class="dev-pc__screen">
+              <div class="scr" data-s="0"><div class="ui-h"><b>AI検索での見え方</b><em class="ex">例</em></div>
+                <div class="ui-row2">
+                  <div class="ui-score"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" class="tr"/><circle cx="50" cy="50" r="40" class="vl" pathLength="100" style="--v:62"/></svg><b>62</b><span>伝わりやすさ</span></div>
+                  <table class="ui-tbl"><thead><tr><th>質問</th><th>言及</th><th>推薦</th><th>参考</th></tr></thead>
+                  <tbody><tr><td>子連れで行けるカフェ</td><td class="ng">−</td><td class="ng">−</td><td class="ng">−</td></tr>
+                  <tr><td>駅近で静かなカフェ</td><td class="ok">●</td><td class="ng">−</td><td class="ok">●</td></tr>
+                  <tr><td>モーニングがあるカフェ</td><td class="ok">●</td><td class="ok">●</td><td class="ng">−</td></tr></tbody></table>
+                </div></div>
+              <div class="scr" data-s="1"><div class="ui-h"><b>直すところ（優先順位）</b><em class="ex">例</em></div>
+                <ul class="ui-tasks">
+                  <li><i></i><span>「子連れOK」の情報を、よくある質問に追加する</span><em class="hi">高</em></li>
+                  <li><i></i><span>営業時間と定休日の書き方を、全ページでそろえる</span><em class="hi">高</em></li>
+                  <li><i></i><span>メニューページに、店の特徴を書き足す</span><em>中</em></li>
+                </ul></div>
+              <div class="scr" data-s="2"><div class="ui-h"><b>施策の前と後の比較</b><em class="ex">例</em></div>
+                <div class="ui-chart">
+                  <div class="ui-bar"><span>言及</span><i style="--a:30;--b:70"></i></div>
+                  <div class="ui-bar"><span>推薦</span><i style="--a:10;--b:40"></i></div>
+                  <div class="ui-bar"><span>参考</span><i style="--a:20;--b:60"></i></div>
+                  <p class="ui-legend"><span class="a">施策前</span><span class="b">施策後</span></p>
+                </div></div>
+                </div>
+              </div>
+              <div class="dev-phone">
+                <div class="dev-phone__screen">
+              <div class="scr" data-s="0"><div class="ui-chat"><p class="q">子連れで行けるカフェは？</p>
+                <p class="a">おすすめは次の3つです。<br>1. カフェA<br>2. カフェB<br>3. カフェC</p>
+                <p class="miss">自社の名前が出てこない</p></div></div>
+              <div class="scr" data-s="1"><div class="ui-site"><p class="ttl">カフェ・トリル（例）</p><p class="sub">よくある質問</p>
+                <p class="faq add"><b>Q. 子連れでも入れますか？</b>ベビーカーのまま入れます。キッズチェアもあります。</p>
+                <p class="faq"><b>Q. 予約はできますか？</b>お電話で承ります。</p></div></div>
+              <div class="scr" data-s="2"><div class="ui-chat"><p class="q">子連れで行けるカフェは？</p>
+                <p class="a">おすすめは次の3つです。<br><mark>1. カフェ・トリル</mark>　ベビーカーのまま入れると公式サイトに記載<br>2. カフェA<br>3. カフェB</p></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="dscene__foot">
+            <div class="dscene__dots" aria-hidden="true"><i data-d="0"></i><i data-d="1"></i><i data-d="2"></i></div>
+            <p class="dscene__note">画面はイメージです。店名・数値は説明のための例です。</p>
+          </div>
+        </div>
+      </div>
 
       <div class="bz-ways" id="products">
         <p class="bz-ways__title">AirReachの使い方は、3つ</p>
@@ -336,44 +387,97 @@
         </div>
       </header>
 
-      <figure class="float3 reveal">
-        <div class="float3__layer">
-          <p class="float3__side"><b>情報の流れ</b><span>Data</span></p>
-          <div class="float3__row">
-            <div class="float3__panel"><span class="float3__no">A</span><small>Provider</small><b>情報提供者</b><span>情報を持つ企業・メディア</span></div>
-            <p class="float3__chip">合意した条件で<br>データを提供</p>
-            <div class="float3__panel float3__panel--hub"><span class="float3__no">B</span><small>Platform</small><b>Adctor</b><span>利用条件と記録を管理</span></div>
-            <p class="float3__chip">合意した条件で<br>データを利用</p>
-            <div class="float3__panel"><span class="float3__no">C</span><small>AI company</small><b>AI事業者</b><span>情報を使うAIサービス</span></div>
+      <div class="dscene dscene--adctor" data-scene data-step="0" style="--n:4">
+        <div class="dscene__pin">
+          <p class="dscene__label"><span>Service Model</span>Adctorのしくみを、画面で見る</p>
+          <div class="dscene__grid">
+            <ol class="dscene__steps">
+          <li class="dscene__step is-active" data-step="0">
+            <span class="dscene__no">01</span><b class="dscene__en" aria-hidden="true">Terms</b>
+            <strong>条件を決める</strong><p>情報提供者が、提供する情報・利用の目的・対価の考え方を決めて、Adctorに登録します。</p>
+          </li>
+          <li class="dscene__step" data-step="1">
+            <span class="dscene__no">02</span><b class="dscene__en" aria-hidden="true">Use</b>
+            <strong>合意して使う</strong><p>条件に合意したAI事業者だけが、決められた範囲で情報を利用します。</p>
+          </li>
+          <li class="dscene__step" data-step="2">
+            <span class="dscene__no">03</span><b class="dscene__en" aria-hidden="true">Record</b>
+            <strong>利用を記録する</strong><p>いつ・どの事業者が・どの情報を使ったかを、Adctorが記録します。</p>
+          </li>
+          <li class="dscene__step" data-step="3">
+            <span class="dscene__no">04</span><b class="dscene__en" aria-hidden="true">Settle</b>
+            <strong>請求と分配（検証中）</strong><p>利用記録にもとづく請求と、情報提供者への分配の仕組みを、共同実証で検証しています。</p>
+          </li>
+            </ol>
+            <div class="dscene__devices" aria-hidden="true">
+              <div class="dev-actors">
+                <span class="act a1">情報提供者</span><i class="arr"></i><span class="act a2">Adctor</span><i class="arr"></i><span class="act a3">AI事業者</span>
+                <p class="dev-actors__back">対価の流れ（検証中）：AI事業者 → Adctor → 情報提供者</p>
+              </div>
+              <div class="dev-pc">
+                <div class="dev-pc__bar"><i></i><i></i><i></i><span>Adctor コンソール（開発中）</span></div>
+                <div class="dev-pc__screen">
+              <div class="scr" data-s="0"><div class="ui-h"><b>利用条件の設定</b><em class="ex">例</em></div>
+                <dl class="ui-form">
+                  <div><dt>提供する情報</dt><dd>記事（2024年以降）</dd></div>
+                  <div><dt>利用の目的</dt><dd>AIの回答での参照</dd></div>
+                  <div><dt>利用できる事業者</dt><dd>条件に合意した事業者のみ</dd></div>
+                  <div><dt>対価の考え方</dt><dd>利用1件ごと</dd></div>
+                </dl>
+                <p class="ui-btn">条件を登録する</p></div>
+              <div class="scr" data-s="1"><div class="ui-h"><b>利用の申し込み</b><em class="ex">例</em></div>
+                <ul class="ui-list">
+                  <li><b>AI事業者 A</b><span>記事 ・ AIの回答での参照</span><em class="ok">合意済み</em></li>
+                  <li><b>AI事業者 B</b><span>記事 ・ AIの回答での参照</span><em class="ok">合意済み</em></li>
+                  <li><b>AI事業者 C</b><span>条件を確認中</span><em class="wait">確認中</em></li>
+                </ul></div>
+              <div class="scr" data-s="2"><div class="ui-h"><b>利用の記録</b><em class="ex">例</em></div>
+                <table class="ui-tbl ui-log"><thead><tr><th>時刻</th><th>事業者</th><th>情報</th><th>件数</th></tr></thead>
+                <tbody><tr><td>10:02</td><td>A</td><td>記事 #1024</td><td>3</td></tr>
+                <tr><td>10:05</td><td>B</td><td>記事 #0871</td><td>1</td></tr>
+                <tr><td>10:09</td><td>A</td><td>記事 #1102</td><td>2</td></tr>
+                <tr><td>10:14</td><td>B</td><td>記事 #0993</td><td>4</td></tr></tbody></table></div>
+              <div class="scr" data-s="3"><div class="ui-h"><b>請求と分配のシミュレーション</b><em class="ex ex--warm">検証中</em></div>
+                <div class="ui-settle">
+                  <p class="calc"><span>利用の記録</span><b>×</b><span>合意した条件</span><b>→</b><span class="warm">請求</span></p>
+                  <div class="ui-split"><i style="--w:46"></i><i style="--w:32"></i><i style="--w:22"></i></div>
+                  <p class="ui-legend"><span>提供者 1</span><span>提供者 2</span><span>提供者 3</span></p>
+                </div></div>
+                </div>
+              </div>
+              <div class="dev-phone">
+                <div class="dev-phone__screen">
+              <div class="scr" data-s="0"><div class="ui-notice"><p class="app">Adctor</p><p class="n">利用条件を登録しました</p><p class="s">記事・AIの回答での参照</p></div></div>
+              <div class="scr" data-s="1"><div class="ui-notice"><p class="app">Adctor</p><p class="n">AI事業者Aが条件に合意しました</p><p class="s">利用できる範囲：記事</p></div></div>
+              <div class="scr" data-s="2"><div class="ui-notice"><p class="app">Adctor</p><p class="n">今日の利用：10件</p><p class="s">記録の一覧で確認できます</p><p class="count"><b>10</b>件</p></div></div>
+              <div class="scr" data-s="3"><div class="ui-notice ui-notice--warm"><p class="app">Adctor</p><p class="n">分配のシミュレーション</p><p class="s">共同実証で検証中です</p></div></div>
+                </div>
+              </div>
+            </div>
           </div>
-          <span class="float3__base" aria-hidden="true"></span>
-        </div>
-        <p class="float3__mid" aria-hidden="true"><span>利用が記録され、対価の流れへ</span></p>
-        <div class="float3__layer float3__layer--back">
-          <p class="float3__side"><b>対価の流れ</b><span>検証中</span></p>
-          <div class="float3__core">
-            <b>逆の流れ：利用記録にもとづく請求と、情報提供者への分配</b>
-            <span>AI事業者 → Adctor → 情報提供者。分配の仕組みは、共同実証で検証しています。</span>
+          <div class="dscene__foot">
+            <div class="dscene__dots" aria-hidden="true"><i data-d="0"></i><i data-d="1"></i><i data-d="2"></i><i data-d="3"></i></div>
+            <p class="dscene__note">画面は開発中のイメージです。Adctorは研究開発・限定実証の段階で、請求と分配は検証中です。</p>
           </div>
-          <span class="float3__base float3__base--warm" aria-hidden="true"></span>
         </div>
-        <figcaption class="sr">情報は「情報提供者 → Adctor → AI事業者」へ、対価は「AI事業者 → Adctor → 情報提供者」へ。分配の仕組みは検証中です。</figcaption>
-      </figure>
+      </div>
     </div>
   </article>
 
   <!-- 協業・投資の方へ -->
   <div class="bz-band bz-band--gray bz-band--tight">
-    <aside class="bz-wrap bz-more" aria-label="協業・投資をご検討の方へ">
-      <div>
-        <p class="bz-more__title">協業をご検討の企業・データ提供者の方へ</p>
-        <p>Adctorの共同実証では、提供いただく情報、利用する側の役割、検証する範囲をご相談のうえ決めます。</p>
-        <a class="more" href="https://trillion-bank.jp/trillionbank/contact/">共同実証・提携について相談<i aria-hidden="true"></i></a>
+    <aside class="bz-wrap bz-more2" aria-label="協業・投資をご検討の方へ">
+      <div class="more2">
+        <p class="more2__en" aria-hidden="true">Partnership</p>
+        <p class="more2__title">協業をご検討の企業・データ提供者の方へ</p>
+        <p class="more2__txt">Adctorの共同実証では、提供いただく情報、利用する側の役割、検証する範囲をご相談のうえ決めます。</p>
+        <p class="more2__links"><a class="more" href="https://trillion-bank.jp/trillionbank/contact/">共同実証・提携について相談<i aria-hidden="true"></i></a></p>
       </div>
-      <div>
-        <p class="bz-more__title">投資をご検討の方へ</p>
-        <p>会社の方針と2つの事業の位置づけは、会社概要とニュースでご確認いただけます。ご質問はお問い合わせフォームからどうぞ。</p>
-        <p class="bz-more__links"><a class="more" href="#company">会社概要を見る<i aria-hidden="true"></i></a><a class="more" href="https://trillion-bank.jp/trillionbank/contact/">事業・投資に関するお問い合わせ<i aria-hidden="true"></i></a></p>
+      <div class="more2">
+        <p class="more2__en" aria-hidden="true">Investors</p>
+        <p class="more2__title">投資をご検討の方へ</p>
+        <p class="more2__txt">会社の方針と2つの事業の位置づけは、会社概要とニュースでご確認いただけます。ご質問はお問い合わせフォームからどうぞ。</p>
+        <p class="more2__links"><a class="more" href="#company">会社概要を見る<i aria-hidden="true"></i></a><a class="more" href="https://trillion-bank.jp/trillionbank/contact/">事業・投資に関するお問い合わせ<i aria-hidden="true"></i></a></p>
       </div>
     </aside>
   </div>
@@ -601,7 +705,7 @@
       <header class="members__head">
         <p class="members__en" aria-hidden="true">Our <span>Members</span></p>
         <h2 class="members__ja" id="members-title">取締役・メンバー</h2>
-        <p class="members__lead">2つの事業を、それぞれの持ち場から進めるメンバーです。<span class="pc-only">写真にカーソルを当てると、自己紹介が表示されます。</span></p>
+        <p class="members__lead">2つの事業を、それぞれの持ち場から進めるメンバーです。スクロールすると、一人ずつ自己紹介が表示されます。</p>
       </header>
       <div class="members__viewport">
         <ul class="members__track" id="membersTrack">

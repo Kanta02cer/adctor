@@ -420,23 +420,40 @@
 .mem__card:hover .mem__bio, .mem__card:focus-within .mem__bio { border-top-color: var(--line); }
 .mem__card:hover .mem__link { color: var(--blue); }
 
-/* カーソルのある画面：自己紹介は写真の上に重ね、写真に当てたときだけ下から現れる */
-@media (hover: hover) and (pointer: fine) and (min-width: 900px) {
-  .mem__hint { display: inline-flex; }
-  .mem__bio {
+/* 画面に固定して流す表示（JSで .is-pinned）：自己紹介は写真の上に重ね、写真に当てたとき・真ん中に来たときに下から現れる */
+.members.is-pinned .mem__hint { display: inline-flex; }
+.members.is-pinned .mem__bio {
     position: absolute; inset: 12px; z-index: 2; margin: 0; padding: 22px 20px; border: 0; border-radius: 16px;
     overflow-y: auto; background: linear-gradient(to top, rgba(10, 34, 170, .96), rgba(22, 75, 255, .9) 70%, rgba(22, 75, 255, .82));
     color: #fff; font-size: 12.5px; line-height: 1.85; display: flex; flex-direction: column; overscroll-behavior: contain;
     clip-path: inset(100% 0 0 0 round 16px); pointer-events: none; transition: clip-path .6s var(--gp-emph);
   }
-  .mem__card:has(.mem__link) .mem__bio { bottom: 62px; }
-  .mem__bio p { margin-top: auto; translate: 0 16px; opacity: 0; transition: translate .6s var(--gp-emph), opacity .4s var(--gp-out); }
-  .mem__photo:hover ~ .mem__bio, .mem__bio:hover, .mem__card:focus-visible .mem__bio {
+.members.is-pinned .mem__card:has(.mem__link) .mem__bio { bottom: 62px; }
+.members.is-pinned .mem__bio p { margin-top: auto; translate: 0 16px; opacity: 0; transition: translate .6s var(--gp-emph), opacity .4s var(--gp-out); }
+.members.is-pinned .mem__photo:hover ~ .mem__bio, .members.is-pinned .mem__bio:hover, .members.is-pinned .mem__card:focus-visible .mem__bio {
     clip-path: inset(0 0 0 0 round 16px); pointer-events: auto;
   }
-  .mem__photo:hover ~ .mem__bio p, .mem__bio:hover p, .mem__card:focus-visible .mem__bio p { translate: 0 0; opacity: 1; transition-delay: .08s; }
-  .mem__card:has(.mem__bio:hover) .mem__hint, .mem__photo:hover .mem__hint { opacity: 0; }
+.members.is-pinned .mem__photo:hover ~ .mem__bio p, .members.is-pinned .mem__bio:hover p, .members.is-pinned .mem__card:focus-visible .mem__bio p { translate: 0 0; opacity: 1; transition-delay: .08s; }
+.members.is-pinned .mem__card:has(.mem__bio:hover) .mem__hint, .members.is-pinned .mem__photo:hover .mem__hint { opacity: 0; }
+/* 真ん中に来た人は、カーソルを当てたときと同じ状態に */
+.mem.is-active .mem__card { background: #fff; color: var(--ink); box-shadow: 0 30px 60px -28px rgba(16, 24, 43, .35), inset 0 0 0 1px var(--line); translate: 0 -6px; }
+.mem.is-active .mem__photo, .mem.is-active .mem__photo--none { background: #eef1f6; }
+.mem.is-active .mem__photo img { scale: 1.04; }
+.mem.is-active .mem__mark-f { stroke: rgba(22, 75, 255, .35); }
+.mem.is-active .mem__mark-w { stroke: var(--blue); }
+.mem.is-active .mem__initial { color: rgba(22, 75, 255, .1); }
+.mem.is-active .mem__group, .mem.is-active .mem__link { color: var(--blue); }
+.members.is-pinned .mem.is-bio .mem__bio { clip-path: inset(0 0 0 0 round 16px); pointer-events: auto; }
+.members.is-pinned .mem.is-bio .mem__bio p { translate: 0 0; opacity: 1; transition-delay: .08s; }
+.members.is-pinned .mem.is-bio .mem__hint { opacity: 0; }
+@media (max-width: 899px) {
+  .members.is-pinned .mem { width: min(66vw, 270px); }
+  .members.is-pinned .members__en { font-size: 44px; }
+  .members.is-pinned .members__lead { display: none; }
+  .members.is-pinned .members__pin { padding-top: 56px; }
+  .members.is-pinned .mem__bio { font-size: 11.5px; line-height: 1.75; padding: 16px 14px; }
 }
+
 
 /* PC：画面に固定して、全員が立体的に横へ流れる */
 .members.is-pinned { padding: 0; }
@@ -455,3 +472,221 @@
   .mem { transform: none; }
   .mem__card, .mem__bio, .mem__bio p { transition: none; }
 }
+
+/* 黒い図形の修正：レンズと中央の玉はPCの左右レイアウト専用。スマホでは出さない */
+@media (max-width: 899px) { .bz-orb, .bz-lens { display: none; } }
+
+/* 画面に固定する演出（sticky）が効くよう、帯のはみ出しは hidden ではなく clip で切る */
+.bz-band { overflow: clip; }
+
+/* =========================================================================
+   ⑭ サービスのモデル：PCとスマホの画面で、手順をスクロールに合わせて見せる
+   ========================================================================= */
+.dscene { position: relative; margin-top: clamp(56px, 6vw, 96px); }
+.dscene__label { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; font-size: clamp(18px, 1.8vw, 24px); font-weight: 700; }
+.dscene__label span { padding: 4px 12px; border-radius: 999px; background: var(--tb); color: #fff; font-family: var(--font); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.bz-band--blue .dscene__label span { background: #fff; color: var(--tb); }
+.dscene__grid { margin-top: clamp(20px, 2.6vw, 36px); display: grid; grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr); gap: clamp(24px, 4vw, 72px); align-items: center; }
+.dscene__steps { display: grid; gap: 2px; }
+.dscene__step { position: relative; padding: 16px 0 16px 24px; border-left: 2px solid rgba(16, 24, 43, .14); transition: opacity .45s var(--gp-out), border-color .45s; }
+.bz-band--blue .dscene__step { border-left-color: rgba(255, 255, 255, .25); }
+.dscene__step::before { content: ""; position: absolute; left: -2px; top: 0; bottom: 0; width: 2px; background: var(--tb); transform: scaleY(0); transform-origin: 50% 0; transition: transform .6s var(--gp-emph); }
+.bz-band--blue .dscene__step::before { background: #fff; }
+.dscene__step.is-active::before { transform: none; }
+.dscene__no { font-family: var(--font); font-size: 12px; font-weight: 700; letter-spacing: .1em; color: var(--tb); }
+.bz-band--blue .dscene__no { color: var(--tb-pale); }
+.dscene__en { display: block; margin-top: 2px; font-family: var(--font); font-size: clamp(24px, 2.4vw, 36px); font-weight: 600; letter-spacing: -.02em; line-height: 1.1; }
+.dscene__step strong { display: block; margin-top: 2px; font-size: 16px; }
+.dscene__step p { margin-top: 6px; font-size: 15px; line-height: 1.9; color: #3b4556; }
+.bz-band--blue .dscene__step p { color: rgba(255, 255, 255, .88); }
+.dscene__foot { margin-top: 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; }
+.dscene__dots { display: flex; gap: 6px; }
+.dscene__dots i { width: 22px; height: 4px; border-radius: 2px; background: rgba(16, 24, 43, .15); transition: background-color .4s, width .4s var(--gp-out); }
+.bz-band--blue .dscene__dots i { background: rgba(255, 255, 255, .3); }
+.dscene__note { font-size: 12px; color: var(--muted); }
+.bz-band--blue .dscene__note { color: rgba(255, 255, 255, .78); }
+
+/* 端末 */
+.dscene__devices { position: relative; padding: 0 14% 9% 0; }
+@media (min-width: 1080px) { .dscene__devices { margin-right: 28px; } }
+.dev-pc { position: relative; border-radius: 14px; overflow: hidden; background: #fff; box-shadow: 0 40px 80px -30px rgba(16, 24, 43, .45), 0 0 0 1px rgba(16, 24, 43, .08); }
+.dev-pc__bar { display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px; background: #eef1f6; font-size: 11px; color: #535c6c; }
+.dev-pc__bar i { width: 9px; height: 9px; border-radius: 50%; background: #c9d0dc; }
+.dev-pc__bar span { margin-left: 8px; font-weight: 700; }
+.dev-pc__screen { position: relative; aspect-ratio: 16 / 10; container-type: inline-size; background: #fff; color: var(--tb-ink); }
+.dev-phone { position: absolute; right: 0; bottom: 0; width: 25%; aspect-ratio: 9 / 18.5; padding: 3.4%; border-radius: 15% / 7.5%; background: #10182b; box-shadow: 0 30px 60px -20px rgba(16, 24, 43, .55), inset 0 0 0 2px #2b3550; }
+.dev-phone__screen { position: relative; height: 100%; border-radius: 12% / 6%; overflow: hidden; background: #f4f6fb; container-type: inline-size; color: var(--tb-ink); }
+.dev-phone__screen::before { content: ""; position: absolute; left: 50%; top: 2.5%; z-index: 3; width: 30%; height: 3.2%; margin-left: -15%; border-radius: 999px; background: #10182b; }
+.scr { position: absolute; inset: 0; opacity: 0; translate: 0 5%; transition: opacity .5s var(--gp-out), translate .7s var(--gp-emph); }
+.dev-pc__screen .scr { padding: 4.2cqw 14cqw 4.2cqw 4.6cqw; font-size: max(7px, 2cqw); line-height: 1.6; }
+.dev-phone__screen .scr { padding: 17cqw 7cqw 7cqw; font-size: max(6.5px, 7.4cqw); line-height: 1.55; }
+.dscene[data-step="0"] .scr[data-s="0"], .dscene[data-step="1"] .scr[data-s="1"],
+.dscene[data-step="2"] .scr[data-s="2"], .dscene[data-step="3"] .scr[data-s="3"] { opacity: 1; translate: 0 0; }
+.dscene[data-step="0"] .dscene__dots i[data-d="0"], .dscene[data-step="1"] .dscene__dots i[data-d="1"],
+.dscene[data-step="2"] .dscene__dots i[data-d="2"], .dscene[data-step="3"] .dscene__dots i[data-d="3"] { width: 40px; background: var(--tb); }
+.bz-band--blue .dscene[data-step] .dscene__dots i[style], .bz-band--blue .dscene[data-step="0"] .dscene__dots i[data-d="0"],
+.bz-band--blue .dscene[data-step="1"] .dscene__dots i[data-d="1"], .bz-band--blue .dscene[data-step="2"] .dscene__dots i[data-d="2"],
+.bz-band--blue .dscene[data-step="3"] .dscene__dots i[data-d="3"] { background: #fff; }
+
+/* 画面の中の部品 */
+.ui-h { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-bottom: 2.2cqw; margin-bottom: 2.6cqw; border-bottom: 1px solid #e4e8ef; font-size: 1.15em; }
+.ex { padding: 0 .8em; border-radius: 999px; background: #eef2ff; color: var(--tb); font-size: .72em; font-style: normal; font-weight: 700; line-height: 1.9; white-space: nowrap; }
+.ex--warm { background: #fff1e6; color: #c4561b; }
+.ui-row2 { display: grid; grid-template-columns: 28% 1fr; gap: 4cqw; align-items: center; }
+.ui-score { position: relative; display: grid; place-items: center; text-align: center; }
+.ui-score svg { width: 100%; rotate: -90deg; }
+.ui-score .tr { fill: none; stroke: #e4ebff; stroke-width: 10; }
+.ui-score .vl { fill: none; stroke: var(--tb); stroke-width: 10; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset 1.2s var(--gp-emph) .2s; }
+.scr[data-s] .ui-score b { position: absolute; top: 31%; font-family: var(--font); font-size: 2.6em; line-height: 1; }
+.ui-score span { position: absolute; top: 62%; font-size: .72em; color: var(--muted); }
+.dscene[data-step="0"] .ui-score .vl { stroke-dashoffset: calc(100 - var(--v)); }
+.ui-tbl { width: 100%; border-collapse: collapse; font-size: .9em; }
+.ui-tbl th { padding: .4em .3em; font-weight: 700; font-size: .82em; color: var(--muted); text-align: left; border-bottom: 1px solid #e4e8ef; }
+.ui-tbl td { padding: .55em .3em; border-bottom: 1px solid #f0f2f6; }
+.ui-tbl .ok { color: var(--tb); font-weight: 700; }
+.ui-tbl .ng { color: #b5bcc8; }
+.ui-tasks { display: grid; gap: 2cqw; }
+.ui-tasks li { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 2cqw; padding: 2cqw 2.4cqw; border-radius: 1.6cqw; background: #f4f6fb; }
+.ui-tasks i { position: relative; width: 1.5em; height: 1.5em; border-radius: 50%; border: 2px solid #c9d0dc; transition: background-color .3s, border-color .3s; }
+.ui-tasks i::after { content: ""; position: absolute; left: 32%; top: 18%; width: 30%; height: 50%; border: solid #fff; border-width: 0 2px 2px 0; rotate: 45deg; opacity: 0; transition: opacity .3s; }
+.ui-tasks em { padding: 0 .7em; border-radius: 999px; background: #e4e8ef; font-style: normal; font-size: .8em; font-weight: 700; }
+.ui-tasks em.hi { background: #fff1e6; color: #c4561b; }
+.dscene[data-step="1"] .ui-tasks li i { background: var(--tb); border-color: var(--tb); }
+.dscene[data-step="1"] .ui-tasks li i::after { opacity: 1; }
+.ui-tasks li:nth-child(1) i, .ui-tasks li:nth-child(1) i::after { transition-delay: .5s; }
+.ui-tasks li:nth-child(2) i, .ui-tasks li:nth-child(2) i::after { transition-delay: 1s; }
+.ui-tasks li:nth-child(3) i, .ui-tasks li:nth-child(3) i::after { transition-delay: 1.5s; }
+.ui-chart { display: grid; gap: 2.6cqw; }
+.ui-bar { display: grid; grid-template-columns: 4em 1fr; align-items: center; gap: 2cqw; }
+.ui-bar span { font-weight: 700; }
+.ui-bar i { display: grid; gap: .5cqw; }
+.ui-bar i::before, .ui-bar i::after { content: ""; height: 1.2em; border-radius: 0 .6em .6em 0; transform-origin: 0 50%; transform: scaleX(0); transition: transform 1s var(--gp-emph) .2s; }
+.ui-bar i::before { width: calc(var(--a) * 1%); background: #c9d0dc; }
+.ui-bar i::after { width: calc(var(--b) * 1%); background: var(--tb); transition-delay: .5s; }
+.dscene[data-step="2"] .ui-bar i::before, .dscene[data-step="2"] .ui-bar i::after { transform: none; }
+.ui-legend { display: flex; gap: 3cqw; font-size: .82em; color: var(--muted); }
+.ui-legend span::before { content: ""; display: inline-block; width: .9em; height: .9em; margin-right: .4em; border-radius: 2px; vertical-align: -.1em; background: #c9d0dc; }
+.ui-legend .b::before { background: var(--tb); }
+
+/* スマホの画面 */
+.ui-chat { display: grid; gap: 4cqw; }
+.ui-chat p { padding: 4cqw 5cqw; border-radius: 6cqw; }
+.ui-chat .q { justify-self: end; max-width: 85%; background: var(--tb); color: #fff; border-bottom-right-radius: 1.5cqw; }
+.ui-chat .a { background: #fff; box-shadow: 0 1px 0 #e4e8ef; border-bottom-left-radius: 1.5cqw; }
+.ui-chat mark { background: #e4ebff; color: var(--tb); font-weight: 700; padding: 0 .2em; border-radius: .2em; }
+.ui-chat .miss { justify-self: start; padding: 2cqw 4cqw; background: #fff1e6; color: #c4561b; font-weight: 700; font-size: .85em; }
+.ui-site { display: grid; gap: 3cqw; }
+.ui-site .ttl { font-weight: 700; font-size: 1.1em; }
+.ui-site .sub { font-size: .85em; color: var(--muted); border-bottom: 1px solid #e4e8ef; padding-bottom: 2cqw; }
+.ui-site .faq { padding: 4cqw; border-radius: 4cqw; background: #fff; font-size: .9em; }
+.ui-site .faq b { display: block; }
+.ui-site .faq.add { box-shadow: 0 0 0 2px var(--tb); position: relative; }
+.ui-site .faq.add::after { content: "追加"; position: absolute; right: 3cqw; top: -3.4cqw; padding: 0 3cqw; border-radius: 999px; background: var(--tb); color: #fff; font-size: .75em; font-weight: 700; }
+
+/* Adctor の画面 */
+.ui-form { display: grid; gap: 1.8cqw; }
+.ui-form div { display: grid; grid-template-columns: 9.5em 1fr; align-items: center; gap: 2cqw; }
+.ui-form dt { font-weight: 700; font-size: .9em; color: var(--muted); }
+.ui-form dd { margin: 0; padding: 1.2cqw 2cqw; border-radius: 1.2cqw; background: #f4f6fb; box-shadow: inset 0 0 0 1px #e4e8ef; }
+.ui-btn { justify-self: end; margin-top: 2.6cqw; display: inline-block; float: right; padding: .5em 1.4em; border-radius: 999px; background: var(--tb); color: #fff; font-weight: 700; }
+.dscene[data-step="0"] .ui-btn { animation: uiPulse 1.6s ease-in-out .6s 2; }
+@keyframes uiPulse { 50% { box-shadow: 0 0 0 .6em rgba(22, 75, 255, .18); } }
+.ui-list { display: grid; gap: 1.8cqw; }
+.ui-list li { display: grid; grid-template-columns: 9em 1fr auto; align-items: center; gap: 2cqw; padding: 2cqw 2.4cqw; border-radius: 1.6cqw; background: #f4f6fb; }
+.ui-list span { color: var(--muted); font-size: .9em; }
+.ui-list em { padding: 0 .8em; border-radius: 999px; font-style: normal; font-weight: 700; font-size: .8em; }
+.ui-list em.ok { background: #e4ebff; color: var(--tb); }
+.ui-list em.wait { background: #e4e8ef; color: #535c6c; }
+.ui-log tbody tr { opacity: 0; translate: 0 .6em; transition: opacity .4s, translate .5s var(--gp-emph); }
+.dscene[data-step="2"] .ui-log tbody tr { opacity: 1; translate: 0 0; }
+.ui-log tbody tr:nth-child(2) { transition-delay: .35s; }
+.ui-log tbody tr:nth-child(3) { transition-delay: .7s; }
+.ui-log tbody tr:nth-child(4) { transition-delay: 1.05s; }
+.ui-settle { display: grid; gap: 3cqw; }
+.ui-settle .calc { display: flex; flex-wrap: wrap; align-items: center; gap: 2cqw; }
+.ui-settle .calc span { padding: .4em 1em; border-radius: 999px; background: #f4f6fb; box-shadow: inset 0 0 0 1px #e4e8ef; font-weight: 700; }
+.ui-settle .calc .warm { background: #fff1e6; color: #c4561b; box-shadow: none; }
+.ui-settle .calc b { color: var(--muted); }
+.ui-split { display: flex; gap: 1cqw; height: 2.4em; }
+.ui-split i { width: calc(var(--w) * 1%); border-radius: .5em; background: #ff8a3d; transform-origin: 0 50%; transform: scaleX(0); transition: transform .9s var(--gp-emph) .3s; }
+.ui-split i:nth-child(2) { background: #ffa868; transition-delay: .5s; }
+.ui-split i:nth-child(3) { background: #ffc79e; transition-delay: .7s; }
+.dscene[data-step="3"] .ui-split i { transform: none; }
+.ui-settle .ui-legend span:nth-child(1)::before { background: #ff8a3d; }
+.ui-settle .ui-legend span:nth-child(2)::before { background: #ffa868; }
+.ui-settle .ui-legend span:nth-child(3)::before { background: #ffc79e; }
+.ui-notice { position: absolute; inset: 0; padding: 30cqw 6cqw 6cqw; background: linear-gradient(170deg, #2a5cff, #0d33c9); }
+.ui-notice--warm { background: linear-gradient(170deg, #ff9a52, #e5641a); }
+.ui-notice p { color: #fff; }
+.ui-notice .app { font-family: var(--font); font-weight: 700; font-size: .8em; opacity: .85; }
+.ui-notice .n { margin-top: 2cqw; padding: 5cqw; border-radius: 5cqw; background: rgba(255, 255, 255, .95); color: var(--tb-ink); font-weight: 700; }
+.ui-notice .s { margin-top: 2cqw; font-size: .82em; opacity: .9; }
+.ui-notice .count { margin-top: 6cqw; font-family: var(--font); font-size: 1.1em; }
+.ui-notice .count b { font-size: 3em; line-height: 1; margin-right: .1em; }
+
+/* Adctor：3者の並び（いまの手順に関わる人が光る。最後は対価の流れが逆向きに） */
+.dev-actors { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-bottom: 18px; }
+.dev-actors .act { padding: 6px 14px; border-radius: 999px; background: rgba(255, 255, 255, .14); color: #fff; font-size: 13px; font-weight: 700; transition: background-color .4s, color .4s; }
+.dev-actors .arr { position: relative; width: 26px; height: 2px; background: rgba(255, 255, 255, .5); }
+.dev-actors .arr::after { content: ""; position: absolute; right: -1px; top: -4px; border-left: 7px solid rgba(255, 255, 255, .8); border-top: 5px solid transparent; border-bottom: 5px solid transparent; transition: transform .4s; }
+.dev-actors__back { flex-basis: 100%; font-size: 12px; font-weight: 700; color: #ffd0ad; opacity: 0; transition: opacity .4s; }
+.dscene[data-step="0"] .a1, .dscene[data-step="1"] .a3, .dscene[data-step="2"] .a2 { background: #fff; color: var(--tb); }
+.dscene[data-step="3"] .act { background: #ff8a3d; color: #fff; }
+.dscene[data-step="3"] .arr { background: #ffb27a; }
+.dscene[data-step="3"] .arr::after { transform: translateX(-24px) scaleX(-1); border-left-color: #ffb27a; }
+.dscene[data-step="3"] .dev-actors__back { opacity: 1; }
+
+/* 画面に固定する（JSで .is-pinned） */
+.dscene.is-pinned { height: calc(100vh + var(--n) * 72vh); height: calc(100svh + var(--n) * 72svh); margin-top: clamp(40px, 4vw, 72px); }
+.dscene.is-pinned .dscene__pin { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; flex-direction: column; justify-content: center; padding: 80px 0 28px; }
+.dscene.is-pinned .dscene__step:not(.is-active) { opacity: .38; }
+@media (min-width: 900px) {
+  .dscene.is-pinned .dscene__step p { max-height: 0; overflow: hidden; opacity: 0; transition: max-height .6s var(--gp-emph), opacity .4s; }
+  .dscene.is-pinned .dscene__step.is-active p { max-height: 8em; opacity: 1; }
+}
+@media (max-width: 899px) {
+  .dscene__grid { grid-template-columns: 1fr; }
+  .dscene__devices { order: -1; padding: 0 16% 12% 0; }
+  .dev-phone { width: 27%; }
+  .dev-actors .act { font-size: 12px; padding: 5px 10px; }
+  .dscene.is-pinned .dscene__pin { padding: 72px 0 16px; justify-content: flex-start; }
+  .dscene.is-pinned .dscene__steps { display: grid; }
+  .dscene.is-pinned .dscene__step { grid-area: 1 / 1; padding-block: 8px; }
+  .dscene.is-pinned .dscene__step:not(.is-active) { opacity: 0; visibility: hidden; }
+  .dscene.is-pinned .dscene__en { font-size: 24px; }
+  .dscene.is-pinned .dscene__step p { font-size: 14px; line-height: 1.8; }
+}
+
+/* =========================================================================
+   ⑮ 協業・投資の案内：白いパネル。カーソルを当てると右下から青が満ちる
+   ========================================================================= */
+.bz-more2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(14px, 2vw, 24px); }
+.more2 { position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; padding: clamp(28px, 3vw, 44px); border-radius: 24px; background: #fff; color: var(--tb-ink); transition: color .45s var(--gp-out), translate .5s var(--gp-out), box-shadow .5s; }
+.more2::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--tb); clip-path: circle(0 at 100% 100%); transition: clip-path .75s var(--gp-emph); }
+.more2:hover, .more2:focus-within { color: #fff; translate: 0 -4px; box-shadow: 0 30px 60px -30px rgba(16, 24, 43, .45); }
+.more2:hover::before, .more2:focus-within::before { clip-path: circle(150% at 100% 100%); }
+.more2__en { font-family: var(--font); font-size: clamp(36px, 4vw, 60px); font-weight: 600; letter-spacing: -.03em; line-height: 1; color: var(--tb); transition: color .45s var(--gp-out); }
+.more2__title { margin-top: 16px; font-size: clamp(18px, 1.6vw, 22px); font-weight: 700; line-height: 1.5; }
+.more2__txt { margin-top: 10px; font-size: 15px; line-height: 2; color: #3b4556; transition: color .45s var(--gp-out); }
+.more2__links { margin-top: auto; padding-top: 18px; display: flex; flex-wrap: wrap; gap: 4px 24px; }
+.more2 .more { color: inherit; }
+.more2:hover .more2__en, .more2:focus-within .more2__en { color: var(--tb-pale); }
+.more2:hover .more2__txt, .more2:focus-within .more2__txt { color: rgba(255, 255, 255, .9); }
+.more2:hover .more i, .more2:focus-within .more i { background: #fff; }
+.more2:hover .more i::before, .more2:hover .more i::after, .more2:focus-within .more i::before, .more2:focus-within .more i::after { background: var(--tb); }
+@media (max-width: 767px) { .bz-more2 { grid-template-columns: 1fr; } }
+
+/* =========================================================================
+   ⑯ トリウルが走る：足を交互に振り、前のめりで弾む。足もとに砂ぼこり
+   ========================================================================= */
+.run { position: relative; filter: drop-shadow(0 8px 10px rgba(16, 24, 43, .18)); }
+.run img { display: block; width: 100%; height: auto; }
+.walker__body .run img { filter: none; }
+.run__base { position: relative; clip-path: polygon(0 0, 100% 0, 100% 100%, 66% 100%, 66% 81.5%, 31% 81.5%, 31% 100%, 0 100%); }
+.run__leg { position: absolute; inset: 0; }
+.run__leg--l { clip-path: polygon(31% 79%, 48.4% 79%, 48.4% 99%, 31% 99%); transform-origin: 40% 81%; rotate: var(--legL, 0deg); }
+.run__leg--r { clip-path: polygon(48.4% 79%, 66% 79%, 66% 99%, 48.4% 99%); transform-origin: 57% 81%; rotate: var(--legR, 0deg); }
+.walker__dust { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; }
+.puff { position: absolute; bottom: 2%; width: 18%; aspect-ratio: 1; border-radius: 50%; background: #d9dfea; opacity: 0; animation: puff .7s ease-out forwards; }
+@keyframes puff { 0% { opacity: .75; transform: translate(0, 0) scale(.35); } 100% { opacity: 0; transform: translate(var(--dx, -30px), -14px) scale(1.4); } }
+@media (prefers-reduced-motion: reduce) { .dscene.is-pinned { height: auto; } .dscene.is-pinned .dscene__pin { position: static; height: auto; } }
