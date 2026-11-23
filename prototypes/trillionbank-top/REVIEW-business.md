@@ -8,12 +8,21 @@
 
 | 変更前 | 変更後 |
 |---|---|
-| 事業：左右の2パネル（NOW／NEXT・英字見出し）→「測る・守る・記録する・正規化する」の4段階 → AirReach Consultingの進め方 | **事業（#business）**：見出し「見つけてもらう。使われた価値を、還す。」→ したいことから選ぶ入口2件 → AirReach（#airreach）→ Adctor（#adctor）→ 協業・投資の方へ |
+| 事業：左右の2パネル（NOW／NEXT・英字見出し）→「測る・守る・記録する・正規化する」の4段階 → AirReach Consultingの進め方 | **事業（#business）**：大きな英字「Two Businesses」＋見出し「したいことで選ぶ、2つの事業」→ 対象者別の入口カード2枚 → AirReach（#airreach）→ Adctor（#adctor）→ 協業・投資の方へ |
 | 独立した「Our Products」一覧（#products） | AirReachの中の「使い方は3つ」（無料診断／Consulting／Tools）に統合。`#products` はここに着地 |
 | ナビ：Business / Use Cases / Products / … | Business / **AirReach** / **Adctor** / Use Cases / Media / News / Company |
 | 対象者別（#usecases） | 位置・機能はそのまま。文言を一般の言葉に置き換え |
 
 見出しの階層：H1はヒーローの1つ、事業全体がH2、AirReach・AdctorがH3。
+
+### デザイン（goodpatch.com/ja/ai を参考にした v3）
+
+- **帯の切り替え：** グレー（入口）→ 白（AirReach）→ 青（Adctor）→ グレー（協業・投資）。背景色で「いまどの事業を読んでいるか」が分かるようにした。
+- **大きな英字＋日本語見出し：** 「Two Businesses」「AirReach」「Adctor」を大きく置き、すぐ下に日本語の見出しで意味を伝える。
+- **入口カード：** 青（AirReach）と濃紺（Adctor）の2枚。等高線の背景、線画のアイコン、対象者のラベル、「Status」タグ（提供中／研究開発・限定実証）。ホバーで浮き上がり、矢印が動く。
+- **AirReachの図：** 楕円の上に「Measure 測る → Improve 直す → Re-measure 再計測」を配置。画面に入ると線が描かれる。スマホでは縦の番号付きリストに切り替え。
+- **Adctorの図：** 「情報の流れ」（情報提供者 → Adctor → AI事業者）と「対価の流れ・検証中」（逆の流れ）の2層。逆の流れはオレンジで区別。スマホでは縦に積む。
+- **AirReachの使い方：** 3列の一覧（無料診断／Consulting／Tools）と「View Details」。スマホでは縦並び。
 
 ## 2. 文言の判断一覧
 
@@ -53,7 +62,8 @@
 - **リンク：** ページ内リンク（#business #airreach #adctor #usecases #media #news #company #contact ほか）はすべて着地先あり。`#products` はAirReachの使い方に着地。
 - **直接リンク：** `index.html#adctor` のように直接開くとオープニングを出さず、その場所から表示する。
 - **環境：** JavaScriptなしでも事業紹介は全文読める。動きを減らす設定でも読める。
-- **重なり：** 事業紹介が画面にある間は、マスコットと隠しフレームの表示を退避し、本文やボタンにかぶらない。
+- **重なり：** 事業紹介が画面にある間は、マスコットと隠しフレームの表示を退避し、本文やボタンにかぶらない。JavaScriptなしのときは、マスコットと隠しフレームを表示しない。
+- **図の表示：** 図が画面に入って動きが終わった状態を 1440px と 390px で撮影し、文字と線が重ならないことを確認した。
 - **未実施：** フォーム送信・有料登録はテストしていない。
 
 ## 4. 残っている確認事項
@@ -65,10 +75,16 @@
 
 ## 5. 元に戻す方法
 
-指示書に「GitHubへのpushはしない」とあるため、この変更はコミット・pushしていません（作業フォルダ上の変更のみ）。index.html・style.css・main.js を元に戻すには、次を実行します。
+指示書に「GitHubへのpushはしない」とあるため、pushはしていません。1回目の改修はローカルのコミット（ee595e7）にあり、v3のデザイン変更はその上の未コミットの変更です。
+
+v3のデザインだけを取り消して1回目の改修に戻すには、次を実行します。
 
 ```bash
-git checkout -- prototypes/trillionbank-top/index.html prototypes/trillionbank-top/style.css prototypes/trillionbank-top/main.js
+git checkout -- prototypes/trillionbank-top/
 ```
 
-このレビュー資料（REVIEW-business.md）は新しく追加したファイルなので、不要になったら削除してください。採用する場合は、内容を確認のうえコミットしてください。
+事業紹介の改修をすべて取り消すには、v3を取り消したあとで、ローカルのコミットを打ち消します。
+
+```bash
+git revert --no-edit ee595e7
+```

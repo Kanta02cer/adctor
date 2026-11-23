@@ -483,7 +483,7 @@
     const cur = $('#cursor');
     const curLabel = $('#cursorLabel');
     let mx = -100; let my = -100; let cx = -100; let cy = -100;
-    const darkSel = '.hero, .svc__fig--adctor, .entry__item--navy, .contact, .media, .footer, .drawer, .unlock, .card__img--ink, .card__img--blue, .bubble--accent';
+    const darkSel = '.hero, .bz-band--blue, .bz-card, .contact, .media, .footer, .drawer, .unlock, .card__img--ink, .card__img--blue, .bubble--accent';
     window.addEventListener('pointermove', (e) => {
       mx = e.clientX; my = e.clientY;
       cur.classList.add('is-on');
