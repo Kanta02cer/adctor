@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>株式会社Trillion Bank｜AIエージェントの時代に、新たなトリリオンの価値をゼロから生み出す</title>
+<meta name="description" content="株式会社Trillion Bankは、AI検索で見つかる企業を増やすAirReachと、AIに使われた情報の利用を記録し対価へつなぐAdctorを開発しています。">
+<link rel="canonical" href="https://trillion-bank.jp/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="株式会社Trillion Bank">
+<meta property="og:title" content="株式会社Trillion Bank｜情報の利用を、提供者の次の価値づくりへ">
+<meta property="og:description" content="AirReachでAI検索での見え方を測って直し、Adctorで情報の利用を記録し、対価へつなぐ。">
+<meta property="og:image" content="https://trillion-bank.jp/images/hero/tb-logo-color.webp">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#164bff">
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400..700&amp;family=Noto+Sans+JP:wght@400;500;700&amp;family=Shippori+Mincho+B1:wght@700&amp;display=swap">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"株式会社Trillion Bank","alternateName":["Trillion Bank","トリリオンバンク"],"url":"https://trillion-bank.jp/","logo":"https://trillion-bank.jp/images/hero/tb-logo-symbol.webp","foundingDate":"2025-12-23","address":{"@type":"PostalAddress","postalCode":"102-0083","addressRegion":"東京都","addressLocality":"千代田区","streetAddress":"麹町六丁目2番1号 麹町サイトビル6階 ROOMZ","addressCountry":"JP"}}
+</script>
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <g id="tb-frames"><path d="M103 74 L168 42 L168 214 L103 247 Z"/><path d="M183 97 L248 64 L248 236 L183 268 Z"/><path d="M263 108 L327 75 L327 248 L263 281 Z"/></g>
+  <path id="tb-wave" d="M25 165 H105 C130 165 140 137 166 137 C200 137 216 191 256 191 C286 191 296 165 322 165 H389"/>
+  <g id="i-search"><circle cx="11" cy="11" r="6.5"/><path d="M16 16 L21 21"/><path d="M8 11 h6"/></g>
+  <g id="i-tools"><path d="M4 20 V12 M10 20 V8 M16 20 V4"/><path d="M3 20 H21"/></g>
+  <g id="i-frames"><path d="M5 7 L9 5 V17 L5 19 Z M11 8 L15 6 V18 L11 20 Z"/><path d="M2 13 H6 C8 13 8 10 10 10 C12 10 12 16 14 16 C16 16 16 13 18 13 H22"/></g>
+  <g id="i-doc"><path d="M6 3 H14 L19 8 V21 H6 Z"/><path d="M14 3 V8 H19 M9 13 H16 M9 17 H14"/></g>
+  <g id="i-coin"><circle cx="12" cy="12" r="8"/><path d="M9 8 L12 12 L15 8 M8.5 13 H15.5 M8.5 16 H15.5 M12 12 V19"/></g>
+  <g id="i-ai"><rect x="5" y="7" width="14" height="11" rx="3"/><path d="M12 3 V7 M9 12 h.01 M15 12 h.01 M9 15 H15"/></g>
+  <g id="i-building"><path d="M4 21 V7 L12 3 L20 7 V21"/><path d="M8 21 V11 M12 21 V11 M16 21 V11 M3 21 H21"/></g>
+  <g id="i-check"><path d="M5 12 L10 17 L19 7"/></g>
+  <g id="i-chat"><path d="M4 5 H20 V16 H10 L6 20 V16 H4 Z"/></g>
+  <g id="i-flask"><path d="M9 3 H15 M10 3 V9 L5 19 H19 L14 9 V3"/><path d="M7.5 14 H16.5"/></g>
+</defs></svg>
+
+<a class="skip" href="#main">本文へスキップ</a>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<!-- ───────── OPENING（3D） ───────── -->
+<div class="opening" id="opening" aria-hidden="true">
+  <canvas id="openingCanvas"></canvas>
+  <div class="opening__count"><span class="opening__num" id="openingNum">0</span><span class="opening__unit">TRILLION ISSUES TO TAKE ON</span></div>
+  <img class="opening__word" src="assets/tb-wordmark.webp" alt="" width="2048" height="201">
+  <div class="opening__panels"><span></span><span></span><span></span></div>
+  <button type="button" class="opening__skip" id="openingSkip" tabindex="-1">スキップ</button>
+</div>
+
+<header class="header" id="header">
+  <div class="header__in">
+    <a href="#top" class="logo" aria-label="Trillion Bank トップへ" data-cursor="Top">
+      <svg viewBox="0 0 414 318" aria-hidden="true"><use href="#tb-frames" class="f"/><path class="w" pathLength="1" d="M25 165 H105 C130 165 140 137 166 137 C200 137 216 191 256 191 C286 191 296 165 322 165 H389"/></svg>
+      <img src="assets/tb-wordmark.webp" alt="" width="2048" height="201">
+    </a>
+    <nav class="nav" aria-label="グローバルナビゲーション"><ul>
+      <li><a href="#why">Why</a></li><li><a href="#solutions">Solutions</a></li><li><a href="#airreach">AirReach</a></li><li><a href="#adctor">Adctor</a></li><li><a href="#founder">Founder</a></li><li><a href="#news">News</a></li>
+    </ul></nav>
+    <a class="pill pill--white" href="#contact" data-cursor="相談する">お問い合わせ</a>
+    <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="drawer" aria-label="メニューを開く"><span></span><span></span></button>
+  </div>
+</header>
+<div class="drawer" id="drawer" hidden>
+  <nav aria-label="メニュー">
+    <a href="#why"><span>Why</span>いま起きていること</a><a href="#solutions"><span>Solutions</span>3つの事業</a><a href="#airreach"><span>AirReach</span>AI検索で見つかる</a><a href="#adctor"><span>Adctor</span>利用を記録し、対価へ</a><a href="#founder"><span>Founder</span>創業の想い</a><a href="#news"><span>News</span>ニュース</a>
+  </nav>
+  <a class="pill pill--white pill--lg" href="https://trillion-bank.jp/#diagnose">無料でAI検索診断</a>
+  <a class="pill pill--line pill--lg" href="#contact">お問い合わせ</a>
+</div>
+
+<main id="main">
+
+<!-- ───────── HERO ───────── -->
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <canvas class="hero__terrain" id="terrain" aria-hidden="true"></canvas>
+  <canvas class="hero__logo3d" id="logo3d" aria-hidden="true"></canvas>
+  <div class="hero__in">
+    <p class="hero__mega" aria-hidden="true"><span>Measure</span><span class="ln2">to Return</span></p>
+    <ul class="hero__tags" aria-label="事業">
+      <li>AirReach</li><li>AirReach Tools</li><li>Adctor</li><li>Pay per Citation</li>
+    </ul>
+    <div class="hero__copy">
+      <h1 class="hero__h1" id="hero-title">AIエージェントの時代に、<br>新たなトリリオンの価値をゼロから生み出す。</h1>
+      <p class="hero__lead">AI検索で見つかる企業を増やし、AIに使われた情報の利用を記録し、提供者への対価へつなぐ。<br class="pc">株式会社Trillion Bankは、情報の流れを「測り、守り、記録する」会社です。</p>
+      <div class="hero__cta">
+        <a class="pill pill--white pill--lg magnetic" href="https://trillion-bank.jp/#diagnose" data-cursor="30秒で診断">無料でAI検索診断</a>
+        <a class="pill pill--line pill--lg magnetic" href="#solutions" data-cursor="事業を見る">3つの事業を見る</a>
+      </div>
+    </div>
+  </div>
+  <a class="hero__scroll" href="#why"><span>Scroll</span><i aria-hidden="true"></i></a>
+  <button type="button" class="motion-btn" id="motionBtn" aria-pressed="false" aria-label="動きを停止する"><span id="motionLabel">動き：ON</span><i aria-hidden="true"></i></button>
+</section>
+
+<!-- ───────── WHY ───────── -->
+<section class="sec" id="why" aria-labelledby="why-title">
+  <div class="wrap">
+    <p class="label rv">Why now</p>
+    <h2 class="q-big" id="why-title" data-words style="margin-top:24px">
+      <span class="w">今日、</span><span class="w">何回</span><br class="sp"><span class="w">検索</span><span class="w">しましたか。</span>
+    </h2>
+    <p class="lead rv" style="margin-top:28px;max-width:760px">調べる、比べる、選ぶ。その入口が、Web検索から<b>AIの回答</b>へ移りはじめています。AIが答えをまとめるほど、情報をつくった元のサイトに人が訪れる機会は減っていきます。</p>
+    <div class="stats">
+      <div class="stat rv3d tilt">
+        <p class="stat__num" data-depth style="--d:30"><span data-count="48000000" data-format="man">0</span><small>回</small></p>
+        <p class="stat__label" data-depth style="--d:20">世界のGoogle検索は、5分あたり約4,800万回規模</p>
+        <p class="stat__src">Googleの年間5兆回超という公表値からの参考換算</p>
+      </div>
+      <div class="stat rv3d tilt">
+        <p class="stat__label" data-depth style="--d:20;margin-top:0">AI要約が出ると、元サイトへのリンクのクリック率は半分近くに</p>
+        <div class="bars" data-depth style="--d:30">
+          <div class="bar"><span>AI要約なし</span><span class="bar__track"><span class="bar__fill" style="--w:100%"></span></span><span class="bar__val">15%</span></div>
+          <div class="bar bar--ai"><span>AI要約あり</span><span class="bar__track"><span class="bar__fill" style="--w:53.3%"></span></span><span class="bar__val">8%</span></div>
+        </div>
+        <p class="stat__src">Pew Research Center（2025年7月、米国の利用者900人・68,879件の検索の観測）</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── STATEMENT ───────── -->
+<section class="sec soft" aria-labelledby="st-title" style="padding-block:clamp(90px,10vw,160px)">
+  <div class="wrap">
+    <p class="label rv">Our answer</p>
+    <h2 class="h2 fill" id="st-title" style="font-size:clamp(28px,4.2vw,62px);line-height:1.5;margin-top:24px">
+      <span class="w">使いたい情報と、</span><span class="w">届けたい情報を</span><span class="w b">つなぐ。</span><br>
+      <span class="w">AIに</span><span class="w b">見つけてもらう</span><span class="w">ことと、</span><br>
+      <span class="w">AIに使われた分が</span><span class="w o">還ってくる</span><span class="w">こと。</span>
+    </h2>
+    <p class="lead rv" style="margin-top:36px;max-width:760px">AIを使う企業は、更新される一次情報と、用途ごとの利用許諾と、品質を確かめられる情報を必要としています。情報をつくる企業・自治体・個人は、その利用に見合う対価を必要としています。私たちは、その両方をつなぐ仕組みをつくります。</p>
+  </div>
+</section>
+
+<!-- ───────── SOLUTIONS（立体カード） ───────── -->
+<section class="sec" id="solutions" aria-labelledby="sol-title">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="big" id="sol-title"><span class="sr">3つの事業</span><span class="split" aria-hidden="true">Three Solutions</span></h2>
+      <p class="h3 rv">見つけてもらう。自分たちで直す。<br>使われた分を還す。</p>
+      <p class="lead rv">いますぐ使えるAirReach・AirReach Toolsと、開発・実証段階のAdctor。立場に合わせて選べます。</p>
+    </div>
+    <div class="sol">
+      <a class="scard tilt rv3d" href="#airreach" data-cursor="AirReach">
+        <div class="scard__top" data-depth style="--d:20"><span class="scard__num">01 ・ 企業向け</span><span class="chip chip--live">提供中</span></div>
+        <div class="orb scard__orb" data-depth style="--d:70"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-search"/></svg></div>
+        <p class="scard__name" data-depth style="--d:40">AirReach</p>
+        <p class="scard__cat" data-depth style="--d:30">AI集客マーケティング</p>
+        <p class="scard__desc" data-depth style="--d:20">AIの回答で候補に入っているか、競合とどちらが選ばれ、どの情報が引用されたか。証拠つきで測り、直して、また測ります。</p>
+        <div class="scard__foot" data-depth style="--d:10"><span>無料診断</span><span>Consulting</span></div>
+      </a>
+      <a class="scard tilt rv3d" href="#tools" data-cursor="Tools" style="transition-delay:.08s">
+        <div class="scard__top" data-depth style="--d:20"><span class="scard__num">02 ・ 代理店向け</span><span class="chip chip--live">提供中</span></div>
+        <div class="orb scard__orb" data-depth style="--d:70"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-tools"/></svg></div>
+        <p class="scard__name" data-depth style="--d:40">AirReach Tools</p>
+        <p class="scard__cat" data-depth style="--d:30">チャットで進めるAI検索対策ツール</p>
+        <p class="scard__desc" data-depth style="--d:20">SEO・LP制作会社が、お客様のドメインごとにAI検索での見え方を測り、足りない情報を見つけ、直す材料までつくれます。</p>
+        <div class="scard__foot" data-depth style="--d:10"><span>1ドメイン 月額9,800円（税別）</span></div>
+      </a>
+      <a class="scard scard--ink tilt rv3d" href="#adctor" data-cursor="Adctor" style="transition-delay:.16s">
+        <div class="scard__top" data-depth style="--d:20"><span class="scard__num">03 ・ 情報の提供者と利用者へ</span><span class="chip chip--plan">開発・実証段階</span></div>
+        <div class="orb orb--orange scard__orb" data-depth style="--d:70"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-frames"/></svg></div>
+        <p class="scard__name" data-depth style="--d:40">Adctor</p>
+        <p class="scard__cat" data-depth style="--d:30">利用を記録し、対価をつなぐ</p>
+        <p class="scard__desc" data-depth style="--d:20">AIが情報を使うときの利用条件を契約し、利用を記録し、請求と提供者への還元へつなぐ。Pay per Citationの事業構想です。</p>
+        <div class="scard__foot" data-depth style="--d:10"><span>共同実証パートナー募集</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── AIRREACH ORBIT ───────── -->
+<section class="soft" id="airreach" aria-labelledby="ar-title">
+  <div class="wrap" style="padding-top:clamp(100px,12vw,180px)">
+    <div class="head" style="margin-bottom:0">
+      <h2 class="big" id="ar-title"><span class="sr">AirReach</span><span class="split is-blue" aria-hidden="true">AirReach</span></h2>
+      <p class="h3 rv">AI検索で「出たか」ではなく、<br>なぜ選ばれ、なぜ外れたかまで。</p>
+      <p class="lead rv">AI回答内での候補入り、競合との勝敗、引用された情報源を証拠つきで測定し、次に投資すべきコンテンツ・PR・外部メディア施策を特定します。</p>
+    </div>
+  </div>
+  <div class="pin" data-steps="3">
+    <div class="pin__stage"><div class="wrap orbit-wrap" style="width:100%">
+      <div class="orbit" aria-hidden="true">
+        <svg viewBox="0 0 100 100">
+          <circle class="orbit__ring" cx="50" cy="50" r="46"/>
+          <circle class="orbit__ring orbit__ring--dash" cx="50" cy="50" r="40"/>
+          <circle class="orbit__draw" cx="50" cy="50" r="34" pathLength="1" transform="rotate(-90 50 50)"/>
+          <circle class="packet" r="1.6"><animateMotion dur="5s" repeatCount="indefinite" path="M50 16 A34 34 0 1 1 49.99 16"/></circle>
+          <circle class="packet" r="1.2" style="fill:#164bff"><animateMotion dur="5s" begin="-2.5s" repeatCount="indefinite" path="M50 16 A34 34 0 1 1 49.99 16"/></circle>
+        </svg>
+        <div class="onode o1" data-on="1"><div><small>MEASURE</small><strong>測る</strong></div></div>
+        <div class="onode o2" data-on="2"><div><small>IMPROVE</small><strong>直す</strong></div></div>
+        <div class="onode o3" data-on="3"><div><small>RE-MEASURE</small><strong>また測る</strong></div></div>
+        <div class="orbit__center"><div><b>AirReach</b><span>同じ条件で、くり返す</span></div></div>
+      </div>
+      <div>
+        <p class="label">How it works</p>
+        <h3 class="h2" style="margin:16px 0 24px">測って、直して、また測る。</h3>
+        <div class="osteps">
+          <div class="ostep" data-on="1"><span>01 ・ 測る</span><strong>決まった質問を、複数のAIに同じ条件で</strong><p>購買・比較に近い質問と競合を設計し、回答本文・引用URL・日時と条件を証拠として保存します。</p></div>
+          <div class="ostep" data-on="2"><span>02 ・ 直す</span><strong>足りない情報を見つけ、直す材料をつくる</strong><p>質問ごとの勝ち負けと引用元から、FAQ・料金・比較・事例・PRの改善を優先順位づけします。</p></div>
+          <div class="ostep" data-on="3"><span>03 ・ また測る</span><strong>同じ質問で測り直し、変化を確かめる</strong><p>施策の前後を同じ条件で比べ、ふだんの揺れと、はっきりした変化を分けて判断します。</p></div>
+        </div>
+        <p class="note" style="margin-top:16px">※ AI検索での表示・順位・問い合わせ・売上を保証するものではありません。</p>
+      </div>
+    </div></div>
+  </div>
+</section>
+
+<!-- ───────── AIRREACH TOOLS ───────── -->
+<section class="sec blue" id="tools" aria-labelledby="tools-title">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="big" id="tools-title"><span class="sr">AirReach Tools（代理店向け）</span><span class="split" aria-hidden="true">AirReach Tools</span></h2>
+      <p class="h3 rv">お客様のドメインごとに、<br>AI検索での見え方を、測って、直す。</p>
+      <p class="lead rv">SEO・LP制作会社のための、チャットで進めるAI検索対策ツール。案内役のトリウル君と話しながら、測定から改善の材料づくり、報告まで進められます。</p>
+    </div>
+    <div class="tools">
+      <ul class="feat">
+        <li class="rv tilt"><b data-depth style="--d:24"><span data-count="10">0</span><small>問</small></b><span>ドメインごとに決めた質問で測る。確定後は原則固定だから比べられる</span></li>
+        <li class="rv tilt"><b data-depth style="--d:24"><span data-count="2">0</span><small>週間ごと</small></b><span>同じ質問で再計測。ふだんの揺れと、はっきりした変化を分けて見守る</span></li>
+        <li class="rv tilt"><b data-depth style="--d:24"><span data-count="50">0</span><small>人まで</small></b><span>チームで運用。ホワイトラベル（題・発行元・色・ロゴ）にも対応</span></li>
+        <li class="rv tilt"><b data-depth style="--d:24"><span data-count="0">0</span><small>円で登録</small></b><span>自社サイトの1ドメインは無料（代理店特典）。PDF／HTMLで報告</span></li>
+      </ul>
+      <div class="sim rv3d" id="sim">
+        <h3>収支シミュレーター</h3>
+        <p class="note" style="margin-top:6px">AirReach Toolsは1ドメインあたり月額9,800円（税別）。売値は自由に決められます。</p>
+        <div class="sim__row"><label for="simD">お客様のドメイン数 <output id="simDOut">5</output></label><input type="range" id="simD" min="1" max="50" value="5"></div>
+        <div class="sim__row"><label for="simP">1ドメインあたりの売値（月） <output id="simPOut">30,000円</output></label><input type="range" id="simP" min="10000" max="100000" step="1000" value="30000"></div>
+        <div class="sim__res" aria-live="polite">
+          <div><span>売上</span><strong id="simSales">150,000円</strong></div>
+          <div><span>お支払い（税別）</span><strong id="simCost">−49,000円</strong></div>
+          <div class="gp"><span>粗利 / 月</span><strong id="simGP">101,000円</strong></div>
+        </div>
+        <p class="note" style="margin-top:12px">※ 試算です。お申し込みはお問い合わせから。月ごとの更新で年契約はありません。</p>
+        <p style="margin-top:16px"><a class="more" href="https://trillion-bank.jp/trillionbank/business/airreach-tools-agency/" data-cursor="詳細">AirReach Tools（代理店向け）の詳細<i aria-hidden="true"></i></a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── ADCTOR ───────── -->
+<section class="sec" id="adctor" aria-labelledby="ad-title">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="big" id="ad-title"><span class="sr">Adctor</span><span class="split" aria-hidden="true">Adctor</span></h2>
+      <p class="h2 mincho rv">情報の利用を、<br><span class="grad-text">提供者の次の価値づくり</span>へ。</p>
+      <p class="lead rv">情報を届ける役割と、対価を支払う役割を明確に。Adctorは、契約した利用を記録し、請求と提供者への還元へつなぐ事業構想です。現在は開発・実証の段階です。</p>
+    </div>
+    <div class="flow3 rv">
+      <svg class="flow3__svg" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true">
+        <path class="data" d="M300 120 C330 100 345 100 370 120"/>
+        <path class="data" d="M630 120 C655 100 670 100 700 120"/>
+        <path class="money" d="M300 190 C330 210 345 210 370 190"/>
+        <path class="money" d="M630 190 C655 210 670 210 700 190"/>
+      </svg>
+      <div class="actor tilt"><div class="orb" data-depth style="--d:50"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-building"/></svg></div><small data-depth style="--d:20">DATA PROVIDER</small><strong data-depth style="--d:30">データ提供者</strong><ul data-depth style="--d:15"><li>企業・自治体・個人</li><li>権利・提供条件を確認</li><li>許諾した情報を提供</li></ul></div>
+      <div class="actor actor--hub tilt"><div class="orb orb--orange" data-depth style="--d:50"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-frames"/></svg></div><small data-depth style="--d:20">PLATFORM</small><strong data-depth style="--d:30">Adctor</strong><ul data-depth style="--d:15"><li>情報を商品化・提供</li><li>契約した利用を記録</li><li>請求・分配を支援</li></ul></div>
+      <div class="actor tilt"><div class="orb orb--ink" data-depth style="--d:50"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ai"/></svg></div><small data-depth style="--d:20">AI / COMPANY</small><strong data-depth style="--d:30">利用企業</strong><ul data-depth style="--d:15"><li>AI事業者・企業</li><li>契約した用途で利用</li><li>利用料を支払う</li></ul></div>
+    </div>
+    <div class="flow3__legend"><span><i></i>情報：提供者 →「許諾した情報」→ Adctor →「契約した利用」→ 利用企業</span><span class="m"><i></i>お金：利用企業 →「利用料」→ Adctor →「提供者へ還元」→ 提供者</span></div>
+    <p class="note" style="text-align:center;margin-top:12px">※ すべてのAIの引用を自動で検知・課金する仕組みではありません。請求・入金・分配は、実証では人が確認します。</p>
+  </div>
+</section>
+
+<!-- Adctor：立体の積層（スクロールで分解） -->
+<section class="soft pin" data-steps="4" aria-labelledby="stack-title">
+  <div class="pin__stage"><div class="wrap stack-wrap" style="width:100%">
+    <div class="stack" aria-hidden="true">
+      <div class="stack__scene" id="stackScene">
+        <div class="stack__shadow"></div>
+        <div class="layer layer--1" style="--i:0"><div class="layer__face"></div><div class="layer__grid"></div><span class="layer__tag">データ提供者</span></div>
+        <div class="layer layer--2" style="--i:1"><div class="layer__face"></div><div class="layer__grid"></div><span class="layer__tag">利用条件・認証</span></div>
+        <div class="layer layer--3" style="--i:2"><div class="layer__face"></div><div class="layer__grid"></div><span class="layer__tag" style="background:#141b29;color:#fff">利用の記録</span></div>
+        <div class="layer layer--4" style="--i:3"><div class="layer__face"></div><span class="layer__tag">請求・分配</span></div>
+      </div>
+    </div>
+    <div>
+      <p class="label">Pay per Citation</p>
+      <h2 class="h2" id="stack-title" style="margin:14px 0 8px">合意した利用だけを、請求と分配につなぐ。</h2>
+      <p class="lead" style="margin-bottom:20px;font-size:15px">対象は、データの取得・回答内の引用・モデル学習。用途・期間・二次利用は別々に契約します。</p>
+      <ol class="slist">
+        <li data-on="1"><i>01</i><div><strong>利用条件を契約する</strong><p>「1回」の定義を、買手と提供者が先に合意します。</p></div></li>
+        <li data-on="2"><i>02</i><div><strong>認証して利用する</strong><p>契約した相手と用途だけが、情報を使えます。</p><span class="chip chip--dev">開発中</span></div></li>
+        <li data-on="3"><i>03</i><div><strong>対象のイベントを記録する</strong><p>認証・利用記録・請求CSVを開発しています。</p><span class="chip chip--dev">開発中</span></div></li>
+        <li data-on="4"><i>04</i><div><strong>照合して、請求・分配する</strong><p>入金確認・分配は、手作業を含む実証の範囲です。</p><span class="chip chip--plan">実証段階</span></div></li>
+      </ol>
+    </div>
+  </div></div>
+</section>
+
+<!-- Adctor：1円の分け方 -->
+<section class="sec" aria-labelledby="coin-title">
+  <div class="wrap coin-wrap">
+    <div class="coin" id="coin" aria-hidden="true">
+      <div class="coin__body">
+        <div class="coin__edge"></div>
+        <div class="coin__half coin__half--p"><span>提供者<br>80銭</span></div>
+        <div class="coin__half coin__half--t"><span>当社<br>20銭</span></div>
+        <div class="coin__yen">¥1</div>
+      </div>
+    </div>
+    <div>
+      <p class="label rv">Revenue share</p>
+      <h2 class="h2 mincho rv" id="coin-title" style="margin-top:16px">1円を、提供者80銭・<br>当社20銭に分ける。</h2>
+      <p class="lead rv" style="margin-top:18px">利用料の多くが、情報をつくった提供者へ還る設計です。価格は、データの中身と利用権によって変わります。</p>
+      <div class="split-list rv" style="margin-top:24px">
+        <div><span>提供者へ</span><b class="is-blue">80%</b></div>
+        <div><span>当社の手数料</span><b style="color:var(--orange-deep)">20%</b></div>
+      </div>
+      <p class="note" style="margin-top:12px">※ 仮の料金設計（費用・税引前）です。1円／利用・20%は未検証の料金例であり、実績や受注の予測ではありません。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Adctor：Pay per Citationの先にあるもの（横スクロール） -->
+<section class="hs dark" id="roadmap" aria-labelledby="rm-title">
+  <div class="hs__stage">
+    <div class="hs__head"><h2 class="big" id="rm-title"><span class="sr">開発の現在地と構想</span><span class="split" aria-hidden="true">Roadmap</span></h2><p class="hs__hint" aria-hidden="true">Scroll →</p></div>
+    <div class="hs__track">
+      <div class="ppc ppc--intro"><p class="label">Where we are</p><p class="h2" style="color:#fff;margin-top:14px">まず、1つの情報を<br>1社に使ってもらう。</p><p class="lead" style="margin-top:14px">いきなり大きくは始めません。小さく実証し、続けられるかを確かめてから広げます。</p></div>
+      <article class="ppc"><span class="ppc__n">01</span><h3>情報と相手を決める</h3><p>1提供者 × 1企業 × 1用途から。権利・提供条件を確認し、利用条件を合意します。</p><span class="chip chip--plan">共同実証の提案</span><div class="orb" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-doc"/></svg></div></article>
+      <article class="ppc"><span class="ppc__n">02</span><h3>30日間、使ってもらう</h3><p>認証・利用記録・請求CSVの仕組みで、実際の利用を記録します。</p><span class="chip chip--plan">共同実証の提案</span><div class="orb orb--ink" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></div></article>
+      <article class="ppc"><span class="ppc__n">03</span><h3>続けられるかを確かめる</h3><p>有料利用が成立しなければ、対象や価格を見直します。</p><span class="chip chip--plan">共同実証の提案</span><div class="orb orb--orange" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-coin"/></svg></div></article>
+      <article class="ppc ppc--warn"><span class="ppc__n" style="color:var(--orange)">AMPG</span><h3>AIの支払いをまとめる共通レジ（構想）</h3><p>情報利用料の精算、利用明細・証跡、料金設定をひとつにする構想です。決済接続・引用計測・動的価格は、構想と実装状況を分けて検証します。</p><span class="chip chip--plan">構想</span></article>
+      <article class="ppc ppc--warn"><span class="ppc__n" style="color:var(--blue-pale)">NOT</span><h3>できないこと</h3><p>すべてのAIの引用を自動で検知・課金する仕組みではありません。学習の取り消しやモデルからの削除は保証しません。自動入金・自動分配までの商用稼働を示すものではありません。</p></article>
+    </div>
+    <div class="hs__bar" aria-hidden="true"><i></i></div>
+  </div>
+</section>
+
+<!-- 情報に対価が生まれている先例 -->
+<section class="sec dark" aria-labelledby="prec-title" style="padding-top:clamp(40px,5vw,80px)">
+  <div class="wrap">
+    <div class="head">
+      <p class="h2 mincho rv" id="prec-title" style="color:#fff">情報を届けるサービスに、<br>対価が生まれている先例。</p>
+      <p class="lead rv">公的な情報を有償で届け、その収益が還元されている例は、すでにあります。<span class="note" style="display:block;margin-top:8px">※ いずれもAdctorの実績ではありません。各機関の公表資料にもとづく数値です。</span></p>
+    </div>
+    <div class="prec">
+      <div class="pcard tilt rv3d"><small data-depth style="--d:20">UK ・ 2025/26</small><h3 data-depth style="--d:30">Ordnance Survey（英国の地理情報）</h3><dl data-depth style="--d:15"><div><dt>B2B売上</dt><dd>£58.5m</dd></div><div><dt>営業利益</dt><dd>£23.6m</dd></div><div><dt>政府への配当</dt><dd>£5.7m</dd></div></dl></div>
+      <div class="pcard tilt rv3d"><small data-depth style="--d:20">UK ・ 2024/25</small><h3 data-depth style="--d:30">UKHO（英国の海図・海洋データ）</h3><dl data-depth style="--d:15"><div><dt>商業部門収入</dt><dd>£197.4m</dd></div><div><dt>営業利益</dt><dd>£17.6m</dd></div><div><dt>配当</dt><dd>£12.5m</dd></div></dl></div>
+      <div class="pcard tilt rv3d"><small data-depth style="--d:20">JAPAN ・ 2025年度</small><h3 data-depth style="--d:30">気象業務支援センター</h3><dl data-depth style="--d:15"><div><dt>収入</dt><dd>約3.95億円</dd></div><div><dt>費用</dt><dd>約3.12億円</dd></div></dl></div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── FOUNDER ───────── -->
+<section class="sec" id="founder" aria-labelledby="fd-title">
+  <div class="wrap founder">
+    <figure class="founder__photo"><img src="assets/ceo-kanta.webp" alt="代表取締役 井上 幹太の写真" width="400" height="400" loading="lazy"></figure>
+    <div>
+      <p class="label rv">Why we started</p>
+      <blockquote class="rv" id="fd-title" style="margin-top:18px">つくり手にも、<br>対価が戻る仕組みを<br>つくりたい。</blockquote>
+      <p class="lead rv">Webライターとして、検索経由の広告収益が減っていくのを経験しました。AIが答えをまとめる時代に、情報をつくる人が報われなければ、新しい情報は生まれなくなる。2025年12月、Adctorの構想を始めました。</p>
+      <p class="founder__sign rv">井上 幹太<small>株式会社Trillion Bank 代表取締役</small></p>
+      <p class="rv" style="margin-top:20px"><a class="more" href="https://trillion-bank.jp/trillionbank/ceo/" data-cursor="代表紹介">代表紹介を見る<i aria-hidden="true"></i></a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── VISION ───────── -->
+<section class="vision dark" aria-labelledby="vs-title">
+  <canvas id="visionCanvas" aria-hidden="true"></canvas>
+  <div class="vision__in">
+    <p class="label rv">Vision</p>
+    <h2 class="mincho rv3d" id="vs-title" style="margin-top:22px">情報を<br class="sp">つくり続けられる<br>社会を目指す。</h2>
+    <p class="lead rv">現場の知恵を、AIに使える情報へ。眠る情報を商品にし、AIの取引を支える。トリリオンの課題に、ひとつずつ。</p>
+  </div>
+</section>
+
+<!-- ───────── NEWS ───────── -->
+<section class="sec" id="news" aria-labelledby="news-title">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="big" id="news-title"><span class="sr">ニュース</span><span class="split" aria-hidden="true">News</span></h2>
+      <p class="lead rv">お知らせ・実測レポートの最新3件です。</p>
+      <p class="rv" style="justify-self:end"><a class="more" href="https://trillion-bank.jp/trillionbank/insights/" data-cursor="一覧へ">ニュース・コラム一覧<i aria-hidden="true"></i></a></p>
+    </div>
+    <div class="news">
+      <a class="ncard tilt rv3d" href="https://trillion-bank.jp/trillionbank/business/hack2/" data-cursor="Read"><span class="ncard__img" data-depth style="--d:20"><span class="orb" aria-hidden="true"></span><span>お知らせ</span><b>HackⅡ → AirReach</b></span><span class="ncard__row"><span>お知らせ</span><time datetime="2026-09-29">2026.09.29</time></span><h3>「HackⅡ（ハックツ）」を「AirReach Consulting」に名称変更</h3></a>
+      <a class="ncard tilt rv3d" href="https://trillion-bank.jp/trillionbank/news/corporate-logo-renewal/" data-cursor="Read"><span class="ncard__img" data-depth style="--d:20;background:#1c2533"><span class="orb orb--orange" aria-hidden="true"></span><span>お知らせ</span><b>New Logo</b></span><span class="ncard__row"><span>お知らせ</span><time datetime="2026-09-04">2026.09.04</time></span><h3>コーポレートロゴ刷新のお知らせ</h3></a>
+      <a class="ncard tilt rv3d" href="https://trillion-bank.jp/trillionbank/news/hackii-llmo-geo-implementation-report/" data-cursor="Read"><span class="ncard__img" data-depth style="--d:20;background:#0d33c9"><span class="orb orb--ink" aria-hidden="true"></span><span>実測レポート</span><b>LLMO / GEO Report</b></span><span class="ncard__row"><span>お知らせ</span><time datetime="2026-08-30">2026.08.30</time></span><h3>AirReach Consulting LLMO/GEO実装レポートを公開</h3></a>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── CONTACT ───────── -->
+<section class="sec blue contact" id="contact" aria-labelledby="ct-title">
+  <div class="marquee" aria-hidden="true" style="position:absolute;left:0;right:0;top:40px"><div class="marquee__track"><span>Let's build the trillion · </span><span>Let's build the trillion · </span></div></div>
+  <div class="wrap" style="position:relative">
+    <h2 class="big" id="ct-title" style="margin-top:clamp(40px,6vw,100px)"><span class="sr">お問い合わせ</span><span class="split" aria-hidden="true">Contact</span></h2>
+    <p class="lead rv" style="margin-top:20px;max-width:720px">情報の価値が循環する仕組みを、ともにつくる。決済・システム、データ保有者、公共・研究の分野で、共同実証のパートナーを探しています。</p>
+    <div class="bubbles">
+      <a class="bubble tilt rv3d" href="https://trillion-bank.jp/#diagnose" data-cursor="30秒で診断"><small data-depth style="--d:30">Free check</small><strong data-depth style="--d:40">無料でAI検索診断</strong><p data-depth style="--d:20">URLを入れるだけ・登録不要・約30秒</p><i data-depth style="--d:50"></i></a>
+      <a class="bubble bubble--o tilt rv3d" href="https://trillion-bank.jp/trillionbank/meeting/" data-cursor="予約する"><small data-depth style="--d:30">Partnership</small><strong data-depth style="--d:40">共同実証を相談する</strong><p data-depth style="--d:20">Adctorの実証・データ提携について、オンラインで</p><i data-depth style="--d:50"></i></a>
+      <a class="bubble tilt rv3d" href="https://trillion-bank.jp/trillionbank/contact/" data-cursor="フォームへ"><small data-depth style="--d:30">Contact</small><strong data-depth style="--d:40">お問い合わせ</strong><p data-depth style="--d:20">AirReach・代理店のご検討・取材など</p><i data-depth style="--d:50"></i></a>
+    </div>
+    <p class="note" style="margin-top:28px;text-align:center">※ 提携の成立や、政府・行政による後援を示すものではありません。</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__top">
+      <div>
+        <a href="#top" class="logo" aria-label="Trillion Bank トップへ" data-cursor="Top"><svg viewBox="0 0 414 318" aria-hidden="true"><use href="#tb-frames" class="f"/><use href="#tb-wave" class="w"/></svg><img src="assets/tb-wordmark.webp" alt="" width="2048" height="201"></a>
+        <p class="footer__co">株式会社Trillion Bank（トリリオンバンク）</p>
+        <address>〒102-0083 東京都千代田区麹町六丁目2番1号<br>麹町サイトビル6階 ROOMZ</address>
+      </div>
+      <nav class="footer__nav" aria-label="フッターナビゲーション">
+        <div><p>Business</p><a href="https://trillion-bank.jp/#diagnose">AirReach 無料診断</a><a href="https://trillion-bank.jp/trillionbank/business/hack2/">AirReach Consulting</a><a href="https://trillion-bank.jp/trillionbank/business/airreach-tools-agency/">AirReach Tools（代理店向け）</a><a href="https://trillion-bank.jp/trillionbank/business/pay-per-crawl/">Adctor</a></div>
+        <div><p>Company</p><a href="https://trillion-bank.jp/trillionbank/mission/">企業理念</a><a href="https://trillion-bank.jp/trillionbank/company/">企業概要</a><a href="https://trillion-bank.jp/trillionbank/ceo/">代表紹介</a><a href="https://trillion-bank.jp/trillionbank/insights/">コラム</a></div>
+        <div><p>Contact</p><a href="https://trillion-bank.jp/trillionbank/contact/">お問い合わせフォーム</a><a href="https://trillion-bank.jp/trillionbank/meeting/">商談を予約する</a></div>
+      </nav>
+    </div>
+    <div class="footer__bottom">
+      <p>※ 当社は銀行業を営む会社ではありません。</p>
+      <ul><li><a href="https://trillion-bank.jp/trillionbank/privacy/">プライバシーポリシー</a></li><li><a href="https://trillion-bank.jp/trillionbank/terms/">利用規約</a></li><li><a href="https://trillion-bank.jp/trillionbank/security/">情報セキュリティ</a></li></ul>
+      <p>© 2026 Trillion Bank</p>
+    </div>
+  </div>
+</footer>
+
+<a class="mascot" id="mascot" href="https://trillion-bank.jp/#diagnose" aria-label="トリウル君：無料でAI検索診断"><span>30秒でAI検索診断！</span><img src="assets/toriuru-point.webp" alt="" width="480" height="480"></a>
+<div class="cursor" id="cursor" aria-hidden="true"><b id="cursorLabel"></b></div>
+
+<script src="scene.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
