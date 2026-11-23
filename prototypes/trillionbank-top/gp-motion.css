@@ -1,0 +1,196 @@
+/* =========================================================================
+   GP MOTION — goodpatch.com/ja のホバー／スクロールの動きを参考にした追加レイヤー
+   このファイルと gp-motion.js を外すと、元の動きに戻ります。
+   参考にした値：
+   - 色・拡大縮小  0.3s cubic-bezier(.33,1,.68,1)
+   - 画像のズーム  0.6s cubic-bezier(.25,1,.5,1)
+   ========================================================================= */
+:root {
+  --gp-out: cubic-bezier(.33, 1, .68, 1);
+  --gp-emph: cubic-bezier(.25, 1, .5, 1);
+}
+
+/* -------------------------------------------------------------------------
+   ① ヒーロー：スクロールすると円に縮み、中央に残る（アパーチャー）
+   ------------------------------------------------------------------------- */
+.hero-pin { position: relative; }
+.hero { clip-path: var(--aperture, none); }
+.hero__copy { opacity: var(--copy-o, 1); transform: translate3d(0, var(--copy-y, 0px), 0) scale(var(--copy-s, 1)); }
+.hero__scroll { opacity: var(--copy-o, 1); }
+.hero__shapes { scale: var(--shapes-s, 1); }
+.hero__geo { position: absolute; inset: -24px; width: calc(100% + 48px); height: calc(100% + 48px); display: block; }
+.hero__shapes { transform-origin: 50% 50%; }
+.hero-pin { overflow-x: clip; }
+
+/* PC：ヒーローを画面に固定して円に縮め、次のステートメントのロゴの丸に重ねる */
+@media (min-width: 1000px) and (min-height: 600px) {
+  .js .hero-pin.is-pinned { height: 185vh; height: 185svh; }
+  .js .hero-pin.is-pinned > .hero { position: sticky; top: 0; z-index: 2; height: 100vh; height: 100svh; min-height: 0; }
+
+  /* ステートメント：左に見出し・中央にロゴの丸・右に本文（Goodpatchの3列の配置） */
+  .js .hero-pin.is-pinned + .statement {
+    position: relative; z-index: 1; margin-top: -100vh; margin-top: -100svh;
+    min-height: 100vh; min-height: 100svh; display: grid; align-items: center; padding: 96px var(--gutter) 56px;
+  }
+  .js .hero-pin.is-pinned + .statement .statement__inner {
+    width: 100%; grid-template-columns: minmax(0, 1.3fr) minmax(220px, .85fr) minmax(0, 1fr); grid-template-rows: auto auto; column-gap: clamp(32px, 4vw, 72px); row-gap: 0;
+  }
+  .js .hero-pin.is-pinned + .statement .statement__text { display: contents; }
+  .js .hero-pin.is-pinned + .statement .eyebrow { grid-column: 1; grid-row: 1; align-self: end; }
+  .js .hero-pin.is-pinned + .statement .statement__title { grid-column: 1; grid-row: 2; align-self: start; font-size: clamp(26px, 2.6vw, 42px); }
+  .js .hero-pin.is-pinned + .statement .statement__body { grid-column: 3; grid-row: 1 / span 2; align-self: center; margin-top: 0; font-size: 15px; line-height: 2.15; }
+  .js .hero-pin.is-pinned + .statement .statement__body br.pc { display: none; }
+  .js .hero-pin.is-pinned + .statement .emblem { grid-column: 2; grid-row: 1 / span 2; width: min(100%, 340px); opacity: 1; transform: none; transition: none; }
+}
+
+/* -------------------------------------------------------------------------
+   ② ステートメント：1文字ずつ、少し沈んだ位置から色がつく
+   ------------------------------------------------------------------------- */
+.statement__title .c {
+  display: inline-block; color: #c4cad4; opacity: .6; transform: translateY(.16em);
+  transition: color .45s var(--gp-out), opacity .45s var(--gp-out), transform .6s var(--gp-emph);
+}
+.statement__title .c.is-on { color: var(--ink); opacity: 1; transform: none; }
+.statement__title .w.is-blue .c.is-on { color: var(--blue); }
+
+/* -------------------------------------------------------------------------
+   ③ 色の濃いセクションの上端：ゆるい山なりのカーブ。スクロールの速さで弾む
+   ------------------------------------------------------------------------- */
+.js [data-curve].is-curved { position: relative; z-index: 1; clip-path: var(--curve); }
+
+/* -------------------------------------------------------------------------
+   ④ カードの視差：並んだカードが少しずつ違う速さで流れる
+   ------------------------------------------------------------------------- */
+.js .gp-par { translate: 0 var(--par, 0px); }
+
+/* -------------------------------------------------------------------------
+   ⑤ ヘッダーのメガメニュー（Business にカーソル／フォーカスで開く）
+   ------------------------------------------------------------------------- */
+.mega {
+  position: absolute; left: 0; right: 0; top: 100%; padding: 0 var(--gutter);
+  opacity: 0; visibility: hidden; transform: translateY(-10px); pointer-events: none;
+  transition: opacity .3s var(--gp-out), transform .45s var(--gp-out), visibility 0s linear .45s;
+}
+.has-mega.is-open .mega { opacity: 1; visibility: visible; transform: none; pointer-events: auto; transition-delay: 0s; }
+.has-mega > a::before { content: ""; position: absolute; left: -16px; right: -16px; top: 100%; height: 16px; }
+.mega__inner {
+  max-width: var(--max); margin: 0 auto; padding: 28px; border-radius: 0 0 28px 28px;
+  background: #fff; color: var(--ink); box-shadow: 0 30px 60px -20px rgba(16, 24, 43, .22), 0 1px 0 var(--line) inset;
+  display: grid; grid-template-columns: minmax(150px, .7fr) minmax(0, 1fr) minmax(0, 1fr) minmax(200px, .9fr); gap: 20px; align-items: stretch;
+}
+.mega__lead { display: flex; flex-direction: column; gap: 10px; padding: 8px 4px; font-size: 14px; font-weight: 700; line-height: 1.7; }
+.mega__en { font-family: var(--font); font-size: 30px; font-weight: 600; letter-spacing: -.03em; line-height: 1; color: var(--blue); }
+.header__nav .mega a { display: flex; min-height: 0; font-family: var(--font-ja); font-size: 14px; }
+.header__nav .mega__card { position: relative; flex-direction: column; gap: 0; border-radius: 18px; background: var(--surface); overflow: hidden; color: var(--ink); }
+.mega__thumb {
+  position: relative; display: grid; place-items: center; aspect-ratio: 16 / 8; background: var(--blue); border-radius: 18px 18px 0 0;
+  clip-path: inset(0 round 18px 18px 0 0); transition: clip-path .6s var(--gp-emph);
+}
+.mega__card--navy .mega__thumb { background: #10182b; }
+.mega__thumb svg { width: 46%; overflow: visible; transition: scale .6s var(--gp-emph); }
+.mega__thumb .iso { fill: rgba(255, 255, 255, .1); stroke: #fff; stroke-width: 2.2; stroke-linejoin: round; }
+.mega__thumb .ln { fill: none; stroke: #c2d1ff; stroke-width: 3.2; stroke-linecap: round; }
+.mega__body { display: flex; flex-direction: column; gap: 2px; padding: 16px 64px 18px 18px; }
+.mega__state { align-self: flex-start; padding: 0 10px; border-radius: 999px; border: 1px solid var(--blue); color: var(--blue); font-size: 11px; font-weight: 700; line-height: 22px; }
+.mega__card--navy .mega__state { border-style: dashed; border-color: #6b7486; color: #3b4556; }
+.mega__body b { margin-top: 6px; font-family: var(--font); font-size: 24px; font-weight: 600; letter-spacing: -.02em; transition: color .3s var(--gp-out); }
+.mega__body > span:last-child { font-size: 13px; color: var(--muted); }
+.mega__go { position: absolute; right: 18px; bottom: 20px; width: 34px; height: 34px; border-radius: 50%; background: var(--blue); overflow: hidden; }
+.mega__go::before, .mega__go::after {
+  content: ""; position: absolute; inset: 0; margin: auto; width: 12px; height: 12px; background: #fff;
+  clip-path: polygon(0 42%, 60% 42%, 60% 15%, 100% 50%, 60% 85%, 60% 58%, 0 58%); transition: transform .45s var(--gp-out);
+}
+.mega__go::after { transform: translateX(-200%); }
+.mega__card:hover .mega__thumb, .mega__card:focus-visible .mega__thumb { clip-path: inset(8px round 12px); }
+.mega__card:hover .mega__thumb svg, .mega__card:focus-visible .mega__thumb svg { scale: 1.08; }
+.mega__card:hover b, .mega__card:focus-visible b { color: var(--blue); }
+.mega__card:hover .mega__go::before, .mega__card:focus-visible .mega__go::before { transform: translateX(200%); }
+.mega__card:hover .mega__go::after, .mega__card:focus-visible .mega__go::after { transform: none; }
+.mega__links { display: flex; flex-direction: column; justify-content: center; border-left: 1px solid var(--line); padding-left: 20px; }
+.header__nav .mega__links a {
+  position: relative; flex-direction: column; justify-content: center; align-items: flex-start; min-height: 64px; padding: 6px 30px 6px 0;
+  border-bottom: 1px solid var(--line); font-weight: 700; transition: color .3s var(--gp-out), translate .45s var(--gp-out);
+}
+.mega__links li:last-child a { border-bottom: 0; }
+.mega__links small { font-family: var(--font); font-size: 11px; font-weight: 500; color: var(--muted); letter-spacing: .02em; }
+.mega__links a::after {
+  content: ""; position: absolute; right: 4px; top: 50%; width: 12px; height: 12px; margin-top: -6px; background: var(--blue);
+  clip-path: polygon(0 42%, 60% 42%, 60% 15%, 100% 50%, 60% 85%, 60% 58%, 0 58%); transition: translate .45s var(--gp-out);
+}
+.header__nav .mega__links a:hover, .header__nav .mega__links a:focus-visible { color: var(--blue); translate: 4px 0; }
+.mega__links a:hover::after, .mega__links a:focus-visible::after { translate: 6px 0; }
+/* メガメニューが開いている間は、ヘッダーを白に */
+.header.is-mega { background: #fff; color: var(--ink); box-shadow: 0 1px 0 var(--line); }
+.header.is-mega .header__wordmark { filter: none; }
+.header.is-mega .sym-wave { stroke: var(--blue); }
+.header.is-mega .pill--ghost { color: var(--blue); }
+.header.is-mega .roll > span + span { color: var(--blue); }
+@media (max-width: 1160px) { .mega { display: none; } }
+
+/* -------------------------------------------------------------------------
+   ⑥ ナビの下線：左から伸び、右へ抜ける
+   ------------------------------------------------------------------------- */
+.header__nav > ul > li > a > .roll {
+  background: linear-gradient(currentColor, currentColor) right bottom / 0 1.5px no-repeat;
+  transition: background-size .35s var(--gp-out); padding-bottom: 2px;
+}
+.header__nav > ul > li > a:hover > .roll, .header__nav > ul > li > a:focus-visible > .roll,
+.header__nav > ul > li.is-open > a > .roll { background-position: left bottom; background-size: 100% 1.5px; }
+
+/* -------------------------------------------------------------------------
+   ⑦ ボタン：文字が上へ入れ替わり、少し押し込まれる
+   ------------------------------------------------------------------------- */
+.pill { transition: background-color .3s var(--gp-out), color .3s var(--gp-out), border-color .3s var(--gp-out), transform .35s var(--gp-out), scale .3s var(--gp-out); }
+.pill:hover { scale: .96; }
+.pill:active { scale: .93; }
+.pill .roll { line-height: inherit; }
+.pill:hover > .roll > span, .pill:focus-visible > .roll > span { transform: translateY(-100%); }
+.pill .roll > span { transition-timing-function: var(--gp-out); transition-duration: .45s; }
+.header .pill .roll > span + span, .pill .roll > span + span { color: inherit; }
+.bubble { transition: transform .5s var(--gp-out), border-radius .5s var(--gp-out), scale .3s var(--gp-out), box-shadow .3s; }
+.bubble:hover { scale: .97; }
+.bz-card { transition: transform .5s var(--gp-out), box-shadow .5s var(--gp-out), scale .3s var(--gp-out); }
+
+/* -------------------------------------------------------------------------
+   ⑧ カード：画像の枠が内側に縮み、中身が少しズーム
+   ------------------------------------------------------------------------- */
+.card__img, .mcard__img, .ncard__img { clip-path: inset(0 round 16px); transition: clip-path .6s var(--gp-emph), transform .6s var(--gp-emph); }
+.mcard__img, .ncard__img { clip-path: inset(0 round 12px); }
+.card__link:hover .card__img, .card__link:focus-visible .card__img { border-radius: 16px; clip-path: inset(10px round 12px); }
+.card__link:hover .card__img svg { transform: scale(1.08); transition-duration: .6s; transition-timing-function: var(--gp-emph); }
+.mcard:hover .mcard__img, .mcard:focus-visible .mcard__img { clip-path: inset(8px round 10px); }
+.mcard:hover .mcard__img img { transform: scale(1.1); transition-timing-function: var(--gp-emph); }
+.ncard:hover .ncard__img, .ncard:focus-visible .ncard__img { transform: none; clip-path: inset(8px round 10px); }
+.ncard:hover .ncard__img b { translate: 6px 0; }
+.ncard__img b { transition: translate .5s var(--gp-out); }
+
+/* -------------------------------------------------------------------------
+   ⑨ 一覧の行：背景がふわっと満ち、見出しが右へ
+   ------------------------------------------------------------------------- */
+.bz-ways a { position: relative; isolation: isolate; }
+.bz-ways a:hover, .bz-ways a:focus-visible { background: transparent; }
+.bz-ways a::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: 16px; background: #eef2ff;
+  opacity: 0; scale: .94; transition: opacity .3s var(--gp-out), scale .45s var(--gp-out);
+}
+.bz-ways a:hover::before, .bz-ways a:focus-visible::before { opacity: 1; scale: 1; }
+.bz-ways b { transition: color .3s var(--gp-out), translate .45s var(--gp-out); }
+.bz-ways a:hover b, .bz-ways a:focus-visible b { color: var(--blue); translate: 10px 0; }
+
+/* -------------------------------------------------------------------------
+   大きな背景文字：スクロールに合わせて横へ流れる
+   ------------------------------------------------------------------------- */
+.media__bg { translate: var(--bgx, 0px) 0; }
+
+/* -------------------------------------------------------------------------
+   動きを減らす設定
+   ------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .hero { clip-path: none; }
+  .hero__copy { opacity: 1; transform: none; }
+  .js [data-curve].is-curved { clip-path: none; }
+  .js .gp-par { translate: none; }
+  .statement__title .c { transform: none; transition: none; }
+  .pill:hover, .bubble:hover { scale: none; }
+  .mega, .mega__thumb, .mega__thumb svg { transition: none; }
+}

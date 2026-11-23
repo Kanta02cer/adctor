@@ -85,7 +85,8 @@
   let lastY = window.scrollY;
   const onScrollHeader = () => {
     const y = window.scrollY;
-    const heroBottom = hero.offsetHeight - header.offsetHeight;
+    // ヒーローが円に縮む演出（gp-motion.js）がある間は、その切り替え位置を使う
+    const heroBottom = hero.dataset.solidAt ? Number(hero.dataset.solidAt) : hero.offsetHeight - header.offsetHeight;
     header.classList.toggle('is-solid', y > heroBottom);
     header.classList.toggle('is-hidden', y > lastY && y > heroBottom + 160 && !document.body.classList.contains('is-drawer-open'));
     dots.classList.toggle('is-visible', y > heroBottom * 0.6);
@@ -215,7 +216,25 @@
 
   /* ---------- Statement：スクロールで言葉に色がつく（画面に入りきったら必ず全点灯） ---------- */
   const fill = $('[data-fill]');
-  const words = fill ? $$('.w', fill) : [];
+  // 1文字ずつに分けて、スクロールに合わせて順に色がつく（Goodpatchの文字の塗り方を参考）
+  if (fill && !reduce) {
+    const label = fill.textContent.replace(/\s+/g, '');
+    let n = 0;
+    $$('.w', fill).forEach((w) => {
+      const text = w.textContent;
+      w.textContent = '';
+      Array.from(text).forEach((ch) => {
+        const c = document.createElement('span');
+        c.className = 'c';
+        c.textContent = ch;
+        c.style.setProperty('--ci', n);
+        n += 1;
+        w.appendChild(c);
+      });
+    });
+    fill.setAttribute('aria-label', label);
+  }
+  const words = fill ? ($$('.c', fill).length ? $$('.c', fill) : $$('.w', fill)) : [];
   let fillDone = false;
   const updateFill = () => {
     if (!fill || fillDone) return;
