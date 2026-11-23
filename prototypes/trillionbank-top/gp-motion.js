@@ -237,3 +237,216 @@
   window.addEventListener('load', onResize);
   onResize();
 })();
+
+/* =========================================================================
+   ⑩〜⑫ 事業の入口（左右と円いレンズ）・Use Cases の一覧・トリウルの散歩
+   ========================================================================= */
+(() => {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const wide = () => window.innerWidth >= 900;
+
+  /* ---------- ⑩ 事業の入口 ---------- */
+  const band = $('#business .bz-band--gray');
+  const entry = $('#business .bz-entry');
+  if (band && entry) {
+    band.classList.add('bz-split');
+    const flood = document.createElement('div');
+    flood.className = 'bz-flood';
+    flood.setAttribute('aria-hidden', 'true');
+    band.insertBefore(flood, band.firstChild);
+    const orb = document.createElement('div');
+    orb.className = 'bz-orb';
+    orb.setAttribute('aria-hidden', 'true');
+    orb.innerHTML = '<svg viewBox="0 0 414 318"><use href="#tb-frames" class="f"/><use href="#tb-wave" class="w"/></svg>';
+    const lens = document.createElement('div');
+    lens.className = 'bz-lens';
+    lens.setAttribute('aria-hidden', 'true');
+    lens.innerHTML = [
+      '<svg class="la" viewBox="0 0 160 120"><path class="iso" d="M80 20 L140 50 L80 80 L20 50 Z"/><path class="iso" d="M20 50 L20 62 L80 92 L80 80 Z M140 50 L140 62 L80 92 L80 80 Z"/><path class="ln" d="M50 52 V38 M66 60 V34"/><path class="acc" d="M82 66 V26"/><circle class="ln" cx="104" cy="40" r="15"/><path class="ln" d="M115 51 L128 64"/></svg>',
+      '<svg class="lb" viewBox="0 0 160 120"><path class="iso" d="M44 28 L64 18 L64 82 L44 92 Z M74 36 L94 26 L94 90 L74 100 Z M104 44 L124 34 L124 98 L104 108 Z"/><path class="acc" d="M10 62 H44 C54 62 56 52 66 52 C78 52 82 72 96 72 C106 72 108 64 116 64 H150"/><circle class="dot" cx="150" cy="64" r="5"/></svg>',
+      '<span class="bz-lens__chip"></span>',
+    ].join('');
+    entry.append(orb, lens);
+    const chip = $('.bz-lens__chip', lens);
+    const cards = $$('.bz-card', entry);
+    const labels = ['AirReach · 提供中', 'Adctor · 研究開発・限定実証'];
+
+    let side = '';
+    let lx = 0; let ly = 0; let tx = 0; let ty = 0; let raf = 0;
+    const setFloodOrigin = (clientX, clientY) => {
+      const r = band.getBoundingClientRect();
+      band.style.setProperty('--fx', (clientX - r.left).toFixed(0) + 'px');
+      band.style.setProperty('--fy', (clientY - r.top).toFixed(0) + 'px');
+    };
+    const setSide = (s, clientX, clientY) => {
+      if (clientX !== undefined) setFloodOrigin(clientX, clientY);
+      side = s;
+      band.classList.toggle('is-flood', !!s);
+      band.classList.toggle('is-side-a', s === 'a');
+      band.classList.toggle('is-side-b', s === 'b');
+      if (s) chip.textContent = labels[s === 'a' ? 0 : 1];
+    };
+    const follow = () => {
+      raf = 0;
+      lx += (tx - lx) * 0.16; ly += (ty - ly) * 0.16;
+      lens.style.setProperty('--lx', lx.toFixed(1) + 'px');
+      lens.style.setProperty('--ly', ly.toFixed(1) + 'px');
+      if (Math.abs(tx - lx) + Math.abs(ty - ly) > 0.3) raf = requestAnimationFrame(follow);
+    };
+    const toLocal = (e) => { const r = entry.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+
+    if (fine && !reduce) {
+      // レンズそのものがカーソルの役目をするので、カーソルの文字ラベルは出さない
+      cards.forEach((card) => card.removeAttribute('data-cursor'));
+      cards.forEach((card, i) => {
+        const s = i === 0 ? 'a' : 'b';
+        card.addEventListener('pointerenter', (e) => {
+          if (!wide()) return;
+          if (!band.classList.contains('is-lens')) {
+            // レンズは中央の丸の位置から出てくる
+            const er = entry.getBoundingClientRect(); const or = orb.getBoundingClientRect();
+            lx = or.left + or.width / 2 - er.left; ly = or.top + or.height / 2 - er.top;
+          }
+          setSide(s, e.clientX, e.clientY);
+          band.classList.add('is-lens');
+          [tx, ty] = toLocal(e);
+          if (!raf) raf = requestAnimationFrame(follow);
+        });
+        card.addEventListener('pointermove', (e) => {
+          if (!side) return;
+          [tx, ty] = toLocal(e);
+          if (!raf) raf = requestAnimationFrame(follow);
+        });
+      });
+      entry.addEventListener('pointerleave', (e) => {
+        setFloodOrigin(e.clientX, e.clientY);
+        setSide('');
+        band.classList.remove('is-lens');
+      });
+    }
+    // キーボードでも色が広がる（レンズは出さない）
+    cards.forEach((card, i) => {
+      card.addEventListener('focus', () => {
+        if (!wide() || reduce) return;
+        const r = card.getBoundingClientRect();
+        setSide(i === 0 ? 'a' : 'b', r.left + r.width / 2, r.top + r.height / 2);
+      });
+      card.addEventListener('blur', () => { if (!band.classList.contains('is-lens')) setSide(''); });
+    });
+  }
+
+  /* ---------- ⑪ Use Cases の一覧：図が円になってカーソルについてくる ---------- */
+  const cardsWrap = $('#cards');
+  if (cardsWrap && fine) {
+    cardsWrap.classList.add('is-rows');
+    $$('.card__link', cardsWrap).forEach((link) => {
+      const img = $('.card__img', link);
+      let cx = 0; let cy = 0; let tx = 0; let ty = 0; let raf = 0;
+      const loop = () => {
+        raf = 0;
+        const k = reduce ? 1 : 0.2;
+        cx += (tx - cx) * k; cy += (ty - cy) * k;
+        img.style.setProperty('--cx', cx.toFixed(1) + 'px');
+        img.style.setProperty('--cy', cy.toFixed(1) + 'px');
+        if (Math.abs(tx - cx) + Math.abs(ty - cy) > 0.3) raf = requestAnimationFrame(loop);
+      };
+      link.addEventListener('pointerenter', (e) => {
+        const r = link.getBoundingClientRect();
+        cx = tx = e.clientX - r.left; cy = ty = e.clientY - r.top;
+        loop();
+      });
+      link.addEventListener('pointermove', (e) => {
+        const r = link.getBoundingClientRect();
+        tx = e.clientX - r.left; ty = e.clientY - r.top;
+        if (!raf) raf = requestAnimationFrame(loop);
+      });
+    });
+  }
+
+  /* ---------- ⑫ トリウルの散歩 ---------- */
+  if (reduce) return;
+  const latest = $('.latest');
+  const track = $('.latest__track');
+  const circle = $('#latestCircle');
+  if (!latest || !track || !circle) return;
+  track.classList.add('is-scroll');
+  const walker = document.createElement('div');
+  walker.className = 'walker';
+  walker.setAttribute('aria-hidden', 'true');
+  walker.innerHTML = [
+    '<div class="walker__body">',
+    '<span class="walker__balloon"><svg viewBox="0 0 60 110">',
+    '<path class="s" d="M30 58 C26 72 36 82 30 96 C27 102 34 106 40 110"/>',
+    '<path class="b" d="M30 0 C47 0 58 13 58 29 C58 45 44 56 30 58 C16 56 2 45 2 29 C2 13 13 0 30 0 Z"/>',
+    '<path class="b" d="M26 57 L34 57 L32 62 L28 62 Z"/>',
+    '<ellipse class="h" cx="18" cy="16" rx="6" ry="9" transform="rotate(-24 18 16)"/>',
+    '<path class="m" d="M19 22 L27 18 L27 40 L19 44 Z M33 20 L41 16 L41 38 L33 42 Z"/>',
+    '</svg></span>',
+    '<img src="assets/toriuru-neutral.webp" alt="" width="480" height="480">',
+    '</div>',
+  ].join('');
+  latest.appendChild(walker);
+  latest.classList.add('has-walker');
+
+  let lastX = null; let dist = 0; let face = 1; let sway = 0; let swayV = 0;
+  const update = () => {
+    const vh = window.innerHeight;
+    const lr = latest.getBoundingClientRect();
+    if (lr.bottom < -100 || lr.top > vh + 100) return;
+    const W = latest.clientWidth;
+    const wW = walker.offsetWidth; const wH = walker.offsetHeight;
+    // スクロールに合わせて文字が横へ流れる
+    const p = clamp((vh - lr.top) / (vh + lr.height * 0.4), 0, 1);
+    track.style.setProperty('--mq', (-p * W * 0.45).toFixed(1) + 'px');
+    // 歩く場所：文字の上端の少し上
+    const tr = track.getBoundingClientRect();
+    const fs = parseFloat(getComputedStyle(track.querySelector('span')).fontSize) || 120;
+    const ground = tr.top - lr.top + fs * 0.2;
+    const cr = circle.getBoundingClientRect();
+    const rimX = cr.left - lr.left + cr.width * 0.16 - wW * 0.5;
+    const rimY = cr.top - lr.top + cr.height * 0.12 - wH * 0.9;
+    // 歩く区間 → 円のふちへぴょんと乗る
+    const walkP = clamp((p - 0.12) / 0.5, 0, 1);
+    const hopP = clamp((p - 0.62) / 0.12, 0, 1);
+    const walkEndX = rimX - wW * 0.6;
+    const groundY = ground - wH * 0.96;
+    let x = -wW + (walkEndX + wW) * walkP;
+    let y = groundY;
+    if (hopP > 0) {
+      x = walkEndX + (rimX - walkEndX) * hopP;
+      y = groundY + (rimY - groundY) * hopP - Math.sin(hopP * Math.PI) * wH * 0.55;
+    }
+    // 歩いた距離に合わせて、上下にはずみ・左右に揺れる
+    if (lastX !== null) {
+      const dx = x - lastX;
+      dist += Math.abs(dx);
+      if (Math.abs(dx) > 0.5) face = dx >= 0 ? 1 : -1;
+      swayV += (clamp(-dx * 0.9, -18, 18) - sway) * 0.2;
+    }
+    lastX = x;
+    const walking = hopP === 0 && walkP > 0 && walkP < 1;
+    const ph = dist * 0.055;
+    const tilt = walking ? Math.sin(ph) * 5 : (hopP > 0 && hopP < 1 ? -10 * Math.sin(hopP * Math.PI) : 0);
+    walker.style.setProperty('--wx', x.toFixed(1) + 'px');
+    walker.style.setProperty('--wy', y.toFixed(1) + 'px');
+    walker.style.setProperty('--hop', (walking ? -Math.abs(Math.sin(ph)) * 9 : 0).toFixed(1) + 'px');
+    walker.style.setProperty('--tilt', tilt.toFixed(2) + 'deg');
+    walker.style.setProperty('--face', String(face));
+  };
+  // 風船は少し遅れて揺れる
+  let raf = 0;
+  const balloon = () => {
+    raf = 0;
+    swayV *= 0.86; sway += swayV * 0.25; sway *= 0.96;
+    walker.style.setProperty('--sway', sway.toFixed(2) + 'deg');
+    if (Math.abs(sway) > 0.05 || Math.abs(swayV) > 0.05) raf = requestAnimationFrame(balloon);
+  };
+  const onScroll = () => { update(); if (!raf) raf = requestAnimationFrame(balloon); };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  update();
+})();

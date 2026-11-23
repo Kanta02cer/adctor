@@ -273,7 +273,10 @@
     // 事業紹介が画面にある間は、本文やボタンにかぶらないよう退避する
     const br = bizSection.getBoundingClientRect();
     const overBiz = br.top < window.innerHeight * 0.9 && br.bottom > window.innerHeight * 0.1;
-    mascot.classList.toggle('is-away', ((nearFooter || overBiz) && !mascotOpen) || drawerOpen);
+    // ニュースの上をトリウルが歩いている間は、右下のトリウルは隠れる
+    const lr = latest ? latest.getBoundingClientRect() : null;
+    const overWalk = !!(lr && document.querySelector('.walker') && lr.top < window.innerHeight * 0.8 && lr.top > -window.innerHeight * 0.6);
+    mascot.classList.toggle('is-away', ((nearFooter || overBiz || overWalk) && !mascotOpen) || drawerOpen);
     hunt.classList.toggle('is-away', nearFooter || overBiz || drawerOpen);
   };
 
@@ -502,7 +505,7 @@
     const cur = $('#cursor');
     const curLabel = $('#cursorLabel');
     let mx = -100; let my = -100; let cx = -100; let cy = -100;
-    const darkSel = '.hero, .bz-band--blue, .bz-card, .contact, .media, .footer, .drawer, .unlock, .card__img--ink, .card__img--blue, .bubble--accent';
+    const darkSel = '.hero, .bz-band--blue, .bz-split.is-flood, .contact, .media, .footer, .drawer, .unlock, .card__img--ink, .card__img--blue, .bubble--accent';
     window.addEventListener('pointermove', (e) => {
       mx = e.clientX; my = e.clientY;
       cur.classList.add('is-on');

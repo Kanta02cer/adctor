@@ -194,3 +194,171 @@
   .pill:hover, .bubble:hover { scale: none; }
   .mega, .mega__thumb, .mega__thumb svg { transition: none; }
 }
+
+/* =========================================================================
+   ⑩ 事業の入口：左右に並べ、カーソルを当てた側の色が面いっぱいに広がる
+      （goodpatch.com/ja の Business の型）。円いレンズがカーソルについてくる
+   ========================================================================= */
+.bz-flood { display: none; }
+@media (min-width: 900px) {
+  .js .bz-split .bz-flood {
+    display: block; position: absolute; inset: 0; z-index: 0; background: var(--tb);
+    clip-path: circle(0px at var(--fx, 50%) var(--fy, 50%)); transition: clip-path .75s var(--gp-emph), background-color .35s var(--gp-out);
+  }
+  .js .bz-split.is-flood .bz-flood { clip-path: circle(150% at var(--fx, 50%) var(--fy, 50%)); }
+  .js .bz-split.is-side-b .bz-flood { background: var(--tb-ink); }
+  .js .bz-split .bz-head > * { transition: color .45s var(--gp-out); }
+  .js .bz-split.is-flood .bz-en, .js .bz-split.is-flood .bz-ja { color: #fff; }
+  .js .bz-split.is-flood .bz-en span, .js .bz-split.is-flood .bz-ja em { color: var(--tb-pale); }
+  .js .bz-split.is-flood .bz-lead { color: rgba(255, 255, 255, .88); }
+
+  .js .bz-split .bz-entry { position: relative; margin-top: clamp(56px, 6vw, 96px); }
+  .js .bz-split .bz-entry ul { gap: 0; }
+  .js .bz-split .bz-entry li + li { border-left: 1px solid #cdd3de; transition: border-color .45s var(--gp-out); }
+  .js .bz-split.is-flood .bz-entry li + li { border-color: rgba(255, 255, 255, .3); }
+  .js .bz-split .bz-card, .js .bz-split .bz-card--navy {
+    min-height: 0; padding: 28px clamp(96px, 9vw, 140px) 28px 0; border-radius: 0; background: transparent; color: var(--tb-ink);
+    box-shadow: none; transform: none; transition: color .45s var(--gp-out), opacity .45s var(--gp-out);
+  }
+  .js .bz-split li + li .bz-card { padding: 28px 0 28px clamp(96px, 9vw, 140px); align-items: flex-end; text-align: right; }
+  .js .bz-split .bz-card:focus-visible { outline-offset: -2px; }
+  .js .bz-split .bz-card__contour, .js .bz-split .bz-card__icon { display: none; }
+  .js .bz-split .bz-card__pill { background: rgba(16, 24, 43, .06); transition: background-color .45s var(--gp-out); }
+  .js .bz-split .bz-card__pill b { background: var(--tb); color: #fff; }
+  .js .bz-split .bz-card__name { margin-top: 14px; font-size: clamp(52px, 5.6vw, 88px); color: var(--tb); transition: color .45s var(--gp-out), translate .6s var(--gp-emph); }
+  .js .bz-split .bz-card--navy .bz-card__name { color: var(--tb-ink); }
+  .js .bz-split .bz-card__desc { max-width: 30em; color: #3b4556; transition: color .45s var(--gp-out); }
+  .js .bz-split .bz-card__foot { width: 100%; border-top-color: #cdd3de; transition: border-color .45s var(--gp-out); }
+  .js .bz-split li + li .bz-card__foot { justify-content: flex-end; }
+  .js .bz-split .bz-card__k { opacity: .6; }
+  .js .bz-split .tagw { border-color: rgba(16, 24, 43, .3); transition: border-color .45s, background-color .45s, color .45s; }
+  .js .bz-split .tagw--solid { background: var(--tb); border-color: var(--tb); color: #fff; }
+  .js .bz-split .bz-card__go { background: var(--tb); margin-left: auto; }
+  .js .bz-split li + li .bz-card__go { margin-left: 12px; }
+  .js .bz-split .bz-card__go::before, .js .bz-split .bz-card--navy .bz-card__go::before { background: #fff; transform: rotate(-90deg); }
+  .js .bz-split .bz-card--navy .bz-card__go { background: var(--tb-ink); }
+  .js .bz-split .bz-card:hover .bz-card__go { transform: translateX(6px) scale(1.08); }
+
+  /* 色が広がったときの文字色：当てた側は白、もう一方は薄く */
+  .js .bz-split.is-flood .bz-card { color: #fff; }
+  .js .bz-split.is-flood .bz-card .bz-card__name { color: #fff; }
+  .js .bz-split.is-flood .bz-card .bz-card__desc { color: rgba(255, 255, 255, .9); }
+  .js .bz-split.is-flood .bz-card__pill { background: rgba(255, 255, 255, .16); }
+  .js .bz-split.is-flood .bz-card__pill b { background: #fff; color: var(--tb); }
+  .js .bz-split.is-flood .bz-card__foot { border-top-color: rgba(255, 255, 255, .3); }
+  .js .bz-split.is-flood .tagw { border-color: rgba(255, 255, 255, .6); }
+  .js .bz-split.is-flood .tagw--solid { background: #fff; border-color: #fff; color: var(--tb); }
+  .js .bz-split.is-flood .bz-card__go { background: #fff; }
+  .js .bz-split.is-flood .bz-card__go::before { background: var(--tb); }
+  .js .bz-split.is-flood.is-side-b .bz-card__go::before { background: var(--tb-ink); }
+  .js .bz-split.is-side-a li + li .bz-card, .js .bz-split.is-side-b li:first-child .bz-card { opacity: .32; }
+  .js .bz-split.is-side-a li:first-child .bz-card__name { translate: 8px 0; }
+  .js .bz-split.is-side-b li + li .bz-card__name { translate: -8px 0; }
+
+  /* 中央の丸（待機中）：ロゴの入ったガラス玉。カーソルを当てるとレンズになって動き出す */
+  .bz-orb, .bz-lens {
+    position: absolute; z-index: 3; border-radius: 50%; pointer-events: none; display: grid; place-items: center;
+    background:
+      radial-gradient(circle at 32% 26%, rgba(255, 255, 255, .7), rgba(255, 255, 255, .12) 30%, rgba(255, 255, 255, 0) 52%),
+      radial-gradient(circle at 50% 120%, rgba(120, 160, 255, .55), rgba(22, 75, 255, 0) 60%),
+      radial-gradient(circle at 50% 50%, #2a5cff 0%, #164bff 55%, #0c32c4 100%);
+    box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .55), inset 0 -16px 36px rgba(6, 20, 110, .45), 0 28px 50px -18px rgba(10, 30, 120, .55);
+  }
+  .bz-orb { left: 50%; top: 0; width: clamp(120px, 11vw, 160px); aspect-ratio: 1; translate: -50% -38%; transition: scale .5s var(--gp-emph), opacity .35s var(--gp-out); animation: orbFloat 6s ease-in-out infinite; }
+  .bz-orb svg { width: 58%; overflow: visible; }
+  .bz-orb .f { fill: none; stroke: #fff; stroke-width: 12; }
+  .bz-orb .w { fill: none; stroke: #c2d1ff; stroke-width: 14; stroke-linecap: round; }
+  @keyframes orbFloat { 50% { transform: translateY(-8px); } }
+  .bz-split.is-lens .bz-orb { scale: .3; opacity: 0; }
+
+  .bz-lens {
+    left: 0; top: 0; width: clamp(200px, 17vw, 260px); aspect-ratio: 1; translate: var(--lx, 0px) var(--ly, 0px);
+    margin: calc(clamp(200px, 17vw, 260px) / -2) 0 0 calc(clamp(200px, 17vw, 260px) / -2);
+    scale: .2; opacity: 0; transition: scale .55s var(--gp-emph), opacity .3s var(--gp-out);
+    /* 下の文字がにじんで透けるガラス玉 */
+    background:
+      radial-gradient(circle at 30% 24%, rgba(255, 255, 255, .62), rgba(255, 255, 255, .1) 26%, rgba(255, 255, 255, 0) 46%),
+      radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0) 58%, rgba(255, 255, 255, .28) 100%),
+      rgba(120, 150, 255, .22);
+    box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .7), inset 0 -20px 40px rgba(6, 20, 110, .3), 0 30px 60px -20px rgba(6, 14, 60, .5);
+    -webkit-backdrop-filter: blur(7px) saturate(1.4) brightness(1.08); backdrop-filter: blur(7px) saturate(1.4) brightness(1.08);
+  }
+  .bz-split.is-side-b .bz-lens {
+    background:
+      radial-gradient(circle at 30% 24%, rgba(255, 255, 255, .5), rgba(255, 255, 255, .08) 26%, rgba(255, 255, 255, 0) 46%),
+      radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0) 58%, rgba(194, 209, 255, .22) 100%),
+      rgba(60, 80, 140, .25);
+  }
+  .bz-split.is-lens .bz-lens { scale: 1; opacity: 1; }
+  .bz-lens svg { position: absolute; width: 62%; overflow: visible; opacity: 0; scale: .8; transition: opacity .3s, scale .5s var(--gp-emph); animation: lensBob 3.2s ease-in-out infinite; }
+  .bz-split.is-side-a .bz-lens .la, .bz-split.is-side-b .bz-lens .lb { opacity: 1; scale: 1; }
+  .bz-lens .iso { fill: rgba(255, 255, 255, .14); stroke: #fff; stroke-width: 2.4; stroke-linejoin: round; }
+  .bz-lens .ln { fill: none; stroke: #fff; stroke-width: 5; stroke-linecap: round; }
+  .bz-lens .acc { fill: none; stroke: #ff8a3d; stroke-width: 5; stroke-linecap: round; }
+  .bz-lens .dot { fill: #ff8a3d; }
+  @keyframes lensBob { 50% { transform: translateY(-6px) rotate(-3deg); } }
+  .bz-lens__chip {
+    position: absolute; right: 2%; top: 14%; padding: 3px 12px; border-radius: 999px; background: #fff; color: var(--tb);
+    font-family: var(--font); font-size: 12px; font-weight: 700; box-shadow: 0 6px 16px rgba(10, 20, 60, .2); white-space: nowrap;
+  }
+  .bz-split.is-side-b .bz-lens__chip { color: var(--tb-ink); }
+}
+
+/* =========================================================================
+   ⑪ Use Cases：ひとつの面に並ぶ一覧。行に当てると、図が円の中に入ってカーソルについてくる
+      （goodpatch.com/ja の Design Platforms の型）
+   ========================================================================= */
+@media (min-width: 900px) {
+  .cards.is-rows { grid-template-columns: 1fr; gap: 0; border-top: 1px solid #cfd5df; }
+  .cards.is-rows .card { position: relative; border-bottom: 1px solid #cfd5df; }
+  .cards.is-rows .card:hover { z-index: 4; }
+  .cards.is-rows .card__link {
+    position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) auto;
+    grid-template-areas: "tags points next" "title points next"; column-gap: clamp(20px, 3vw, 48px); row-gap: 10px; align-items: center;
+    padding: clamp(28px, 3vw, 40px) clamp(16px, 2vw, 28px);
+  }
+  .cards.is-rows .card__link::before {
+    content: ""; position: absolute; inset: 6px 0; z-index: -1; border-radius: 20px; background: #fff;
+    opacity: 0; scale: .97; transition: opacity .3s var(--gp-out), scale .5s var(--gp-out);
+  }
+  .cards.is-rows .card__link:hover::before, .cards.is-rows .card__link:focus-visible::before { opacity: 1; scale: 1; }
+  .cards.is-rows .card__tags { grid-area: tags; }
+  .cards.is-rows .card__title { grid-area: title; font-size: clamp(22px, 2.3vw, 34px); letter-spacing: .01em; transition: color .3s var(--gp-out), translate .5s var(--gp-out); }
+  .cards.is-rows .card__link:hover .card__title { translate: 10px 0; }
+  .cards.is-rows .card__points { grid-area: points; }
+  .cards.is-rows .card__next { grid-area: next; margin: 0; flex-direction: column; align-items: flex-start; max-width: 15em; }
+  /* 図：普段は隠し、当てたときだけ円になってカーソルの位置に出る */
+  .cards.is-rows .card__img, .cards.is-rows .card__link:hover .card__img {
+    position: absolute; left: 0; top: 0; z-index: 3; width: clamp(200px, 17vw, 250px); aspect-ratio: 1; border-radius: 50%;
+    clip-path: circle(50% at 50% 50%); pointer-events: none; translate: var(--cx, 0px) var(--cy, 0px);
+    margin: calc(clamp(200px, 17vw, 250px) / -2) 0 0 calc(clamp(200px, 17vw, 250px) / -2);
+    box-shadow: 0 30px 60px -24px rgba(16, 24, 43, .45);
+  }
+  .cards.is-rows .card__img { opacity: 0; scale: .35; transition: opacity .3s var(--gp-out), scale .55s var(--gp-emph); }
+  .cards.is-rows .card__link:hover .card__img { opacity: 1; scale: 1; }
+  .cards.is-rows .card__img svg { transform: scale(1.35); }
+  .cards.is-rows .card__link:hover .card__img svg { transform: scale(1.45); }
+}
+
+/* =========================================================================
+   ⑫ トリウルの散歩：「Latest Activities」の上を、スクロールに合わせて歩く
+   ========================================================================= */
+.latest__track.is-scroll { animation: none; translate: var(--mq, 0px) 0; }
+/* 円のふちに乗ったトリウルと風船が切れないよう、上に余白を足す */
+.latest.has-walker { padding-top: calc(clamp(96px, 10vw, 160px) + clamp(70px, 7vw, 110px)); }
+.latest.has-walker .latest__circle { top: calc(clamp(96px, 10vw, 160px) + clamp(70px, 7vw, 110px)); }
+.walker { position: absolute; left: 0; top: 0; z-index: 3; width: clamp(76px, 7.4vw, 120px); pointer-events: none; translate: var(--wx, -200px) var(--wy, 0px); }
+.walker__body { position: relative; transform-origin: 50% 100%; transform: translateY(var(--hop, 0px)) rotate(var(--tilt, 0deg)) scaleX(var(--face, 1)); }
+.walker__body img { width: 100%; height: auto; filter: drop-shadow(0 8px 10px rgba(16, 24, 43, .18)); }
+.walker__balloon { position: absolute; left: -46%; top: -62%; width: 62%; transform-origin: 80% 100%; rotate: var(--sway, 0deg); }
+.walker__balloon svg { width: 100%; overflow: visible; }
+.walker__balloon .b { fill: #164bff; }
+.walker__balloon .h { fill: rgba(255, 255, 255, .35); }
+.walker__balloon .m { fill: none; stroke: #fff; stroke-width: 3.2; stroke-linejoin: round; }
+.walker__balloon .s { fill: none; stroke: #1c2533; stroke-width: 1.4; }
+
+@media (prefers-reduced-motion: reduce) {
+  .bz-orb, .bz-lens svg { animation: none; }
+  .bz-flood { transition: none; }
+  .walker { display: none; }
+}
