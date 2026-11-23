@@ -45,7 +45,9 @@
     ready();
     setTimeout(() => opening.classList.add('is-done'), 1100);
   };
-  if (reduce || store.sget('tb-opened') === '1' || !opening) {
+  // ページ内の特定の場所（#airreach など）へ直接来たときは、オープニングを出さない
+  const deepLink = location.hash.length > 1;
+  if (reduce || deepLink || store.sget('tb-opened') === '1' || !opening) {
     if (opening) opening.classList.add('is-done');
     ready();
   } else {
@@ -92,7 +94,7 @@
   window.addEventListener('scroll', onScrollHeader, { passive: true });
   onScrollHeader();
 
-  const sectionIds = ['top', 'statement', 'business', 'usecases', 'products', 'media', 'news', 'company', 'contact'];
+  const sectionIds = ['top', 'statement', 'business', 'airreach', 'adctor', 'usecases', 'media', 'news', 'company', 'contact'];
   const sections = sectionIds.map((id) => document.getElementById(id)).filter(Boolean);
   if ('IntersectionObserver' in window) {
     const secIO = new IntersectionObserver((entries) => {
@@ -244,12 +246,16 @@
 
   /* ---------- Mascot / hunt：フッター付近では退避 ---------- */
   const footer = $('.footer');
+  const bizSection = $('#business');
   const hunt = $('#hunt');
   const updateFloaters = () => {
     const nearFooter = footer.getBoundingClientRect().top < window.innerHeight * 0.85;
     const drawerOpen = document.body.classList.contains('is-drawer-open');
-    mascot.classList.toggle('is-away', (nearFooter && !mascotOpen) || drawerOpen);
-    hunt.classList.toggle('is-away', nearFooter || drawerOpen);
+    // 事業紹介が画面にある間は、本文やボタンにかぶらないよう退避する
+    const br = bizSection.getBoundingClientRect();
+    const overBiz = br.top < window.innerHeight * 0.9 && br.bottom > window.innerHeight * 0.1;
+    mascot.classList.toggle('is-away', ((nearFooter || overBiz) && !mascotOpen) || drawerOpen);
+    hunt.classList.toggle('is-away', nearFooter || overBiz || drawerOpen);
   };
 
   let ticking = false;
@@ -477,7 +483,7 @@
     const cur = $('#cursor');
     const curLabel = $('#cursorLabel');
     let mx = -100; let my = -100; let cx = -100; let cy = -100;
-    const darkSel = '.hero, .products, .contact, .media, .footer, .drawer, .unlock, .card__img--ink, .card__img--blue, .bubble--accent';
+    const darkSel = '.hero, .svc__fig--adctor, .entry__item--navy, .contact, .media, .footer, .drawer, .unlock, .card__img--ink, .card__img--blue, .bubble--accent';
     window.addEventListener('pointermove', (e) => {
       mx = e.clientX; my = e.clientY;
       cur.classList.add('is-on');
@@ -519,20 +525,6 @@
     const mediaBg = $('.media__bg');
     media.addEventListener('pointermove', (e) => {
       mediaBg.style.setProperty('--mx', `${(e.clientX / window.innerWidth - 0.5) * -80}px`);
-    });
-
-    // プロダクト：行き先のプレビューカードがカーソルについてくる
-    const products = $('.products');
-    const preview = $('#preview');
-    const previewText = $('#previewText');
-    $$('.prow').forEach((row) => {
-      row.addEventListener('pointerenter', () => { previewText.textContent = row.dataset.preview; preview.classList.add('is-on'); });
-      row.addEventListener('pointerleave', () => preview.classList.remove('is-on'));
-    });
-    products.addEventListener('pointermove', (e) => {
-      const r = products.getBoundingClientRect();
-      preview.style.setProperty('--x', `${e.clientX - r.left + 24}px`);
-      preview.style.setProperty('--y', `${e.clientY - r.top + 18}px`);
     });
   }
 

@@ -1,0 +1,74 @@
+# 事業紹介リニューアル レビュー資料
+
+対象：`prototypes/trillionbank-top/`（index.html・style.css・main.js）
+目的：初めて訪れた人が、スマホで AirReach と Adctor の違い・対象・次の行動を説明なしで理解できること。
+本番サイト（trillion-bank.jp）は変更していません。
+
+## 1. 構成の変更
+
+| 変更前 | 変更後 |
+|---|---|
+| 事業：左右の2パネル（NOW／NEXT・英字見出し）→「測る・守る・記録する・正規化する」の4段階 → AirReach Consultingの進め方 | **事業（#business）**：見出し「見つけてもらう。使われた価値を、還す。」→ したいことから選ぶ入口2件 → AirReach（#airreach）→ Adctor（#adctor）→ 協業・投資の方へ |
+| 独立した「Our Products」一覧（#products） | AirReachの中の「使い方は3つ」（無料診断／Consulting／Tools）に統合。`#products` はここに着地 |
+| ナビ：Business / Use Cases / Products / … | Business / **AirReach** / **Adctor** / Use Cases / Media / News / Company |
+| 対象者別（#usecases） | 位置・機能はそのまま。文言を一般の言葉に置き換え |
+
+見出しの階層：H1はヒーローの1つ、事業全体がH2、AirReach・AdctorがH3。
+
+## 2. 文言の判断一覧
+
+### 掲載する
+
+| 文言 | 理由・根拠 |
+|---|---|
+| 「AI検索で見つけてもらいたい」→ AirReach（提供中） | 企業・店舗の担当者が自分の目的から選べる。提供中の根拠：現行サイトのAirReach Consulting「限定商用検証・導入相談受付」、無料診断の公開 |
+| 「保有データの利用条件を管理したい」→ Adctor（研究開発・限定実証） | メディア・データ保有企業・AI事業者向けの入口。段階の根拠：現行サイトのAdctor（Pay per Crawl）「研究開発・PoC相談受付」、事業資料の「開発・実証段階」 |
+| AirReach「測る → 直す → 再計測」の図 | 現行サイトのAirReach Consulting「測定の流れ（設計→測定→分析→施策化→再計測）」を3段に要約 |
+| AirReachの使い方3つ（無料診断／Consulting／Tools） | Toolsが独立事業ではなくAirReachの一部だと分かるようにするため。Toolsは料金・申込状態を書かず案内ページへ誘導 |
+| Adctorの3者の図（情報提供者／Adctor／AI事業者）と逆の流れ「利用記録にもとづく請求・分配を検証」 | 事業資料の関係図にもとづく。分配は「検証中」と明記 |
+| 「AI検索での表示・順位・問い合わせ・売上を保証するものではありません」 | 現行サイトの注記と同じ |
+| 協業・投資をご検討の方へ（既存のお問い合わせフォームへ） | 専用窓口があるように見せず、既存窓口へ案内 |
+
+### 別ページへ移す（トップからは外し、リンク先で読める）
+
+| 文言 | 移す先 |
+|---|---|
+| AirReach Consultingの5段階の進め方・4つの測定項目 | AirReach Consultingページ（/trillionbank/business/hack2/） |
+| AirReach Toolsの料金・申込方法 | AirReach Tools案内ページ（/trillionbank/business/airreach-selfserve/・代理店向けページ） |
+| Adctorの初期スコープ（認証方式・応答コード・請求CSVなど）、Pay per Citation、将来構想 | Adctor（Pay per Crawl）ページ（/trillionbank/business/pay-per-crawl/） |
+
+### 削る
+
+| 文言 | 理由 |
+|---|---|
+| 「測る・守る・記録する・正規化する」の4段階 | AirReachがAdctorの前段（必須の導入ステップ）に見えてしまうため。2事業は並列 |
+| 独立した「Our Products」一覧 | AirReachの使い方と内容が重複するため |
+| NOW／NEXT、「Grow in AI Search」「Record the Usage」 | 状態は「提供中」「研究開発・限定実証」の日本語で示せば足りるため |
+| 証跡、PoC、AIクローラー、RAG・MCP、Pay per Crawl、Usage Ledger などの用語（事業紹介・対象者別・お問い合わせ・フッター・メタ情報） | 専門知識がなくても読めるように。例：「PoC・提携を相談する」→「共同実証・提携について相談」、「AI・RAG・MCP事業者」→「AIサービスを開発・提供する事業者」 |
+| 「1ドメイン 月額…」などの価格（トップから） | Toolsの販売・申込状態がページによって異なる（代理店向けLPでは「会員登録は準備中・お申し込みはお問い合わせから」）ため、確認できるまでトップに価格を置かない |
+
+## 3. 確認したこと
+
+- **画面幅：** 320 / 390 / 768 / 1440px の4つで、横スクロールなし、事業セクション内のはみ出しなし、事業セクション内のリンク・ボタンはすべて高さ44px以上。
+- **リンク：** ページ内リンク（#business #airreach #adctor #usecases #media #news #company #contact ほか）はすべて着地先あり。`#products` はAirReachの使い方に着地。
+- **直接リンク：** `index.html#adctor` のように直接開くとオープニングを出さず、その場所から表示する。
+- **環境：** JavaScriptなしでも事業紹介は全文読める。動きを減らす設定でも読める。
+- **重なり：** 事業紹介が画面にある間は、マスコットと隠しフレームの表示を退避し、本文やボタンにかぶらない。
+- **未実施：** フォーム送信・有料登録はテストしていない。
+
+## 4. 残っている確認事項
+
+1. **段階の表記：** Adctorの「研究開発・限定実証」は、現行サイトの「研究開発・PoC相談受付」と表記がそろっていません。どちらに統一するかを決めてください。
+2. **Toolsの申込状態：** AirReach Tools（一般向け）を今すぐ申し込めるかを確認してください。確認できれば、使い方3つの中に「すぐ使える／お問い合わせから」を書き添えます。
+3. **投資家の窓口：** 投資家向けの問い合わせは、現在は一般のお問い合わせフォームへつないでいます。専用の窓口を作る予定があれば差し替えます。
+4. **事例：** 実績のグラフや導入事例は、公開許諾のある事例がそろうまで置いていません。
+
+## 5. 元に戻す方法
+
+指示書に「GitHubへのpushはしない」とあるため、この変更はコミット・pushしていません（作業フォルダ上の変更のみ）。index.html・style.css・main.js を元に戻すには、次を実行します。
+
+```bash
+git checkout -- prototypes/trillionbank-top/index.html prototypes/trillionbank-top/style.css prototypes/trillionbank-top/main.js
+```
+
+このレビュー資料（REVIEW-business.md）は新しく追加したファイルなので、不要になったら削除してください。採用する場合は、内容を確認のうえコミットしてください。
