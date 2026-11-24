@@ -712,3 +712,93 @@
   }));
   io.observe(deck);
 })();
+
+/* =========================================================================
+   ㉕ スクロールで文字に色が付いていく
+      大きな見出しは、画面に入ってくるにつれて1文字ずつ色が付く。
+      サービスのモデルの手順は、スクロールの進みに合わせて今の手順に色が付いていく
+   ========================================================================= */
+(() => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  // 文字を1つずつ <t-c> で包む（既に1文字ずつ分かれている見出しは、その文字を使う）
+  const split = (el) => {
+    if (el._tc) return el._tc;
+    let units = Array.from(el.querySelectorAll('.char'));
+    if (units.length) {
+      units.forEach((u) => u.classList.add('tc'));
+    } else {
+      if (/^H[1-6]$/.test(el.tagName) && !el.hasAttribute('aria-label')) el.setAttribute('aria-label', el.textContent.replace(/\s+/g, ' ').trim());
+      const walk = (node) => {
+        Array.from(node.childNodes).forEach((c) => {
+          if (c.nodeType === 3) {
+            if (!c.textContent.trim()) return;
+            const frag = document.createDocumentFragment();
+            for (const ch of c.textContent) {
+              if (/\s/.test(ch)) { frag.append(ch); continue; }
+              const s = document.createElement('t-c');
+              s.textContent = ch;
+              frag.append(s);
+              units.push(s);
+            }
+            c.replaceWith(frag);
+          } else if (c.nodeType === 1 && !c.classList.contains('sr')) {
+            walk(c);
+          }
+        });
+      };
+      walk(el);
+    }
+    el._tc = units;
+    return units;
+  };
+  const paint = (units, f) => {
+    const k = Math.round(f * units.length);
+    units.forEach((u, i) => u.classList.toggle('on', i < k));
+  };
+
+  const heads = Array.from(document.querySelectorAll('.bz-en, .bz-ja, .bz-svc-title, .members__en, .company__title, .big-title, .contact__title, .media__title'))
+    .filter((el) => !el.closest('[data-fill]'));
+  heads.forEach(split);
+  const scenes = Array.from(document.querySelectorAll('.dscene')).map((sc) => ({
+    el: sc,
+    steps: Array.from(sc.querySelectorAll('.dscene__step')).map((li) => split(li.querySelector('.dscene__en')).concat(split(li.querySelector('strong')))),
+  }));
+
+  let raf = 0;
+  const update = () => {
+    raf = 0;
+    const vh = window.innerHeight;
+    heads.forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.top > vh * 1.2 || r.bottom < -vh * 0.2) return;
+      paint(el._tc, clamp((vh * 0.92 - r.top) / (vh * 0.42 + r.height * 0.5), 0, 1));
+    });
+    scenes.forEach((sc) => {
+      const r = sc.el.getBoundingClientRect();
+      if (r.top > vh * 1.2 || r.bottom < -vh * 0.2) return;
+      const n = sc.steps.length;
+      if (!sc.el.classList.contains('is-pinned')) { sc.steps.forEach((u) => paint(u, 1)); return; }
+      const range = Math.max(1, sc.el.offsetHeight - vh);
+      const f = clamp(-r.top / range, 0, 0.9999) * n;
+      // 手順ごとの区間の前半で、その手順の文字に色が付ききる
+      sc.steps.forEach((u, i) => paint(u, clamp((f - i) / 0.55, 0, 1)));
+    });
+  };
+  const kick = () => { if (!raf) raf = requestAnimationFrame(update); };
+  window.addEventListener('scroll', kick, { passive: true });
+  window.addEventListener('resize', kick);
+  update();
+})();
+
+/* ページ内の場所（#adctor など）へ直接来たとき、文字の準備などで着地が遅れないよう、すぐにその場所へ */
+(() => {
+  const h = location.hash;
+  if (h.length < 2) return;
+  let t = null;
+  try { t = document.getElementById(decodeURIComponent(h.slice(1))); } catch (e) { t = null; }
+  if (!t) return;
+  const go = () => t.scrollIntoView({ block: 'start', behavior: 'instant' });
+  requestAnimationFrame(go);
+  window.addEventListener('load', () => requestAnimationFrame(go), { once: true });
+})();

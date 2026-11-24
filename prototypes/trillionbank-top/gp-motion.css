@@ -1179,3 +1179,26 @@ h1, h2, h3, .bz-card__q, .uc__title, .company__title, .more2__title, .bubble__ja
   .cofacts > div:nth-child(n+3) { border-top: 1px solid var(--line); }
   .company__inner > .co3 { grid-row: auto; grid-column: auto; }
 }
+
+/* =========================================================================
+   ㉕ スクロールで文字に色が付いていく（灰色 → 本来の色）。事業紹介の文字を大きく
+   ========================================================================= */
+t-c { transition: color .35s var(--gp-out); }
+t-c:not(.on), .char.tc:not(.on) { color: var(--tint-off, #c5cbd6) !important; }
+.char.tc { transition: color .35s var(--gp-out), transform 1s var(--ease); }
+.bz-band--blue, .media, .contact { --tint-off: rgba(255, 255, 255, .3); }
+.bz-split.is-flood { --tint-off: rgba(255, 255, 255, .3); }
+
+/* 大きく、余白はゆったり */
+.bz-ja { font-size: clamp(28px, 3.4vw, 54px); line-height: 1.4; }
+.bz-svc-title { font-size: clamp(30px, 4vw, 62px); line-height: 1.35; }
+.bz-card__q { font-size: clamp(24px, 2.5vw, 40px); }
+.dscene__label { font-size: clamp(22px, 2.2vw, 32px); }
+@media (min-width: 900px) { .dscene__grid { grid-template-columns: minmax(0, .74fr) minmax(0, 1.26fr); } }
+.dscene__en { font-size: clamp(32px, 3.6vw, 60px); letter-spacing: -.03em; }
+.dscene__step { padding-block: 14px; }
+@media (min-width: 900px) {
+  /* 今の手順は色が付いていき、済んだ手順は色付き、これからの手順は灰色（薄くはしない） */
+  .dscene.is-pinned .dscene__step:not(.is-active) { opacity: 1; }
+}
+@media (max-width: 899px) { .dscene.is-pinned .dscene__en { font-size: 30px; } }
