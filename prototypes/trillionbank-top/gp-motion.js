@@ -736,7 +736,7 @@
     units.forEach((u, i) => u.classList.toggle('on', i < k));
   };
 
-  const heads = Array.from(document.querySelectorAll('.phero__en, .phero__title, .sec-h__ja, .values__list b, .values__list li > span:last-child, .profile2__dl dd, .git__en, .flow4__t, .pair__copy, .band-link__en, .bz-en, .bz-ja, .bz-svc-title, .obiz__en, .obiz__ja, .obiz__big, .obiz__lead, .cov__text, .cov__lead, .members__en, .company__title, .big-title, .contact__title, .media__title'))
+  const heads = Array.from(document.querySelectorAll('.phero__en, .phero__title, .sec-h__ja, .values__list b, .values__list li > span:last-child, .git__en, .flow4__t, .pair__copy, .band-link__en, .bz-en, .bz-ja, .bz-svc-title, .obiz__en, .obiz__ja, .obiz__big, .obiz__lead, .cov__text, .cov__lead, .members__en, .company__title, .big-title, .contact__title, .media__title'))
     .filter((el) => !el.closest('[data-fill]'));
   heads.forEach(split);
   const scenes = Array.from(document.querySelectorAll('.dscene')).map((sc) => ({
