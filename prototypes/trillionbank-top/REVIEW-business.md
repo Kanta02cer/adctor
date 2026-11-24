@@ -280,3 +280,8 @@ git revert --no-edit ee595e7
 - トップの About：輪をやめ、ロゴの丸のまわりに丸いボタン（Business・AirReach・Adctor）。右に文章を追加
 - Our Business の図（ガラスの玉と台）を削除
 - 隠しフレーム（守る）がはじめから見えてしまう不具合を修正
+
+### 追加（第20弾）：About の循環図・Get to Ready
+
+- About：重なっていた丸いボタンをやめ、SmartHR の成長モデルの図のような循環図に。ロゴの丸を中心に、Business（事業を見る）→ AirReach（AI広告）→ Adctor（AIの料金所）を輪の上に置き、弧の矢印と言葉（情報を整えて届ける／AIに使われる／対価が還る）でつないだ。矢印の点線は流れる。丸は押すと各ページへ
+- 「Get In Touch」を「Get to Ready」に。丸いボタン3つは重ねず、見出しの下に横一列（右に文章）

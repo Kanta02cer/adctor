@@ -294,3 +294,41 @@
 /* 隠しフレームは、見つけるまで表示しない */
 .key[hidden] { display: none !important; }
 @media (max-width: 480px) { .phero__en { font-size: 18vw; } }
+
+/* =========================================================================
+   About：循環図（企業 → AirReach → AIに使われる → Adctor → 対価が還る）。丸は重ねない
+   ========================================================================= */
+.statement .emblem.cyc { width: min(100%, 400px); aspect-ratio: 1; }
+.cyc .emblem__core { inset: 40%; }
+.cyc__svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.cyc__arc { fill: none; stroke: var(--blue); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 2 7; animation: cycFlow 1.4s linear infinite; }
+.cyc__arc--back { stroke: #ff8a3d; }
+@keyframes cycFlow { to { stroke-dashoffset: -18; } }
+.cyc__lab text { font: 700 14px var(--font-ja); fill: var(--ink); text-anchor: middle; }
+.cyc__lab--back text { fill: #c4561b; }
+.cyc__node {
+  position: absolute; width: 29%; aspect-ratio: 1; translate: -50% -50%; display: grid; place-content: center; justify-items: center; gap: 2px;
+  border-radius: 50%; text-decoration: none; color: #fff; background: radial-gradient(circle at 34% 28%, #6f93ff, var(--blue) 60%, #0d33c9);
+  box-shadow: 0 18px 36px -18px rgba(22, 75, 255, .7); transition: scale .45s var(--gp-out), box-shadow .45s var(--gp-out);
+}
+.cyc__node--w { color: var(--ink); background: #fff; box-shadow: inset 0 0 0 1.5px #c9d6ff, 0 18px 36px -20px rgba(16, 24, 43, .35); }
+.cyc__node--n { background: radial-gradient(circle at 34% 28%, #33405e, #10182b 70%); }
+.cyc__node:hover, .cyc__node:focus-visible { scale: 1.08; box-shadow: 0 24px 44px -18px rgba(22, 75, 255, .8); }
+.cyc__node:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
+.cyc__en { font-family: var(--font); font-size: 12px; font-weight: 700; opacity: .85; }
+.cyc__node--w .cyc__en { color: var(--blue); opacity: 1; }
+.cyc__ja { font-size: clamp(14px, 1.15vw, 17px); font-weight: 700; white-space: nowrap; }
+@media (min-width: 1000px) and (min-height: 600px) {
+  .js .hero-pin.is-pinned + .statement .statement__inner { grid-template-columns: minmax(0, 1.05fr) minmax(340px, 1fr) minmax(0, .9fr); }
+  .js .hero-pin.is-pinned + .statement .emblem.cyc { width: min(100%, 400px); }
+}
+@media (max-width: 999px) { .statement .emblem.cyc { width: min(92%, 380px); margin-block: 48px; } }
+@media (prefers-reduced-motion: reduce) { .cyc__arc { animation: none; } }
+
+/* Get to Ready：丸いボタンは重ねず、見出しの下に横一列 */
+.git__grid { margin-top: clamp(40px, 4vw, 64px); grid-template-columns: minmax(0, 1fr) minmax(0, .42fr); align-items: center; }
+.git__orbs { height: auto; display: flex; flex-wrap: wrap; align-items: center; gap: clamp(16px, 2vw, 28px); }
+.git__o { position: static; }
+.git__o .orb, .git__o--3 .orb { width: clamp(200px, 17vw, 250px); }
+.git__text { padding-bottom: 0; }
+@media (max-width: 899px) { .git__orbs { justify-content: center; } .git__o { margin: 0; } .git__o .orb, .git__o--3 .orb { width: min(70vw, 240px); } }
