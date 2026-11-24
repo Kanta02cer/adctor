@@ -592,3 +592,89 @@
   window.addEventListener('resize', kick);
   update();
 })();
+
+/* =========================================================================
+   ㉒ モーショングラフィックの視差・傾き、流れる大きな文字、モジュールの入り方
+   ========================================================================= */
+(() => {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const mgs = Array.from(document.querySelectorAll('.mg'));
+  const rows = Array.from(document.querySelectorAll('.kin__row'));
+
+  // 動きを減らす設定では、SVGの中の動き（パケット）も止める
+  if (reduce) {
+    document.querySelectorAll('.mg svg').forEach((s) => { if (s.pauseAnimations) s.pauseAnimations(); });
+    return;
+  }
+
+  // モジュールの入り方：同じ並びの中で少しずつ遅らせる
+  const mods = Array.from(document.querySelectorAll('.bz-ways li, .more2, .bubble, .ucx__index a, .mcards > li, .kin'))
+    .filter((el) => !el.closest('.reveal') && !el.classList.contains('reveal'));
+  if ('IntersectionObserver' in window) {
+    mods.forEach((el) => {
+      const sibs = Array.from(el.parentElement.children);
+      el.style.setProperty('--md', `${Math.min(sibs.indexOf(el), 5) * 0.09}s`);
+      el.classList.add('mod');
+    });
+    const io = new IntersectionObserver((es) => es.forEach((e) => {
+      if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+    }), { threshold: 0.18, rootMargin: '0px 0px -6% 0px' });
+    mods.forEach((el) => io.observe(el));
+  }
+
+  // スクロール：図の視差と、大きな文字の流れ（速く動かすと少し傾く）
+  let lastY = window.scrollY; let vel = 0; let raf = 0;
+  const widths = new Map();
+  const measure = () => rows.forEach((r) => {
+    const t = r.querySelector('.kin__track');
+    widths.set(r, t.scrollWidth / 3);
+  });
+  const update = () => {
+    raf = 0;
+    const vh = window.innerHeight;
+    const y = window.scrollY;
+    vel = vel * 0.8 + (y - lastY) * 0.2;
+    lastY = y;
+    mgs.forEach((m) => {
+      const r = m.getBoundingClientRect();
+      if (r.bottom < -100 || r.top > vh + 100) return;
+      const d = (r.top + r.height / 2 - vh / 2) / vh;
+      m.style.setProperty('--py', `${(d * -48).toFixed(1)}px`);
+    });
+    rows.forEach((row) => {
+      const r = row.getBoundingClientRect();
+      if (r.bottom < -100 || r.top > vh + 100) return;
+      const w = widths.get(row) || 1;
+      const dir = Number(row.dataset.dir || 1);
+      let x = ((y * 0.45) % w);
+      x = dir > 0 ? -x : x - w;
+      const t = row.querySelector('.kin__track');
+      t.style.setProperty('--kx', `${x.toFixed(1)}px`);
+      t.style.setProperty('--ks', `${clamp(-vel * 0.12, -8, 8).toFixed(2)}deg`);
+    });
+    if (Math.abs(vel) > 0.3) raf = requestAnimationFrame(update);
+  };
+  const kick = () => { if (!raf) raf = requestAnimationFrame(update); };
+  window.addEventListener('scroll', kick, { passive: true });
+  window.addEventListener('resize', () => { measure(); kick(); });
+  window.addEventListener('load', () => { measure(); kick(); });
+  measure();
+  update();
+
+  // カーソル：近くの図が、カーソルの方へ少し傾く
+  if (fine) {
+    window.addEventListener('pointermove', (e) => {
+      mgs.forEach((m) => {
+        if (m.classList.contains('mg--ad')) return;
+        const r = m.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > window.innerHeight) return;
+        const x = clamp((e.clientX - (r.left + r.width / 2)) / window.innerWidth, -0.5, 0.5);
+        const yy = clamp((e.clientY - (r.top + r.height / 2)) / window.innerHeight, -0.5, 0.5);
+        m.style.setProperty('--my', `${(x * 18).toFixed(2)}deg`);
+        m.style.setProperty('--mx', `${(-yy * 14).toFixed(2)}deg`);
+      });
+    }, { passive: true });
+  }
+})();

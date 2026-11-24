@@ -961,3 +961,121 @@
 /* お問い合わせ：箇条書きがなくなったので、カードを低く */
 .bubble { min-height: 210px; }
 @media (max-width: 900px) { .bubble { min-height: 0; padding-bottom: 84px; } }
+
+/* =========================================================================
+   ㉑ 改行と切れの修正
+   ========================================================================= */
+h1, h2, h3, .bz-card__q, .uc__title, .company__title, .more2__title, .bubble__ja, .dscene__step strong { word-break: auto-phrase; text-wrap: balance; }
+.company__title .nb, .bz-card__q .nb { display: inline-block; }
+/* 右側の入口カード：矢印が右へ動いても切れないよう、右に余白 */
+@media (min-width: 900px) { .js .bz-split li + li .bz-card { padding-right: 16px; } }
+
+/* =========================================================================
+   ㉒ モーショングラフィック（余白に、事業を表す動く図を置く）
+   形が呼吸するように変わる円、ゆっくり回る点線の輪、輪の上をまわる札。
+   スクロールで少し上下にずれ（視差）、カーソルで少し傾く
+   ========================================================================= */
+.mg { position: relative; aspect-ratio: 1; pointer-events: none; translate: 0 var(--py, 0px); transform: perspective(900px) rotateX(var(--mx, 0deg)) rotateY(var(--my, 0deg)); transition: transform .6s var(--gp-out); }
+.mg__svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.mg__blob { position: absolute; inset: 20%; border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%; background: radial-gradient(circle at 32% 28%, #a9c1ff, var(--blue) 58%, #0d33c9); box-shadow: 0 40px 80px -36px rgba(22, 75, 255, .6); animation: mgBlob 11s ease-in-out infinite alternate, mgSpin 36s linear infinite; }
+@keyframes mgBlob {
+  0% { border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%; }
+  50% { border-radius: 58% 42% 38% 62% / 55% 38% 62% 45%; }
+  100% { border-radius: 37% 63% 51% 49% / 37% 65% 35% 63%; }
+}
+@keyframes mgSpin { to { rotate: 360deg; } }
+.mg__ring { position: absolute; inset: var(--in, 4%); border-radius: 50%; border: 1.5px dashed rgba(22, 75, 255, .32); animation: mgSpin var(--t, 40s) linear infinite; }
+.mg__ring--rev { animation-direction: reverse; }
+.mg__orbit { position: absolute; inset: var(--in, 4%); animation: mgSpin var(--t, 24s) linear infinite; }
+.mg__arm { position: absolute; inset: 0; rotate: var(--a, 0deg); }
+.mg__sat { position: absolute; left: 50%; top: 0; translate: -50% -50%; rotate: calc(-1 * var(--a, 0deg)); }
+.mg__up { display: grid; place-items: center; animation: mgSpin var(--t, 24s) linear infinite reverse; }
+.mg__chip { width: clamp(44px, 4.4vw, 64px); aspect-ratio: 1; border-radius: 50%; font-family: var(--font); font-size: clamp(15px, 1.3vw, 19px); font-weight: 700; box-shadow: 0 14px 30px -14px rgba(16, 24, 43, .45); }
+.mg__chip--w { background: #fff; color: var(--ink); }
+.mg__chip--n { background: #10182b; color: #fff; }
+.mg__chip--b { background: var(--blue); color: #fff; box-shadow: 0 0 0 3px #fff, 0 14px 30px -14px rgba(16, 24, 43, .45); }
+.mg__chip--s { background: var(--sky); color: var(--blue); }
+.mg__chip--icon { background: #fff; }
+.mg__chip--icon svg { width: 46%; fill: none; stroke: var(--blue); stroke-width: 2.6; stroke-linecap: round; }
+.mg__dot { width: 18px; height: 18px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 0 6px rgba(22, 75, 255, .15); }
+.mg__dot--s { width: 12px; height: 12px; background: #ff8a3d; box-shadow: 0 0 0 5px rgba(255, 138, 61, .18); }
+.mg__pulse { position: absolute; inset: 22%; border-radius: 50%; border: 2px solid rgba(22, 75, 255, .45); animation: mgPulse 3.6s ease-out infinite; }
+.mg__pulse:nth-child(2) { animation-delay: 1.2s; }
+.mg__pulse:nth-child(3) { animation-delay: 2.4s; }
+@keyframes mgPulse { 0% { scale: .7; opacity: .9; } 100% { scale: 1.55; opacity: 0; } }
+
+/* AirReach：測る（波紋）→ 伸びる棒グラフと右上がりの線。虫めがねがまわる */
+.bz-svc-head { grid-template-columns: minmax(0, 1fr) minmax(0, .72fr); align-items: center; }
+.mg--ar, .mg--ad { justify-self: center; width: min(100%, 460px); }
+.mg--ar .mg__blob { inset: 16%; background: radial-gradient(circle at 34% 28%, #fff, #e8eeff 55%, #c9d7ff); box-shadow: 0 40px 80px -40px rgba(22, 75, 255, .45); }
+.mg-bars rect { fill: var(--blue); transform-box: fill-box; transform-origin: 50% 100%; animation: mgBar 4.2s var(--gp-emph) infinite; }
+.mg-bars rect:nth-child(1) { fill: #9fb6ff; }
+.mg-bars rect:nth-child(2) { fill: #7c9bff; animation-delay: .12s; }
+.mg-bars rect:nth-child(3) { fill: #5b82ff; animation-delay: .24s; }
+.mg-bars rect:nth-child(4) { animation-delay: .36s; }
+.mg-bars rect:nth-child(5) { fill: #0d33c9; animation-delay: .48s; }
+@keyframes mgBar { 0%, 8% { scale: 1 .15; } 38%, 82% { scale: 1 1; } 100% { scale: 1 .15; } }
+.mg-line { fill: none; stroke: #ff8a3d; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 100; animation: mgDraw 4.2s var(--gp-emph) infinite; }
+@keyframes mgDraw { 0%, 18% { stroke-dashoffset: 100; } 55%, 82% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -100; } }
+.mg-dot { fill: #fff; stroke: #ff8a3d; stroke-width: 5; transform-box: fill-box; transform-origin: center; animation: mgPop 4.2s var(--gp-out) infinite; }
+@keyframes mgPop { 0%, 50% { scale: 0; } 60%, 84% { scale: 1; } 100% { scale: 0; } }
+
+/* Adctor：情報が左から右へ流れ、対価（検証中）が右から左へ戻る */
+.mg--ad { aspect-ratio: 480 / 260; transform: none; }
+.mg-track { fill: none; stroke: rgba(255, 255, 255, .4); stroke-width: 2; stroke-dasharray: 2 8; stroke-linecap: round; }
+.mg-track--back { stroke: rgba(255, 178, 122, .6); }
+.mg-pk { fill: #fff; }
+.mg-pk--back { fill: #ff8a3d; }
+.mg-node circle { fill: #fff; }
+.mg-node--c circle { fill: #10182b; stroke: #fff; stroke-width: 3; }
+.mg-node--c { transform-box: fill-box; transform-origin: center; animation: mgBeat 2.6s ease-in-out infinite; }
+@keyframes mgBeat { 50% { scale: 1.06; } }
+.mg-ico { fill: none; stroke: var(--blue); stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
+.mg-f { fill: none; stroke: #fff; stroke-width: 18; }
+.mg-w { fill: none; stroke: #c2d1ff; stroke-width: 22; stroke-linecap: round; }
+.mg--ad text { fill: #fff; font-family: var(--font); font-size: 17px; font-weight: 700; text-anchor: middle; }
+.mg--ad .mg-tag { font-size: 15px; fill: rgba(255, 255, 255, .85); }
+.mg--ad .mg-tag--back { fill: #ffc79e; }
+
+/* Use Cases：見出しの右で、立場の番号がまわる */
+.usecases { position: relative; }
+.mg--uc { position: absolute; right: max(var(--gutter), calc((100% - var(--max)) / 2)); top: clamp(-20px, -1vw, 0px); width: clamp(150px, 30vw, 440px); }
+.mg--uc .mg__blob { inset: 24%; }
+
+/* 会社：ロゴのかたちと、引かれては消える波の線 */
+.company__inner { grid-template-columns: minmax(0, 1.35fr) minmax(0, .65fr); align-items: center; }
+.mg--co { width: min(100%, 420px); justify-self: end; }
+.mg--co .mg__blob { inset: 16%; background: radial-gradient(circle at 34% 28%, #fff, #e4ebff 60%, #c9d7ff); box-shadow: 0 40px 80px -40px rgba(22, 75, 255, .4); }
+.mg__mark { inset: 26%; width: 48%; height: 48%; }
+.mg__mark .mg-f { stroke: var(--blue); stroke-width: 14; }
+.mg__mark .mg-w { stroke: #ff8a3d; stroke-width: 16; stroke-dasharray: 100; animation: mgDraw 5s var(--gp-emph) infinite; }
+
+/* スクロールで流れる大きな文字（2段で逆向き。速く動かすと少し傾く） */
+.kin { overflow: clip; padding: clamp(56px, 6vw, 96px) 0 clamp(40px, 4vw, 64px); background: var(--surface); }
+.kin__row { white-space: nowrap; }
+.kin__track { display: inline-flex; align-items: center; gap: clamp(20px, 2.4vw, 40px); padding-right: clamp(20px, 2.4vw, 40px); transform: translate3d(var(--kx, 0px), 0, 0) skewX(var(--ks, 0deg)); will-change: transform; }
+.kin__track > span:not(.kin__sep) { font-family: var(--font); font-weight: 600; font-size: clamp(56px, 9vw, 152px); line-height: 1.05; letter-spacing: -.04em; color: var(--ink); }
+.kin__row--o .kin__track > span:not(.kin__sep) { color: transparent; -webkit-text-stroke: 1.5px var(--blue); }
+.kin__sep { flex: none; display: grid; place-items: center; width: clamp(44px, 5vw, 84px); aspect-ratio: 1; border-radius: 50%; background: var(--blue); animation: mgSpin 10s linear infinite; }
+.kin__row--o .kin__sep { background: #10182b; animation-direction: reverse; }
+.kin__sep svg { width: 56%; fill: none; stroke: #fff; stroke-width: 26; }
+
+/* モジュールの入り方：下からせり上がり、角の丸い窓が開くように */
+.js .mod { opacity: 0; translate: 0 48px; clip-path: inset(14% 0 0 0 round 28px); transition: opacity .7s var(--gp-out) var(--md, 0s), translate 1s var(--gp-emph) var(--md, 0s), clip-path 1.1s var(--gp-emph) var(--md, 0s); }
+.js .mod.is-in { opacity: 1; translate: 0 0; clip-path: inset(0 0 0 0 round 0); }
+
+@media (max-width: 899px) {
+  .bz-svc-head { grid-template-columns: minmax(0, 1fr); }
+  .mg--ar { width: min(72%, 320px); }
+  .mg--ad { width: 100%; }
+  .company__inner { grid-template-columns: minmax(0, 1fr); }
+  .mg--co { width: min(64%, 280px); justify-self: center; }
+  .mg--uc { top: 6px; width: clamp(120px, 38vw, 200px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mg *, .kin__sep { animation: none !important; }
+  .mg { translate: none; transform: none; }
+  .js .mod { opacity: 1; translate: none; clip-path: none; transition: none; }
+}
+/* 回る輪の外枠が画面の右からはみ出して横スクロールが出ないように（clip なので固定表示は保たれる） */
+.usecases { overflow-x: clip; }
