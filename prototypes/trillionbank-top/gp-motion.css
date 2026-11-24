@@ -1220,3 +1220,83 @@ t-c:not(.on), .char.tc:not(.on) { color: var(--tint-off, #c5cbd6) !important; }
     -webkit-mask: radial-gradient(circle, transparent 60%, #000 76%); mask: radial-gradient(circle, transparent 60%, #000 76%);
   }
 }
+
+/* =========================================================================
+   ㉗ プロフィールの上でもページ全体がスクロールするように（自己紹介の板をスクロールの箱にしない）
+   ========================================================================= */
+.members.is-pinned .mem__bio, .members.is-pinned .mem__card:has(.mem__link) .mem__bio { overflow: hidden; overscroll-behavior: auto; }
+.members.is-pinned .mem__bio p { overflow: hidden; overscroll-behavior: auto; font-size: 14px; line-height: 1.7; }
+@media (max-height: 820px) and (min-width: 900px) { .members.is-pinned .mem__bio p { font-size: 13px; } }
+@media (max-width: 899px) { .members.is-pinned .mem__bio p { font-size: 13px; line-height: 1.65; padding: 12px 12px 14px; } }
+@media (max-width: 899px) and (max-height: 760px) { .members.is-pinned .mem__bio p { font-size: 12px; } }
+
+/* =========================================================================
+   ㉘ AirReach の図：10の質問をAIに聞き、出た／出なかったを記録 → 足りない情報 → 下書き → 2週間後にまた測る → 報告
+   ========================================================================= */
+.arx { aspect-ratio: auto; width: min(100%, 500px); justify-self: center; display: grid; gap: 14px; padding: clamp(16px, 2vw, 24px); border-radius: 32px; background: linear-gradient(160deg, var(--sky), #f6f8ff); transform: perspective(1000px) rotateX(var(--mx, 0deg)) rotateY(var(--my, 0deg)); }
+.arx__ais { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+.arx__ais span { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 999px; background: #fff; font-family: var(--font); font-size: 14px; font-weight: 700; color: var(--ink-soft); box-shadow: 0 6px 14px -10px rgba(16, 24, 43, .4); transition: background-color .3s, color .3s; }
+.arx__ais span::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #c9d0dc; transition: background-color .3s; }
+.arx__ais span.on { background: var(--blue); color: #fff; }
+.arx__ais span.on::before { background: #7dffb0; }
+.arx__board { position: relative; padding: clamp(16px, 2vw, 22px); border-radius: 22px; background: #fff; box-shadow: 0 40px 70px -44px rgba(22, 75, 255, .55), inset 0 0 0 1px #e3e8f1; }
+.arx__head { display: flex; align-items: center; gap: 8px; font-size: 16px; }
+.arx__round, .arx__ex { padding: 2px 10px; border-radius: 999px; font-size: 13px; font-style: normal; font-weight: 700; }
+.arx__round { margin-left: auto; background: var(--sky); color: var(--blue); }
+.arx__ex { background: #f1f4f9; color: var(--muted); }
+.arx__q { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin-top: 14px; }
+.arx__q li { position: relative; display: grid; place-items: center; gap: 2px; aspect-ratio: 1 / .92; border-radius: 12px; background: #f1f4f9; color: #9aa3b2; transition: background-color .35s, color .35s, box-shadow .35s, scale .35s var(--gp-out); }
+.arx__q b { font-family: var(--font); font-size: 14px; }
+.arx__q i { width: 16px; height: 16px; }
+.arx__q li.is-ask { box-shadow: inset 0 0 0 2px var(--blue); color: var(--blue); scale: 1.06; }
+.arx__q li.is-hit { background: var(--blue); color: #fff; }
+.arx__q li.is-hit i { width: 9px; height: 15px; margin-top: -4px; border: solid #fff; border-width: 0 3px 3px 0; rotate: 45deg; }
+.arx__q li.is-miss i { height: 3px; width: 14px; border-radius: 2px; background: #c9d0dc; }
+.arx__q li.is-gap { box-shadow: inset 0 0 0 2px #ff8a3d; background: #fff6ee; color: #c4561b; }
+.arx__q li.is-gap i { background: #ff8a3d; }
+.arx__sum { display: flex; align-items: baseline; gap: 6px; margin-top: 14px; font-size: 16px; font-weight: 700; }
+.arx__n { font: 700 44px/1 var(--font); color: var(--blue); min-width: 1ch; }
+.arx__chip { position: absolute; right: 14px; bottom: 14px; max-width: calc(100% - 28px); padding: 8px 14px; border-radius: 12px; background: var(--ink); color: #fff; font-size: 14px; font-weight: 700; opacity: 0; translate: 0 10px; transition: opacity .35s var(--gp-out), translate .5s var(--gp-emph); }
+.arx__chip.on { opacity: 1; translate: 0 0; }
+.arx__steps { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+.arx__steps span { padding: 6px 14px; border-radius: 999px; background: #fff; font-size: 14px; font-weight: 700; color: var(--muted); transition: background-color .35s, color .35s; }
+.arx__steps span.on { background: var(--blue); color: #fff; }
+
+/* =========================================================================
+   ㉙ Adctor の図：データ提供者 → Adctor → 利用企業。利用料は提供者へ還元。まわる玉とガラスの台
+   ========================================================================= */
+.adx { aspect-ratio: 540 / 340; width: min(100%, 580px); justify-self: center; transform: none; }
+.adx svg { width: 100%; height: 100%; overflow: visible; }
+.adx-orbit { fill: none; stroke: rgba(255, 255, 255, .22); stroke-width: 1.2; stroke-dasharray: 2 7; }
+.adx-ring { fill: none; stroke: rgba(255, 255, 255, .45); stroke-width: 1.2; }
+.adx-pf--c .adx-ring { stroke: #fff; animation: adxPulse 2.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes adxPulse { 0%, 100% { opacity: .45; } 50% { opacity: 1; scale: 1.04; } }
+.adx-bob { animation: adxBob 4.5s ease-in-out infinite; }
+@keyframes adxBob { 50% { translate: 0 -6px; } }
+.adx-win { stroke: #7c9bff; stroke-width: 5; }
+.adx-ln { fill: none; stroke: #9fb6ff; stroke-width: 4; stroke-linecap: round; }
+.adx-img { fill: #c6d6ff; }
+.adx-ok { fill: var(--blue); stroke: #fff; stroke-width: 3; }
+.adx-chk { fill: none; stroke: #fff; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+.adx-db ellipse, .adx-db path { fill: #dfe8ff; stroke: #7c9bff; stroke-width: 2; }
+.adx-db .adx-band { fill: none; }
+.adx-scr { fill: #164bff; }
+.adx-net { fill: none; stroke: #c2d1ff; stroke-width: 2; stroke-linejoin: round; }
+.adx-stand { fill: #dfe8ff; stroke: #dfe8ff; stroke-width: 3; }
+.adx-path { fill: none; stroke: rgba(255, 255, 255, .6); stroke-width: 2.5; stroke-dasharray: 3 7; stroke-linecap: round; }
+.adx-path--back { stroke: rgba(255, 178, 122, .8); }
+.adx-pk { fill: #fff; filter: drop-shadow(0 0 6px rgba(255, 255, 255, .9)); }
+.adx-coin circle { fill: #ff8a3d; stroke: #ffd2ad; stroke-width: 2; }
+.adx-coin text { fill: #fff; font: 700 13px var(--font); text-anchor: middle; }
+.adx text.adx-name { fill: #fff; font: 700 18px var(--font); text-anchor: middle; }
+.adx text.adx-tag { fill: rgba(255, 255, 255, .9); font: 700 14px var(--font); text-anchor: middle; }
+.adx text.adx-tag--back { fill: #ffd2ad; }
+.adx-count rect { fill: rgba(255, 255, 255, .16); stroke: rgba(255, 255, 255, .5); }
+.adx-count text { fill: #fff; font: 700 14px var(--font); text-anchor: middle; }
+.adx-n { fill: #fff; }
+.adx-count.is-pop rect { fill: rgba(255, 255, 255, .32); }
+
+@media (max-width: 899px) { .arx { width: 100%; } .adx { width: 100%; } }
+@media (prefers-reduced-motion: reduce) { .adx *, .arx * { animation: none !important; transition: none !important; } }
+.arx__chip { position: relative; right: auto; bottom: auto; width: fit-content; max-width: 100%; margin-top: 12px; }
+@media (max-width: 899px) { .adx text.adx-name { font-size: 24px; } .adx text.adx-tag { font-size: 19px; } .adx-count text { font-size: 18px; } .adx-count rect { x: 200px; width: 140px; } }

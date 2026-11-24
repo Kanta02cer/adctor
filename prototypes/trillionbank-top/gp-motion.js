@@ -817,3 +817,86 @@
   requestAnimationFrame(go);
   window.addEventListener('load', () => requestAnimationFrame(go), { once: true });
 })();
+
+/* =========================================================================
+   ㉘ AirReach の図の流れ（見えている間だけ動く）
+   ========================================================================= */
+(() => {
+  const el = document.querySelector('.arx');
+  if (!el) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const tiles = Array.from(el.querySelectorAll('.arx__q li'));
+  const num = el.querySelector('.arx__n');
+  const round = el.querySelector('.arx__round');
+  const chip = el.querySelector('.arx__chip');
+  const steps = Array.from(el.querySelectorAll('.arx__steps span'));
+  const ais = Array.from(el.querySelectorAll('.arx__ais span'));
+  // 例：1回目は10問中3問、直したあとの2回目は10問中7問で名前が出た
+  const R1 = [1, 0, 0, 1, 0, 0, 1, 0, 0, 0];
+  const R2 = [1, 1, 0, 1, 1, 0, 1, 1, 0, 1];
+  const setStep = (k) => steps.forEach((s, i) => s.classList.toggle('on', i === k));
+  const say = (t) => { chip.textContent = t; chip.classList.add('on'); };
+  const quiet = () => chip.classList.remove('on');
+  const paint = (R) => { tiles.forEach((t, i) => { t.className = R[i] ? 'is-hit' : 'is-miss'; }); num.textContent = String(R.reduce((a, b) => a + b, 0)); };
+  if (reduce) { paint(R2); round.textContent = '2回目'; return; }
+  let timers = [];
+  const at = (ms, fn) => timers.push(setTimeout(fn, ms));
+  const stop = () => { timers.forEach(clearTimeout); timers = []; };
+  const run = () => {
+    stop();
+    let t = 0;
+    const measure = (R, label) => {
+      at(t, () => { tiles.forEach((x) => { x.className = ''; }); quiet(); setStep(0); round.textContent = label; num.textContent = '0'; });
+      t += 400;
+      let hits = 0;
+      R.forEach((r, i) => {
+        hits += r;
+        const h = hits;
+        at(t, () => { tiles[i].className = 'is-ask'; ais.forEach((a, j) => a.classList.toggle('on', j === i % ais.length)); });
+        at(t + 280, () => { tiles[i].className = r ? 'is-hit' : 'is-miss'; num.textContent = String(h); });
+        t += 330;
+      });
+      at(t, () => ais.forEach((a) => a.classList.remove('on')));
+    };
+    measure(R1, '1回目');
+    t += 900;
+    at(t, () => { setStep(1); tiles.forEach((x, i) => { if (!R1[i]) x.classList.add('is-gap'); }); say('足りない情報：料金の目安・対応エリア'); });
+    t += 2200;
+    at(t, () => { setStep(2); say('下書き：会社の名札・よくある質問'); });
+    t += 2200;
+    at(t, () => { setStep(3); say('2週間後、同じ質問でもう一度'); });
+    t += 2000;
+    measure(R2, '2回目');
+    t += 700;
+    at(t, () => { setStep(4); say('レポートを出力（PDF・HTML）'); });
+    t += 3000;
+    at(t, run);
+  };
+  new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.isIntersecting) { if (!timers.length) run(); } else stop();
+  }), { threshold: 0.2 }).observe(el);
+})();
+
+/* =========================================================================
+   ㉙ Adctor の図：記録の件数が、情報が届くたびに増える（見えている間だけ）
+   ========================================================================= */
+(() => {
+  const el = document.querySelector('.adx');
+  if (!el) return;
+  const svg = el.querySelector('svg');
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { if (svg.pauseAnimations) svg.pauseAnimations(); return; }
+  const n = el.querySelector('.adx-n');
+  const box = el.querySelector('.adx-count');
+  let count = 1248;
+  let timer = 0;
+  const tick = () => {
+    count += 1;
+    n.textContent = count.toLocaleString('ja-JP');
+    box.classList.add('is-pop');
+    setTimeout(() => box.classList.remove('is-pop'), 240);
+  };
+  new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.isIntersecting && !timer) { timer = setInterval(tick, 867); if (svg.unpauseAnimations) svg.unpauseAnimations(); }
+    if (!e.isIntersecting && timer) { clearInterval(timer); timer = 0; if (svg.pauseAnimations) svg.pauseAnimations(); }
+  })).observe(el);
+})();
