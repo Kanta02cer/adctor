@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>会社情報｜株式会社Trillion Bank</title>
+<meta name="description" content="株式会社Trillion Bankの企業理念（Purpose・Vision・Mission・Values）、会社概要、経営メンバーです。">
+<meta name="theme-color" content="#164bff">
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400..700&amp;family=Noto+Sans+JP:wght@400;500;700&amp;display=swap">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="gp-motion.css">
+<link rel="stylesheet" href="site.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body class="page page--company">
+<!-- このファイルは tools/build_pages.py が pages_src/company.html から作ります。直接編集しないでください -->
+<!-- SITE:symbols -->
+<!-- ロゴシンボルの部品（3枚のフレームと青い線） -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="tb-frames">
+      <path d="M103 74 L168 42 L168 214 L103 247 Z"/>
+      <path d="M183 97 L248 64 L248 236 L183 268 Z"/>
+      <path d="M263 108 L327 75 L327 248 L263 281 Z"/>
+    </g>
+    <path id="tb-frame" d="M4 18 L30 5 L30 74 L4 87 Z"/>
+    <path id="tb-wave" d="M25 165 H105 C130 165 140 137 166 137 C200 137 216 191 256 191 C286 191 296 165 322 165 H389"/>
+  </defs>
+</svg>
+<!-- /SITE:symbols -->
+
+<a class="skip" href="#main">本文へスキップ</a>
+
+<!-- SITE:header -->
+<header class="header" id="header">
+  <div class="header__inner">
+    <a href="index.html" class="header__logo" aria-label="Trillion Bank トップへ" data-cursor="Top">
+      <svg class="header__symbol" viewBox="0 0 414 318" aria-hidden="true">
+        <use href="#tb-frames" class="sym-frames"/>
+        <path class="sym-wave" pathLength="1" d="M25 165 H105 C130 165 140 137 166 137 C200 137 216 191 256 191 C286 191 296 165 322 165 H389"/>
+      </svg>
+      <img class="header__wordmark" src="assets/tb-wordmark.webp" alt="" width="2048" height="201">
+    </a>
+    <nav class="header__nav" aria-label="グローバルナビゲーション">
+      <ul>
+        <li class="has-mega"><a href="business.html" data-page="business" data-roll>Business</a>
+          <div class="mega" id="megaBusiness">
+            <div class="mega__inner">
+              <p class="mega__lead"><span class="mega__en">Business</span>AIに届く入口と、使われた価値が還る仕組み</p>
+              <a class="mega__card" href="airreach.html">
+                <span class="mega__thumb" aria-hidden="true"><svg viewBox="0 0 160 120"><path class="iso" d="M80 20 L140 50 L80 80 L20 50 Z"/><path class="iso" d="M20 50 L20 62 L80 92 L80 80 Z M140 50 L140 62 L80 92 L80 80 Z"/><path class="ln" d="M50 52 V38 M66 60 V34 M82 66 V28"/><circle class="ln" cx="104" cy="40" r="15"/><path class="ln" d="M115 51 L128 64"/></svg></span>
+                <span class="mega__body"><span class="mega__state">提供中</span><b>AirReach</b><span>AI広告（AI検索対策）</span></span>
+                <i class="mega__go" aria-hidden="true"></i>
+              </a>
+              <a class="mega__card mega__card--navy" href="adctor.html">
+                <span class="mega__thumb" aria-hidden="true"><svg viewBox="0 0 160 120"><path class="iso" d="M44 28 L64 18 L64 82 L44 92 Z M74 36 L94 26 L94 90 L74 100 Z M104 44 L124 34 L124 98 L104 108 Z"/><path class="ln" d="M14 62 H44 C54 62 56 52 66 52 C78 52 82 72 96 72 C106 72 108 64 116 64 H148"/></svg></span>
+                <span class="mega__body"><span class="mega__state">研究開発・限定実証</span><b>Adctor</b><span>AIの料金所（Pay per Citation）</span></span>
+                <i class="mega__go" aria-hidden="true"></i>
+              </a>
+              <ul class="mega__links">
+                <li><a href="business.html">事業の全体像</a></li>
+                <li><a href="usecases.html">立場から探す</a></li>
+                <li><a href="#contact">導入・共同実証の相談</a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li><a href="airreach.html" data-page="airreach" data-roll>AirReach</a></li>
+        <li><a href="adctor.html" data-page="adctor" data-roll>Adctor</a></li>
+        <li><a href="usecases.html" data-page="usecases" data-roll>Use Cases</a></li>
+        <li><a href="media.html" data-page="media" data-roll>Media</a></li>
+        <li><a href="news.html" data-page="news" data-roll>News</a></li>
+        <li><a href="company.html" data-page="company" aria-current="page" data-roll>Company</a></li>
+      </ul>
+    </nav>
+    <div class="header__actions">
+      <a class="pill pill--ghost magnetic" href="https://trillion-bank.jp/#diagnose" data-cursor="診断へ"><span class="pc-only">無料で</span>AI検索診断</a>
+      <a class="pill pill--blue magnetic header__contact" href="#contact" data-cursor="相談する">Contact</a>
+      <button type="button" class="header__menu" id="menuButton" aria-expanded="false" aria-controls="drawer" aria-label="メニューを開く"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer" hidden>
+  <nav aria-label="メニュー">
+    <a href="index.html" data-page="top"><span>Top</span>トップ</a>
+    <a href="business.html" data-page="business"><span>Business</span>事業の全体像</a>
+    <a href="airreach.html" data-page="airreach"><span>AirReach</span>AI広告（AI検索対策）</a>
+    <a href="adctor.html" data-page="adctor"><span>Adctor</span>AIの料金所（Pay per Citation）</a>
+    <a href="usecases.html" data-page="usecases"><span>Use Cases</span>立場から探す</a>
+    <a href="media.html" data-page="media"><span>Media</span>メディア掲載</a>
+    <a href="news.html" data-page="news"><span>News</span>ニュース</a>
+    <a href="company.html" data-page="company" aria-current="page"><span>Company</span>会社情報・経営メンバー</a>
+  </nav>
+  <div class="drawer__actions">
+    <a class="pill pill--white pill--lg" href="https://trillion-bank.jp/#diagnose">無料でAI検索診断</a>
+    <a class="pill pill--outline-white pill--lg" href="#contact">お問い合わせ・ご相談</a>
+  </div>
+</div>
+<!-- /SITE:header -->
+
+<main id="main">
+<section class="phero" aria-labelledby="ph-title">
+  <div class="phero__inner">
+    <nav class="crumbs" aria-label="現在地"><ol><li><a href="index.html">Top</a></li><li><span aria-current="page">Company</span></li></ol></nav>
+    <p class="phero__en" aria-hidden="true">Company</p>
+    <h1 class="phero__title" id="ph-title">会社情報</h1>
+    <p class="phero__lead">トリリオンの課題に挑む。私たちの理念と会社の概要、経営メンバーを紹介します。</p>
+  </div>
+</section>
+
+<section class="company cov" id="company" aria-labelledby="company-title">
+  <svg class="cov__contour" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M704.5 120.0 L702.7 128.7 L699.7 137.1 L695.4 145.0 L689.4 152.1 L681.6 157.8 L672.1 161.7 L661.8 163.6 L651.7 164.0 L642.7 163.8 L634.8 164.3 L627.6 166.1 L620.0 169.4 L611.2 173.3 L601.1 176.6 L590.0 178.0 L578.9 176.9 L569.0 173.2 L560.8 167.4 L554.2 160.4 L548.9 152.8 L544.5 145.0 L540.9 136.9 L538.7 128.6 L538.4 120.0 L540.6 111.6 L545.2 104.0 L551.6 97.3 L558.6 91.6 L565.4 86.5 L571.7 81.4 L577.7 75.9 L584.2 70.5 L591.8 65.6 L600.7 62.3 L610.3 61.1 L620.0 62.2 L629.1 65.0 L637.3 68.3 L645.2 71.4 L653.4 73.7 L662.5 75.7 L672.5 78.0 L682.7 81.5 L691.8 86.8 L698.9 93.9 L703.2 102.2 L704.9 111.1 Z"/><path d="M746.0 120.0 L741.9 132.8 L735.4 144.7 L728.5 155.9 L722.0 167.1 L715.8 178.8 L708.6 190.9 L699.1 202.4 L686.3 211.9 L670.6 217.8 L653.3 219.5 L636.0 217.3 L620.0 212.6 L605.7 206.9 L592.8 201.3 L580.5 196.2 L568.7 191.1 L557.3 185.4 L547.0 178.4 L538.1 170.3 L530.7 161.3 L523.7 151.9 L516.3 142.2 L507.8 131.8 L498.6 120.0 L490.5 106.4 L485.8 91.2 L486.7 75.8 L494.1 61.9 L507.4 50.9 L524.5 43.6 L543.1 39.8 L560.9 38.2 L577.2 37.3 L592.0 36.4 L606.1 35.2 L620.0 34.6 L634.0 35.2 L647.5 37.8 L660.3 42.2 L672.1 47.8 L683.5 53.8 L695.2 59.8 L707.7 66.2 L720.5 73.6 L732.4 82.8 L741.5 94.0 L746.2 106.7 Z"/><path d="M788.1 120.0 L790.8 138.0 L788.1 156.0 L779.7 172.9 L766.9 187.9 L751.6 200.8 L735.7 212.6 L719.8 224.1 L703.5 235.8 L685.6 246.8 L665.4 255.4 L643.0 259.5 L620.0 257.7 L598.6 250.1 L580.4 238.3 L565.7 224.9 L553.4 212.2 L541.6 201.8 L528.4 193.3 L513.4 185.5 L497.3 176.7 L482.1 165.7 L469.4 152.3 L460.2 136.8 L454.4 120.0 L451.3 102.2 L450.3 83.6 L451.7 64.2 L456.9 44.7 L467.5 26.4 L484.1 11.3 L506.1 1.2 L531.4 -2.7 L557.2 -1.3 L581.0 3.4 L601.7 8.8 L620.0 12.7 L637.4 14.1 L655.5 14.0 L674.8 14.2 L694.5 16.8 L713.1 22.9 L729.3 32.5 L742.6 44.8 L753.5 58.4 L763.2 72.5 L772.6 87.3 L781.4 103.0 Z"/><path d="M843.8 120.0 L844.2 143.6 L835.3 166.2 L817.6 185.5 L794.0 200.4 L768.5 211.1 L744.3 219.4 L722.9 227.3 L703.8 236.2 L685.4 246.2 L665.6 256.3 L643.8 264.6 L620.0 270.1 L594.9 272.5 L569.0 272.4 L542.0 270.7 L513.3 267.8 L483.2 262.7 L452.9 253.7 L425.5 239.4 L404.8 219.4 L394.1 194.9 L394.3 168.4 L404.0 142.8 L419.1 120.0 L435.3 100.5 L449.1 83.4 L459.6 66.8 L468.1 49.8 L477.2 32.3 L489.3 15.4 L505.6 0.7 L525.5 -10.9 L547.7 -19.6 L571.0 -26.4 L594.9 -32.4 L620.0 -38.1 L646.8 -42.8 L675.1 -44.6 L703.6 -41.5 L730.2 -32.7 L752.8 -18.4 L770.7 -0.5 L784.9 18.8 L797.4 38.1 L810.1 57.0 L823.5 76.4 L835.7 97.3 Z"/><path d="M871.1 120.0 L869.4 146.3 L860.1 171.5 L843.7 194.1 L822.9 213.7 L800.5 230.8 L778.3 246.7 L756.6 262.5 L734.1 278.1 L709.1 292.0 L681.0 302.1 L650.7 306.7 L620.0 305.4 L590.4 299.9 L562.1 292.9 L533.7 286.7 L503.0 282.1 L468.9 277.6 L432.0 270.4 L395.9 257.5 L365.5 237.6 L345.2 211.1 L337.5 180.6 L341.5 149.3 L354.2 120.0 L371.3 93.8 L389.6 70.6 L407.7 49.6 L426.2 30.5 L446.3 13.4 L468.8 -0.9 L493.3 -12.1 L518.4 -20.7 L543.0 -28.8 L567.0 -38.3 L591.9 -50.7 L620.0 -65.1 L652.7 -78.9 L689.6 -87.9 L728.1 -88.7 L764.0 -79.5 L793.7 -61.1 L815.5 -36.4 L830.3 -9.1 L840.7 18.1 L849.6 43.9 L858.5 68.9 L866.5 94.0 Z"/><path d="M922.2 120.0 L924.4 152.1 L920.0 184.3 L906.8 215.0 L884.6 242.2 L855.6 264.6 L823.3 282.6 L790.5 297.8 L758.4 311.8 L726.3 325.2 L692.7 336.9 L656.9 344.3 L620.0 344.8 L584.3 337.2 L552.1 322.9 L524.2 305.0 L499.2 287.3 L473.7 272.5 L444.2 260.7 L409.3 249.4 L370.8 235.1 L333.4 215.0 L303.0 187.9 L284.3 155.4 L279.2 120.0 L286.2 84.8 L302.1 51.9 L323.6 21.8 L348.5 -5.4 L376.6 -29.4 L408.5 -49.2 L444.4 -63.1 L482.9 -70.0 L521.5 -70.2 L557.6 -66.3 L590.0 -62.0 L620.0 -60.8 L650.3 -64.4 L684.1 -71.5 L722.7 -78.4 L764.7 -80.5 L806.2 -74.1 L842.6 -58.1 L870.6 -33.8 L889.5 -4.5 L901.5 26.7 L909.8 57.9 L916.6 88.8 Z"/><path d="M943.6 120.0 L934.1 153.1 L917.3 183.7 L893.1 210.5 L863.7 232.5 L833.2 250.9 L805.3 268.2 L781.4 288.3 L759.9 313.8 L736.4 344.7 L706.3 377.7 L667.2 406.9 L620.0 426.4 L568.6 432.3 L518.2 424.0 L472.9 404.2 L434.2 377.4 L401.6 347.7 L373.2 317.5 L348.1 286.9 L327.3 255.2 L313.0 221.7 L307.3 187.0 L310.5 152.6 L320.5 120.0 L333.1 89.8 L344.5 60.9 L353.2 31.6 L360.6 0.2 L370.8 -33.0 L388.1 -65.5 L415.1 -93.7 L451.0 -114.2 L492.8 -125.7 L536.3 -129.9 L578.8 -130.4 L620.0 -131.1 L661.8 -133.8 L706.3 -137.8 L754.4 -139.5 L803.8 -134.7 L850.4 -120.2 L889.4 -95.5 L917.9 -62.8 L935.5 -25.7 L944.4 12.5 L947.8 49.7 L947.5 85.5 Z"/><path d="M1001.9 120.0 L1011.0 161.2 L1008.8 203.3 L997.7 245.2 L980.0 286.3 L956.5 326.6 L926.1 364.8 L886.8 398.2 L838.2 422.4 L782.3 433.5 L723.8 430.0 L668.4 413.9 L620.0 390.6 L579.4 366.9 L543.6 348.3 L507.8 336.6 L468.3 330.1 L424.2 324.2 L378.0 313.6 L334.5 295.3 L298.2 268.6 L271.2 235.6 L252.7 198.7 L240.1 160.0 L231.1 120.0 L225.7 78.5 L226.3 35.6 L236.6 -7.0 L259.5 -46.5 L294.6 -79.8 L338.7 -105.0 L387.0 -122.9 L435.1 -136.2 L481.0 -148.4 L525.7 -161.5 L571.5 -174.8 L620.0 -184.7 L670.5 -186.6 L719.5 -177.1 L762.8 -155.8 L797.3 -125.7 L823.3 -92.0 L844.2 -59.4 L865.2 -30.5 L890.4 -4.9 L920.5 20.4 L952.6 48.7 L981.5 81.9 Z"/><path d="M1112.9 120.0 L1114.0 172.0 L1095.3 221.9 L1062.4 266.6 L1021.5 305.4 L977.0 339.1 L930.4 368.3 L881.2 392.3 L828.7 409.1 L773.8 417.0 L719.0 415.7 L667.3 407.6 L620.0 397.3 L575.7 389.3 L530.8 386.2 L481.7 387.0 L427.1 387.3 L369.3 381.3 L314.3 364.6 L268.6 335.7 L236.7 297.0 L218.9 252.9 L211.2 207.6 L207.9 163.4 L204.5 120.0 L200.3 75.8 L198.3 29.6 L204.2 -17.8 L222.7 -63.5 L255.3 -103.8 L300.1 -135.9 L352.1 -159.3 L406.7 -175.6 L460.8 -187.6 L513.8 -196.9 L566.8 -203.2 L620.0 -204.0 L672.1 -196.3 L720.1 -178.9 L761.5 -153.3 L795.9 -123.7 L826.1 -94.9 L857.8 -70.2 L896.1 -49.5 L943.4 -29.4 L996.8 -4.9 L1048.8 28.1 L1090.1 70.5 Z"/><path d="M1046.4 120.0 L1043.8 164.6 L1039.9 210.0 L1034.2 257.3 L1022.9 306.1 L1001.2 354.0 L966.1 396.9 L918.3 431.0 L861.6 454.7 L801.1 469.7 L740.6 479.9 L680.8 489.4 L620.0 499.8 L556.0 508.8 L488.9 511.5 L422.2 502.0 L362.4 477.0 L315.9 437.1 L286.1 387.1 L271.6 333.9 L266.5 283.3 L263.5 238.1 L256.9 197.8 L245.4 159.5 L231.8 120.0 L221.4 78.0 L218.7 34.0 L225.6 -10.7 L240.7 -55.2 L261.9 -99.8 L287.8 -145.8 L319.4 -193.4 L359.8 -240.6 L411.7 -282.2 L475.5 -311.5 L547.2 -322.4 L620.0 -312.6 L686.6 -284.8 L742.5 -245.6 L787.5 -203.6 L825.8 -165.2 L862.7 -133.0 L901.8 -105.4 L942.9 -78.2 L982.2 -47.3 L1014.2 -10.6 L1035.3 31.0 L1045.0 75.2 Z"/><path d="M1092.8 120.0 L1056.6 166.0 L1023.3 206.4 L997.4 245.1 L977.9 285.3 L959.4 328.4 L935.8 372.7 L903.0 415.0 L860.0 452.6 L808.7 484.5 L751.3 511.9 L688.5 536.5 L620.0 558.5 L545.1 574.9 L465.7 580.6 L387.1 569.8 L317.2 539.6 L263.7 491.5 L230.8 431.3 L216.9 367.4 L214.9 307.1 L215.5 254.0 L211.3 207.6 L199.9 164.3 L184.7 120.0 L173.0 72.9 L171.5 23.9 L184.0 -24.5 L209.5 -69.6 L244.1 -110.8 L283.3 -149.4 L325.1 -187.5 L370.4 -225.8 L422.0 -262.4 L481.8 -292.6 L549.0 -311.2 L620.0 -315.1 L689.9 -304.5 L755.1 -283.5 L815.5 -257.7 L873.6 -231.3 L932.3 -205.6 L992.5 -178.0 L1050.5 -144.3 L1099.0 -101.2 L1129.7 -48.9 L1137.5 9.1 L1123.0 67.0 Z"/><path d="M1226.9 120.0 L1248.1 186.2 L1241.5 253.2 L1210.1 315.5 L1161.5 370.1 L1103.5 416.8 L1041.1 456.8 L975.8 490.9 L907.1 517.8 L834.5 534.4 L760.0 538.1 L687.3 529.1 L620.0 510.6 L559.3 488.9 L502.8 469.9 L445.6 456.8 L383.2 448.1 L314.8 438.2 L244.6 420.3 L180.6 389.7 L131.1 345.8 L100.8 292.0 L88.6 233.9 L88.3 176.0 L91.8 120.0 L93.6 64.6 L93.5 7.1 L96.5 -53.5 L110.0 -115.5 L140.3 -174.5 L188.8 -224.9 L252.5 -263.1 L325.0 -288.7 L400.3 -304.2 L474.9 -313.2 L547.9 -317.9 L620.0 -317.4 L690.5 -308.7 L756.8 -288.6 L814.7 -256.1 L861.2 -214.2 L896.8 -168.6 L926.8 -125.5 L959.5 -88.4 L1002.2 -56.5 L1057.4 -24.9 L1120.5 12.7 L1181.1 60.9 Z"/></svg>
+  <div class="cov__inner">
+    <p class="cov__word" aria-hidden="true">Company</p>
+    <h2 class="sr" id="company-title">会社情報：企業理念</h2>
+    <div class="cov__body">
+      <div class="cov__item">
+        <p class="cov__label">Purpose</p>
+        <p class="cov__text"><span class="nb">日本で最も大きな</span><span class="nb">幸せをつくる</span></p>
+      </div>
+      <div class="cov__item">
+        <p class="cov__label">Vision</p>
+        <p class="cov__text"><span class="nb">AI時代の情報流通に、</span><span class="nb">信頼と正当な対価を</span></p>
+      </div>
+      <div class="cov__item">
+        <p class="cov__label">Mission</p>
+        <p class="cov__text"><span class="nb">AI革命で、</span><span class="nb">トリリオンの課題を担う。</span></p>
+      </div>
+      <p class="cov__lead">大きな課題にこそ挑む。<br>流行語より、証拠で語る。<br>信頼は、設計の中に組み込む。</p>
+      <p class="cov__links">
+        <a class="cov__pill" href="https://trillion-bank.jp/trillionbank/mission/">企業理念<i aria-hidden="true"></i></a>
+        <a class="cov__pill" href="https://trillion-bank.jp/trillionbank/company/">企業概要<i aria-hidden="true"></i></a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="values" aria-labelledby="values-title">
+  <div class="values__inner">
+    <h2 class="sec-h" id="values-title"><span class="sec-h__en" aria-hidden="true">Values</span><span class="sec-h__ja">私たちの価値観</span></h2>
+    <ol class="values__list">
+      <li><span class="values__no">01</span><b>Challenge the Trillion</b><span>大きな課題にこそ挑む。規模の壁を技術で超える。</span></li>
+      <li><span class="values__no">02</span><b>Evidence over Hype</b><span>流行語より証拠。データと実績で語る。</span></li>
+      <li><span class="values__no">03</span><b>Trust by Design</b><span>信頼は後付けではなく、設計の中に組み込む。</span></li>
+      <li><span class="values__no">04</span><b>Speed with Integrity</b><span>速さと誠実さを両立する。近道はしない。</span></li>
+      <li><span class="values__no">05</span><b>Happiness at Scale</b><span>幸せをスケールさせる。それが最終目標。</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="profile2" id="profile" aria-labelledby="profile-title">
+  <div class="profile2__inner">
+    <h2 class="sec-h" id="profile-title"><span class="sec-h__en" aria-hidden="true">Profile</span><span class="sec-h__ja">会社概要</span></h2>
+    <dl class="profile2__dl">
+      <div><dt>商号</dt><dd>株式会社Trillion Bank（トリリオンバンク）</dd></div>
+      <div><dt>代表者</dt><dd>代表取締役 井上 幹太</dd></div>
+      <div><dt>設立</dt><dd>2025年12月23日</dd></div>
+      <div><dt>所在地</dt><dd>〒102-0083 東京都千代田区麹町六丁目2番1号<br>麹町サイトビル6階 ROOMZ</dd></div>
+      <div><dt>事業内容</dt><dd>AI集客マーケティング（AirReach）の提供<br>AI情報利用管理（Adctor）の研究開発</dd></div>
+      <div><dt>沿革</dt><dd>2026年6月30日　Regalis Japan Group株式会社から商号変更</dd></div>
+    </dl>
+    <p class="profile2__note">※ 当社は銀行業を営む会社ではありません。</p>
+  </div>
+</section>
+
+<section class="lead" id="members" aria-labelledby="members-title">
+  <div class="lead__inner">
+    <header class="lead__head">
+      <p class="members__en" aria-hidden="true">Our <span>Members</span></p>
+      <h2 class="members__ja" id="members-title">経営メンバー</h2>
+    </header>
+    <div class="lead__groups">
+      <!-- MEMBERS:START（tools/build_members.py が自動で書き換えます。直接編集しないでください） -->
+      <div class="lead__group">
+        <h3 class="lead__gh">取締役</h3>
+        <ul class="lead__grid">
+          <li class="lead__item">
+            <article class="lead__card" aria-labelledby="mem-inoue-name">
+              <div class="lead__photo"><img src="assets/members/inoue.webp" alt="井上 幹太の写真" width="800" height="1000" loading="lazy" decoding="async"></div>
+              <p class="lead__en">CEO</p>
+              <h4 class="lead__name" id="mem-inoue-name">井上 幹太</h4>
+              <p class="lead__role">CEO・創業者／代表取締役社長</p>
+              <button type="button" class="lead__open" data-i="0" aria-haspopup="dialog"><span class="sr">井上 幹太のプロフィールを見る</span></button>
+              <div class="lead__bio"><p>不登校を経験するなかでプログラミングを独学し、14歳でWeb開発の受託を開始。N高グループで学び、ソフトバンクグループなどでのインターンを経て、2025年にTrillion Bankを設立。ソフトバンクアカデミア17期。起業リアリティ番組『Nontitle Season 6』や『令和の虎』に出演。現在は経営と事業戦略を統括し、AI検索での企業の見え方を測り、改善する「AirReach」と、AIによる情報利用を記録し、発信者に対価を還元する仕組みを目指す「Adctor」を推進する。</p><a class="lead__link" href="https://trillion-bank.jp/trillionbank/ceo/" target="_blank" rel="noopener noreferrer">公式代表プロフィール<span class="sr">（新しいタブで開きます）</span></a></div>
+            </article>
+          </li>
+          <li class="lead__item">
+            <article class="lead__card" aria-labelledby="mem-haga-name">
+              <div class="lead__photo"><img src="assets/members/haga.webp" alt="芳賀 翔大の写真" width="800" height="1000" loading="lazy" decoding="async"></div>
+              <p class="lead__en">CSO</p>
+              <h4 class="lead__name" id="mem-haga-name">芳賀 翔大</h4>
+              <p class="lead__role">CSO／取締役 兼 営業統括室長</p>
+              <button type="button" class="lead__open" data-i="1" aria-haspopup="dialog"><span class="sr">芳賀 翔大のプロフィールを見る</span></button>
+              <div class="lead__bio"><p>北海道富良野市出身。立教大学経営学部に進学し、大学1年次に株式会社MICHIを創業。イベント運営やクリエイティブ事業を手がけるほか、学生団体Hokkaidonorsの副代表として、首都圏から北海道の魅力を発信する活動にも携わる。Trillion Bankでは、AirReachの法人営業を統括。新規顧客の開拓、販売パートナーとの連携、商談から成約までの営業体制づくりを担う。</p></div>
+            </article>
+          </li>
+          <li class="lead__item">
+            <article class="lead__card" aria-labelledby="mem-hirakawa-name">
+              <div class="lead__photo lead__photo--none"><svg class="mem__mark" viewBox="0 0 414 318" aria-hidden="true"><use href="#tb-frames" class="mem__mark-f"/><use href="#tb-wave" class="mem__mark-w"/></svg><span class="lead__initial" aria-hidden="true">平</span></div>
+              <p class="lead__en">COO</p>
+              <h4 class="lead__name" id="mem-hirakawa-name">平川 凛乃丞</h4>
+              <p class="lead__role">COO・共同創業者／取締役副社長 兼 事業推進室長</p>
+              <button type="button" class="lead__open" data-i="2" aria-haspopup="dialog"><span class="sr">平川 凛乃丞のプロフィールを見る</span></button>
+              <div class="lead__bio"><p>上智大学。企業の実際の経営課題に取り組む学生ビジネスコンペ「B-Lab」に参加し、事業化を見据えた提案づくりを経験。Trillion Bankでは、事業計画を実行に移す役割を担う。営業・顧客支援・開発の優先順位と役割分担を整理し、提案から導入・運用までの流れを整える。協業先との取り組みでは、連携内容を具体的な実行計画に落とし込む。</p></div>
+            </article>
+          </li>
+        </ul>
+      </div>
+      <div class="lead__group">
+        <h3 class="lead__gh">執行役員・メンバー</h3>
+        <ul class="lead__grid">
+          <li class="lead__item">
+            <article class="lead__card" aria-labelledby="mem-ichinose-name">
+              <div class="lead__photo"><img src="assets/members/ichinose.webp" alt="一瀬 光希の写真" width="800" height="1000" loading="lazy" decoding="async"></div>
+              <p class="lead__en">Executive Officer</p>
+              <h4 class="lead__name" id="mem-ichinose-name">一瀬 光希</h4>
+              <p class="lead__role">執行役員 兼 社長室上席マネージャー</p>
+              <button type="button" class="lead__open" data-i="3" aria-haspopup="dialog"><span class="sr">一瀬 光希のプロフィールを見る</span></button>
+              <div class="lead__bio"><p>上智大学外国語学部英語学科。代表直下で広報と社長室の実務を担う。取材や撮影の窓口、動画企画、社外関係者との調整を担当。株主への連絡や部門をまたぐ案件の進行も支え、社外への発信と社内の動きをつなぐ。</p></div>
+            </article>
+          </li>
+          <li class="lead__item">
+            <article class="lead__card" aria-labelledby="mem-masuyama-name">
+              <div class="lead__photo"><img src="assets/members/masuyama.webp" alt="増山 とみきの写真" width="800" height="1000" loading="lazy" decoding="async"></div>
+              <p class="lead__en">CTO</p>
+              <h4 class="lead__name" id="mem-masuyama-name">増山 とみき</h4>
+              <p class="lead__role">CTO／情報システム管理室長・ITシステム事業領域最高責任者</p>
+              <button type="button" class="lead__open" data-i="4" aria-haspopup="dialog"><span class="sr">増山 とみきのプロフィールを見る</span></button>
+              <div class="lead__bio"><p>情報システムとプロダクト開発を統括。AirReachでは、AI検索の計測データ取得やレポートの品質、申し込みから利用開始までの流れを改善する。Adctorでは、検証環境の整備や本番運用に向けた技術面の準備を進める。両事業の機能を、顧客が安定して使える状態に整える役割を担う。</p></div>
+            </article>
+          </li>
+          <li class="lead__item">
+            <article class="lead__card" aria-labelledby="mem-asai-name">
+              <div class="lead__photo"><img src="assets/members/asai.webp" alt="William Asaiの写真" width="800" height="1000" loading="lazy" decoding="async"></div>
+              <p class="lead__en">CAIO</p>
+              <h4 class="lead__name" id="mem-asai-name">William Asai</h4>
+              <p class="lead__role">CAIO／AI事業領域最高責任者</p>
+              <button type="button" class="lead__open" data-i="5" aria-haspopup="dialog"><span class="sr">William Asaiのプロフィールを見る</span></button>
+              <div class="lead__bio"><p>AIによる情報利用を扱うAdctorの技術要件と検証を担当する。AIがデータを取得した記録を起点に、利用量の集計、請求、入金照合、提供者への分配までを一貫して検証できる仕組みを設計。開発チームと連携し、実際の取引に向けて、どこまでの機能を用意し、何を確認するかを整理する。</p></div>
+            </article>
+          </li>
+          <li class="lead__item">
+            <article class="lead__card" aria-labelledby="mem-yamane-name">
+              <div class="lead__photo lead__photo--none"><svg class="mem__mark" viewBox="0 0 414 318" aria-hidden="true"><use href="#tb-frames" class="mem__mark-f"/><use href="#tb-wave" class="mem__mark-w"/></svg><span class="lead__initial" aria-hidden="true">山</span></div>
+              <p class="lead__en">CTO Office</p>
+              <h4 class="lead__name" id="mem-yamane-name">山根 たいち</h4>
+              <p class="lead__role">CTO室上席マネージャー</p>
+              <button type="button" class="lead__open" data-i="6" aria-haspopup="dialog"><span class="sr">山根 たいちのプロフィールを見る</span></button>
+              <div class="lead__bio"><p>AirReachの計測機能とWeb実装を担当する。AI回答に企業名が出る「言及」と、公式サイトが情報源として使われる「引用」を分けて集計し、元の回答と照合して計測の精度を高める。サイトの改修と機能の動作確認にも携わり、顧客が改善の判断に使えるレポートづくりを支える。</p></div>
+            </article>
+          </li>
+        </ul>
+      </div>
+      <!-- MEMBERS:END -->
+    </div>
+  </div>
+  <dialog class="lead-dlg" id="leadDlg" aria-labelledby="leadDlgName">
+    <div class="lead-dlg__in">
+      <button type="button" class="lead-dlg__x" data-close><span class="sr">閉じる</span></button>
+      <div class="lead-dlg__photo"></div>
+      <div class="lead-dlg__body">
+        <p class="lead-dlg__en"></p>
+        <h3 class="lead-dlg__name" id="leadDlgName"></h3>
+        <p class="lead-dlg__role"></p>
+        <div class="lead-dlg__bio"></div>
+      </div>
+      <div class="lead-dlg__nav">
+        <button type="button" class="lead-dlg__arw lead-dlg__arw--prev" data-step="-1"><span class="sr">前のメンバー</span></button>
+        <p class="lead-dlg__count" aria-live="polite"><b>01</b> / 07</p>
+        <button type="button" class="lead-dlg__arw lead-dlg__arw--next" data-step="1"><span class="sr">次のメンバー</span></button>
+      </div>
+    </div>
+  </dialog>
+</section>
+
+<!-- SITE:contact -->
+<section class="git" id="contact" aria-labelledby="contact-title">
+  <svg class="git__contour" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use href="#tb-frames" transform="translate(330 120) scale(1.35)"/><use href="#tb-frames" transform="translate(300 90) scale(1.55)"/><use href="#tb-frames" transform="translate(270 60) scale(1.75)"/></svg>
+  <div class="git__inner">
+    <h2 class="git__title" id="contact-title"><span class="git__en" aria-hidden="true">Get In Touch</span><span class="sr">お問い合わせ</span></h2>
+    <div class="git__grid">
+      <ul class="git__orbs">
+        <li class="git__o git__o--1"><a class="orb" href="https://trillion-bank.jp/trillionbank/contact/" data-cursor="フォームへ">
+          <span class="orb__en">Contact</span><span class="orb__ja">お問い合わせ</span><span class="orb__sub">まずはお気軽に<br>ご相談ください。</span><i class="orb__go" aria-hidden="true"></i></a></li>
+        <li class="git__o git__o--2"><a class="orb" href="https://trillion-bank.jp/#diagnose" data-cursor="30秒で診断">
+          <span class="orb__en">Free Check</span><span class="orb__ja">無料AI検索診断</span><span class="orb__sub">URLを入れるだけ。<br>約30秒で分かります。</span><i class="orb__go" aria-hidden="true"></i></a></li>
+        <li class="git__o git__o--3"><a class="orb orb--white" href="https://trillion-bank.jp/trillionbank/meeting/" data-cursor="予約する">
+          <span class="orb__en">Meeting</span><span class="orb__ja">商談を予約</span><i class="orb__go" aria-hidden="true"></i></a></li>
+      </ul>
+      <p class="git__text">AI検索での見え方の確認から、<br>AirReachの導入、<br>Adctorの共同実証まで。<br>ご用件に近い窓口から、<br>お気軽にご相談ください。</p>
+    </div>
+  </div>
+</section>
+<!-- /SITE:contact -->
+</main>
+
+<!-- SITE:footer -->
+<footer class="footer" data-curve>
+  <div class="footer__inner">
+    <div class="footer__brand">
+      <a href="index.html" class="footer__logo" aria-label="Trillion Bank トップへ" data-cursor="Top">
+        <svg viewBox="0 0 414 318" aria-hidden="true"><use href="#tb-frames" class="sym-frames"/><use href="#tb-wave" class="sym-wave"/></svg>
+        <img src="assets/tb-wordmark.webp" alt="" width="2048" height="201">
+      </a>
+      <p class="footer__company">株式会社Trillion Bank（トリリオンバンク）</p>
+      <address>〒102-0083 東京都千代田区麹町六丁目2番1号<br>麹町サイトビル6階 ROOMZ</address>
+    </div>
+    <nav class="footer__nav" aria-label="フッターナビゲーション">
+      <div><p>Business</p>
+        <a href="business.html">事業の全体像</a>
+        <a href="airreach.html">AirReach（AI広告）</a>
+        <a href="adctor.html">Adctor（AIの料金所）</a>
+        <a href="usecases.html">Use Cases</a>
+      </div>
+      <div><p>Company</p>
+        <a href="company.html">会社情報</a>
+        <a href="company.html#members">経営メンバー</a>
+        <a href="news.html">ニュース</a>
+        <a href="media.html">メディア掲載</a>
+      </div>
+      <div><p>Contact</p>
+        <a href="https://trillion-bank.jp/#diagnose">無料でAI検索診断</a>
+        <a href="https://trillion-bank.jp/trillionbank/contact/">お問い合わせフォーム</a>
+        <a href="https://trillion-bank.jp/trillionbank/meeting/">商談を予約する</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer__bottom">
+    <p>※ 当社は銀行業を営む会社ではありません。AirReachは、AI検索での表示・順位・問い合わせ・売上を保証するものではありません。</p>
+    <ul>
+      <li><a href="https://trillion-bank.jp/trillionbank/privacy/">プライバシーポリシー</a></li>
+      <li><a href="https://trillion-bank.jp/trillionbank/terms/">利用規約</a></li>
+      <li><a href="https://trillion-bank.jp/trillionbank/security/">情報セキュリティ</a></li>
+      <li><a href="https://trillion-bank.jp/trillionbank/insights/editorial-policy/">編集方針</a></li>
+    </ul>
+    <p class="footer__copy">© 2026 Trillion Bank
+      <!-- 隠しフレーム 4：還元する（コピーライトの横にひっそり） -->
+      <button type="button" class="key key--footer" data-key="return" aria-label="隠しフレームを拾う（4：還元する）">
+        <svg viewBox="0 0 34 92" aria-hidden="true"><use href="#tb-frame"/></svg>
+      </button>
+    </p>
+  </div>
+</footer>
+<!-- /SITE:footer -->
+
+<!-- SITE:floaters -->
+<!-- 見つけたフレームの数（脱出ゲーム） -->
+<button type="button" class="hunt" id="hunt" aria-controls="mascotPanel" aria-label="隠しフレーム：0／4。ヒントを見る">
+  <span class="hunt__slots" aria-hidden="true">
+    <svg viewBox="0 0 34 92" data-slot="measure"><use href="#tb-frame"/></svg>
+    <svg viewBox="0 0 34 92" data-slot="protect"><use href="#tb-frame"/></svg>
+    <svg viewBox="0 0 34 92" data-slot="record"><use href="#tb-frame"/></svg>
+    <svg viewBox="0 0 34 92" data-slot="return"><use href="#tb-frame"/></svg>
+  </span>
+  <span class="hunt__count" id="huntCount">0/4</span>
+</button>
+
+<!-- マスコット「とりうる」：押すとヒントと近道が出る -->
+<div class="mascot" id="mascot">
+  <div class="mascot__panel" id="mascotPanel" role="dialog" aria-modal="false" aria-labelledby="mascotTitle" hidden>
+    <p class="mascot__title" id="mascotTitle">とりうるの寄り道案内</p>
+    <p class="mascot__hint" id="mascotHint">このページのどこかに、ロゴのフレームが4つ隠れているよ。カーソルを当てると光るものを探してみて！</p>
+    <p class="mascot__progress"><span id="mascotCount">0</span>／4 見つけた</p>
+    <div class="mascot__links">
+      <a href="https://trillion-bank.jp/#diagnose" class="pill pill--blue">無料でAI検索診断</a>
+      <a href="#contact" class="pill pill--outline">相談する</a>
+    </div>
+    <button type="button" class="mascot__close" id="mascotClose" aria-label="案内を閉じる"></button>
+  </div>
+  <span class="mascot__bubble" id="mascotBubble" aria-hidden="true">押してみて！</span>
+  <button type="button" class="mascot__btn" id="mascotBtn" aria-expanded="false" aria-controls="mascotPanel" aria-label="とりうるの寄り道案内を開く">
+    <img src="assets/toriuru-point.webp" alt="" width="480" height="480">
+  </button>
+</div>
+
+<!-- 4つ全部そろったときの隠しシーン -->
+<div class="unlock" id="unlock" role="dialog" aria-modal="true" aria-labelledby="unlockTitle" hidden>
+  <div class="unlock__inner">
+    <svg class="unlock__logo" viewBox="0 0 414 318" aria-hidden="true">
+      <g class="unlock__frames" fill="none" stroke="#fff" stroke-width="12">
+        <path d="M103 74 L168 42 L168 214 L103 247 Z"/>
+        <path d="M183 97 L248 64 L248 236 L183 268 Z"/>
+        <path d="M263 108 L327 75 L327 248 L263 281 Z"/>
+      </g>
+      <path class="unlock__wave" pathLength="1" d="M25 165 H105 C130 165 140 137 166 137 C200 137 216 191 256 191 C286 191 296 165 322 165 H389" fill="none" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
+    </svg>
+    <p class="unlock__en">Unlocked</p>
+    <h2 class="unlock__title" id="unlockTitle">4つのフレームが、そろいました。</h2>
+    <p class="unlock__body">Trillion Bankのロゴは、<b>測る・守る・記録する</b>の3枚のフレームと、そこを通り抜けて発信者へ<b>還る</b>青い線でできています。見つけてくださったあなたの情報も、AIの時代に正しく見つかり、正しく還るように。</p>
+    <div class="unlock__actions">
+      <a class="pill pill--white pill--lg" href="https://trillion-bank.jp/#diagnose">無料でAI検索診断をはじめる</a>
+      <a class="pill pill--outline-white pill--lg" href="#contact" data-close-unlock>Adctorについて相談する</a>
+    </div>
+    <button type="button" class="unlock__close" id="unlockClose">閉じる</button>
+  </div>
+  <div class="confetti" id="confetti" aria-hidden="true"></div>
+</div>
+
+<!-- カーソル（行き先の名前を出す） -->
+<div class="cursor" id="cursor" aria-hidden="true"><span class="cursor__label" id="cursorLabel"></span></div>
+<!-- ちょっとしたお知らせ -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<!-- /SITE:floaters -->
+
+<script src="main.js"></script>
+<script src="gp-motion.js"></script>
+<script src="site.js"></script>
+</body>
+</html>

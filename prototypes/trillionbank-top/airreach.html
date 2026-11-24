@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AirReach（AI広告）｜株式会社Trillion Bank</title>
+<meta name="description" content="AirReachは、ChatGPTやGeminiなどのAIの回答で「比較候補」に入ることを目指すAI広告（AI検索対策）です。広告枠の購入ではなく、AI向けの情報整備です。">
+<meta name="theme-color" content="#164bff">
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400..700&amp;family=Noto+Sans+JP:wght@400;500;700&amp;display=swap">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="gp-motion.css">
+<link rel="stylesheet" href="site.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body class="page page--airreach">
+<!-- このファイルは tools/build_pages.py が pages_src/airreach.html から作ります。直接編集しないでください -->
+<!-- SITE:symbols -->
+<!-- ロゴシンボルの部品（3枚のフレームと青い線） -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="tb-frames">
+      <path d="M103 74 L168 42 L168 214 L103 247 Z"/>
+      <path d="M183 97 L248 64 L248 236 L183 268 Z"/>
+      <path d="M263 108 L327 75 L327 248 L263 281 Z"/>
+    </g>
+    <path id="tb-frame" d="M4 18 L30 5 L30 74 L4 87 Z"/>
+    <path id="tb-wave" d="M25 165 H105 C130 165 140 137 166 137 C200 137 216 191 256 191 C286 191 296 165 322 165 H389"/>
+  </defs>
+</svg>
+<!-- /SITE:symbols -->
+
+<a class="skip" href="#main">本文へスキップ</a>
+
+<!-- SITE:header -->
+<header class="header" id="header">
+  <div class="header__inner">
+    <a href="index.html" class="header__logo" aria-label="Trillion Bank トップへ" data-cursor="Top">
+      <svg class="header__symbol" viewBox="0 0 414 318" aria-hidden="true">
+        <use href="#tb-frames" class="sym-frames"/>
+        <path class="sym-wave" pathLength="1" d="M25 165 H105 C130 165 140 137 166 137 C200 137 216 191 256 191 C286 191 296 165 322 165 H389"/>
+      </svg>
+      <img class="header__wordmark" src="assets/tb-wordmark.webp" alt="" width="2048" height="201">
+    </a>
+    <nav class="header__nav" aria-label="グローバルナビゲーション">
+      <ul>
+        <li class="has-mega"><a href="business.html" data-page="business" data-roll>Business</a>
+          <div class="mega" id="megaBusiness">
+            <div class="mega__inner">
+              <p class="mega__lead"><span class="mega__en">Business</span>AIに届く入口と、使われた価値が還る仕組み</p>
+              <a class="mega__card" href="airreach.html">
+                <span class="mega__thumb" aria-hidden="true"><svg viewBox="0 0 160 120"><path class="iso" d="M80 20 L140 50 L80 80 L20 50 Z"/><path class="iso" d="M20 50 L20 62 L80 92 L80 80 Z M140 50 L140 62 L80 92 L80 80 Z"/><path class="ln" d="M50 52 V38 M66 60 V34 M82 66 V28"/><circle class="ln" cx="104" cy="40" r="15"/><path class="ln" d="M115 51 L128 64"/></svg></span>
+                <span class="mega__body"><span class="mega__state">提供中</span><b>AirReach</b><span>AI広告（AI検索対策）</span></span>
+                <i class="mega__go" aria-hidden="true"></i>
+              </a>
+              <a class="mega__card mega__card--navy" href="adctor.html">
+                <span class="mega__thumb" aria-hidden="true"><svg viewBox="0 0 160 120"><path class="iso" d="M44 28 L64 18 L64 82 L44 92 Z M74 36 L94 26 L94 90 L74 100 Z M104 44 L124 34 L124 98 L104 108 Z"/><path class="ln" d="M14 62 H44 C54 62 56 52 66 52 C78 52 82 72 96 72 C106 72 108 64 116 64 H148"/></svg></span>
+                <span class="mega__body"><span class="mega__state">研究開発・限定実証</span><b>Adctor</b><span>AIの料金所（Pay per Citation）</span></span>
+                <i class="mega__go" aria-hidden="true"></i>
+              </a>
+              <ul class="mega__links">
+                <li><a href="business.html">事業の全体像</a></li>
+                <li><a href="usecases.html">立場から探す</a></li>
+                <li><a href="#contact">導入・共同実証の相談</a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li><a href="airreach.html" data-page="airreach" aria-current="page" data-roll>AirReach</a></li>
+        <li><a href="adctor.html" data-page="adctor" data-roll>Adctor</a></li>
+        <li><a href="usecases.html" data-page="usecases" data-roll>Use Cases</a></li>
+        <li><a href="media.html" data-page="media" data-roll>Media</a></li>
+        <li><a href="news.html" data-page="news" data-roll>News</a></li>
+        <li><a href="company.html" data-page="company" data-roll>Company</a></li>
+      </ul>
+    </nav>
+    <div class="header__actions">
+      <a class="pill pill--ghost magnetic" href="https://trillion-bank.jp/#diagnose" data-cursor="診断へ"><span class="pc-only">無料で</span>AI検索診断</a>
+      <a class="pill pill--blue magnetic header__contact" href="#contact" data-cursor="相談する">Contact</a>
+      <button type="button" class="header__menu" id="menuButton" aria-expanded="false" aria-controls="drawer" aria-label="メニューを開く"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer" hidden>
+  <nav aria-label="メニュー">
+    <a href="index.html" data-page="top"><span>Top</span>トップ</a>
+    <a href="business.html" data-page="business"><span>Business</span>事業の全体像</a>
+    <a href="airreach.html" data-page="airreach" aria-current="page"><span>AirReach</span>AI広告（AI検索対策）</a>
+    <a href="adctor.html" data-page="adctor"><span>Adctor</span>AIの料金所（Pay per Citation）</a>
+    <a href="usecases.html" data-page="usecases"><span>Use Cases</span>立場から探す</a>
+    <a href="media.html" data-page="media"><span>Media</span>メディア掲載</a>
+    <a href="news.html" data-page="news"><span>News</span>ニュース</a>
+    <a href="company.html" data-page="company"><span>Company</span>会社情報・経営メンバー</a>
+  </nav>
+  <div class="drawer__actions">
+    <a class="pill pill--white pill--lg" href="https://trillion-bank.jp/#diagnose">無料でAI検索診断</a>
+    <a class="pill pill--outline-white pill--lg" href="#contact">お問い合わせ・ご相談</a>
+  </div>
+</div>
+<!-- /SITE:header -->
+
+<main id="main">
+<section class="phero" aria-labelledby="ph-title">
+  <div class="phero__inner">
+    <nav class="crumbs" aria-label="現在地"><ol><li><a href="index.html">Top</a></li><li><a href="business.html">Business</a></li><li><span aria-current="page">AirReach</span></li></ol></nav>
+    <p class="phero__tag">提供中・AI広告（AI検索対策）</p>
+    <p class="phero__en" aria-hidden="true">AirReach</p>
+    <h1 class="phero__title" id="ph-title"><span class="nb">AIの回答で、</span><span class="nb">「比較候補」に入る。</span></h1>
+    <p class="phero__lead">ChatGPTやGeminiなどのAIに質問されたとき、自社が候補として紹介されるように。自社の情報を、AIが参照しやすい形に整えます。<b>広告枠の購入ではなく、AI向けの情報整備です。</b></p>
+    <ul class="chips" aria-label="対応するAI（対象と範囲は見積もりで確認します）">
+      <li>ChatGPT</li><li>Gemini</li><li>Claude</li><li>Perplexity</li><li>Google AI Overviews</li>
+    </ul>
+    <p class="phero__actions">
+      <a class="orb orb--sm" href="https://trillion-bank.jp/#diagnose" data-cursor="30秒で診断"><span class="orb__en">Free Check</span><span class="orb__ja">無料診断</span><i class="orb__go" aria-hidden="true"></i></a>
+      <a class="orb orb--sm orb--white" href="#contact"><span class="orb__en">Contact</span><span class="orb__ja">導入の相談</span><i class="orb__go" aria-hidden="true"></i></a>
+    </p>
+  </div>
+</section>
+
+<section class="flow4" aria-labelledby="flow-title">
+  <div class="flow4__inner">
+    <h2 class="sec-h" id="flow-title"><span class="sec-h__en" aria-hidden="true">How it works</span><span class="sec-h__ja">AI広告の、4つの流れ</span></h2>
+    <ol class="flow4__list">
+      <li><span class="flow4__no">01</span><b class="flow4__t">表示確認</b><span class="flow4__d">AIでの紹介状況と、競合を確認する</span></li>
+      <li><span class="flow4__no">02</span><b class="flow4__t">改善計画</b><span class="flow4__d">必要な情報や記事を整理する</span></li>
+      <li><span class="flow4__no">03</span><b class="flow4__t">記事作成</b><span class="flow4__d">質問への回答と、記事を作成する</span></li>
+      <li><span class="flow4__no">04</span><b class="flow4__t">結果確認</b><span class="flow4__d">AIでの紹介や、アクセス・問い合わせを確認する</span></li>
+    </ol>
+  </div>
+</section>
+
+<div class="bz">
+<article class="bz-band bz-band--white" id="airreach" aria-labelledby="airreach-title">
+    <div class="bz-wrap">
+      <header class="bz-svc-head">
+        <div>
+          <p class="bz-en bz-en--md" aria-hidden="true">Air<span>Reach</span></p>
+          <h3 class="bz-svc-title" id="airreach-title"><span class="sr">AirReach：</span><span class="nb">AI検索で、</span><span class="nb">自社がどう</span><span class="nb"><em>紹介されるか</em>を知る。</span></h3>
+          <div class="bz-cta">
+            <a class="pill pill--blue pill--lg magnetic" href="https://trillion-bank.jp/#diagnose" data-cursor="30秒で診断">無料でAI検索診断</a>
+            <a class="more" href="https://trillion-bank.jp/trillionbank/contact/" data-cursor="相談する">導入について相談<i aria-hidden="true"></i></a>
+          </div>
+        </div>
+        <div class="mg arx" aria-hidden="true">
+          <p class="arx__ais"><span>ChatGPT</span><span>Gemini</span><span>Claude</span><span>Perplexity</span></p>
+          <div class="arx__board">
+            <p class="arx__head"><b>AIに聞いた結果</b><em class="arx__round">1回目</em><em class="arx__ex">例</em></p>
+            <ol class="arx__q"><li><b>Q1</b><i></i></li><li><b>Q2</b><i></i></li><li><b>Q3</b><i></i></li><li><b>Q4</b><i></i></li><li><b>Q5</b><i></i></li><li><b>Q6</b><i></i></li><li><b>Q7</b><i></i></li><li><b>Q8</b><i></i></li><li><b>Q9</b><i></i></li><li><b>Q10</b><i></i></li></ol>
+            <p class="arx__sum"><b class="arx__n">0</b><span>／10問で、名前が出ました</span></p>
+            <p class="arx__chip"></p>
+          </div>
+          <p class="arx__steps"><span class="on">測る</span><span>見つける</span><span>つくる</span><span>見守る</span><span>報告</span></p>
+        </div>
+      </header>
+
+      <div class="dscene dscene--airreach" data-scene data-step="0" style="--n:4">
+        <div class="dscene__pin">
+          <p class="dscene__label"><span>Service Model</span>話しかけるだけで、AI検索対策が進む</p>
+          <div class="dscene__grid">
+            <ol class="dscene__steps">
+          <li class="dscene__step is-active" data-step="0">
+            <span class="dscene__no">01</span><b class="dscene__en" aria-hidden="true">Start</b>
+            <strong>始めるのは、アドレスを伝えるだけ</strong>
+          </li>
+          <li class="dscene__step" data-step="1">
+            <span class="dscene__no">02</span><b class="dscene__en" aria-hidden="true">Ask</b>
+            <strong>わからない言葉は、その場で聞ける</strong>
+          </li>
+          <li class="dscene__step" data-step="2">
+            <span class="dscene__no">03</span><b class="dscene__en" aria-hidden="true">Approve</b>
+            <strong>入れるのは、承認したものだけ</strong>
+          </li>
+          <li class="dscene__step" data-step="3">
+            <span class="dscene__no">04</span><b class="dscene__en" aria-hidden="true">Re-measure</b>
+            <strong>同じ質問で、測り直す</strong>
+          </li>
+            </ol>
+            <div class="dscene__devices" aria-hidden="true">
+              <div class="stage3d">
+                <div class="rig">
+                  <div class="lap">
+                    <div class="lap__lid">
+                      <div class="lap__back"></div>
+                      <div class="lap__bezel"><div class="lap__screen">
+                      <div class="app app--ar">
+                        <div class="chat">
+                        <div class="chat__head"><img src="assets/toriuru-avatar.webp" alt="" width="160" height="160"><div><b>トリウル君</b><small>AirReach の案内役</small></div><em>案内中</em></div>
+                        <div class="chat__log">
+<div class="msg msg--bot" data-at="0" style="--d:0s"><img src="assets/toriuru-avatar.webp" alt="" width="160" height="160"><div class="msg__b">こんにちは、トリウルです。ホームページのアドレスを教えてください。</div></div>
+<p class="msg msg--me" data-at="0" style="--d:.6s">見本工務店のホームページを見てください</p>
+<div class="msg msg--bot" data-at="0" style="--d:1.3s"><img src="assets/toriuru-avatar.webp" alt="" width="160" height="160"><div class="msg__b">読み込みました。お客様が聞きそうな質問を、10個考えました。<span class="msg__chips"><span>料金の目安</span><span>対応エリア</span><span>工期</span></span></div></div>
+<p class="msg msg--me" data-at="1" style="--d:0s">「会社の名札」って何？</p>
+<div class="msg msg--bot" data-at="1" style="--d:.7s"><img src="assets/toriuru-avatar.webp" alt="" width="160" height="160"><div class="msg__b">AIや検索エンジンに、会社の名前・場所・連絡先などを伝える「ページの裏側の情報」です。見た目は変わりません。</div></div>
+<div class="msg msg--bot" data-at="2" style="--d:0s"><img src="assets/toriuru-avatar.webp" alt="" width="160" height="160"><div class="msg__b"><small>先に手を打つとよいもの</small><span class="msg__chips"><span>料金の目安</span><span>対応エリア</span></span><small>下書きを作りました</small><span class="msg__todo"><span>よくある質問（3問）</span><span>会社の名札</span></span><span class="msg__btn">内容を確かめて承認する</span></div></div>
+<p class="msg msg--me" data-at="2" style="--d:1.1s">内容OK、承認します！</p>
+<div class="msg msg--bot" data-at="2" style="--d:1.8s"><img src="assets/toriuru-avatar.webp" alt="" width="160" height="160"><div class="msg__b">ホームページに反映しました。2週間後に、同じ質問でまた測りますね。</div></div>
+<p class="msg msg--day" data-at="3" style="--d:0s">2週間後</p>
+<div class="msg msg--bot" data-at="3" style="--d:.4s"><img src="assets/toriuru-avatar.webp" alt="" width="160" height="160"><div class="msg__b">同じ質問で測り直しました。<span class="msg__score"><b>3</b><i>→</i><b class="up">7</b><small>／10問で、AIの回答に名前が出ました</small></span></div></div>
+                        </div>
+                        <div class="chat__input"><span>メッセージを入力</span><i></i></div>
+                      </div>
+                        <div class="app__side">
+                          <div class="pn" data-s="0"><p class="pn__h">質問の候補</p><p class="pn__t">ホームページから10問（3問を表示）</p>
+                          <ul class="pn__q"><li>外壁塗装の料金の目安は？</li><li>〇〇市は対応エリア？</li><li>工期はどれくらい？</li></ul></div>
+                          <div class="pn" data-s="1"><p class="pn__h">ことばメモ</p><p class="pn__t">聞いた言葉が、ここにたまります</p>
+                          <dl class="pn__memo"><div><dt>会社の名札</dt><dd>専門用語では「構造化データ」。AIや検索エンジン向けの、会社の基本情報です。</dd></div></dl></div>
+                          <div class="pn" data-s="2"><p class="pn__h">下書き</p><p class="pn__t">反映するのは、承認したものだけ</p>
+                          <div class="pn__draft"><b>Q. 対応エリアはどこまでですか？</b><span>〇〇市・△△市・□□町です。そのほかの地域もご相談ください。</span></div>
+                          <p class="pn__ok"><span class="w">承認待ち</span><span class="d">承認済み・反映しました</span></p></div>
+                          <div class="pn" data-s="3"><p class="pn__h">計測レポート</p><p class="pn__t">同じ10の質問で比べる</p>
+                          <p class="cmp__big"><b>3</b><i>→</i><b class="up">7</b><span>／10問</span></p>
+                          <ul class="cmp__rows">
+                            <li><span>料金の目安</span><em class="x">出なかった</em><i>→</i><em class="o">出た</em></li>
+                            <li><span>対応エリア</span><em class="o">出た</em><i>→</i><em class="o">出た</em></li>
+                            <li><span>工期</span><em class="x">出なかった</em><i>→</i><em class="o">出た</em></li>
+                          </ul></div>
+                        </div>
+                      </div>
+                      </div></div>
+                    </div>
+                    <div class="lap__base"><i class="lap__kb"><svg viewBox="0 0 300 98" preserveAspectRatio="none"><rect x="2.0" y="2.0" width="18.4" height="16.4" rx="2.2"/><rect x="23.4" y="2.0" width="18.4" height="16.4" rx="2.2"/><rect x="44.7" y="2.0" width="18.4" height="16.4" rx="2.2"/><rect x="66.1" y="2.0" width="18.4" height="16.4" rx="2.2"/><rect x="87.4" y="2.0" width="18.4" height="16.4" rx="2.2"/><rect x="108.8" y="2.0" width="18.4" height="16.4" rx="2.2"/><rect x="130.1" y="2.0" width="18.4" height="16.4" rx="2.2"/><rect x="151.5" y="2.0" width="18.4" height="16.4" rx="2.2"/><rect x="172.9" y="2.0" width="18.4" height="16.4" rx="2.2"/><rect x="194.2" y="2.0" width="18.4" height="16.4" rx="2.2"/><rect x="215.6" y="2.0" width="18.4" height="16.4" rx="2.2"/><rect x="236.9" y="2.0" width="18.4" height="16.4" rx="2.2"/><rect x="258.3" y="2.0" width="18.4" height="16.4" rx="2.2"/><rect x="279.6" y="2.0" width="18.4" height="16.4" rx="2.2"/><rect x="2.0" y="21.4" width="25.7" height="16.4" rx="2.2"/><rect x="30.7" y="21.4" width="17.1" height="16.4" rx="2.2"/><rect x="50.8" y="21.4" width="17.1" height="16.4" rx="2.2"/><rect x="71.0" y="21.4" width="17.1" height="16.4" rx="2.2"/><rect x="91.1" y="21.4" width="17.1" height="16.4" rx="2.2"/><rect x="111.2" y="21.4" width="17.1" height="16.4" rx="2.2"/><rect x="131.4" y="21.4" width="17.1" height="16.4" rx="2.2"/><rect x="151.5" y="21.4" width="17.1" height="16.4" rx="2.2"/><rect x="171.6" y="21.4" width="17.1" height="16.4" rx="2.2"/><rect x="191.8" y="21.4" width="17.1" height="16.4" rx="2.2"/><rect x="211.9" y="21.4" width="17.1" height="16.4" rx="2.2"/><rect x="232.0" y="21.4" width="17.1" height="16.4" rx="2.2"/><rect x="252.2" y="21.4" width="17.1" height="16.4" rx="2.2"/><rect x="272.3" y="21.4" width="25.7" height="16.4" rx="2.2"/><rect x="2.0" y="40.8" width="31.2" height="16.4" rx="2.2"/><rect x="36.2" y="40.8" width="17.3" height="16.4" rx="2.2"/><rect x="56.5" y="40.8" width="17.3" height="16.4" rx="2.2"/><rect x="76.9" y="40.8" width="17.3" height="16.4" rx="2.2"/><rect x="97.2" y="40.8" width="17.3" height="16.4" rx="2.2"/><rect x="117.5" y="40.8" width="17.3" height="16.4" rx="2.2"/><rect x="137.9" y="40.8" width="17.3" height="16.4" rx="2.2"/><rect x="158.2" y="40.8" width="17.3" height="16.4" rx="2.2"/><rect x="178.5" y="40.8" width="17.3" height="16.4" rx="2.2"/><rect x="198.9" y="40.8" width="17.3" height="16.4" rx="2.2"/><rect x="219.2" y="40.8" width="17.3" height="16.4" rx="2.2"/><rect x="239.5" y="40.8" width="17.3" height="16.4" rx="2.2"/><rect x="259.9" y="40.8" width="38.1" height="16.4" rx="2.2"/><rect x="2.0" y="60.2" width="42.1" height="16.4" rx="2.2"/><rect x="47.1" y="60.2" width="17.5" height="16.4" rx="2.2"/><rect x="67.6" y="60.2" width="17.5" height="16.4" rx="2.2"/><rect x="88.1" y="60.2" width="17.5" height="16.4" rx="2.2"/><rect x="108.7" y="60.2" width="17.5" height="16.4" rx="2.2"/><rect x="129.2" y="60.2" width="17.5" height="16.4" rx="2.2"/><rect x="149.7" y="60.2" width="17.5" height="16.4" rx="2.2"/><rect x="170.3" y="60.2" width="17.5" height="16.4" rx="2.2"/><rect x="190.8" y="60.2" width="17.5" height="16.4" rx="2.2"/><rect x="211.3" y="60.2" width="17.5" height="16.4" rx="2.2"/><rect x="231.9" y="60.2" width="17.5" height="16.4" rx="2.2"/><rect x="252.4" y="60.2" width="45.6" height="16.4" rx="2.2"/><rect x="2.0" y="79.6" width="18.1" height="16.4" rx="2.2"/><rect x="23.1" y="79.6" width="18.1" height="16.4" rx="2.2"/><rect x="44.3" y="79.6" width="18.1" height="16.4" rx="2.2"/><rect x="65.4" y="79.6" width="23.6" height="16.4" rx="2.2"/><rect x="92.0" y="79.6" width="116.1" height="16.4" rx="2.2"/><rect x="211.0" y="79.6" width="23.6" height="16.4" rx="2.2"/><rect x="237.6" y="79.6" width="18.1" height="16.4" rx="2.2"/><rect x="258.7" y="79.6" width="18.1" height="16.4" rx="2.2"/><rect x="279.9" y="79.6" width="18.1" height="16.4" rx="2.2"/></svg></i><i class="lap__pad"></i><i class="lap__lip"></i></div>
+                  </div>
+                  <div class="phone">
+                    <i class="phone__side"></i>
+                    <div class="phone__body"><div class="phone__screen">
+                      <div class="ph-status"><b>9:41</b><i></i></div>
+                      <div class="chat chat--phone">
+                        <div class="chat__head"><img src="assets/toriuru-avatar.webp" alt="" width="160" height="160"><div><b>トリウル君</b><small>AirReach の案内役</small></div><em>案内中</em></div>
+                        <div class="chat__log">
+<div class="msg msg--bot" data-at="0" style="--d:0s"><img src="assets/toriuru-avatar.webp" alt="" width="160" height="160"><div class="msg__b">こんにちは、トリウルです。ホームページのアドレスを教えてください。</div></div>
+<p class="msg msg--me" data-at="0" style="--d:.6s">見本工務店のホームページを見てください</p>
+<div class="msg msg--bot" data-at="0" style="--d:1.3s"><img src="assets/toriuru-avatar.webp" alt="" width="160" height="160"><div class="msg__b">読み込みました。お客様が聞きそうな質問を、10個考えました。<span class="msg__chips"><span>料金の目安</span><span>対応エリア</span><span>工期</span></span></div></div>
+<p class="msg msg--me" data-at="1" style="--d:0s">「会社の名札」って何？</p>
+<div class="msg msg--bot" data-at="1" style="--d:.7s"><img src="assets/toriuru-avatar.webp" alt="" width="160" height="160"><div class="msg__b">AIや検索エンジンに、会社の名前・場所・連絡先などを伝える「ページの裏側の情報」です。見た目は変わりません。</div></div>
+<div class="msg msg--bot" data-at="2" style="--d:0s"><img src="assets/toriuru-avatar.webp" alt="" width="160" height="160"><div class="msg__b"><small>先に手を打つとよいもの</small><span class="msg__chips"><span>料金の目安</span><span>対応エリア</span></span><small>下書きを作りました</small><span class="msg__todo"><span>よくある質問（3問）</span><span>会社の名札</span></span><span class="msg__btn">内容を確かめて承認する</span></div></div>
+<p class="msg msg--me" data-at="2" style="--d:1.1s">内容OK、承認します！</p>
+<div class="msg msg--bot" data-at="2" style="--d:1.8s"><img src="assets/toriuru-avatar.webp" alt="" width="160" height="160"><div class="msg__b">ホームページに反映しました。2週間後に、同じ質問でまた測りますね。</div></div>
+<p class="msg msg--day" data-at="3" style="--d:0s">2週間後</p>
+<div class="msg msg--bot" data-at="3" style="--d:.4s"><img src="assets/toriuru-avatar.webp" alt="" width="160" height="160"><div class="msg__b">同じ質問で測り直しました。<span class="msg__score"><b>3</b><i>→</i><b class="up">7</b><small>／10問で、AIの回答に名前が出ました</small></span></div></div>
+                        </div>
+                        <div class="chat__input"><span>メッセージを入力</span><i></i></div>
+                      </div>
+                    </div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="dscene__foot">
+            <div class="dscene__dots" aria-hidden="true"><i data-d="0"></i><i data-d="1"></i><i data-d="2"></i><i data-d="3"></i></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bz-ways" id="products">
+        <p class="bz-ways__title">AirReachの使い方は、3つ</p>
+        <ul>
+          <li><a href="https://trillion-bank.jp/#diagnose"><span class="bz-ways__no">01</span><b>無料診断</b><em>View Details<i aria-hidden="true"></i></em></a></li>
+          <li><a href="https://trillion-bank.jp/trillionbank/business/hack2/"><span class="bz-ways__no">02</span><b>Consulting</b><em>View Details<i aria-hidden="true"></i></em></a></li>
+          <li><a href="https://trillion-bank.jp/trillionbank/business/airreach-selfserve/"><span class="bz-ways__no">03</span><b>Tools</b><em>View Details<i aria-hidden="true"></i></em></a></li>
+        </ul>
+      </div>
+    </div>
+  </article>
+</div>
+
+<section class="price" aria-labelledby="price-title">
+  <div class="price__inner">
+    <h2 class="sec-h" id="price-title"><span class="sec-h__en" aria-hidden="true">Plans</span><span class="sec-h__ja">使い方と料金</span></h2>
+    <ul class="price__list">
+      <li><a href="https://trillion-bank.jp/#diagnose"><span class="price__n">無料診断</span><span class="price__p">0円</span><span class="price__d">URLを入れるだけで、AI検索での見え方を確かめる</span><i class="orb__go" aria-hidden="true"></i></a></li>
+      <li><a href="https://trillion-bank.jp/trillionbank/business/airreach-selfserve/"><span class="price__n">AirReach Tools</span><span class="price__p">月額19,800円<small>（税別）</small></span><span class="price__d">自分で、案内役と会話しながら測って直す</span><i class="orb__go" aria-hidden="true"></i></a></li>
+      <li><a href="https://trillion-bank.jp/lp/airreach-tools/"><span class="price__n">AirReach Tools（代理店向け）</span><span class="price__p">1ドメイン 月額9,800円<small>（税別）</small></span><span class="price__d">お客様のドメインごとに、代理店が運用する</span><i class="orb__go" aria-hidden="true"></i></a></li>
+      <li><a href="https://trillion-bank.jp/trillionbank/business/hack2/"><span class="price__n">AirReach Consulting</span><span class="price__p">個別お見積もり</span><span class="price__d">当社スタッフと一緒に、改善と再計測まで進める</span><i class="orb__go" aria-hidden="true"></i></a></li>
+    </ul>
+  </div>
+</section>
+
+<section class="cant" aria-labelledby="cant-title">
+  <div class="cant__inner">
+    <h2 class="sec-h" id="cant-title"><span class="sec-h__en" aria-hidden="true">Honest Notes</span><span class="sec-h__ja">できないことも、先にお伝えします</span></h2>
+    <ul class="cant__list">
+      <li>AI検索での表示・順位・問い合わせ・売上を、保証しません</li>
+      <li>すべてのAI・すべての画面を測るわけではありません</li>
+      <li>AIがなぜその回答を選んだのかは、断定できません</li>
+      <li>事実にない情報を、作り出しません</li>
+      <li>変更を、自動で公開しません</li>
+    </ul>
+  </div>
+</section>
+
+<!-- SITE:contact -->
+<section class="git" id="contact" aria-labelledby="contact-title">
+  <svg class="git__contour" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use href="#tb-frames" transform="translate(330 120) scale(1.35)"/><use href="#tb-frames" transform="translate(300 90) scale(1.55)"/><use href="#tb-frames" transform="translate(270 60) scale(1.75)"/></svg>
+  <div class="git__inner">
+    <h2 class="git__title" id="contact-title"><span class="git__en" aria-hidden="true">Get In Touch</span><span class="sr">お問い合わせ</span></h2>
+    <div class="git__grid">
+      <ul class="git__orbs">
+        <li class="git__o git__o--1"><a class="orb" href="https://trillion-bank.jp/trillionbank/contact/" data-cursor="フォームへ">
+          <span class="orb__en">Contact</span><span class="orb__ja">お問い合わせ</span><span class="orb__sub">まずはお気軽に<br>ご相談ください。</span><i class="orb__go" aria-hidden="true"></i></a></li>
+        <li class="git__o git__o--2"><a class="orb" href="https://trillion-bank.jp/#diagnose" data-cursor="30秒で診断">
+          <span class="orb__en">Free Check</span><span class="orb__ja">無料AI検索診断</span><span class="orb__sub">URLを入れるだけ。<br>約30秒で分かります。</span><i class="orb__go" aria-hidden="true"></i></a></li>
+        <li class="git__o git__o--3"><a class="orb orb--white" href="https://trillion-bank.jp/trillionbank/meeting/" data-cursor="予約する">
+          <span class="orb__en">Meeting</span><span class="orb__ja">商談を予約</span><i class="orb__go" aria-hidden="true"></i></a></li>
+      </ul>
+      <p class="git__text">AI検索での見え方の確認から、<br>AirReachの導入、<br>Adctorの共同実証まで。<br>ご用件に近い窓口から、<br>お気軽にご相談ください。</p>
+    </div>
+  </div>
+</section>
+<!-- /SITE:contact -->
+</main>
+
+<!-- SITE:footer -->
+<footer class="footer" data-curve>
+  <div class="footer__inner">
+    <div class="footer__brand">
+      <a href="index.html" class="footer__logo" aria-label="Trillion Bank トップへ" data-cursor="Top">
+        <svg viewBox="0 0 414 318" aria-hidden="true"><use href="#tb-frames" class="sym-frames"/><use href="#tb-wave" class="sym-wave"/></svg>
+        <img src="assets/tb-wordmark.webp" alt="" width="2048" height="201">
+      </a>
+      <p class="footer__company">株式会社Trillion Bank（トリリオンバンク）</p>
+      <address>〒102-0083 東京都千代田区麹町六丁目2番1号<br>麹町サイトビル6階 ROOMZ</address>
+    </div>
+    <nav class="footer__nav" aria-label="フッターナビゲーション">
+      <div><p>Business</p>
+        <a href="business.html">事業の全体像</a>
+        <a href="airreach.html">AirReach（AI広告）</a>
+        <a href="adctor.html">Adctor（AIの料金所）</a>
+        <a href="usecases.html">Use Cases</a>
+      </div>
+      <div><p>Company</p>
+        <a href="company.html">会社情報</a>
+        <a href="company.html#members">経営メンバー</a>
+        <a href="news.html">ニュース</a>
+        <a href="media.html">メディア掲載</a>
+      </div>
+      <div><p>Contact</p>
+        <a href="https://trillion-bank.jp/#diagnose">無料でAI検索診断</a>
+        <a href="https://trillion-bank.jp/trillionbank/contact/">お問い合わせフォーム</a>
+        <a href="https://trillion-bank.jp/trillionbank/meeting/">商談を予約する</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer__bottom">
+    <p>※ 当社は銀行業を営む会社ではありません。AirReachは、AI検索での表示・順位・問い合わせ・売上を保証するものではありません。</p>
+    <ul>
+      <li><a href="https://trillion-bank.jp/trillionbank/privacy/">プライバシーポリシー</a></li>
+      <li><a href="https://trillion-bank.jp/trillionbank/terms/">利用規約</a></li>
+      <li><a href="https://trillion-bank.jp/trillionbank/security/">情報セキュリティ</a></li>
+      <li><a href="https://trillion-bank.jp/trillionbank/insights/editorial-policy/">編集方針</a></li>
+    </ul>
+    <p class="footer__copy">© 2026 Trillion Bank
+      <!-- 隠しフレーム 4：還元する（コピーライトの横にひっそり） -->
+      <button type="button" class="key key--footer" data-key="return" aria-label="隠しフレームを拾う（4：還元する）">
+        <svg viewBox="0 0 34 92" aria-hidden="true"><use href="#tb-frame"/></svg>
+      </button>
+    </p>
+  </div>
+</footer>
+<!-- /SITE:footer -->
+
+<!-- SITE:floaters -->
+<!-- 見つけたフレームの数（脱出ゲーム） -->
+<button type="button" class="hunt" id="hunt" aria-controls="mascotPanel" aria-label="隠しフレーム：0／4。ヒントを見る">
+  <span class="hunt__slots" aria-hidden="true">
+    <svg viewBox="0 0 34 92" data-slot="measure"><use href="#tb-frame"/></svg>
+    <svg viewBox="0 0 34 92" data-slot="protect"><use href="#tb-frame"/></svg>
+    <svg viewBox="0 0 34 92" data-slot="record"><use href="#tb-frame"/></svg>
+    <svg viewBox="0 0 34 92" data-slot="return"><use href="#tb-frame"/></svg>
+  </span>
+  <span class="hunt__count" id="huntCount">0/4</span>
+</button>
+
+<!-- マスコット「とりうる」：押すとヒントと近道が出る -->
+<div class="mascot" id="mascot">
+  <div class="mascot__panel" id="mascotPanel" role="dialog" aria-modal="false" aria-labelledby="mascotTitle" hidden>
+    <p class="mascot__title" id="mascotTitle">とりうるの寄り道案内</p>
+    <p class="mascot__hint" id="mascotHint">このページのどこかに、ロゴのフレームが4つ隠れているよ。カーソルを当てると光るものを探してみて！</p>
+    <p class="mascot__progress"><span id="mascotCount">0</span>／4 見つけた</p>
+    <div class="mascot__links">
+      <a href="https://trillion-bank.jp/#diagnose" class="pill pill--blue">無料でAI検索診断</a>
+      <a href="#contact" class="pill pill--outline">相談する</a>
+    </div>
+    <button type="button" class="mascot__close" id="mascotClose" aria-label="案内を閉じる"></button>
+  </div>
+  <span class="mascot__bubble" id="mascotBubble" aria-hidden="true">押してみて！</span>
+  <button type="button" class="mascot__btn" id="mascotBtn" aria-expanded="false" aria-controls="mascotPanel" aria-label="とりうるの寄り道案内を開く">
+    <img src="assets/toriuru-point.webp" alt="" width="480" height="480">
+  </button>
+</div>
+
+<!-- 4つ全部そろったときの隠しシーン -->
+<div class="unlock" id="unlock" role="dialog" aria-modal="true" aria-labelledby="unlockTitle" hidden>
+  <div class="unlock__inner">
+    <svg class="unlock__logo" viewBox="0 0 414 318" aria-hidden="true">
+      <g class="unlock__frames" fill="none" stroke="#fff" stroke-width="12">
+        <path d="M103 74 L168 42 L168 214 L103 247 Z"/>
+        <path d="M183 97 L248 64 L248 236 L183 268 Z"/>
+        <path d="M263 108 L327 75 L327 248 L263 281 Z"/>
+      </g>
+      <path class="unlock__wave" pathLength="1" d="M25 165 H105 C130 165 140 137 166 137 C200 137 216 191 256 191 C286 191 296 165 322 165 H389" fill="none" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
+    </svg>
+    <p class="unlock__en">Unlocked</p>
+    <h2 class="unlock__title" id="unlockTitle">4つのフレームが、そろいました。</h2>
+    <p class="unlock__body">Trillion Bankのロゴは、<b>測る・守る・記録する</b>の3枚のフレームと、そこを通り抜けて発信者へ<b>還る</b>青い線でできています。見つけてくださったあなたの情報も、AIの時代に正しく見つかり、正しく還るように。</p>
+    <div class="unlock__actions">
+      <a class="pill pill--white pill--lg" href="https://trillion-bank.jp/#diagnose">無料でAI検索診断をはじめる</a>
+      <a class="pill pill--outline-white pill--lg" href="#contact" data-close-unlock>Adctorについて相談する</a>
+    </div>
+    <button type="button" class="unlock__close" id="unlockClose">閉じる</button>
+  </div>
+  <div class="confetti" id="confetti" aria-hidden="true"></div>
+</div>
+
+<!-- カーソル（行き先の名前を出す） -->
+<div class="cursor" id="cursor" aria-hidden="true"><span class="cursor__label" id="cursorLabel"></span></div>
+<!-- ちょっとしたお知らせ -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<!-- /SITE:floaters -->
+
+<script src="main.js"></script>
+<script src="gp-motion.js"></script>
+<script src="site.js"></script>
+</body>
+</html>

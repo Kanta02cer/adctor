@@ -2,8 +2,8 @@
    main.js のあとに読み込みます。このファイルと gp-motion.css を外すと、元の動きに戻ります。 */
 (() => {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const $ = (s, el = document) => el.querySelector(s);
-  const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+  const $ = (s, el = document) => (el ? el.querySelector(s) : null);
+  const $$ = (s, el = document) => (el ? Array.from(el.querySelectorAll(s)) : []);
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
   const lerp = (a, b, t) => a + (b - a) * t;
   const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
@@ -244,8 +244,8 @@
 (() => {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  const $ = (s, el = document) => el.querySelector(s);
-  const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+  const $ = (s, el = document) => (el ? el.querySelector(s) : null);
+  const $$ = (s, el = document) => (el ? Array.from(el.querySelectorAll(s)) : []);
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
   const wide = () => window.innerWidth >= 900;
 
@@ -736,7 +736,7 @@
     units.forEach((u, i) => u.classList.toggle('on', i < k));
   };
 
-  const heads = Array.from(document.querySelectorAll('.bz-en, .bz-ja, .bz-svc-title, .obiz__en, .obiz__ja, .obiz__big, .obiz__lead, .cov__text, .cov__lead, .members__en, .company__title, .big-title, .contact__title, .media__title'))
+  const heads = Array.from(document.querySelectorAll('.phero__en, .phero__title, .sec-h__ja, .git__en, .flow4__t, .pair__copy, .band-link__en, .bz-en, .bz-ja, .bz-svc-title, .obiz__en, .obiz__ja, .obiz__big, .obiz__lead, .cov__text, .cov__lead, .members__en, .company__title, .big-title, .contact__title, .media__title'))
     .filter((el) => !el.closest('[data-fill]'));
   heads.forEach(split);
   const scenes = Array.from(document.querySelectorAll('.dscene')).map((sc) => ({
@@ -891,8 +891,7 @@
     stage.style.setProperty('--tilt', `${(16 - p * 12).toFixed(2)}deg`);
     stage.style.setProperty('--lift', `${((1 - p) * 24).toFixed(1)}px`);
   };
-  window.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(tilt); }, { passive: true });
-  tilt();
+  if (stage) { window.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(tilt); }, { passive: true }); tilt(); }
   if (!fine) return;
   // 一覧：当てた行の事業のイメージを、円の中に出す（円はカーソルの高さを追いかける）
   let cy = 0; let ty = 0; let fr = 0;

@@ -1,0 +1,80 @@
+<!--
+title: Adctor（AIの料金所）｜株式会社Trillion Bank
+description: Adctorは、AIに引用・利用された情報に対価が届く「AIの料金所（Pay per Citation／ペイウォール）」です。研究開発・限定実証の段階で、共同実証のパートナーを募集しています。
+page: adctor
+crumb: Business|business.html;Adctor
+-->
+<section class="phero phero--navy" aria-labelledby="ph-title">
+  <div class="phero__inner">
+    {{crumbs}}
+    <p class="phero__tag">研究開発・限定実証</p>
+    <p class="phero__en" aria-hidden="true">Adctor</p>
+    <h1 class="phero__title" id="ph-title"><span class="nb">AIに引用されたら、</span><span class="nb">対価が届く。</span><span class="phero__sub">AIの料金所（Pay per Citation）</span></h1>
+    <p class="phero__lead">情報をつくる企業が、使ってよい範囲と単価を決める。合意したAI事業者だけが「料金所」を通って情報を使い、引用・利用の記録にもとづいて対価がつくり手へ還る。そんな仕組みを、共同実証で検証しています。</p>
+    <p class="phero__note">契約で合意した引用・利用が対象です。すべてのAIの引用を自動で検知・課金する仕組みではありません。</p>
+  </div>
+</section>
+
+<section class="toll" aria-labelledby="toll-title">
+  <div class="toll__inner">
+    <h2 class="sec-h" id="toll-title"><span class="sec-h__en" aria-hidden="true">Toll Gate</span><span class="sec-h__ja">料金所のしくみ</span></h2>
+    <div class="toll__grid">
+      <div class="toll__scene" role="img" aria-label="AIのボットが料金所に来る。鍵（トークン）を持つ合意済みの事業者はゲートを通って記録され、鍵のないボットには条件が案内される。">
+        <svg viewBox="0 0 640 360" aria-hidden="true">
+          <path class="tl-road" d="M0 230 H640"/>
+          <path class="tl-lane" d="M0 230 H640"/>
+          <g class="tl-booth"><rect x="282" y="120" width="76" height="110" rx="10"/><rect x="296" y="136" width="48" height="34" rx="5" class="tl-win"/><g transform="translate(298 186) scale(.11)"><use href="#tb-frames" class="tl-logo"/></g></g>
+          <rect class="tl-post" x="358" y="170" width="10" height="60" rx="3"/>
+          <rect class="tl-bar" x="362" y="168" width="150" height="10" rx="5"/>
+          <g class="tl-car tl-car--ok"><rect x="-46" y="-26" width="92" height="40" rx="12"/><circle cx="-24" cy="16" r="9"/><circle cx="24" cy="16" r="9"/><text y="0">鍵あり</text></g>
+          <g class="tl-car tl-car--ng"><rect x="-46" y="-26" width="92" height="40" rx="12"/><circle cx="-24" cy="16" r="9"/><circle cx="24" cy="16" r="9"/><text y="0">鍵なし</text></g>
+          <g class="tl-bubble tl-bubble--ok"><rect x="520" y="96" width="112" height="44" rx="22"/><text x="576" y="124">記録 ＋1</text></g>
+          <g class="tl-bubble tl-bubble--ng"><rect x="150" y="96" width="124" height="44" rx="22"/><text x="212" y="124">条件を案内</text></g>
+          <g class="tl-coin"><circle cx="320" cy="300" r="20"/><text x="320" y="307">¥</text></g>
+          <text class="tl-cap" x="320" y="352">利用料は、つくり手へ（検証中）</text>
+        </svg>
+      </div>
+      <ol class="toll__steps">
+        <li><b>鍵のないAIボットには</b><span>料金所で止め、利用の条件を案内します。</span></li>
+        <li><b>合意したAI事業者は</b><span>使うたびに発行される鍵（トークン）で通り、利用が記録されます。</span></li>
+        <li><b>記録と条件から</b><span>請求額を出し、情報をつくった提供者へ分配します（検証中）。</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<div class="bz">
+{{section:adctor}}
+</div>
+
+<section class="ppc" aria-labelledby="ppc-title">
+  <div class="ppc__inner">
+    <h2 class="sec-h" id="ppc-title"><span class="sec-h__en" aria-hidden="true">Pay per Citation</span><span class="sec-h__ja">合意した利用だけを、請求と分配につなぐ</span></h2>
+    <ol class="flow4__list">
+      <li><span class="flow4__no">01</span><b class="flow4__t">利用条件を契約</b><span class="flow4__d">用途・期間・二次利用などを、買い手と提供者で合意</span></li>
+      <li><span class="flow4__no">02</span><b class="flow4__t">認証して利用</b><span class="flow4__d">契約にもとづき、認証された利用だけを許可</span></li>
+      <li><span class="flow4__no">03</span><b class="flow4__t">対象を記録</b><span class="flow4__d">合意した条件に当てはまる利用を記録</span></li>
+      <li><span class="flow4__no">04</span><b class="flow4__t">照合して請求・分配</b><span class="flow4__d">記録をもとに利用分を照合し、請求・分配へ</span></li>
+    </ol>
+    <ul class="ppc__kinds" aria-label="別々に契約する用途">
+      <li>データの取得</li><li>回答内の引用</li><li>モデル学習</li>
+    </ul>
+    <p class="ppc__kinds-note">用途・期間・二次利用は、別々に契約します。</p>
+  </div>
+</section>
+
+<section class="share" aria-labelledby="share-title">
+  <div class="share__inner">
+    <h2 class="sec-h" id="share-title"><span class="sec-h__en" aria-hidden="true">Revenue Share</span><span class="sec-h__ja">1円を、提供者80銭・当社20銭に分ける（設計例）</span></h2>
+    <div class="share__bar" aria-hidden="true"><i class="a"></i><i class="b"></i></div>
+    <div class="share__nums">
+      <p><b>80<small>銭</small></b><span>情報の提供者へ</span></p>
+      <p><b>20<small>銭</small></b><span>Adctor（当社）の手数料</span></p>
+    </div>
+    <p class="share__note">条件付きの試算で、実績・受注予測ではありません。1円／利用・20%は未検証の料金例です。確定条件は個別の契約で合意します。</p>
+  </div>
+</section>
+
+<div class="bz">
+{{block:more2}}
+</div>

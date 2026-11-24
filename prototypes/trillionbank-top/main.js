@@ -86,10 +86,11 @@
   const onScrollHeader = () => {
     const y = window.scrollY;
     // ヒーローが円に縮む演出（gp-motion.js）がある間は、その切り替え位置を使う
-    const heroBottom = hero.dataset.solidAt ? Number(hero.dataset.solidAt) : hero.offsetHeight - header.offsetHeight;
+    // 下のページ（ヒーローがない）は、はじめから白いヘッダー
+    const heroBottom = !hero ? -1 : (hero.dataset.solidAt ? Number(hero.dataset.solidAt) : hero.offsetHeight - header.offsetHeight);
     header.classList.toggle('is-solid', y > heroBottom);
     header.classList.toggle('is-hidden', y > lastY && y > heroBottom + 160 && !document.body.classList.contains('is-drawer-open'));
-    dots.classList.toggle('is-visible', y > heroBottom * 0.6);
+    if (dots) dots.classList.toggle('is-visible', y > heroBottom * 0.6);
     lastY = y;
   };
   window.addEventListener('scroll', onScrollHeader, { passive: true });
@@ -102,7 +103,7 @@
       entries.forEach((e) => {
         if (!e.isIntersecting) return;
         const id = e.target.id;
-        $$('.dots a, .header__nav a').forEach((a) => {
+        $$('.dots a, .header__nav a[href^="#"]').forEach((a) => {
           const on = a.getAttribute('href') === `#${id}`;
           a.classList.toggle('is-current', on);
           if (on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
@@ -131,7 +132,7 @@
   /* ---------- Motion toggle（状態に合わせて表示と読み上げを更新） ---------- */
   const motionBtn = $('#motionToggle');
   const motionLabel = $('#motionLabel');
-  motionBtn.addEventListener('click', () => {
+  if (motionBtn) motionBtn.addEventListener('click', () => {
     const paused = root.classList.toggle('is-motion-paused');
     motionBtn.setAttribute('aria-pressed', String(paused));
     motionBtn.setAttribute('aria-label', paused ? '動きを再生する' : '動きを停止する');
@@ -256,7 +257,7 @@
   const latest = $('.latest');
   const circle = $('#latestCircle');
   const updateCircle = () => {
-    if (!latest || reduce) return;
+    if (!latest || !circle || reduce) return;
     const r = latest.getBoundingClientRect();
     const vh = window.innerHeight;
     const p = Math.min(1, Math.max(0, (vh - r.top) / (vh + 400)));
@@ -271,8 +272,8 @@
     const nearFooter = footer.getBoundingClientRect().top < window.innerHeight * 0.85;
     const drawerOpen = document.body.classList.contains('is-drawer-open');
     // 事業紹介が画面にある間は、本文やボタンにかぶらないよう退避する
-    const br = bizSection.getBoundingClientRect();
-    const overBiz = br.top < window.innerHeight * 0.9 && br.bottom > window.innerHeight * 0.1;
+    const br = bizSection ? bizSection.getBoundingClientRect() : null;
+    const overBiz = !!(br && br.top < window.innerHeight * 0.9 && br.bottom > window.innerHeight * 0.1);
     // メンバー紹介が画面にある間も、カードにかぶらないよう退避する
     const memEl = document.getElementById('members');
     const mr = memEl ? memEl.getBoundingClientRect() : null;
@@ -398,8 +399,8 @@
   const core = $('#emblemCore');
   const emblemKey = $('.key--emblem');
   let turns = 0;
-  core.dataset.cursor = '回す';
-  core.addEventListener('click', () => {
+  if (core) core.dataset.cursor = '回す';
+  if (core) core.addEventListener('click', () => {
     turns += 1;
     core.style.setProperty('--turn', `${turns * 120}deg`);
     core.classList.add('is-spin');
@@ -414,8 +415,8 @@
   });
 
   // 記録する：青い円の中
-  circle.dataset.cursor = 'のぞく';
-  circle.addEventListener('click', () => {
+  if (circle) circle.dataset.cursor = 'のぞく';
+  if (circle) circle.addEventListener('click', () => {
     if (found.includes('record')) { toast('円の中はもう空っぽだよ'); return; }
     collect('record', circle);
     circle.classList.add('is-found');
@@ -538,7 +539,7 @@
 
     // ヒーローの形がマウスに合わせてゆっくり動く
     const shapes = $('.hero__shapes');
-    hero.addEventListener('pointermove', (e) => {
+    if (hero && shapes) hero.addEventListener('pointermove', (e) => {
       const x = (e.clientX / window.innerWidth - 0.5) * -30;
       const y = (e.clientY / window.innerHeight - 0.5) * -20;
       shapes.style.setProperty('--px', `${x}px`);
@@ -548,7 +549,7 @@
     // メディアの背景文字がマウスに合わせて横に流れる
     const media = $('.media');
     const mediaBg = $('.media__bg');
-    media.addEventListener('pointermove', (e) => {
+    if (media && mediaBg) media.addEventListener('pointermove', (e) => {
       mediaBg.style.setProperty('--mx', `${(e.clientX / window.innerWidth - 0.5) * -80}px`);
     });
   }

@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400..700&amp;family=Noto+Sans+JP:wght@400;500;700&amp;display=swap">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="gp-motion.css">
+<link rel="stylesheet" href="site.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -46,6 +47,7 @@
 </head>
 <body>
 
+<!-- SITE:symbols -->
 <!-- ロゴシンボルの部品（3枚のフレームと青い線） -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -58,6 +60,7 @@
     <path id="tb-wave" d="M25 165 H105 C130 165 140 137 166 137 C200 137 216 191 256 191 C286 191 296 165 322 165 H389"/>
   </defs>
 </svg>
+<!-- /SITE:symbols -->
 
 <a class="skip" href="#main">本文へスキップ</a>
 
@@ -85,9 +88,10 @@
 </div>
 
 <!-- ───────── HEADER ───────── -->
+<!-- SITE:header -->
 <header class="header" id="header">
   <div class="header__inner">
-    <a href="#top" class="header__logo" aria-label="Trillion Bank トップへ" data-cursor="Top">
+    <a href="index.html" class="header__logo" aria-label="Trillion Bank トップへ" data-cursor="Top">
       <svg class="header__symbol" viewBox="0 0 414 318" aria-hidden="true">
         <use href="#tb-frames" class="sym-frames"/>
         <path class="sym-wave" pathLength="1" d="M25 165 H105 C130 165 140 137 166 137 C200 137 216 191 256 191 C286 191 296 165 322 165 H389"/>
@@ -96,34 +100,34 @@
     </a>
     <nav class="header__nav" aria-label="グローバルナビゲーション">
       <ul>
-        <li class="has-mega"><a href="#business" data-roll>Business</a>
+        <li class="has-mega"><a href="business.html" data-page="business" data-roll>Business</a>
           <div class="mega" id="megaBusiness">
             <div class="mega__inner">
-              <p class="mega__lead"><span class="mega__en">Business</span>したいことで選ぶ、2つの事業</p>
-              <a class="mega__card" href="#airreach">
+              <p class="mega__lead"><span class="mega__en">Business</span>AIに届く入口と、使われた価値が還る仕組み</p>
+              <a class="mega__card" href="airreach.html">
                 <span class="mega__thumb" aria-hidden="true"><svg viewBox="0 0 160 120"><path class="iso" d="M80 20 L140 50 L80 80 L20 50 Z"/><path class="iso" d="M20 50 L20 62 L80 92 L80 80 Z M140 50 L140 62 L80 92 L80 80 Z"/><path class="ln" d="M50 52 V38 M66 60 V34 M82 66 V28"/><circle class="ln" cx="104" cy="40" r="15"/><path class="ln" d="M115 51 L128 64"/></svg></span>
-                <span class="mega__body"><span class="mega__state">提供中</span><b>AirReach</b><span>AI検索で、見つけてもらいたい</span></span>
+                <span class="mega__body"><span class="mega__state">提供中</span><b>AirReach</b><span>AI広告（AI検索対策）</span></span>
                 <i class="mega__go" aria-hidden="true"></i>
               </a>
-              <a class="mega__card mega__card--navy" href="#adctor">
+              <a class="mega__card mega__card--navy" href="adctor.html">
                 <span class="mega__thumb" aria-hidden="true"><svg viewBox="0 0 160 120"><path class="iso" d="M44 28 L64 18 L64 82 L44 92 Z M74 36 L94 26 L94 90 L74 100 Z M104 44 L124 34 L124 98 L104 108 Z"/><path class="ln" d="M14 62 H44 C54 62 56 52 66 52 C78 52 82 72 96 72 C106 72 108 64 116 64 H148"/></svg></span>
-                <span class="mega__body"><span class="mega__state">研究開発・限定実証</span><b>Adctor</b><span>保有データの、利用条件を管理したい</span></span>
+                <span class="mega__body"><span class="mega__state">研究開発・限定実証</span><b>Adctor</b><span>AIの料金所（Pay per Citation）</span></span>
                 <i class="mega__go" aria-hidden="true"></i>
               </a>
               <ul class="mega__links">
-                <li><a href="#products">AirReachの使い方</a></li>
-                <li><a href="#usecases">立場から探す</a></li>
+                <li><a href="business.html">事業の全体像</a></li>
+                <li><a href="usecases.html">立場から探す</a></li>
                 <li><a href="#contact">導入・共同実証の相談</a></li>
               </ul>
             </div>
           </div>
         </li>
-        <li><a href="#airreach" data-roll>AirReach</a></li>
-        <li><a href="#adctor" data-roll>Adctor</a></li>
-        <li><a href="#usecases" data-roll>Use Cases</a></li>
-        <li><a href="#media" data-roll>Media</a></li>
-        <li><a href="#news" data-roll>News</a></li>
-        <li><a href="#company" data-roll>Company</a></li>
+        <li><a href="airreach.html" data-page="airreach" data-roll>AirReach</a></li>
+        <li><a href="adctor.html" data-page="adctor" data-roll>Adctor</a></li>
+        <li><a href="usecases.html" data-page="usecases" data-roll>Use Cases</a></li>
+        <li><a href="media.html" data-page="media" data-roll>Media</a></li>
+        <li><a href="news.html" data-page="news" data-roll>News</a></li>
+        <li><a href="company.html" data-page="company" data-roll>Company</a></li>
       </ul>
     </nav>
     <div class="header__actions">
@@ -136,20 +140,21 @@
 
 <div class="drawer" id="drawer" hidden>
   <nav aria-label="メニュー">
-    <a href="#business"><span>Business</span>事業</a>
-    <a href="#airreach"><span>AirReach</span>AI検索で見つけてもらう</a>
-    <a href="#adctor"><span>Adctor</span>データの利用条件を管理する</a>
-    <a href="#usecases"><span>Use Cases</span>立場から探す</a>
-    <a href="#media"><span>Media</span>メディア掲載</a>
-    <a href="#news"><span>News</span>ニュース</a>
-    <a href="#company"><span>Company</span>会社情報</a>
-    <a href="#members"><span>Members</span>取締役・メンバー</a>
+    <a href="index.html" data-page="top" aria-current="page"><span>Top</span>トップ</a>
+    <a href="business.html" data-page="business"><span>Business</span>事業の全体像</a>
+    <a href="airreach.html" data-page="airreach"><span>AirReach</span>AI広告（AI検索対策）</a>
+    <a href="adctor.html" data-page="adctor"><span>Adctor</span>AIの料金所（Pay per Citation）</a>
+    <a href="usecases.html" data-page="usecases"><span>Use Cases</span>立場から探す</a>
+    <a href="media.html" data-page="media"><span>Media</span>メディア掲載</a>
+    <a href="news.html" data-page="news"><span>News</span>ニュース</a>
+    <a href="company.html" data-page="company"><span>Company</span>会社情報・経営メンバー</a>
   </nav>
   <div class="drawer__actions">
     <a class="pill pill--white pill--lg" href="https://trillion-bank.jp/#diagnose">無料でAI検索診断</a>
     <a class="pill pill--outline-white pill--lg" href="#contact">お問い合わせ・ご相談</a>
   </div>
 </div>
+<!-- /SITE:header -->
 
 <!-- セクション移動の点ナビ（ホバーで行き先が出る） -->
 <nav class="dots" aria-label="セクション移動">
@@ -205,9 +210,12 @@
         <span class="w">AIに使われた</span><span class="w is-blue">情報</span><span class="w">を</span><br>
         <span class="w is-blue">価値</span><span class="w">へ</span><span class="w">変える</span>
       </h2>
+      <p class="statement__body reveal">Trillion Bankは、AI検索とAIエージェントの時代の情報の流れを、測り、記録するテクノロジー企業です。<br><br>AirReachで、AIの回答に届く入口をつくり、Adctorで、AIに使われた情報の価値が、つくり手へ還る仕組みを研究しています。</p>
     </div>
     <div class="emblem reveal">
-      <span class="emblem__ring r1" aria-hidden="true"></span><span class="emblem__ring r2" aria-hidden="true"></span><span class="emblem__ring r3" aria-hidden="true"></span>
+      <a class="orb orb--sm emblem__orb emblem__orb--1" href="business.html" data-cursor="事業へ"><span class="orb__en">Business</span><span class="orb__ja">事業を見る</span><i class="orb__go" aria-hidden="true"></i></a>
+      <a class="orb orb--sm orb--white emblem__orb emblem__orb--2" href="airreach.html" data-cursor="AirReachへ"><span class="orb__en">AirReach</span><span class="orb__ja">AI広告</span><i class="orb__go" aria-hidden="true"></i></a>
+      <a class="orb orb--sm orb--navy emblem__orb emblem__orb--3" href="adctor.html" data-cursor="Adctorへ"><span class="orb__en">Adctor</span><span class="orb__ja">AIの料金所</span><i class="orb__go" aria-hidden="true"></i></a>
       <!-- 隠しフレーム 2：守る（エンブレムの中心を押すと回って現れる） -->
       <button type="button" class="emblem__core" id="emblemCore" aria-label="エンブレムを回す">
         <svg viewBox="0 0 414 318" aria-hidden="true"><use href="#tb-frames" class="emblem__frames"/><use href="#tb-wave" class="emblem__wave"/></svg>
@@ -796,87 +804,6 @@ Adctor-Token: adt_9f2…
       <p class="obiz__en" aria-hidden="true">Our <span>Business</span></p>
       <h2 class="obiz__ja" id="ourbiz-title">2つの事業で、ひとつの流れをつくる</h2>
     </header>
-    <figure class="obiz__model" role="img" aria-label="ビジネスモデル図。AirReachで情報がAIに届き、Adctorで使われた情報の価値がつくり手へ戻る。2つの事業を、Trillion Bankの情報の流れを測り・記録する技術が支える。">
-      <div class="obiz__stage">
-      <svg class="obiz__svg obiz__svg--pc" viewBox="0 0 1000 600">
-        <defs>
-          <radialGradient id="obSph" cx=".34" cy=".28" r=".75"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".45" stop-color="#fff" stop-opacity=".14"/><stop offset="1" stop-color="#c2d1ff" stop-opacity=".22"/></radialGradient>
-          <linearGradient id="obPf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".34"/><stop offset="1" stop-color="#fff" stop-opacity=".06"/></linearGradient>
-          <marker id="obArw" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#fff"/></marker>
-          <marker id="obArwO" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#ffb27a"/></marker>
-        </defs>
-        <g class="ob-pf">
-          <ellipse cx="500" cy="478" rx="480" ry="104" class="ob-pf__ring ob-pf__ring--1"/>
-          <ellipse cx="500" cy="470" rx="440" ry="88" fill="url(#obPf)" class="ob-pf__top"/>
-          <ellipse cx="500" cy="470" rx="380" ry="70" class="ob-pf__ring ob-pf__ring--2"/>
-          <text class="ob-base" x="500" y="512">Trillion Bank</text>
-          <text class="ob-base-sub" x="500" y="552">情報の流れを、測り・記録する技術</text>
-        </g>
-        <g class="ob-sph ob-sph--a">
-          <ellipse class="ob-shadow" cx="255" cy="416" rx="128" ry="19"/>
-          <circle cx="255" cy="250" r="160" fill="url(#obSph)" class="ob-glass"/>
-          <circle cx="255" cy="250" r="146" class="ob-inner"/>
-          <ellipse cx="194" cy="170" rx="48" ry="22" class="ob-hl" transform="rotate(-28 194 170)"/>
-          <text class="ob-name" x="255" y="244" style="font-size:40px">AirReach</text>
-          <text class="ob-sub" x="255" y="282" style="font-size:21px">AI検索で、</text>
-          <text class="ob-sub" x="255" y="310" style="font-size:21px">見つけてもらう</text>
-        </g>
-        <g class="ob-sph ob-sph--b">
-          <ellipse class="ob-shadow" cx="745" cy="416" rx="128" ry="19"/>
-          <circle cx="745" cy="250" r="160" fill="url(#obSph)" class="ob-glass"/>
-          <circle cx="745" cy="250" r="146" class="ob-inner"/>
-          <ellipse cx="684" cy="170" rx="48" ry="22" class="ob-hl" transform="rotate(-28 684 170)"/>
-          <text class="ob-name" x="745" y="244" style="font-size:40px">Adctor</text>
-          <text class="ob-sub" x="745" y="282" style="font-size:21px">AIに使われた情報を、</text>
-          <text class="ob-sub" x="745" y="310" style="font-size:21px">対価につなぐ</text>
-        </g>
-        <path class="ob-arc" d="M424 242 A76 76 0 0 1 576 242" marker-end="url(#obArw)"/>
-        <path class="ob-arc ob-arc--back" d="M576 258 A76 76 0 0 1 424 258" marker-end="url(#obArwO)"/>
-        <circle r="6" class="ob-pk"><animateMotion dur="3s" repeatCount="indefinite" path="M424 242 A76 76 0 0 1 576 242"/></circle>
-        <circle r="6" class="ob-pk ob-pk--back"><animateMotion dur="3s" begin="-1.5s" repeatCount="indefinite" path="M576 258 A76 76 0 0 1 424 258"/></circle>
-        <text class="ob-loop" x="500" y="222">情報が、</text><text class="ob-loop" x="500" y="246">AIに届く</text>
-        <text class="ob-loop ob-loop--back" x="500" y="282">価値が、</text><text class="ob-loop ob-loop--back" x="500" y="306">つくり手へ</text>
-      </svg>
-      <svg class="obiz__svg obiz__svg--sp" viewBox="0 0 400 760">
-        <defs>
-          <radialGradient id="obSph" cx=".34" cy=".28" r=".75"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".45" stop-color="#fff" stop-opacity=".14"/><stop offset="1" stop-color="#c2d1ff" stop-opacity=".22"/></radialGradient>
-          <linearGradient id="obPf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".34"/><stop offset="1" stop-color="#fff" stop-opacity=".06"/></linearGradient>
-          <marker id="obArw" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#fff"/></marker>
-          <marker id="obArwO" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#ffb27a"/></marker>
-        </defs>
-        <g class="ob-pf">
-          <ellipse cx="200" cy="676" rx="196" ry="60" class="ob-pf__ring ob-pf__ring--1"/>
-          <ellipse cx="200" cy="670" rx="180" ry="50" fill="url(#obPf)" class="ob-pf__top"/>
-          <text class="ob-base" x="200" y="682" style="font-size:30px">Trillion Bank</text>
-          <text class="ob-base-sub" x="200" y="716" style="font-size:19px">情報の流れを、測り・記録する技術</text>
-        </g>
-        <g class="ob-sph ob-sph--a">
-          <ellipse class="ob-shadow" cx="200" cy="274" rx="102" ry="15"/>
-          <circle cx="200" cy="138" r="116" fill="url(#obSph)" class="ob-glass"/>
-          <circle cx="200" cy="140" r="114" class="ob-inner"/>
-          <ellipse cx="151" cy="76" rx="38" ry="18" class="ob-hl" transform="rotate(-28 151 76)"/>
-          <text class="ob-name" x="200" y="134" style="font-size:37px">AirReach</text>
-          <text class="ob-sub" x="200" y="169" style="font-size:19px">AI検索で、</text>
-          <text class="ob-sub" x="200" y="195" style="font-size:19px">見つけてもらう</text>
-        </g>
-        <g class="ob-sph ob-sph--b">
-          <ellipse class="ob-shadow" cx="200" cy="624" rx="102" ry="15"/>
-          <circle cx="200" cy="492" r="116" fill="url(#obSph)" class="ob-glass"/>
-          <circle cx="200" cy="490" r="114" class="ob-inner"/>
-          <ellipse cx="151" cy="426" rx="38" ry="18" class="ob-hl" transform="rotate(-28 151 426)"/>
-          <text class="ob-name" x="200" y="484" style="font-size:37px">Adctor</text>
-          <text class="ob-sub" x="200" y="519" style="font-size:19px">AIに使われた情報を、</text>
-          <text class="ob-sub" x="200" y="545" style="font-size:19px">対価につなぐ</text>
-        </g>
-        <path class="ob-arc" d="M208 261 A54 54 0 0 1 208 369" marker-end="url(#obArw)"/>
-        <path class="ob-arc ob-arc--back" d="M192 369 A54 54 0 0 1 192 261" marker-end="url(#obArwO)"/>
-        <circle r="6" class="ob-pk"><animateMotion dur="3s" repeatCount="indefinite" path="M208 261 A54 54 0 0 1 208 369"/></circle>
-        <circle r="6" class="ob-pk ob-pk--back"><animateMotion dur="3s" begin="-1.5s" repeatCount="indefinite" path="M192 369 A54 54 0 0 1 192 261"/></circle>
-        <text class="ob-loop" x="318" y="306" style="text-anchor:start">情報が、</text><text class="ob-loop" x="318" y="330" style="text-anchor:start">AIに届く</text>
-        <text class="ob-loop ob-loop--back" x="82" y="306" style="text-anchor:end">価値が、</text><text class="ob-loop ob-loop--back" x="82" y="330" style="text-anchor:end">つくり手へ</text>
-      </svg>
-      </div>
-    </figure>
     <div class="obiz__intro">
       <p class="obiz__big" aria-hidden="true"><span>Reach</span><span>&amp; Return</span></p>
       <p class="obiz__lead">AIの回答に届く入口をつくり、<br>AIに使われた情報の価値を、<br>つくり手へ還す。<br>そのための事業の提供と、<br>研究開発を進めています。</p>
@@ -1033,34 +960,34 @@ Adctor-Token: adt_9f2…
 </section>
 
 <!-- ───────── CONTACT ───────── -->
-<section class="contact" id="contact" aria-labelledby="contact-title" data-curve>
-  <h2 class="contact__title hover-wave" id="contact-title">
-    <span class="sr">お問い合わせ（Contact Us）</span>
-    <span class="split" aria-hidden="true">Contact Us</span>
-  </h2>
-  <ul class="bubbles">
-    <li class="reveal"><a class="bubble bubble--accent magnetic-soft" href="https://trillion-bank.jp/#diagnose" data-cursor="30秒で診断">
-      <span class="bubble__en">Free Check</span><span class="bubble__ja">無料でAI検索診断</span>
-      <i aria-hidden="true"></i>
-    </a></li>
-    <li class="reveal"><a class="bubble magnetic-soft" href="https://trillion-bank.jp/trillionbank/contact/" data-cursor="フォームへ">
-      <span class="bubble__en">Contact</span><span class="bubble__ja">お問い合わせフォーム</span>
-      <i aria-hidden="true"></i>
-    </a></li>
-    <li class="reveal"><a class="bubble magnetic-soft" href="https://trillion-bank.jp/trillionbank/meeting/" data-cursor="予約する">
-      <span class="bubble__en">Meeting</span><span class="bubble__ja">商談を予約する</span>
-      <i aria-hidden="true"></i>
-    </a></li>
-  </ul>
+<!-- SITE:contact -->
+<section class="git" id="contact" aria-labelledby="contact-title">
+  <svg class="git__contour" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use href="#tb-frames" transform="translate(330 120) scale(1.35)"/><use href="#tb-frames" transform="translate(300 90) scale(1.55)"/><use href="#tb-frames" transform="translate(270 60) scale(1.75)"/></svg>
+  <div class="git__inner">
+    <h2 class="git__title" id="contact-title"><span class="git__en" aria-hidden="true">Get In Touch</span><span class="sr">お問い合わせ</span></h2>
+    <div class="git__grid">
+      <ul class="git__orbs">
+        <li class="git__o git__o--1"><a class="orb" href="https://trillion-bank.jp/trillionbank/contact/" data-cursor="フォームへ">
+          <span class="orb__en">Contact</span><span class="orb__ja">お問い合わせ</span><span class="orb__sub">まずはお気軽に<br>ご相談ください。</span><i class="orb__go" aria-hidden="true"></i></a></li>
+        <li class="git__o git__o--2"><a class="orb" href="https://trillion-bank.jp/#diagnose" data-cursor="30秒で診断">
+          <span class="orb__en">Free Check</span><span class="orb__ja">無料AI検索診断</span><span class="orb__sub">URLを入れるだけ。<br>約30秒で分かります。</span><i class="orb__go" aria-hidden="true"></i></a></li>
+        <li class="git__o git__o--3"><a class="orb orb--white" href="https://trillion-bank.jp/trillionbank/meeting/" data-cursor="予約する">
+          <span class="orb__en">Meeting</span><span class="orb__ja">商談を予約</span><i class="orb__go" aria-hidden="true"></i></a></li>
+      </ul>
+      <p class="git__text">AI検索での見え方の確認から、<br>AirReachの導入、<br>Adctorの共同実証まで。<br>ご用件に近い窓口から、<br>お気軽にご相談ください。</p>
+    </div>
+  </div>
 </section>
+<!-- /SITE:contact -->
 
 </main>
 
 <!-- ───────── FOOTER ───────── -->
+<!-- SITE:footer -->
 <footer class="footer" data-curve>
   <div class="footer__inner">
     <div class="footer__brand">
-      <a href="#top" class="footer__logo" aria-label="Trillion Bank トップへ" data-cursor="Top">
+      <a href="index.html" class="footer__logo" aria-label="Trillion Bank トップへ" data-cursor="Top">
         <svg viewBox="0 0 414 318" aria-hidden="true"><use href="#tb-frames" class="sym-frames"/><use href="#tb-wave" class="sym-wave"/></svg>
         <img src="assets/tb-wordmark.webp" alt="" width="2048" height="201">
       </a>
@@ -1069,18 +996,16 @@ Adctor-Token: adt_9f2…
     </div>
     <nav class="footer__nav" aria-label="フッターナビゲーション">
       <div><p>Business</p>
-        <a href="https://trillion-bank.jp/trillionbank/business/">事業概要</a>
-        <a href="https://trillion-bank.jp/#diagnose">AirReach 無料診断</a>
-        <a href="https://trillion-bank.jp/trillionbank/business/hack2/">AirReach Consulting</a>
-        <a href="https://trillion-bank.jp/trillionbank/business/airreach-selfserve/">AirReach Tools</a>
-        <a href="https://trillion-bank.jp/trillionbank/business/airreach-tools-agency/">AirReach Tools（代理店向け）</a>
-        <a href="https://trillion-bank.jp/trillionbank/business/pay-per-crawl/">Adctor</a>
+        <a href="business.html">事業の全体像</a>
+        <a href="airreach.html">AirReach（AI広告）</a>
+        <a href="adctor.html">Adctor（AIの料金所）</a>
+        <a href="usecases.html">Use Cases</a>
       </div>
       <div><p>Company</p>
-        <a href="https://trillion-bank.jp/trillionbank/mission/">企業理念</a>
-        <a href="https://trillion-bank.jp/trillionbank/company/">企業概要</a>
-        <a href="https://trillion-bank.jp/trillionbank/insights/">コラム</a>
-        <a href="#media">メディア掲載</a>
+        <a href="company.html">会社情報</a>
+        <a href="company.html#members">経営メンバー</a>
+        <a href="news.html">ニュース</a>
+        <a href="media.html">メディア掲載</a>
       </div>
       <div><p>Contact</p>
         <a href="https://trillion-bank.jp/#diagnose">無料でAI検索診断</a>
@@ -1105,7 +1030,9 @@ Adctor-Token: adt_9f2…
     </p>
   </div>
 </footer>
+<!-- /SITE:footer -->
 
+<!-- SITE:floaters -->
 <!-- 見つけたフレームの数（脱出ゲーム） -->
 <button type="button" class="hunt" id="hunt" aria-controls="mascotPanel" aria-label="隠しフレーム：0／4。ヒントを見る">
   <span class="hunt__slots" aria-hidden="true">
@@ -1162,9 +1089,11 @@ Adctor-Token: adt_9f2…
 <div class="cursor" id="cursor" aria-hidden="true"><span class="cursor__label" id="cursorLabel"></span></div>
 <!-- ちょっとしたお知らせ -->
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<!-- /SITE:floaters -->
 
 <script src="main.js"></script>
 <script src="gp-motion.js"></script>
 <script src="hero-geo.js"></script>
+<script src="site.js"></script>
 </body>
 </html>
