@@ -273,14 +273,11 @@
     // 事業紹介が画面にある間は、本文やボタンにかぶらないよう退避する
     const br = bizSection.getBoundingClientRect();
     const overBiz = br.top < window.innerHeight * 0.9 && br.bottom > window.innerHeight * 0.1;
-    // ニュースの上をトリウルが歩いている間は、右下のトリウルは隠れる
-    const lr = latest ? latest.getBoundingClientRect() : null;
-    const overWalk = !!(lr && document.querySelector('.walker') && lr.top < window.innerHeight * 0.8 && lr.top > -window.innerHeight * 0.6);
     // メンバー紹介が画面にある間も、カードにかぶらないよう退避する
     const memEl = document.getElementById('members');
     const mr = memEl ? memEl.getBoundingClientRect() : null;
     const overMembers = !!(mr && mr.top < window.innerHeight * 0.9 && mr.bottom > window.innerHeight * 0.1);
-    mascot.classList.toggle('is-away', ((nearFooter || overBiz || overWalk || overMembers) && !mascotOpen) || drawerOpen);
+    mascot.classList.toggle('is-away', ((nearFooter || overBiz || overMembers) && !mascotOpen) || drawerOpen);
     hunt.classList.toggle('is-away', nearFooter || overBiz || overMembers || drawerOpen);
   };
 

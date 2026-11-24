@@ -239,7 +239,7 @@
 })();
 
 /* =========================================================================
-   ⑩〜⑫ 事業の入口（左右と円いレンズ）・Use Cases の一覧・トリウルの散歩
+   ⑩〜⑪ 事業の入口（左右と円いレンズ）・Use Cases の一覧
    ========================================================================= */
 (() => {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -367,108 +367,6 @@
     });
   }
 
-  /* ---------- ⑫ トリウルの散歩 ---------- */
-  if (reduce) return;
-  const latest = $('.latest');
-  const track = $('.latest__track');
-  const circle = $('#latestCircle');
-  if (!latest || !track || !circle) return;
-  track.classList.add('is-scroll');
-  const walker = document.createElement('div');
-  walker.className = 'walker';
-  walker.setAttribute('aria-hidden', 'true');
-  walker.innerHTML = [
-    '<div class="walker__body">',
-    '<span class="walker__balloon"><svg viewBox="0 0 60 110">',
-    '<path class="s" d="M30 58 C26 72 36 82 30 96 C27 102 34 106 40 110"/>',
-    '<path class="b" d="M30 0 C47 0 58 13 58 29 C58 45 44 56 30 58 C16 56 2 45 2 29 C2 13 13 0 30 0 Z"/>',
-    '<path class="b" d="M26 57 L34 57 L32 62 L28 62 Z"/>',
-    '<ellipse class="h" cx="18" cy="16" rx="6" ry="9" transform="rotate(-24 18 16)"/>',
-    '<path class="m" d="M19 22 L27 18 L27 40 L19 44 Z M33 20 L41 16 L41 38 L33 42 Z"/>',
-    '</svg></span>',
-    '<div class="run">',
-    '<img class="run__leg run__leg--l" src="assets/toriuru-neutral.webp" alt="" width="480" height="480">',
-    '<img class="run__leg run__leg--r" src="assets/toriuru-neutral.webp" alt="" width="480" height="480">',
-    '<img class="run__base" src="assets/toriuru-neutral.webp" alt="" width="480" height="480">',
-    '</div><div class="walker__dust"></div>',
-    '</div>',
-  ].join('');
-  latest.appendChild(walker);
-  latest.classList.add('has-walker');
-
-  let lastX = null; let dist = 0; let face = 1; let sway = 0; let swayV = 0; let lastStep = 0;
-  const dust = walker.querySelector('.walker__dust');
-  const update = () => {
-    const vh = window.innerHeight;
-    const lr = latest.getBoundingClientRect();
-    if (lr.bottom < -100 || lr.top > vh + 100) return;
-    const W = latest.clientWidth;
-    const wW = walker.offsetWidth; const wH = walker.offsetHeight;
-    // スクロールに合わせて文字が横へ流れる
-    const p = clamp((vh - lr.top) / (vh + lr.height * 0.4), 0, 1);
-    track.style.setProperty('--mq', (-p * W * 0.45).toFixed(1) + 'px');
-    // 歩く場所：文字の上端の少し上
-    const tr = track.getBoundingClientRect();
-    const fs = parseFloat(getComputedStyle(track.querySelector('span')).fontSize) || 120;
-    const ground = tr.top - lr.top + fs * 0.2;
-    const cr = circle.getBoundingClientRect();
-    const rimX = cr.left - lr.left + cr.width * 0.16 - wW * 0.5;
-    const rimY = cr.top - lr.top + cr.height * 0.12 - wH * 0.9;
-    // 歩く区間 → 円のふちへぴょんと乗る
-    const walkP = clamp((p - 0.12) / 0.5, 0, 1);
-    const hopP = clamp((p - 0.62) / 0.12, 0, 1);
-    const walkEndX = rimX - wW * 0.6;
-    const groundY = ground - wH * 0.96;
-    let x = -wW + (walkEndX + wW) * walkP;
-    let y = groundY;
-    if (hopP > 0) {
-      x = walkEndX + (rimX - walkEndX) * hopP;
-      y = groundY + (rimY - groundY) * hopP - Math.sin(hopP * Math.PI) * wH * 0.55;
-    }
-    // 歩いた距離に合わせて、上下にはずみ・左右に揺れる
-    if (lastX !== null) {
-      const dx = x - lastX;
-      dist += Math.abs(dx);
-      if (Math.abs(dx) > 0.5) face = dx >= 0 ? 1 : -1;
-      swayV += (clamp(-dx * 0.9, -18, 18) - sway) * 0.2;
-    }
-    lastX = x;
-    const walking = hopP === 0 && walkP > 0 && walkP < 1;
-    // 走る：歩幅を大きく、足を交互に振り、前のめりで弾む
-    const ph = dist * 0.11;
-    const lean = face * 10;
-    const tilt = walking ? lean + Math.sin(ph * 2) * 2 : (hopP > 0 && hopP < 1 ? -14 * Math.sin(hopP * Math.PI) * face : 0);
-    const swing = walking ? Math.sin(ph) * 26 : (hopP > 0 && hopP < 1 ? 18 : 0);
-    walker.style.setProperty('--legL', swing.toFixed(1) + 'deg');
-    walker.style.setProperty('--legR', (-swing).toFixed(1) + 'deg');
-    // 足が地面をけるたびに砂ぼこり
-    if (walking && Math.floor(ph / Math.PI) !== lastStep) {
-      lastStep = Math.floor(ph / Math.PI);
-      const puff = document.createElement('span');
-      puff.className = 'puff';
-      puff.style.left = (face > 0 ? 18 : 64) + '%';
-      puff.style.setProperty('--dx', (face > 0 ? -34 : 34) + 'px');
-      dust.appendChild(puff);
-      setTimeout(() => puff.remove(), 750);
-    }
-    walker.style.setProperty('--wx', x.toFixed(1) + 'px');
-    walker.style.setProperty('--wy', y.toFixed(1) + 'px');
-    walker.style.setProperty('--hop', (walking ? -Math.abs(Math.sin(ph)) * 14 : 0).toFixed(1) + 'px');
-    walker.style.setProperty('--tilt', tilt.toFixed(2) + 'deg');
-    walker.style.setProperty('--face', String(face));
-  };
-  // 風船は少し遅れて揺れる
-  let raf = 0;
-  const balloon = () => {
-    raf = 0;
-    swayV *= 0.86; sway += swayV * 0.25; sway *= 0.96;
-    walker.style.setProperty('--sway', sway.toFixed(2) + 'deg');
-    if (Math.abs(sway) > 0.05 || Math.abs(swayV) > 0.05) raf = requestAnimationFrame(balloon);
-  };
-  const onScroll = () => { update(); if (!raf) raf = requestAnimationFrame(balloon); };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
-  update();
 })();
 
 /* =========================================================================
@@ -560,13 +458,18 @@
 })();
 
 /* =========================================================================
-   ⑭ サービスのモデル：スクロールに合わせて手順と画面が切り替わる
+   ⑭ サービスのモデル：スクロールに合わせて手順と画面が切り替わる。
+      端末は3Dで置き、近づくとノートパソコンのフタが開き、進むにつれて正面を向く。
+      カーソルを動かすと、端末が少しだけ傾く
    ========================================================================= */
 (() => {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const smooth = (t) => t * t * (3 - 2 * t);
   const scenes = Array.from(document.querySelectorAll('[data-scene]')).map((el) => ({
-    el, steps: Array.from(el.querySelectorAll('.dscene__step')), pinned: false,
+    el, steps: Array.from(el.querySelectorAll('.dscene__step')), stage: el.querySelector('.stage3d'),
+    pinned: false, px: 0, py: 0, tx: 0, ty: 0, raf: 0,
   }));
   if (!scenes.length) return;
   const set = (sc, k) => {
@@ -574,18 +477,54 @@
     sc.el.dataset.step = String(k);
     sc.steps.forEach((s, i) => s.classList.toggle('is-active', i === k));
   };
+  const pose = (sc) => {
+    const r = sc.el.getBoundingClientRect();
+    const vh = window.innerHeight;
+    if (reduce) { sc.el.style.setProperty('--open', '1'); return; }
+    // 画面の下から入ってくる間にフタが開く
+    const open = smooth(clamp((vh - r.top) / (vh * 0.85), 0, 1));
+    const range = Math.max(1, sc.el.offsetHeight - vh);
+    const p = sc.pinned ? clamp(-r.top / range, 0, 1) : 0.5;
+    const ry = -30 + 22 * p + sc.px * 7;
+    const rx = -17 + 5 * p - sc.py * 5;
+    sc.el.style.setProperty('--open', open.toFixed(3));
+    sc.el.style.setProperty('--ry', `${ry.toFixed(2)}deg`);
+    sc.el.style.setProperty('--rx', `${rx.toFixed(2)}deg`);
+    sc.el.style.setProperty('--gl', (ry * 2.4).toFixed(1));
+  };
   const measure = () => scenes.forEach((sc) => {
     sc.pinned = !reduce && window.innerHeight >= 560;
     sc.el.classList.toggle('is-pinned', sc.pinned);
   });
   const update = () => scenes.forEach((sc) => {
-    if (!sc.pinned) return;
     const r = sc.el.getBoundingClientRect();
-    if (r.bottom < 0 || r.top > window.innerHeight) return;
+    if (r.bottom < -200 || r.top > window.innerHeight + 200) return;
+    pose(sc);
+    if (!sc.pinned) return;
     const range = Math.max(1, sc.el.offsetHeight - window.innerHeight);
     const p = clamp(-r.top / range, 0, 0.9999);
     set(sc, Math.min(sc.steps.length - 1, Math.floor(p * sc.steps.length)));
   });
+  // カーソルに合わせて、端末をほんの少し傾ける（なめらかに追いかける）
+  if (fine && !reduce) {
+    scenes.forEach((sc) => {
+      if (!sc.stage) return;
+      const loop = () => {
+        sc.raf = 0;
+        sc.px += (sc.tx - sc.px) * 0.1;
+        sc.py += (sc.ty - sc.py) * 0.1;
+        pose(sc);
+        if (Math.abs(sc.tx - sc.px) + Math.abs(sc.ty - sc.py) > 0.002) sc.raf = requestAnimationFrame(loop);
+      };
+      sc.stage.addEventListener('pointermove', (e) => {
+        const b = sc.stage.getBoundingClientRect();
+        sc.tx = clamp(((e.clientX - b.left) / b.width) * 2 - 1, -1, 1);
+        sc.ty = clamp(((e.clientY - b.top) / b.height) * 2 - 1, -1, 1);
+        if (!sc.raf) sc.raf = requestAnimationFrame(loop);
+      });
+      sc.stage.addEventListener('pointerleave', () => { sc.tx = 0; sc.ty = 0; if (!sc.raf) sc.raf = requestAnimationFrame(loop); });
+    });
+  }
   // 動きを減らす設定のときは、手順を押すと画面が切り替わる
   scenes.forEach((sc) => sc.steps.forEach((s, i) => s.addEventListener('click', () => { if (!sc.pinned) set(sc, i); })));
   let raf = 0;

@@ -290,68 +290,105 @@
         </div>
       </header>
 
-      <div class="dscene dscene--airreach" data-scene data-step="0" style="--n:3">
+      <div class="dscene dscene--airreach" data-scene data-step="0" style="--n:4">
         <div class="dscene__pin">
-          <p class="dscene__label"><span>Service Model</span>AirReachの使い方を、画面で見る</p>
+          <p class="dscene__label"><span>Service Model</span>話しかけるだけで、AI検索対策が進む</p>
           <div class="dscene__grid">
             <ol class="dscene__steps">
           <li class="dscene__step is-active" data-step="0">
-            <span class="dscene__no">01</span><b class="dscene__en" aria-hidden="true">Measure</b>
-            <strong>測る</strong><p>AIに決まった質問をして、回答に自社が出てくるか、どう紹介されるか、どのページが参考にされたかを記録します。</p>
+            <span class="dscene__no">01</span><b class="dscene__en" aria-hidden="true">Start</b>
+            <strong>始めるのは、アドレスを伝えるだけ</strong><p>ホームページの文章から、お客様が聞きそうな質問の候補を出し、AIに聞いて今の答えを記録します。</p>
           </li>
           <li class="dscene__step" data-step="1">
-            <span class="dscene__no">02</span><b class="dscene__en" aria-hidden="true">Improve</b>
-            <strong>直す</strong><p>足りない情報や食い違いを見つけ、公式サイトの情報やよくある質問を、優先順位をつけて直します。</p>
+            <span class="dscene__no">02</span><b class="dscene__en" aria-hidden="true">Ask</b>
+            <strong>わからない言葉は、その場で聞ける</strong><p>「〇〇って何？」と聞けば、トリウル君がふつうの言葉で答えます。専門用語を覚えなくても進められます。</p>
           </li>
           <li class="dscene__step" data-step="2">
-            <span class="dscene__no">03</span><b class="dscene__en" aria-hidden="true">Re-measure</b>
-            <strong>再計測</strong><p>同じ質問で測り直し、施策の前と後を比べて、次に直すところを決めます。</p>
+            <span class="dscene__no">03</span><b class="dscene__en" aria-hidden="true">Approve</b>
+            <strong>入れるのは、承認したものだけ</strong><p>直す内容の下書きを確かめてから反映します。迷ったら「人に相談する」で、当社の担当者につながります。</p>
+          </li>
+          <li class="dscene__step" data-step="3">
+            <span class="dscene__no">04</span><b class="dscene__en" aria-hidden="true">Re-measure</b>
+            <strong>同じ質問で、測り直す</strong><p>2週間後に同じ質問でAIの回答を確かめ、前と後を比べて、次に直すところを決めます。</p>
           </li>
             </ol>
             <div class="dscene__devices" aria-hidden="true">
-              <div class="dev-pc">
-                <div class="dev-pc__bar"><i></i><i></i><i></i><span>AirReach レポート</span></div>
-                <div class="dev-pc__screen">
-              <div class="scr" data-s="0"><div class="ui-h"><b>AI検索での見え方</b><em class="ex">例</em></div>
-                <div class="ui-row2">
-                  <div class="ui-score"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" class="tr"/><circle cx="50" cy="50" r="40" class="vl" pathLength="100" style="--v:62"/></svg><b>62</b><span>伝わりやすさ</span></div>
-                  <table class="ui-tbl"><thead><tr><th>質問</th><th>言及</th><th>推薦</th><th>参考</th></tr></thead>
-                  <tbody><tr><td>子連れで行けるカフェ</td><td class="ng">−</td><td class="ng">−</td><td class="ng">−</td></tr>
-                  <tr><td>駅近で静かなカフェ</td><td class="ok">●</td><td class="ng">−</td><td class="ok">●</td></tr>
-                  <tr><td>モーニングがあるカフェ</td><td class="ok">●</td><td class="ok">●</td><td class="ng">−</td></tr></tbody></table>
-                </div></div>
-              <div class="scr" data-s="1"><div class="ui-h"><b>直すところ（優先順位）</b><em class="ex">例</em></div>
-                <ul class="ui-tasks">
-                  <li><i></i><span>「子連れOK」の情報を、よくある質問に追加する</span><em class="hi">高</em></li>
-                  <li><i></i><span>営業時間と定休日の書き方を、全ページでそろえる</span><em class="hi">高</em></li>
-                  <li><i></i><span>メニューページに、店の特徴を書き足す</span><em>中</em></li>
-                </ul></div>
-              <div class="scr" data-s="2"><div class="ui-h"><b>施策の前と後の比較</b><em class="ex">例</em></div>
-                <div class="ui-chart">
-                  <div class="ui-bar"><span>言及</span><i style="--a:30;--b:70"></i></div>
-                  <div class="ui-bar"><span>推薦</span><i style="--a:10;--b:40"></i></div>
-                  <div class="ui-bar"><span>参考</span><i style="--a:20;--b:60"></i></div>
-                  <p class="ui-legend"><span class="a">施策前</span><span class="b">施策後</span></p>
-                </div></div>
-                </div>
-              </div>
-              <div class="dev-phone">
-                <div class="dev-phone__screen">
-              <div class="scr" data-s="0"><div class="ui-chat"><p class="q">子連れで行けるカフェは？</p>
-                <p class="a">おすすめは次の3つです。<br>1. カフェA<br>2. カフェB<br>3. カフェC</p>
-                <p class="miss">自社の名前が出てこない</p></div></div>
-              <div class="scr" data-s="1"><div class="ui-site"><p class="ttl">カフェ・トリル（例）</p><p class="sub">よくある質問</p>
-                <p class="faq add"><b>Q. 子連れでも入れますか？</b>ベビーカーのまま入れます。キッズチェアもあります。</p>
-                <p class="faq"><b>Q. 予約はできますか？</b>お電話で承ります。</p></div></div>
-              <div class="scr" data-s="2"><div class="ui-chat"><p class="q">子連れで行けるカフェは？</p>
-                <p class="a">おすすめは次の3つです。<br><mark>1. カフェ・トリル</mark>　ベビーカーのまま入れると公式サイトに記載<br>2. カフェA<br>3. カフェB</p></div></div>
+              <div class="stage3d">
+                <div class="rig">
+                  <div class="lap">
+                    <div class="lap__lid">
+                      <div class="lap__back"></div>
+                      <div class="lap__bezel"><div class="lap__screen">
+                      <div class="app app--ar">
+                        <div class="app__rail"><b>AR</b><i class="on"></i><i></i><i></i><i></i></div>
+                        <div class="chat">
+                        <div class="chat__head"><img src="assets/toriuru-avatar.webp" alt="" width="160" height="160"><div><b>トリウル君</b><small>AirReach の案内役</small></div><em>案内中</em></div>
+                        <div class="chat__log">
+<p class="msg msg--me" data-at="0" style="--d:0s">見本工務店のホームページを見てください</p>
+<div class="msg msg--bot" data-at="0" style="--d:.7s"><img src="assets/toriuru-avatar.webp" alt="" width="160" height="160"><div class="msg__b">読み込みました。お客様が聞きそうな質問を、5つ考えました。<span class="msg__chips"><span>料金の目安</span><span>対応エリア</span><span>工期</span></span></div></div>
+<p class="msg msg--me" data-at="1" style="--d:0s">「会社の名札」って何？</p>
+<div class="msg msg--bot" data-at="1" style="--d:.7s"><img src="assets/toriuru-avatar.webp" alt="" width="160" height="160"><div class="msg__b">AIや検索エンジンに、会社の名前・場所・連絡先などを伝える「ページの裏側の情報」です。見た目は変わりません。</div></div>
+<div class="msg msg--bot" data-at="2" style="--d:0s"><img src="assets/toriuru-avatar.webp" alt="" width="160" height="160"><div class="msg__b"><small>先に手を打つとよいもの</small><span class="msg__chips"><span>料金の目安</span><span>対応エリア</span></span><small>下書きを作りました</small><span class="msg__todo"><span>よくある質問（3問）</span><span>会社の名札</span></span><span class="msg__btn">内容を確かめて承認する</span></div></div>
+<p class="msg msg--me" data-at="2" style="--d:1.1s">内容OK、承認します！</p>
+<div class="msg msg--bot" data-at="2" style="--d:1.8s"><img src="assets/toriuru-avatar.webp" alt="" width="160" height="160"><div class="msg__b">ホームページに反映しました。2週間後に、同じ質問でまた測りますね。</div></div>
+<p class="msg msg--day" data-at="3" style="--d:0s">2週間後</p>
+<div class="msg msg--bot" data-at="3" style="--d:.4s"><img src="assets/toriuru-avatar.webp" alt="" width="160" height="160"><div class="msg__b">同じ質問で測り直しました。<span class="msg__score"><b>1</b><i>→</i><b class="up">3</b><small>／5問で、AIの回答に名前が出ました</small></span></div></div>
+                        </div>
+                        <div class="chat__input"><span>メッセージを入力</span><i></i></div>
+                      </div>
+                        <div class="app__side">
+                          <div class="pn" data-s="0"><p class="pn__h">質問の候補</p><p class="pn__t">ホームページから5問</p>
+                          <ul class="pn__q"><li>外壁塗装の料金の目安は？</li><li>〇〇市は対応エリア？</li><li>工期はどれくらい？</li><li>工事のあとの保証は？</li><li>相談から工事までの流れは？</li></ul></div>
+                          <div class="pn" data-s="1"><p class="pn__h">ことばメモ</p><p class="pn__t">聞いた言葉が、ここにたまります</p>
+                          <dl class="pn__memo"><div><dt>会社の名札</dt><dd>専門用語では「構造化データ」。AIや検索エンジン向けの、会社の基本情報です。</dd></div>
+                          <div><dt>よくある質問</dt><dd>お客様の質問と答えを、ページにまとめたもの。AIが答えの根拠にしやすくなります。</dd></div></dl></div>
+                          <div class="pn" data-s="2"><p class="pn__h">下書き</p><p class="pn__t">反映するのは、承認したものだけ</p>
+                          <div class="pn__draft"><b>Q. 対応エリアはどこまでですか？</b><span>〇〇市・△△市・□□町です。そのほかの地域もご相談ください。</span></div>
+                          <div class="pn__draft pn__draft--tag"><b>会社の名札</b><span>名前：見本工務店<br>住所：〇〇市〇〇町1-2<br>電話：000-000-0000</span></div>
+                          <p class="pn__ok"><span class="w">承認待ち</span><span class="d">承認済み・反映しました</span></p></div>
+                          <div class="pn" data-s="3"><p class="pn__h">計測レポート</p><p class="pn__t">同じ5つの質問で比べる</p>
+                          <div class="pn__bars">
+                            <div><span>料金の目安</span><i style="--a:0;--b:1"></i></div>
+                            <div><span>対応エリア</span><i style="--a:1;--b:1"></i></div>
+                            <div><span>工期</span><i style="--a:0;--b:1"></i></div>
+                            <div><span>保証</span><i style="--a:0;--b:0"></i></div>
+                            <div><span>相談の流れ</span><i style="--a:0;--b:0"></i></div>
+                          </div>
+                          <p class="pn__legend"><span class="a">施策前</span><span class="b">施策後</span></p></div>
+                        </div>
+                      </div>
+                      </div></div>
+                    </div>
+                    <div class="lap__base"><i class="lap__kb"></i><i class="lap__pad"></i><i class="lap__lip"></i></div>
+                  </div>
+                  <div class="phone">
+                    <i class="phone__side"></i>
+                    <div class="phone__body"><div class="phone__screen">
+                      <div class="ph-status"><b>9:41</b><i></i></div>
+                      <div class="chat chat--phone">
+                        <div class="chat__head"><img src="assets/toriuru-avatar.webp" alt="" width="160" height="160"><div><b>トリウル君</b><small>AirReach の案内役</small></div><em>案内中</em></div>
+                        <div class="chat__log">
+<p class="msg msg--me" data-at="0" style="--d:0s">見本工務店のホームページを見てください</p>
+<div class="msg msg--bot" data-at="0" style="--d:.7s"><img src="assets/toriuru-avatar.webp" alt="" width="160" height="160"><div class="msg__b">読み込みました。お客様が聞きそうな質問を、5つ考えました。<span class="msg__chips"><span>料金の目安</span><span>対応エリア</span><span>工期</span></span></div></div>
+<p class="msg msg--me" data-at="1" style="--d:0s">「会社の名札」って何？</p>
+<div class="msg msg--bot" data-at="1" style="--d:.7s"><img src="assets/toriuru-avatar.webp" alt="" width="160" height="160"><div class="msg__b">AIや検索エンジンに、会社の名前・場所・連絡先などを伝える「ページの裏側の情報」です。見た目は変わりません。</div></div>
+<div class="msg msg--bot" data-at="2" style="--d:0s"><img src="assets/toriuru-avatar.webp" alt="" width="160" height="160"><div class="msg__b"><small>先に手を打つとよいもの</small><span class="msg__chips"><span>料金の目安</span><span>対応エリア</span></span><small>下書きを作りました</small><span class="msg__todo"><span>よくある質問（3問）</span><span>会社の名札</span></span><span class="msg__btn">内容を確かめて承認する</span></div></div>
+<p class="msg msg--me" data-at="2" style="--d:1.1s">内容OK、承認します！</p>
+<div class="msg msg--bot" data-at="2" style="--d:1.8s"><img src="assets/toriuru-avatar.webp" alt="" width="160" height="160"><div class="msg__b">ホームページに反映しました。2週間後に、同じ質問でまた測りますね。</div></div>
+<p class="msg msg--day" data-at="3" style="--d:0s">2週間後</p>
+<div class="msg msg--bot" data-at="3" style="--d:.4s"><img src="assets/toriuru-avatar.webp" alt="" width="160" height="160"><div class="msg__b">同じ質問で測り直しました。<span class="msg__score"><b>1</b><i>→</i><b class="up">3</b><small>／5問で、AIの回答に名前が出ました</small></span></div></div>
+                        </div>
+                        <div class="chat__input"><span>メッセージを入力</span><i></i></div>
+                      </div>
+                    </div></div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
           <div class="dscene__foot">
-            <div class="dscene__dots" aria-hidden="true"><i data-d="0"></i><i data-d="1"></i><i data-d="2"></i></div>
-            <p class="dscene__note">画面はイメージです。店名・数値は説明のための例です。</p>
+            <div class="dscene__dots" aria-hidden="true"><i data-d="0"></i><i data-d="1"></i><i data-d="2"></i><i data-d="3"></i></div>
+            <p class="dscene__note">会話は架空の会社「見本工務店」を使ったイメージです。実際の画面・言い回しとは異なります。</p>
           </div>
         </div>
       </div>
@@ -389,75 +426,108 @@
 
       <div class="dscene dscene--adctor" data-scene data-step="0" style="--n:4">
         <div class="dscene__pin">
-          <p class="dscene__label"><span>Service Model</span>Adctorのしくみを、画面で見る</p>
+          <p class="dscene__label"><span>Service Model</span>Adctorの管理画面（構想）で、しくみを見る</p>
           <div class="dscene__grid">
             <ol class="dscene__steps">
           <li class="dscene__step is-active" data-step="0">
-            <span class="dscene__no">01</span><b class="dscene__en" aria-hidden="true">Terms</b>
-            <strong>条件を決める</strong><p>情報提供者が、提供する情報・利用の目的・対価の考え方を決めて、Adctorに登録します。</p>
+            <span class="dscene__no">01</span><b class="dscene__en" aria-hidden="true">See</b>
+            <strong>AIからのアクセスを、見える化する</strong><p>どのAI事業者のボットが、どのページに、どれくらい来ているかを、情報提供者の管理画面で一覧にします。</p>
           </li>
           <li class="dscene__step" data-step="1">
-            <span class="dscene__no">02</span><b class="dscene__en" aria-hidden="true">Use</b>
-            <strong>合意して使う</strong><p>条件に合意したAI事業者だけが、決められた範囲で情報を利用します。</p>
+            <span class="dscene__no">02</span><b class="dscene__en" aria-hidden="true">Terms</b>
+            <strong>条件と単価を決めて、公開する</strong><p>回答での参照・要約の表示・学習など、用途ごとに条件と単価を決めます。事業者ごとの個別の条件も設定できます。</p>
           </li>
           <li class="dscene__step" data-step="2">
-            <span class="dscene__no">03</span><b class="dscene__en" aria-hidden="true">Record</b>
-            <strong>利用を記録する</strong><p>いつ・どの事業者が・どの情報を使ったかを、Adctorが記録します。</p>
+            <span class="dscene__no">03</span><b class="dscene__en" aria-hidden="true">Access</b>
+            <strong>合意した事業者だけが使う</strong><p>合意したAI事業者は、使うたびに発行される鍵（トークン）を付けてアクセスします。鍵のないアクセスには、条件の案内を返します。</p>
           </li>
           <li class="dscene__step" data-step="3">
             <span class="dscene__no">04</span><b class="dscene__en" aria-hidden="true">Settle</b>
-            <strong>請求と分配（検証中）</strong><p>利用記録にもとづく請求と、情報提供者への分配の仕組みを、共同実証で検証しています。</p>
+            <strong>利用記録に基づく請求・分配を検証</strong><p>記録と条件から請求額を出し、情報提供者への分配までを、共同実証で検証しています。</p>
           </li>
             </ol>
             <div class="dscene__devices" aria-hidden="true">
               <div class="dev-actors">
                 <span class="act a1">情報提供者</span><i class="arr"></i><span class="act a2">Adctor</span><i class="arr"></i><span class="act a3">AI事業者</span>
-                <p class="dev-actors__back">対価の流れ（検証中）：AI事業者 → Adctor → 情報提供者</p>
+                <p class="dev-actors__back">利用記録に基づく請求・分配を検証：AI事業者 → Adctor → 情報提供者</p>
               </div>
-              <div class="dev-pc">
-                <div class="dev-pc__bar"><i></i><i></i><i></i><span>Adctor コンソール（開発中）</span></div>
-                <div class="dev-pc__screen">
-              <div class="scr" data-s="0"><div class="ui-h"><b>利用条件の設定</b><em class="ex">例</em></div>
-                <dl class="ui-form">
-                  <div><dt>提供する情報</dt><dd>記事（2024年以降）</dd></div>
-                  <div><dt>利用の目的</dt><dd>AIの回答での参照</dd></div>
-                  <div><dt>利用できる事業者</dt><dd>条件に合意した事業者のみ</dd></div>
-                  <div><dt>対価の考え方</dt><dd>利用1件ごと</dd></div>
-                </dl>
-                <p class="ui-btn">条件を登録する</p></div>
-              <div class="scr" data-s="1"><div class="ui-h"><b>利用の申し込み</b><em class="ex">例</em></div>
-                <ul class="ui-list">
-                  <li><b>AI事業者 A</b><span>記事 ・ AIの回答での参照</span><em class="ok">合意済み</em></li>
-                  <li><b>AI事業者 B</b><span>記事 ・ AIの回答での参照</span><em class="ok">合意済み</em></li>
-                  <li><b>AI事業者 C</b><span>条件を確認中</span><em class="wait">確認中</em></li>
-                </ul></div>
-              <div class="scr" data-s="2"><div class="ui-h"><b>利用の記録</b><em class="ex">例</em></div>
-                <table class="ui-tbl ui-log"><thead><tr><th>時刻</th><th>事業者</th><th>情報</th><th>件数</th></tr></thead>
-                <tbody><tr><td>10:02</td><td>A</td><td>記事 #1024</td><td>3</td></tr>
-                <tr><td>10:05</td><td>B</td><td>記事 #0871</td><td>1</td></tr>
-                <tr><td>10:09</td><td>A</td><td>記事 #1102</td><td>2</td></tr>
-                <tr><td>10:14</td><td>B</td><td>記事 #0993</td><td>4</td></tr></tbody></table></div>
-              <div class="scr" data-s="3"><div class="ui-h"><b>請求と分配のシミュレーション</b><em class="ex ex--warm">検証中</em></div>
-                <div class="ui-settle">
-                  <p class="calc"><span>利用の記録</span><b>×</b><span>合意した条件</span><b>→</b><span class="warm">請求</span></p>
-                  <div class="ui-split"><i style="--w:46"></i><i style="--w:32"></i><i style="--w:22"></i></div>
-                  <p class="ui-legend"><span>提供者 1</span><span>提供者 2</span><span>提供者 3</span></p>
-                </div></div>
-                </div>
-              </div>
-              <div class="dev-phone">
-                <div class="dev-phone__screen">
-              <div class="scr" data-s="0"><div class="ui-notice"><p class="app">Adctor</p><p class="n">利用条件を登録しました</p><p class="s">記事・AIの回答での参照</p></div></div>
-              <div class="scr" data-s="1"><div class="ui-notice"><p class="app">Adctor</p><p class="n">AI事業者Aが条件に合意しました</p><p class="s">利用できる範囲：記事</p></div></div>
-              <div class="scr" data-s="2"><div class="ui-notice"><p class="app">Adctor</p><p class="n">今日の利用：10件</p><p class="s">記録の一覧で確認できます</p><p class="count"><b>10</b>件</p></div></div>
-              <div class="scr" data-s="3"><div class="ui-notice ui-notice--warm"><p class="app">Adctor</p><p class="n">分配のシミュレーション</p><p class="s">共同実証で検証中です</p></div></div>
+              <div class="stage3d">
+                <div class="rig">
+                  <div class="lap">
+                    <div class="lap__lid">
+                      <div class="lap__back"></div>
+                      <div class="lap__bezel"><div class="lap__screen">
+                      <div class="app app--ad">
+                        <div class="app__nav"><b class="app__logo">Adctor</b><span data-n="0">AIアクセス</span><span data-n="1">条件と単価</span><span data-n="2">利用記録</span><span data-n="3">請求・分配</span><span class="app__org">見本新聞社（例）</span></div>
+                        <div class="app__main">
+                          <div class="pn" data-s="0"><p class="pn__h">AIアクセス <span>過去30日</span><em class="ex">例</em></p>
+                          <div class="kpi"><div><small>AIからのアクセス</small><b>12,480</b><em>+18%</em></div><div><small>合意済みの事業者</small><b>3<span>社</span></b></div><div><small>条件を案内した件数</small><b>4,102</b></div></div>
+                          <div class="spark"><i style="--h:34"></i><i style="--h:42"></i><i style="--h:38"></i><i style="--h:51"></i><i style="--h:47"></i><i style="--h:58"></i><i style="--h:55"></i><i style="--h:63"></i><i style="--h:60"></i><i style="--h:71"></i><i style="--h:66"></i><i style="--h:78"></i><i style="--h:74"></i><i style="--h:86"></i></div>
+                          <table class="tbl"><thead><tr><th>事業者・エージェント</th><th>用途</th><th>件数</th><th>状態</th></tr></thead><tbody>
+                          <tr><td>AI事業者A・回答用</td><td>回答での参照</td><td>6,210</td><td><em class="st ok">合意済み</em></td></tr>
+                          <tr><td>AI事業者B・検索用</td><td>要約の表示</td><td>3,980</td><td><em class="st ok">合意済み</em></td></tr>
+                          <tr><td>名前のないボット</td><td>—</td><td>2,290</td><td><em class="st warn">条件を案内</em></td></tr></tbody></table></div>
+                          <div class="pn" data-s="1"><p class="pn__h">条件と単価 <em class="ex">例</em><span class="btn">条件を公開する</span></p>
+                          <ul class="lic">
+                            <li><div><b>AIの回答での参照</b><small>記事の一部を、回答の根拠に使う</small></div><span class="pr">¥0.5<small>／件</small></span><i class="tg on"></i></li>
+                            <li><div><b>要約・引用の表示</b><small>要約や引用を、AIの画面に表示する</small></div><span class="pr">¥1.2<small>／件</small></span><i class="tg on"></i></li>
+                            <li><div><b>AIの学習</b><small>記事を、AIの学習に使う</small></div><span class="pr pr--ask">個別に相談</span><i class="tg"></i></li>
+                          </ul>
+                          <p class="ovr"><b>事業者ごとの条件</b><span>AI事業者A：回答での参照 ¥0.4／件（年間契約）</span></p></div>
+                          <div class="pn" data-s="2"><p class="pn__h">利用記録 <span class="live">リアルタイム</span><em class="ex">例</em></p>
+                          <table class="tbl tbl--log"><thead><tr><th>時刻</th><th>事業者</th><th>ページ</th><th>用途</th><th>結果</th></tr></thead><tbody>
+                          <tr><td>10:02:14</td><td>A</td><td>/news/1024</td><td>回答での参照</td><td><em class="st ok">許可・鍵あり</em></td></tr>
+                          <tr><td>10:02:15</td><td>不明</td><td>/news/0871</td><td>—</td><td><em class="st warn">条件を案内</em></td></tr>
+                          <tr><td>10:02:17</td><td>B</td><td>/news/0993</td><td>要約の表示</td><td><em class="st ok">許可・鍵あり</em></td></tr>
+                          <tr><td>10:02:21</td><td>A</td><td>/news/1102</td><td>回答での参照</td><td><em class="st ok">許可・鍵あり</em></td></tr>
+                          <tr><td>10:02:26</td><td>B</td><td>/news/1077</td><td>要約の表示</td><td><em class="st ok">許可・鍵あり</em></td></tr></tbody></table></div>
+                          <div class="pn" data-s="3"><p class="pn__h">請求と分配（試算）<em class="ex ex--warm">検証中</em></p>
+                          <p class="calc"><span>利用記録</span><b>×</b><span>条件と単価</span><b>→</b><span class="warm">請求</span></p>
+                          <table class="tbl tbl--bill"><tbody>
+                          <tr><td>AI事業者A</td><td>6,210件 × ¥0.5</td><td>¥3,105</td></tr>
+                          <tr><td>AI事業者B</td><td>3,980件 × ¥1.2</td><td>¥4,776</td></tr>
+                          <tr class="sum"><td>合計</td><td></td><td>¥7,881</td></tr></tbody></table>
+                          <p class="dist__h">情報提供者への分配</p>
+                          <div class="dist"><i style="--w:46"></i><i style="--w:32"></i><i style="--w:22"></i></div>
+                          <p class="pn__legend pn__legend--warm"><span>見本新聞社</span><span>提供者 2</span><span>提供者 3</span></p></div>
+                        </div>
+                      </div>
+                      </div></div>
+                    </div>
+                    <div class="lap__base"><i class="lap__kb"></i><i class="lap__pad"></i><i class="lap__lip"></i></div>
+                  </div>
+                  <div class="phone">
+                    <i class="phone__side"></i>
+                    <div class="phone__body"><div class="phone__screen">
+                      <div class="pn" data-s="0"><div class="lock"><p class="lock__t">9:41</p><p class="lock__d">11月24日 月曜日</p>
+                        <div class="ntf"><p class="ntf__app"><i></i>Adctor<span>いま</span></p><b>今週のAIアクセス：2,914件</b><span>名前のないボットに、条件を案内しました（871件）</span></div></div></div>
+                      <div class="pn" data-s="1"><div class="lock"><p class="lock__t">9:41</p><p class="lock__d">11月24日 月曜日</p>
+                        <div class="ntf"><p class="ntf__app"><i></i>Adctor<span>いま</span></p><b>AI事業者Aが、条件に合意しました</b><span>回答での参照・¥0.4／件（例）</span></div></div></div>
+                      <div class="pn" data-s="2"><div class="ans"><p class="ans__app">AIアシスタント</p><p class="ans__q">新しい子育て支援のポイントは？</p>
+                        <div class="ans__a"><p>ポイントは3つです。対象の年齢が広がり、申し込みがオンラインになり、受け取りが毎月になります。</p><span class="src">出典：見本新聞（利用条件に合意済み）</span></div></div></div>
+                      <div class="pn" data-s="3"><div class="lock lock--warm"><p class="lock__t">9:41</p><p class="lock__d">12月1日 月曜日</p>
+                        <div class="ntf"><p class="ntf__app"><i></i>Adctor<span>いま</span></p><b>11月の分配（試算）：¥3,625</b><span>共同実証で、計算のしかたを検証中です</span></div></div></div>
+                    </div></div>
+                  </div>
+                  <div class="code">
+                    <p class="code__h"><i></i><i></i><i></i><span>AI事業者のプログラム（例）</span></p>
+<pre><span class="c"># 1. 使うたびに、Adctorから鍵をもらう</span>
+<b>POST</b> /v1/tokens
+{ "url": "…/news/1024", "use": "answer" }
+<span class="r">← 200</span> { "token": "adt_9f2…", "expires_in": 300 }
+
+<span class="c"># 2. 鍵を付けて、情報を取りに行く</span>
+<b>GET</b> /news/1024
+Adctor-Token: adt_9f2…
+<span class="r">← 200 OK</span>  <span class="c">利用を記録しました</span></pre>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
           <div class="dscene__foot">
             <div class="dscene__dots" aria-hidden="true"><i data-d="0"></i><i data-d="1"></i><i data-d="2"></i><i data-d="3"></i></div>
-            <p class="dscene__note">画面は開発中のイメージです。Adctorは研究開発・限定実証の段階で、請求と分配は検証中です。</p>
+            <p class="dscene__note">画面は開発中の構想イメージです。名称・項目・数値は説明のための例で、Adctorは研究開発・限定実証の段階です。請求と分配は検証中です。</p>
           </div>
         </div>
       </div>
