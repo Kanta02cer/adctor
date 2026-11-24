@@ -25,3 +25,19 @@
     if (share) share.classList.add('is-in');
   }
 })();
+
+/* Adctor の構造図：画面に入ると、番号の順に矢印が伸び、記録の件数が増えていく */
+(() => {
+  const fig = document.querySelector('.pfm__fig');
+  if (!fig) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)) { fig.classList.add('is-on'); return; }
+  const n = fig.querySelector('.pfm__count em');
+  let c = 1248; let t = 0;
+  new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.isIntersecting) {
+      fig.classList.add('is-on');
+      if (!t) t = setInterval(() => { c += 1; n.textContent = c.toLocaleString('ja-JP'); }, 900);
+    } else if (t) { clearInterval(t); t = 0; }
+  }), { threshold: 0.3 }).observe(fig);
+})();

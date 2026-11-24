@@ -332,3 +332,83 @@
 .git__o .orb, .git__o--3 .orb { width: clamp(200px, 17vw, 250px); }
 .git__text { padding-bottom: 0; }
 @media (max-width: 899px) { .git__orbs { justify-content: center; } .git__o { margin: 0; } .git__o .orb, .git__o--3 .orb { width: min(70vw, 240px); } }
+
+/* =========================================================================
+   ページの見出しを統一：青い帯に、大きな英字。右下に短い文（goodpatch の Design Platforms の型）
+   ========================================================================= */
+.phero, .phero--navy { --tint-off: rgba(255, 255, 255, .3); background: var(--blue); color: #fff; padding: clamp(130px, 12vw, 190px) var(--gutter) clamp(72px, 7vw, 120px); }
+.phero__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .5fr); grid-template-areas: "crumbs crumbs" "tag tag" "en en" "title lead" "title note" "title actions" "chips chips"; column-gap: clamp(32px, 5vw, 80px); align-items: end; }
+.crumbs { grid-area: crumbs; }
+.crumbs ol { color: rgba(255, 255, 255, .8); }
+.crumbs a { color: #fff; }
+.crumbs li + li::before { color: rgba(255, 255, 255, .5); }
+.phero__tag { grid-area: tag; justify-self: start; color: #fff; box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .75); }
+.phero__en { grid-area: en; color: #fff; font-size: clamp(88px, 15vw, 250px); line-height: .88; }
+.page--usecases .phero__en, .page--media .phero__en, .page--news .phero__en { display: block; }
+.phero__title { grid-area: title; align-self: start; font-size: clamp(26px, 3vw, 46px); }
+.phero__sub { color: var(--blue-pale); }
+.phero__lead { grid-area: lead; margin-top: 0; font-size: clamp(16px, 1.3vw, 19px); font-weight: 700; line-height: 2; }
+.phero__lead b { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
+.phero__note { grid-area: note; border-left-color: #ffb27a; color: rgba(255, 255, 255, .9); }
+.phero__actions { grid-area: actions; }
+.chips { grid-area: chips; }
+.chips li { background: rgba(255, 255, 255, .16); color: #fff; }
+.page--usecases .phero, .page--media .phero, .page--news .phero { padding-bottom: clamp(72px, 7vw, 120px); }
+.page--media .media { margin-top: 0; }
+@media (max-width: 899px) { .phero__inner { grid-template-columns: minmax(0, 1fr); grid-template-areas: "crumbs" "tag" "en" "title" "lead" "note" "actions" "chips"; } .phero__lead { margin-top: 18px; } }
+
+/* =========================================================================
+   Adctor：プラットフォームの構造図（提供者 ⇄ Adctor ⇄ AI事業者）
+   ========================================================================= */
+.pfm { padding: clamp(80px, 8vw, 128px) var(--gutter); background: #f4f7f8; }
+.pfm__inner { max-width: var(--max); margin: 0 auto; }
+.pfm__lead { margin-top: 18px; font-size: clamp(17px, 1.4vw, 20px); font-weight: 700; line-height: 1.9; }
+.pfm__fig { display: grid; grid-template-columns: minmax(0, .5fr) minmax(0, 2fr) minmax(0, .5fr); align-items: center; gap: 0; margin-top: clamp(32px, 4vw, 56px); padding: clamp(28px, 3vw, 48px) clamp(16px, 2vw, 32px); border-radius: 28px; background: #fff; }
+.pfm__side { display: grid; justify-items: center; text-align: center; gap: 8px; }
+.pfm__wish { position: relative; padding: 14px 16px; border-radius: 10px; background: #eef1f4; font-size: clamp(14px, 1.1vw, 17px); font-weight: 700; line-height: 1.6; }
+.pfm__wish::after { content: ""; position: absolute; left: 50%; bottom: -9px; margin-left: -9px; border: 9px solid transparent; border-bottom: 0; border-top-color: #eef1f4; }
+.pfm__ava { width: 82%; aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; box-shadow: inset 0 0 0 8px var(--blue); background: var(--sky); margin-top: 8px; }
+.pfm__ava--r { box-shadow: inset 0 0 0 8px #10182b; background: #e8ebf1; }
+.pfm__ava svg { width: 70%; fill: #fff; stroke: var(--blue); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.pfm__ava--r svg { stroke: #10182b; }
+.pfm__ava svg .f { fill: #c9d6ff; stroke: none; }
+.pfm__ava svg .s { fill: #c9d0dc; stroke: #10182b; }
+.pfm__who { margin-top: 6px; font-size: clamp(22px, 2vw, 30px); font-weight: 700; }
+.pfm__whos { font-size: 14px; font-weight: 700; color: var(--muted); }
+.pfm__mid { position: relative; aspect-ratio: 1000 / 520; }
+.pfm__arrows { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.pf-a { fill: none; stroke: var(--blue); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 1200; stroke-dashoffset: 1200; transition: stroke-dashoffset 1s var(--gp-emph) calc(var(--i) * .45s); }
+.pf-a--o { stroke: #ff8a3d; }
+.pf-a--loop { stroke: #10182b; stroke-width: 3; }
+.pfm__fig.is-on .pf-a { stroke-dashoffset: 0; }
+.pf-coin { opacity: 0; transition: opacity .4s calc(var(--i) * .45s + .9s); }
+.pfm__fig.is-on .pf-coin { opacity: 1; }
+.pf-coin circle { fill: #ff8a3d; stroke: #fff; stroke-width: 3; }
+.pf-coin text { fill: #fff; font: 700 16px var(--font); text-anchor: middle; }
+.pf-l, .pf-tag { position: absolute; translate: -50% -50%; opacity: 0; transition: opacity .5s var(--gp-out) calc(var(--i) * .45s + .3s), translate .6s var(--gp-emph) calc(var(--i) * .45s + .3s); margin: 0; }
+.pfm__fig.is-on .pf-l, .pfm__fig.is-on .pf-tag { opacity: 1; }
+.pf-l { display: flex; align-items: center; gap: 6px; white-space: nowrap; font-size: clamp(14px, 1.2vw, 18px); font-weight: 700; color: var(--ink); background: #fff; padding: 2px 6px; }
+.pf-l b { display: grid; place-items: center; width: 1.6em; height: 1.6em; border-radius: 50%; background: var(--blue); color: #fff; font-family: var(--font); font-size: .85em; }
+.pf-l--o b { background: #ff8a3d; }
+.pf-l--loop b { background: #10182b; }
+.pf-tag { padding: 8px 14px; border-radius: 8px; background: var(--blue); color: #fff; text-align: center; font-size: 13px; font-weight: 700; line-height: 1.3; }
+.pf-tag b { font-family: var(--font); font-size: clamp(22px, 2vw, 30px); }
+.pf-tag small { display: block; font-size: 11px; opacity: .85; }
+.pf-tag--n { background: #10182b; }
+.pfm__core { position: absolute; left: 50%; top: 45%; width: 36%; aspect-ratio: 1; translate: -50% -50%; display: grid; place-content: center; justify-items: center; gap: 4px; border-radius: 50%; background: #fff; box-shadow: inset 0 0 0 8px var(--blue), 0 30px 60px -30px rgba(22, 75, 255, .5); text-align: center; }
+.pfm__fig.is-on .pfm__core { animation: pfPulse 2.8s ease-in-out infinite 2.8s; }
+@keyframes pfPulse { 50% { box-shadow: inset 0 0 0 8px var(--blue), 0 0 0 14px rgba(22, 75, 255, .12), 0 30px 60px -30px rgba(22, 75, 255, .5); } }
+.pfm__core svg { width: 42%; }
+.pfm__core .f { fill: none; stroke: var(--blue); stroke-width: 16; }
+.pfm__core .w { fill: none; stroke: #ff8a3d; stroke-width: 18; stroke-linecap: round; }
+.pfm__core b { font-family: var(--font); font-size: clamp(24px, 2.4vw, 36px); letter-spacing: -.02em; }
+.pfm__core span { font-size: clamp(11px, .9vw, 13px); font-weight: 700; color: var(--muted); }
+.pfm__count { margin-top: 4px; padding: 2px 12px; border-radius: 999px; background: var(--sky); color: var(--blue); font-size: 13px; font-style: normal; font-weight: 700; }
+.pfm__count em { font-style: normal; font-family: var(--font); }
+.pfm__note { margin-top: 18px; font-size: 14px; line-height: 1.8; color: var(--muted); }
+@media (max-width: 899px) {
+  .pfm__fig { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .pfm__mid { grid-column: 1 / -1; grid-row: 2; margin-top: 24px; }
+  .pf-l { font-size: 11px; } .pf-tag { font-size: 10px; padding: 4px 8px; } .pf-tag b { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) { .pf-a { stroke-dashoffset: 0; transition: none; } .pf-l, .pf-tag, .pf-coin { opacity: 1; transition: none; } }

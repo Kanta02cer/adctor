@@ -224,7 +224,8 @@
     $$('.w', fill).forEach((w) => {
       const text = w.textContent;
       w.textContent = '';
-      Array.from(text).forEach((ch) => {
+      // 「、」「。」は前の文字とひとまとめにする（句読点だけが次の行に落ちないように）
+      (text.match(/.[、。，．）」]*/gu) || []).forEach((ch) => {
         const c = document.createElement('span');
         c.className = 'c';
         c.textContent = ch;

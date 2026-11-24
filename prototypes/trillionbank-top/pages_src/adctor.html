@@ -15,31 +15,55 @@ crumb: Business|business.html;Adctor
   </div>
 </section>
 
-<section class="toll" aria-labelledby="toll-title">
-  <div class="toll__inner">
-    <h2 class="sec-h" id="toll-title"><span class="sec-h__en" aria-hidden="true">Toll Gate</span><span class="sec-h__ja">料金所のしくみ</span></h2>
-    <div class="toll__grid">
-      <div class="toll__scene" role="img" aria-label="AIのボットが料金所に来る。鍵（トークン）を持つ合意済みの事業者はゲートを通って記録され、鍵のないボットには条件が案内される。">
-        <svg viewBox="0 0 640 360" aria-hidden="true">
-          <path class="tl-road" d="M0 230 H640"/>
-          <path class="tl-lane" d="M0 230 H640"/>
-          <g class="tl-booth"><rect x="282" y="120" width="76" height="110" rx="10"/><rect x="296" y="136" width="48" height="34" rx="5" class="tl-win"/><g transform="translate(298 186) scale(.11)"><use href="#tb-frames" class="tl-logo"/></g></g>
-          <rect class="tl-post" x="358" y="170" width="10" height="60" rx="3"/>
-          <rect class="tl-bar" x="362" y="168" width="150" height="10" rx="5"/>
-          <g class="tl-car tl-car--ok"><rect x="-46" y="-26" width="92" height="40" rx="12"/><circle cx="-24" cy="16" r="9"/><circle cx="24" cy="16" r="9"/><text y="0">鍵あり</text></g>
-          <g class="tl-car tl-car--ng"><rect x="-46" y="-26" width="92" height="40" rx="12"/><circle cx="-24" cy="16" r="9"/><circle cx="24" cy="16" r="9"/><text y="0">鍵なし</text></g>
-          <g class="tl-bubble tl-bubble--ok"><rect x="520" y="96" width="112" height="44" rx="22"/><text x="576" y="124">記録 ＋1</text></g>
-          <g class="tl-bubble tl-bubble--ng"><rect x="150" y="96" width="124" height="44" rx="22"/><text x="212" y="124">条件を案内</text></g>
-          <g class="tl-coin"><circle cx="320" cy="300" r="20"/><text x="320" y="307">¥</text></g>
-          <text class="tl-cap" x="320" y="352">利用料は、つくり手へ（検証中）</text>
-        </svg>
+<section class="pfm" aria-labelledby="pfm-title">
+  <div class="pfm__inner">
+    <h2 class="sec-h" id="pfm-title"><span class="sec-h__en" aria-hidden="true">Platform</span><span class="sec-h__ja">プラットフォームの構造</span></h2>
+    <p class="pfm__lead">情報を持つ「提供者」と、情報を使いたい「AI事業者」を、利用条件と記録でつなぐ。利用料は、記録にもとづいて提供者へ分配します（検証中）。</p>
+    <div class="pfm__fig" role="img" aria-label="提供者が利用条件を登録し、AI事業者が条件に合意して鍵を受け取る。AI事業者は鍵を付けて情報を利用し、Adctorが記録する。利用料はAI事業者からAdctorへ支払われ、手数料を除いて提供者へ分配される。">
+      <div class="pfm__side pfm__side--l">
+        <p class="pfm__wish">AIに使われた情報に、<br>対価がほしい</p>
+        <div class="pfm__ava pfm__ava--l"><svg viewBox="0 0 120 120" aria-hidden="true"><rect x="30" y="26" width="60" height="72" rx="8"/><path d="M42 44 H78 M42 56 H78 M42 68 H66"/><rect x="40" y="76" width="22" height="14" rx="3" class="f"/></svg></div>
+        <p class="pfm__who">情報提供者</p>
+        <p class="pfm__whos">メディア・専門データベース</p>
       </div>
-      <ol class="toll__steps">
-        <li><b>鍵のないAIボットには</b><span>料金所で止め、利用の条件を案内します。</span></li>
-        <li><b>合意したAI事業者は</b><span>使うたびに発行される鍵（トークン）で通り、利用が記録されます。</span></li>
-        <li><b>記録と条件から</b><span>請求額を出し、情報をつくった提供者へ分配します（検証中）。</span></li>
-      </ol>
+      <div class="pfm__mid">
+        <svg class="pfm__arrows" viewBox="0 0 1000 520" aria-hidden="true">
+          <defs>
+            <marker id="pfA" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#164bff"/></marker>
+            <marker id="pfO" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#ff8a3d"/></marker>
+          </defs>
+          <path class="pf-a" style="--i:0" d="M70 150 H290" marker-end="url(#pfA)"/>
+          <path class="pf-a" style="--i:1" d="M930 150 H710" marker-end="url(#pfA)"/>
+          <path class="pf-a" style="--i:2" d="M710 230 H930" marker-end="url(#pfA)"/>
+          <path class="pf-a pf-a--o" style="--i:4" d="M930 320 H710" marker-end="url(#pfO)"/>
+          <path class="pf-a pf-a--o" style="--i:5" d="M290 320 H70" marker-end="url(#pfO)"/>
+          <path class="pf-a pf-a--loop" style="--i:3" d="M960 400 V470 H40 V400" marker-end="url(#pfA)"/>
+          <g class="pf-coin" style="--i:4"><circle r="15"/><text y="5">¥</text><animateMotion dur="2.4s" repeatCount="indefinite" path="M930 320 H710"/></g>
+          <g class="pf-coin" style="--i:5"><circle r="15"/><text y="5">¥</text><animateMotion dur="2.4s" begin="-1.2s" repeatCount="indefinite" path="M290 320 H70"/></g>
+        </svg>
+        <p class="pf-l" style="--i:0;left:18%;top:21%"><b>1</b>条件を登録</p>
+        <p class="pf-l" style="--i:1;left:82%;top:21%"><b>2</b>条件に合意</p>
+        <p class="pf-l" style="--i:2;left:82%;top:36.5%"><b>3</b>鍵（トークン）を発行</p>
+        <p class="pf-l pf-l--o" style="--i:4;left:82%;top:53%"><b>5</b>利用料を支払う</p>
+        <p class="pf-l pf-l--o" style="--i:5;left:18%;top:53%"><b>6</b>分配</p>
+        <p class="pf-tag" style="--i:5;left:18%;top:77%">利用料の<br><b>80%</b><small>設計例</small></p>
+        <p class="pf-tag pf-tag--n" style="--i:4;left:82%;top:77%">手数料<br><b>20%</b><small>設計例</small></p>
+        <p class="pf-l pf-l--loop" style="--i:3;left:50%;top:90.5%"><b>4</b>鍵を付けて、情報を利用（引用・取得）→ Adctorが記録</p>
+        <div class="pfm__core">
+          <svg viewBox="0 0 414 318" aria-hidden="true"><use href="#tb-frames" class="f"/><use href="#tb-wave" class="w"/></svg>
+          <b>Adctor</b>
+          <span>利用条件・鍵・記録・請求</span>
+          <i class="pfm__count">記録 <em>1,248</em> 件</i>
+        </div>
+      </div>
+      <div class="pfm__side pfm__side--r">
+        <p class="pfm__wish">権利のはっきりした<br>情報を使いたい</p>
+        <div class="pfm__ava pfm__ava--r"><svg viewBox="0 0 120 120" aria-hidden="true"><rect x="22" y="30" width="76" height="52" rx="8"/><path d="M38 48 L54 44 L70 54 L60 66 L44 64 Z M38 48 L60 66 M54 44 L44 64"/><path d="M50 82 H70 V92 H50 Z M42 96 H78" class="s"/></svg></div>
+        <p class="pfm__who">AI事業者</p>
+        <p class="pfm__whos">AIアシスタント・検索AIなど</p>
+      </div>
     </div>
+    <p class="pfm__note">※ 80%／20%は未検証の設計例です。確定条件は個別の契約で合意します。契約で合意した引用・利用が対象で、すべてのAIの引用を自動で検知・課金する仕組みではありません。</p>
   </div>
 </section>
 
@@ -60,18 +84,6 @@ crumb: Business|business.html;Adctor
       <li>データの取得</li><li>回答内の引用</li><li>モデル学習</li>
     </ul>
     <p class="ppc__kinds-note">用途・期間・二次利用は、別々に契約します。</p>
-  </div>
-</section>
-
-<section class="share" aria-labelledby="share-title">
-  <div class="share__inner">
-    <h2 class="sec-h" id="share-title"><span class="sec-h__en" aria-hidden="true">Revenue Share</span><span class="sec-h__ja">1円を、提供者80銭・当社20銭に分ける（設計例）</span></h2>
-    <div class="share__bar" aria-hidden="true"><i class="a"></i><i class="b"></i></div>
-    <div class="share__nums">
-      <p><b>80<small>銭</small></b><span>情報の提供者へ</span></p>
-      <p><b>20<small>銭</small></b><span>Adctor（当社）の手数料</span></p>
-    </div>
-    <p class="share__note">条件付きの試算で、実績・受注予測ではありません。1円／利用・20%は未検証の料金例です。確定条件は個別の契約で合意します。</p>
   </div>
 </section>
 
