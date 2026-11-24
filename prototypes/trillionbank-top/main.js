@@ -278,7 +278,7 @@
     const mr = memEl ? memEl.getBoundingClientRect() : null;
     const overMembers = !!(mr && mr.top < window.innerHeight * 0.9 && mr.bottom > window.innerHeight * 0.1);
     // Use Cases のカードにも、かぶらないよう退避する
-    const overUc = ['.ucx__list', '#ourbiz'].some((s) => { const el = document.querySelector(s); const ur = el ? el.getBoundingClientRect() : null; return !!(ur && ur.top < window.innerHeight * 0.9 && ur.bottom > window.innerHeight * 0.1); });
+    const overUc = ['.ucx__list', '#ourbiz', '#company'].some((s) => { const el = document.querySelector(s); const ur = el ? el.getBoundingClientRect() : null; return !!(ur && ur.top < window.innerHeight * 0.9 && ur.bottom > window.innerHeight * 0.1); });
     mascot.classList.toggle('is-away', ((nearFooter || overBiz || overMembers || overUc) && !mascotOpen) || drawerOpen);
     hunt.classList.toggle('is-away', nearFooter || overBiz || overMembers || overUc || drawerOpen);
   };
@@ -508,7 +508,7 @@
     const cur = $('#cursor');
     const curLabel = $('#cursorLabel');
     let mx = -100; let my = -100; let cx = -100; let cy = -100;
-    const darkSel = '.hero, .bz-band--blue, .bz-split.is-flood, .contact, .media, .footer, .drawer, .unlock, .card__img--ink, .card__img--blue, .bubble--accent, .uc--navy .uc__card, .uc--blue .uc__card';
+    const darkSel = '.hero, .bz-band--blue, .bz-split.is-flood, .contact, .media, .footer, .drawer, .unlock, .card__img--ink, .card__img--blue, .bubble--accent, .uc--navy .uc__card, .uc--blue .uc__card, .cov, .obiz';
     window.addEventListener('pointermove', (e) => {
       mx = e.clientX; my = e.clientY;
       cur.classList.add('is-on');

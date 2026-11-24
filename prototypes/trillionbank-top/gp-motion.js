@@ -387,90 +387,72 @@
 })();
 
 /* =========================================================================
-   ⑬ 取締役・メンバー：スクロールすると全員が横へ流れ、真ん中に来た人が順に
-      「当てた状態」（白いカード → 自己紹介）になる。PCもスマホも同じ動き
+   ⑬ 取締役・メンバー：画面に止めて、スクロールで一人ずつ。左に写真、右に自己紹介
    ========================================================================= */
 (() => {
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const sec = document.getElementById('members');
   if (!sec) return;
-  const vp = sec.querySelector('.members__viewport');
-  const track = sec.querySelector('.members__track');
-  const bar = sec.querySelector('.members__progress');
-  const items = Array.from(track.querySelectorAll('.mem'));
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const items = Array.from(sec.querySelectorAll('.crew__item'));
+  const index = sec.querySelector('.crew__index');
   const n = items.length;
   if (!n) return;
-  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
-  const smooth = (t) => t * t * (3 - 2 * t);
   let pinned = false;
-  let txs = [];
-
+  let cur = -1;
+  // 右はしの名前の一覧（押すとその人へ）
+  const btns = items.map((li, i) => {
+    const name = li.querySelector('.crew__name').textContent;
+    const role = li.querySelector('.crew__en').textContent;
+    const item = document.createElement('li');
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.innerHTML = `<span>${String(i + 1).padStart(2, '0')}</span>${name}`;
+    b.setAttribute('aria-label', `${role} ${name}の紹介へ`);
+    b.addEventListener('click', () => go(i));
+    item.appendChild(b);
+    index.appendChild(item);
+    return b;
+  });
+  const set = (k) => {
+    if (k === cur) return;
+    cur = k;
+    items.forEach((li, i) => { li.classList.toggle('is-active', i === k); li.classList.toggle('is-past', i < k); });
+    btns.forEach((b, i) => b.setAttribute('aria-current', i === k ? 'true' : 'false'));
+    sec.style.setProperty('--k', String(k));
+  };
+  const range = () => Math.max(1, sec.offsetHeight - window.innerHeight);
+  const go = (i) => {
+    if (!pinned) { items[i].scrollIntoView({ block: 'center' }); return; }
+    const top = sec.getBoundingClientRect().top + window.scrollY + range() * ((i + 0.5) / n);
+    window.scrollTo({ top, behavior: reduce ? 'instant' : 'smooth' });
+  };
   const measure = () => {
-    pinned = !reduce && window.innerHeight >= 560;
+    pinned = !reduce && window.innerWidth >= 900 && window.innerHeight >= 620;
     sec.classList.toggle('is-pinned', pinned);
-    sec.style.height = '';
-    track.style.setProperty('--tx', '0px');
-    items.forEach((li) => { li.classList.remove('is-active', 'is-bio'); li.style.removeProperty('--ry'); li.style.removeProperty('--ms'); });
-    if (!pinned) return;
-    // 1人ずつ画面の真ん中に来る位置（横の移動量）を求める
-    const t0 = track.getBoundingClientRect().left;
-    const mid = window.innerWidth / 2;
-    txs = items.map((li) => { const r = li.getBoundingClientRect(); return mid - (r.left - t0 + r.width / 2) - t0; });
-    sec.style.height = `${Math.round(window.innerHeight + n * window.innerHeight * 0.7)}px`;
+    sec.style.height = pinned ? `${Math.round(window.innerHeight * (1 + n * 0.85))}px` : '';
+    if (!pinned) { cur = -1; items.forEach((li) => li.classList.remove('is-active', 'is-past')); }
   };
-
-  const tilt = () => {
-    if (reduce) return;
-    const mid = window.innerWidth / 2;
-    items.forEach((li) => {
-      const r = li.getBoundingClientRect();
-      const d = clamp((r.left + r.width / 2 - mid) / (window.innerWidth * 0.5), -1.6, 1.6);
-      li.style.setProperty('--ry', `${(-d * 30).toFixed(2)}deg`);
-      li.style.setProperty('--ms', (1 - Math.min(1, Math.abs(d)) * 0.14).toFixed(3));
-    });
-  };
-
   const update = () => {
-    if (!pinned) { tilt(); return; }
+    if (!pinned) return;
     const r = sec.getBoundingClientRect();
     if (r.bottom < 0 || r.top > window.innerHeight) return;
-    const range = Math.max(1, sec.offsetHeight - window.innerHeight);
-    const p = clamp(-r.top / range, 0, 1);
-    // 1人あたりの区間：前半は止まって紹介（自己紹介を表示）、後半で次の人へ移る
-    const f = Math.min(n - 0.0001, p * n);
-    const i0 = Math.floor(f);
-    const local = f - i0;
-    const e = i0 < n - 1 ? smooth(clamp((local - 0.66) / 0.34, 0, 1)) : 0;
-    const tx = txs[i0] + ((txs[i0 + 1] ?? txs[i0]) - txs[i0]) * e;
-    track.style.setProperty('--tx', `${tx.toFixed(1)}px`);
-    bar.style.setProperty('--mp', p.toFixed(4));
-    const active = e < 0.5 ? i0 : i0 + 1;
-    const bioOn = e === 0 && local > 0.28; // まず顔、そのあと自己紹介
-    items.forEach((li, i) => {
-      li.classList.toggle('is-active', i === active);
-      li.classList.toggle('is-bio', i === active && bioOn);
-    });
-    tilt();
+    const p = clamp(-r.top / range(), 0, 0.9999);
+    set(Math.floor(p * n));
+    sec.style.setProperty('--mp', p.toFixed(4));
   };
-
-  // キーボードでカードに移ったら、その人を紹介する位置までスクロールする
-  items.forEach((li, i) => {
-    li.addEventListener('focusin', () => {
-      if (!pinned) return;
-      const range = Math.max(1, sec.offsetHeight - window.innerHeight);
-      const top = sec.getBoundingClientRect().top + window.scrollY + range * ((i + 0.4) / n);
-      window.scrollTo({ top, behavior: 'instant' });
-      vp.scrollLeft = 0;
-    });
-  });
-
+  // スマホなど：一人ずつ、画面に入ったら写真と文が現れる
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) e.target.classList.add('is-in'); }), { threshold: 0.2 });
+    items.forEach((li) => io.observe(li));
+  } else items.forEach((li) => li.classList.add('is-in'));
+  items.forEach((li, i) => li.addEventListener('focusin', () => { if (pinned && cur !== i) go(i); }));
   let raf = 0;
   const kick = () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; update(); }); };
   window.addEventListener('scroll', kick, { passive: true });
-  vp.addEventListener('scroll', kick, { passive: true });
   window.addEventListener('resize', () => { measure(); kick(); });
-  window.addEventListener('load', () => { measure(); kick(); });
   measure();
+  if (pinned) set(0);
   update();
 })();
 
@@ -772,7 +754,7 @@
     units.forEach((u, i) => u.classList.toggle('on', i < k));
   };
 
-  const heads = Array.from(document.querySelectorAll('.bz-en, .bz-ja, .bz-svc-title, .obiz__en, .obiz__ja, .obiz__big, .obiz__lead, .members__en, .company__title, .big-title, .contact__title, .media__title'))
+  const heads = Array.from(document.querySelectorAll('.bz-en, .bz-ja, .bz-svc-title, .obiz__en, .obiz__ja, .obiz__big, .obiz__lead, .cov__text, .cov__lead, .members__en, .company__title, .big-title, .contact__title, .media__title'))
     .filter((el) => !el.closest('[data-fill]'));
   heads.forEach(split);
   const scenes = Array.from(document.querySelectorAll('.dscene')).map((sc) => ({

@@ -1418,3 +1418,97 @@ t-c:not(.on), .char.tc:not(.on) { color: var(--tint-off, #c5cbd6) !important; }
   .obiz__big { font-size: clamp(64px, 19vw, 120px); }
   .obiz__big span + span { padding-left: .3em; }
 }
+
+/* =========================================================================
+   ㉜ 会社：青の背景に大きな「Company」。その上を、理念の言葉がスクロールで流れて色が付く
+   ========================================================================= */
+.company.cov { --tint-off: rgba(255, 255, 255, .28); position: relative; overflow: clip; background: var(--blue); color: #fff; padding: clamp(96px, 10vw, 160px) var(--gutter) clamp(120px, 12vw, 200px); }
+.cov__contour { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.cov__contour path { fill: none; stroke: rgba(255, 255, 255, .16); stroke-width: 1.4; }
+.cov__inner { position: relative; max-width: var(--max); margin: 0 auto; }
+.cov__word { position: sticky; top: clamp(72px, 9vh, 110px); z-index: 0; font-family: var(--font); font-weight: 600; font-size: clamp(88px, 15vw, 260px); line-height: .9; letter-spacing: -.05em; color: rgba(255, 255, 255, .32); pointer-events: none; }
+.cov__body { position: relative; z-index: 1; display: grid; justify-items: center; gap: clamp(72px, 12vh, 140px); margin-top: clamp(40px, 8vh, 96px); padding-top: clamp(24px, 6vh, 80px); text-align: center; }
+.cov__label { font-family: var(--font); font-size: 16px; font-weight: 700; letter-spacing: .08em; color: var(--blue-pale); }
+.cov__text { margin-top: 14px; font-size: clamp(30px, 4.2vw, 64px); font-weight: 700; line-height: 1.45; letter-spacing: .02em; }
+.cov__text .nb { display: inline-block; }
+.cov__lead { font-size: clamp(18px, 1.6vw, 24px); font-weight: 700; line-height: 2; }
+.cov__links { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: calc(clamp(72px, 12vh, 140px) * -.6); }
+.cov__pill { position: relative; isolation: isolate; overflow: hidden; display: inline-flex; align-items: center; gap: 14px; min-height: 52px; padding: 0 10px 0 24px; border-radius: 999px; box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .8); color: #fff; font-size: 16px; font-weight: 700; text-decoration: none; transition: color .35s var(--gp-out); }
+.cov__pill::before { content: ""; position: absolute; inset: 0; z-index: -1; background: #fff; clip-path: circle(0 at calc(100% - 26px) 50%); transition: clip-path .55s var(--gp-emph); }
+.cov__pill:hover, .cov__pill:focus-visible { color: var(--blue); }
+.cov__pill:hover::before, .cov__pill:focus-visible::before { clip-path: circle(150% at calc(100% - 26px) 50%); }
+.cov__pill i { position: relative; width: 32px; height: 32px; border-radius: 50%; background: #fff; }
+.cov__pill i::before { content: ""; position: absolute; inset: 0; margin: auto; width: 11px; height: 11px; background: var(--blue); clip-path: polygon(0 42%, 60% 42%, 60% 15%, 100% 50%, 60% 85%, 60% 58%, 0 58%); }
+.cov__pill:hover i, .cov__pill:focus-visible i { background: var(--blue); }
+.cov__pill:hover i::before, .cov__pill:focus-visible i::before { background: #fff; }
+
+/* =========================================================================
+   ㉝ メンバー：左に写真、右に自己紹介。PCは画面に止めて、スクロールで一人ずつ入れ替わる
+   ========================================================================= */
+.crew { position: relative; background: #fff; padding: clamp(96px, 10vw, 160px) 0 clamp(88px, 9vw, 140px); }
+.crew__head { margin-bottom: clamp(32px, 4vw, 56px); }
+.crew__stage { position: relative; max-width: calc(var(--max) + var(--gutter) * 2); margin: 0 auto; padding: 0 var(--gutter); }
+.crew__list { display: grid; gap: clamp(56px, 8vw, 96px); }
+.crew__card { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(28px, 5vw, 88px); align-items: center; }
+.crew__photo { position: relative; aspect-ratio: 4 / 5; border-radius: 28px; overflow: hidden; background: radial-gradient(120% 80% at 50% 100%, #4f86ff, var(--blue) 55%, #0d33c9); isolation: isolate; }
+.crew__photo::after { content: ""; position: absolute; inset: 0; background: radial-gradient(60% 40% at 50% 8%, rgba(255, 255, 255, .22), rgba(255, 255, 255, 0)); pointer-events: none; }
+.crew__photo img { position: absolute; left: 50%; bottom: 0; height: 94%; width: auto; max-width: 112%; translate: -50% 0; mix-blend-mode: luminosity; }
+.crew__photo--none { display: grid; place-items: center; }
+.crew__photo--none .mem__mark { width: 56%; }
+.crew__photo--none .mem__mark-f { stroke: rgba(255, 255, 255, .5); }
+.crew__photo--none .mem__mark-w { stroke: rgba(255, 255, 255, .9); }
+.crew__initial { position: absolute; right: 8%; bottom: 2%; font-size: clamp(96px, 12vw, 180px); font-weight: 700; line-height: 1; color: rgba(255, 255, 255, .14); }
+.crew__no { font-family: var(--font); font-size: 16px; color: var(--muted); }
+.crew__no b { color: var(--blue); font-size: 20px; }
+.crew__en { margin-top: 18px; font-family: var(--font); font-weight: 600; font-size: clamp(36px, 4.4vw, 72px); line-height: 1; letter-spacing: -.03em; color: var(--blue); }
+.crew__name { margin-top: 14px; font-size: clamp(28px, 2.8vw, 44px); font-weight: 700; letter-spacing: .06em; }
+.crew__role { margin-top: 10px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: 16px; font-weight: 700; color: var(--ink-soft); }
+.crew__group { padding: 2px 12px; border-radius: 999px; box-shadow: inset 0 0 0 1.5px var(--blue); color: var(--blue); font-size: 14px; }
+.crew__bio { margin-top: clamp(18px, 2.4vw, 32px); padding-top: clamp(18px, 2.4vw, 32px); border-top: 1px solid var(--line); font-size: clamp(16px, 1.25vw, 18px); line-height: 2; color: var(--ink); }
+.crew__link { display: inline-flex; align-items: center; min-height: 44px; margin-top: 10px; font-size: 16px; font-weight: 700; color: var(--blue); text-underline-offset: 4px; }
+.crew__index { display: none; }
+/* スマホなど：画面に入ったら現れる */
+.js .crew__item:not(.is-in) .crew__photo { clip-path: inset(30% 0 0 0 round 28px); }
+.js .crew__item:not(.is-in) .crew__text > * { opacity: 0; translate: 0 24px; }
+.crew__photo { transition: clip-path 1s var(--gp-emph); }
+.crew__text > * { transition: opacity .6s var(--gp-out), translate .8s var(--gp-emph); }
+@media (max-width: 899px) {
+  .crew__card { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .crew__photo { max-height: 72svh; margin-inline: auto; width: min(100%, 420px); }
+}
+
+/* PC：画面に止めて、一人ずつ入れ替わる */
+.crew.is-pinned { padding: 0; }
+.crew.is-pinned .crew__pin { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; flex-direction: column; padding: clamp(84px, 11vh, 120px) 0 clamp(24px, 4vh, 48px); }
+.crew.is-pinned .crew__head { margin-bottom: clamp(16px, 2.5vh, 32px); }
+.crew.is-pinned .members__en { font-size: clamp(44px, 5vw, 84px); }
+.crew.is-pinned .members__ja { font-size: clamp(18px, 1.6vw, 24px); }
+.crew.is-pinned .crew__stage { flex: 1; min-height: 0; width: 100%; }
+.crew.is-pinned .crew__list { position: relative; height: 100%; display: block; margin-right: 210px; }
+.crew.is-pinned .crew__item { position: absolute; inset: 0; visibility: hidden; transition: visibility 0s .9s; }
+.crew.is-pinned .crew__item.is-active { visibility: visible; transition-delay: 0s; z-index: 2; }
+.crew.is-pinned .crew__card { height: 100%; grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr); align-items: stretch; }
+.crew.is-pinned .crew__photo { aspect-ratio: auto; height: 100%; clip-path: inset(100% 0 0 0 round 28px); transition: clip-path 1s var(--gp-emph); }
+.crew.is-pinned .crew__item.is-past .crew__photo { clip-path: inset(0 0 100% 0 round 28px); }
+.crew.is-pinned .crew__item.is-active .crew__photo { clip-path: inset(0 0 0 0 round 28px); }
+.crew.is-pinned .crew__photo img { scale: 1.08; transition: scale 1.4s var(--gp-emph); }
+.crew.is-pinned .crew__item.is-active .crew__photo img { scale: 1; }
+.crew.is-pinned .crew__text { align-self: center; }
+.crew.is-pinned .crew__text > * { opacity: 0; translate: 0 32px; }
+.crew.is-pinned .crew__item.is-past .crew__text > * { translate: 0 -24px; }
+.crew.is-pinned .crew__item.is-active .crew__text > * { opacity: 1; translate: 0 0; }
+.crew.is-pinned .crew__item.is-active .crew__text > :nth-child(2) { transition-delay: .06s; }
+.crew.is-pinned .crew__item.is-active .crew__text > :nth-child(3) { transition-delay: .12s; }
+.crew.is-pinned .crew__item.is-active .crew__text > :nth-child(4) { transition-delay: .18s; }
+.crew.is-pinned .crew__item.is-active .crew__text > :nth-child(5) { transition-delay: .26s; }
+.crew.is-pinned .crew__item.is-active .crew__text > :nth-child(6) { transition-delay: .32s; }
+@media (max-height: 820px) { .crew.is-pinned .crew__bio { font-size: 15.5px; line-height: 1.85; } .crew.is-pinned .crew__en { font-size: clamp(32px, 3.4vw, 52px); } }
+/* 右はしの名前の一覧：今の人に色が付き、線が伸びる */
+.crew.is-pinned .crew__index { position: absolute; right: var(--gutter); top: 50%; translate: 0 -50%; display: grid; gap: 2px; width: 180px; }
+.crew__index button { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 44px; padding: 0 0 0 14px; border: 0; border-left: 2px solid var(--line); background: none; color: var(--muted); font: inherit; font-size: 15px; font-weight: 700; text-align: left; cursor: pointer; transition: color .3s, border-color .3s; }
+.crew__index button span { font-family: var(--font); font-size: 13px; color: inherit; }
+.crew__index button:hover { color: var(--ink); }
+.crew__index button[aria-current="true"] { color: var(--blue); border-left-color: var(--blue); }
+@media (prefers-reduced-motion: reduce) { .crew__photo, .crew__text > * { transition: none !important; } }
+.crew__photo img { left: 0; right: 0; top: auto; bottom: 0; width: 100%; height: 94%; max-width: none; translate: none; object-fit: contain; object-position: 50% 100%; }
+.crew__head { width: 100%; }

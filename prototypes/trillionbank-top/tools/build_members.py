@@ -8,7 +8,7 @@
 
 このスクリプトがすること：
   - 人物を切り抜く（rembg。端末の中だけで処理し、外部には送らない）
-  - 顔を見つけて、顔の位置と大きさが全員同じになるよう 800×1000 に切り出す
+  - 顔を見つけて、顔の位置と大きさが全員同じになるよう 800×1000 に切り出す（＋縦長の写真 <id>-full.webp）
   - 白黒にして明るさをそろえ、下の端をぼかす → assets/members/<id>.webp
   - index.html の <!-- MEMBERS:START --> 〜 <!-- MEMBERS:END --> を書き換える
   ページ側では、カードの色（青→白）と重ねて表示するので、写真は青の単色調 → 白黒に変わる
@@ -127,6 +127,34 @@ def process(src_path, out_path, session):
     out = Image.merge('LA', (canvas_l, canvas_a)).convert('RGBA')
     out.save(out_path, 'WEBP', quality=80, method=6)
     print('  →', os.path.relpath(out_path, ROOT), f'(顔の高さ {fh:.0f}px, 倍率 {s:.2f})')
+    full(cut, alpha, out_path.replace('.webp', '-full.webp'))
+
+
+FULL_H = 1400
+
+
+def full(cut, alpha, out_path):
+    """メンバー紹介の左に出す縦長の写真。人物の部分だけを、写っている範囲いっぱいに切り出す。"""
+    bbox = alpha.point(lambda v: 255 if v > 40 else 0).getbbox()
+    if not bbox:
+        return
+    l, t, r, b = bbox
+    pad = round((b - t) * 0.03)
+    l, t, r = max(0, l - pad), max(0, t - pad), min(cut.width, r + pad)
+    g = tone(cut.convert('RGB'), alpha).crop((l, t, r, b))
+    a = alpha.crop((l, t, r, b))
+    k = FULL_H / g.height
+    size = (max(1, round(g.width * k)), FULL_H)
+    g = g.resize(size, Image.LANCZOS)
+    a = a.resize(size, Image.LANCZOS).filter(ImageFilter.GaussianBlur(0.6))
+    # 元の写真の下の端で切れているので、下だけやわらかく消す
+    w, h = size
+    col = Image.new('L', (1, h))
+    start = round(h * 0.86)
+    col.putdata([255 if y < start else int(255 * (1 - (y - start) / (h - start)) ** 1.3) for y in range(h)])
+    a = Image.composite(a, Image.new('L', size, 0), col.resize(size))
+    Image.merge('LA', (g, a)).convert('RGBA').save(out_path, 'WEBP', quality=80, method=6)
+    print('  →', os.path.relpath(out_path, ROOT), size)
 
 
 PLACEHOLDER = (
@@ -135,30 +163,32 @@ PLACEHOLDER = (
 )
 
 
-def card(m):
+def card(m, i, n):
     e = html.escape
     mid = e(m['id'])
     if m.get('photo'):
-        media = (f'<img src="assets/members/{mid}.webp" alt="{e(m["name"])}の写真" width="{W}" height="{H}" loading="lazy" decoding="async">')
+        media = (f'<img src="assets/members/{mid}-full.webp" alt="{e(m["name"])}の写真" loading="lazy" decoding="async">')
         cls = ''
     else:
-        media = PLACEHOLDER + f'<span class="mem__initial" aria-hidden="true">{e(m["name"][0])}</span>'
-        cls = ' mem__photo--none'
+        media = PLACEHOLDER + f'<span class="crew__initial" aria-hidden="true">{e(m["name"][0])}</span>'
+        cls = ' crew__photo--none'
     link = ''
     if m.get('link'):
-        link = (f'\n        <a class="mem__link" href="{e(m["link"]["href"])}" target="_blank" rel="noopener noreferrer">'
+        link = (f'\n            <a class="crew__link" href="{e(m["link"]["href"])}" target="_blank" rel="noopener noreferrer">'
                 f'{e(m["link"]["label"])}<span class="sr">（新しいタブで開きます）</span></a>')
     group = '取締役' if m.get('group') == 'board' else 'メンバー'
-    return f'''      <li class="mem" data-group="{e(m.get('group', 'member'))}">
-        <article class="mem__card" tabindex="0" aria-labelledby="mem-{mid}-name">
-        <div class="mem__photo{cls}">
-          {media}
-          <span class="mem__hint" aria-hidden="true">Profile</span>
-        </div>
-        <p class="mem__en{' mem__en--long' if len(m['role_en']) > 11 else ''}"><span>{e(m['role_en'])}</span><span class="mem__group">{group}</span></p>
-        <h3 class="mem__name" id="mem-{mid}-name">{e(m['name'])}</h3>
-        <p class="mem__role">{e(m['role'])}</p>
-        <div class="mem__bio"><p>{e(m['bio'])}</p></div>{link}
+    return f'''      <li class="crew__item" data-i="{i}">
+        <article class="crew__card" aria-labelledby="mem-{mid}-name">
+          <div class="crew__photo{cls}">
+            {media}
+          </div>
+          <div class="crew__text">
+            <p class="crew__no"><b>{i + 1:02d}</b> / {n:02d}</p>
+            <p class="crew__en">{e(m['role_en'])}</p>
+            <h3 class="crew__name" id="mem-{mid}-name">{e(m['name'])}</h3>
+            <p class="crew__role"><span class="crew__group">{group}</span>{e(m['role'])}</p>
+            <p class="crew__bio">{e(m['bio'])}</p>{link}
+          </div>
         </article>
       </li>'''
 
@@ -189,7 +219,7 @@ def main():
             print(m['name'])
             process(src, out, session)
 
-    cards = '\n'.join(card(m) for m in members)
+    cards = '\n'.join(card(m, i, len(members)) for i, m in enumerate(members))
     block = f'<!-- MEMBERS:START（tools/build_members.py が自動で書き換えます。直接編集しないでください） -->\n{cards}\n      <!-- MEMBERS:END -->'
     idx = os.path.join(ROOT, 'index.html')
     s = open(idx, encoding='utf-8').read()
