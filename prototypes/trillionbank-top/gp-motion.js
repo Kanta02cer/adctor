@@ -768,11 +768,11 @@
     return units;
   };
   const paint = (units, f) => {
-    const k = Math.round(f * units.length);
+    const k = Math.ceil(Math.min(1, f / 0.85) * units.length);
     units.forEach((u, i) => u.classList.toggle('on', i < k));
   };
 
-  const heads = Array.from(document.querySelectorAll('.bz-en, .bz-ja, .bz-svc-title, .members__en, .company__title, .big-title, .contact__title, .media__title'))
+  const heads = Array.from(document.querySelectorAll('.bz-en, .bz-ja, .bz-svc-title, .obiz__en, .obiz__ja, .members__en, .company__title, .big-title, .contact__title, .media__title'))
     .filter((el) => !el.closest('[data-fill]'));
   heads.forEach(split);
   const scenes = Array.from(document.querySelectorAll('.dscene')).map((sc) => ({
@@ -899,4 +899,59 @@
     if (e.isIntersecting && !timer) { timer = setInterval(tick, 867); if (svg.unpauseAnimations) svg.unpauseAnimations(); }
     if (!e.isIntersecting && timer) { clearInterval(timer); timer = 0; if (svg.pauseAnimations) svg.pauseAnimations(); }
   })).observe(el);
+})();
+
+/* =========================================================================
+   ㉛ Our Business：図はスクロールで起き上がる。一覧はカーソルを当てた事業のイメージが円の中に出る
+   ========================================================================= */
+(() => {
+  const sec = document.getElementById('ourbiz');
+  if (!sec) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const stage = sec.querySelector('.obiz__stage');
+  const wrap = sec.querySelector('.obiz__listwrap');
+  const list = sec.querySelector('.obiz__list');
+  const peek = sec.querySelector('.obiz__peek');
+  const imgs = Array.from(peek.querySelectorAll('img'));
+  const rows = Array.from(list.querySelectorAll('.obiz__row'));
+  if (reduce) { sec.querySelectorAll('svg').forEach((s) => s.pauseAnimations && s.pauseAnimations()); return; }
+  // 図：画面に入ってくるにつれて、寝ていた台が起き上がる
+  let raf = 0;
+  const tilt = () => {
+    raf = 0;
+    const r = stage.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const p = clamp((vh - r.top) / (vh * 0.9), 0, 1);
+    stage.style.setProperty('--tilt', `${(34 - p * 30).toFixed(2)}deg`);
+    stage.style.setProperty('--lift', `${((1 - p) * 60).toFixed(1)}px`);
+  };
+  window.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(tilt); }, { passive: true });
+  tilt();
+  if (!fine) return;
+  // 一覧：当てた行の事業のイメージを、円の中に出す（円はカーソルの高さを追いかける）
+  let cy = 0; let ty = 0; let fr = 0;
+  const follow = () => {
+    fr = 0;
+    cy += (ty - cy) * 0.14;
+    peek.style.setProperty('--py', `${cy.toFixed(1)}px`);
+    if (Math.abs(ty - cy) > 0.4) fr = requestAnimationFrame(follow);
+  };
+  const show = (i) => { peek.classList.add('on'); imgs.forEach((im, j) => im.classList.toggle('on', j === i)); rows.forEach((r, j) => r.classList.toggle('is-on', j === i)); };
+  const hide = () => { peek.classList.remove('on'); rows.forEach((r) => r.classList.remove('is-on')); };
+  const aim = (clientY) => {
+    const w = wrap.getBoundingClientRect();
+    const half = peek.offsetHeight / 2;
+    ty = clamp(clientY - w.top - half, -half * 0.4, w.height - half * 1.6);
+    if (!peek.classList.contains('on')) cy = ty;
+    if (!fr) fr = requestAnimationFrame(follow);
+  };
+  rows.forEach((row, i) => {
+    row.addEventListener('pointerenter', (e) => { aim(e.clientY); show(i); });
+    row.addEventListener('focusin', () => { const r = row.getBoundingClientRect(); aim(r.top + r.height / 2); show(i); });
+    row.addEventListener('focusout', hide);
+  });
+  list.addEventListener('pointermove', (e) => aim(e.clientY));
+  list.addEventListener('pointerleave', hide);
 })();

@@ -1335,3 +1335,73 @@ t-c:not(.on), .char.tc:not(.on) { color: var(--tint-off, #c5cbd6) !important; }
 .chart__x { position: absolute; left: 0; right: 0; bottom: -1.6em; display: flex; justify-content: space-between; font-size: .72em; color: var(--muted); }
 .st.wait { background: #eef1f6; color: #535c6c; }
 @media (prefers-reduced-motion: reduce) { .chart__line { stroke-dashoffset: 0; transition: none; } .chart__area, .chart__dot, .cmp__rows li { opacity: 1; translate: none; transition: none; } }
+
+/* =========================================================================
+   ㉛ Our Business
+   ========================================================================= */
+.obiz { --tint-off: rgba(255, 255, 255, .3); position: relative; overflow: clip; background: var(--blue); color: #fff; padding: clamp(96px, 10vw, 160px) var(--gutter) clamp(88px, 9vw, 140px); }
+.obiz::before { content: ""; position: absolute; left: 50%; top: 20%; width: 120vw; height: 120vw; translate: -50% 0; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 255, 255, .12), rgba(255, 255, 255, 0)); pointer-events: none; }
+.obiz__inner { position: relative; max-width: var(--max); margin: 0 auto; }
+.obiz__en { font-family: var(--font); font-weight: 600; font-size: clamp(56px, 10vw, 164px); line-height: .95; letter-spacing: -.045em; }
+.obiz__en span { color: var(--blue-pale); }
+.obiz__ja { margin-top: 18px; font-size: clamp(26px, 3.2vw, 48px); font-weight: 700; line-height: 1.4; word-break: auto-phrase; }
+
+/* ビジネスモデル図：ガラスの玉と台。台は画面に入ると起き上がる */
+.obiz__model { margin: clamp(32px, 4vw, 64px) auto 0; max-width: 1100px; perspective: 1400px; }
+.obiz__stage { transform-origin: 50% 80%; transform: translateY(var(--lift, 0px)) rotateX(var(--tilt, 4deg)); transition: transform .2s linear; }
+.obiz__svg { display: block; width: 100%; height: auto; overflow: visible; }
+.obiz__svg--sp { display: none; }
+.ob-pf__top { stroke: rgba(255, 255, 255, .55); stroke-width: 1.5; }
+.ob-pf__ring { fill: none; stroke: rgba(255, 255, 255, .3); stroke-width: 1.2; }
+.ob-pf__ring--2 { stroke-dasharray: 3 9; animation: obSpin 40s linear infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes obSpin { to { stroke-dashoffset: -240; } }
+.ob-base { fill: #fff; font: 700 34px var(--font); text-anchor: middle; letter-spacing: -.01em; }
+.ob-base-sub { fill: rgba(255, 255, 255, .9); font: 700 21px var(--font-ja); text-anchor: middle; }
+.ob-sph { animation: obBob 5.5s ease-in-out infinite; }
+.ob-sph--b { animation-delay: -2.75s; }
+@keyframes obBob { 50% { translate: 0 -12px; } }
+.ob-glass { stroke: rgba(255, 255, 255, .75); stroke-width: 2; }
+.ob-inner { fill: none; stroke: rgba(255, 255, 255, .22); stroke-width: 1.2; }
+.ob-hl { fill: rgba(255, 255, 255, .55); }
+.ob-shadow { fill: rgba(6, 20, 90, .3); }
+.ob-name { fill: #fff; font: 700 40px var(--font); text-anchor: middle; letter-spacing: -.02em; }
+.ob-sub { fill: rgba(255, 255, 255, .95); font: 700 21px var(--font-ja); text-anchor: middle; }
+.ob-arc { fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; }
+.ob-arc--back { stroke: #ffb27a; }
+.ob-pk { fill: #fff; filter: drop-shadow(0 0 6px #fff); }
+.ob-pk--back { fill: #ffb27a; filter: drop-shadow(0 0 6px #ffb27a); }
+.ob-loop { fill: #fff; font: 700 18px var(--font-ja); text-anchor: middle; }
+.ob-loop--back { fill: #ffd2ad; }
+
+/* 事業の一覧：大きな名前の行。カーソルを当てた行の事業のイメージが、右の円の中に出る */
+.obiz__listwrap { position: relative; margin-top: clamp(56px, 6vw, 96px); }
+.obiz__list { border-top: 1px solid rgba(255, 255, 255, .25); }
+.obiz__row { border-bottom: 1px solid rgba(255, 255, 255, .25); }
+.obiz__row a { position: relative; display: grid; grid-template-columns: 44px minmax(0, 1fr); grid-template-areas: "ico name" ". desc"; align-items: center; gap: 4px 28px; padding: clamp(26px, 3vw, 44px) clamp(8px, 1vw, 16px); color: #fff; text-decoration: none; transition: background-color .35s var(--gp-out); }
+.obiz__row a::before { content: ""; position: absolute; inset: 0; background: rgba(255, 255, 255, .1); opacity: 0; transition: opacity .35s var(--gp-out); }
+.obiz__row.is-on a::before, .obiz__row a:focus-visible::before { opacity: 1; }
+.obiz__ico { grid-area: ico; width: 34px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: rotate .6s var(--gp-emph); }
+.obiz__row.is-on .obiz__ico { rotate: 90deg; }
+.obiz__name { grid-area: name; position: relative; font-family: var(--font); font-weight: 600; font-size: clamp(36px, 5.4vw, 88px); line-height: 1.05; letter-spacing: -.035em; transition: translate .45s var(--gp-out); }
+.obiz__row.is-on .obiz__name { translate: 12px 0; }
+.obiz__desc { grid-area: desc; position: relative; font-size: clamp(16px, 1.3vw, 19px); font-weight: 700; line-height: 1.6; color: rgba(255, 255, 255, .92); }
+.obiz__thumb { display: none; }
+.obiz__peek { position: absolute; right: clamp(-40px, -2vw, 0px); top: 0; z-index: 2; width: min(40vw, 560px); aspect-ratio: 1; border-radius: 50%; overflow: hidden; pointer-events: none; translate: 0 var(--py, 0px);
+  background: radial-gradient(circle at 50% 35%, #6f93ff, #2e5bff 60%, #1238c9); box-shadow: 0 40px 80px -30px rgba(6, 14, 60, .6);
+  clip-path: circle(0% at 50% 50%); transition: clip-path .6s var(--gp-emph); }
+.obiz__peek.on { clip-path: circle(50% at 50% 50%); }
+.obiz__peek img { position: absolute; left: 50%; top: 50%; width: 92%; height: auto; max-width: none; translate: -50% -50%; opacity: 0; scale: 1.08; transition: opacity .35s var(--gp-out), scale .7s var(--gp-emph); filter: drop-shadow(0 20px 30px rgba(6, 14, 60, .35)); }
+.obiz__peek img.on { opacity: 1; scale: 1; }
+@media (hover: none), (max-width: 899px) {
+  .obiz__peek { display: none; }
+  .obiz__row a { grid-template-columns: minmax(0, 1fr) 96px; grid-template-areas: "name thumb" "desc thumb"; gap: 6px 16px; }
+  .obiz__ico { display: none; }
+  .obiz__thumb { display: block; grid-area: thumb; width: 96px; height: 96px; object-fit: contain; border-radius: 50%; background: rgba(255, 255, 255, .12); padding: 6px; }
+}
+@media (max-width: 899px) {
+  .obiz__svg--pc { display: none; }
+  .obiz__svg--sp { display: block; max-width: 420px; margin: 0 auto; }
+  .obiz__name { font-size: clamp(28px, 8vw, 44px); }
+}
+@media (prefers-reduced-motion: reduce) { .ob-sph, .ob-pf__ring--2 { animation: none; } .obiz__stage { transform: none; } }
+.obiz__name .nb { display: inline-block; }

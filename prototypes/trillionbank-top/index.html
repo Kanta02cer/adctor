@@ -162,6 +162,7 @@
   <a href="#media" data-label="Media"><span class="sr">メディア掲載</span></a>
   <a href="#news" data-label="News"><span class="sr">ニュース</span></a>
   <a href="#company" data-label="Company"><span class="sr">会社情報</span></a>
+  <a href="#ourbiz" data-label="Our Business"><span class="sr">事業の全体像</span></a>
   <a href="#members" data-label="Members"><span class="sr">取締役・メンバー</span></a>
   <a href="#contact" data-label="Contact"><span class="sr">お問い合わせ</span></a>
 </nav>
@@ -267,7 +268,6 @@
     <div class="bz-wrap">
       <header class="bz-svc-head">
         <div>
-          <p class="bz-state bz-state--live">提供中：無料診断・コンサルティング</p>
           <p class="bz-en bz-en--md" aria-hidden="true">Air<span>Reach</span></p>
           <h3 class="bz-svc-title" id="airreach-title"><span class="sr">AirReach：</span><span class="nb">AI検索で、</span><span class="nb">自社がどう</span><span class="nb"><em>紹介されるか</em>を知る。</span></h3>
           <div class="bz-cta">
@@ -403,7 +403,6 @@
     <div class="bz-wrap">
       <header class="bz-svc-head">
         <div>
-          <p class="bz-state">研究開発・限定実証</p>
           <p class="bz-en bz-en--md" aria-hidden="true">Ad<span>ctor</span></p>
           <h3 class="bz-svc-title" id="adctor-title"><span class="sr">Adctor：</span><span class="nb">AIに使われる情報を、</span><span class="nb"><em>合意と対価</em>に</span><span class="nb">つなげる。</span></h3>
           <div class="bz-cta">
@@ -774,12 +773,6 @@ Adctor-Token: adt_9f2…
         <a class="more" href="https://trillion-bank.jp/trillionbank/company/" data-cursor="企業概要">企業概要<i aria-hidden="true"></i></a>
       </p>
     </div>
-    <dl class="cofacts">
-      <div><dt>設立</dt><dd>2025年12月</dd></div>
-      <div><dt>代表</dt><dd>井上 幹太</dd></div>
-      <div><dt>所在地</dt><dd>東京都千代田区麹町</dd></div>
-      <div><dt>事業</dt><dd>AirReach・Adctor</dd></div>
-    </dl>
     <div class="co3" aria-hidden="true">
       <svg viewBox="0 0 430 360">
         <defs>
@@ -797,6 +790,134 @@ Adctor-Token: adt_9f2…
   </div>
   <div class="company__marquee" aria-hidden="true">
     <div><span>Measure</span><span>Protect</span><span>Record</span><span>Normalize</span><span>Measure</span><span>Protect</span><span>Record</span><span>Normalize</span></div>
+  </div>
+</section>
+
+<!-- ───────── OUR BUSINESS（ビジネスモデル図と、事業の一覧） ───────── -->
+<section class="obiz" id="ourbiz" aria-labelledby="ourbiz-title">
+  <div class="obiz__inner">
+    <header class="obiz__head">
+      <p class="obiz__en" aria-hidden="true">Our <span>Business</span></p>
+      <h2 class="obiz__ja" id="ourbiz-title">2つの事業で、ひとつの流れをつくる</h2>
+    </header>
+    <figure class="obiz__model" role="img" aria-label="ビジネスモデル図。AirReachで情報がAIに届き、Adctorで使われた情報の価値がつくり手へ戻る。2つの事業を、Trillion Bankの情報の流れを測り・記録する技術が支える。">
+      <div class="obiz__stage">
+      <svg class="obiz__svg obiz__svg--pc" viewBox="0 0 1000 600">
+        <defs>
+          <radialGradient id="obSph" cx=".34" cy=".28" r=".75"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".45" stop-color="#fff" stop-opacity=".14"/><stop offset="1" stop-color="#c2d1ff" stop-opacity=".22"/></radialGradient>
+          <linearGradient id="obPf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".34"/><stop offset="1" stop-color="#fff" stop-opacity=".06"/></linearGradient>
+          <marker id="obArw" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#fff"/></marker>
+          <marker id="obArwO" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#ffb27a"/></marker>
+        </defs>
+        <g class="ob-pf">
+          <ellipse cx="500" cy="478" rx="480" ry="104" class="ob-pf__ring ob-pf__ring--1"/>
+          <ellipse cx="500" cy="470" rx="440" ry="88" fill="url(#obPf)" class="ob-pf__top"/>
+          <ellipse cx="500" cy="470" rx="380" ry="70" class="ob-pf__ring ob-pf__ring--2"/>
+          <text class="ob-base" x="500" y="512">Trillion Bank</text>
+          <text class="ob-base-sub" x="500" y="552">情報の流れを、測り・記録する技術</text>
+        </g>
+        <g class="ob-sph ob-sph--a">
+          <ellipse class="ob-shadow" cx="255" cy="416" rx="128" ry="19"/>
+          <circle cx="255" cy="250" r="160" fill="url(#obSph)" class="ob-glass"/>
+          <circle cx="255" cy="250" r="146" class="ob-inner"/>
+          <ellipse cx="194" cy="170" rx="48" ry="22" class="ob-hl" transform="rotate(-28 194 170)"/>
+          <text class="ob-name" x="255" y="244" style="font-size:40px">AirReach</text>
+          <text class="ob-sub" x="255" y="282" style="font-size:21px">AI検索で、</text>
+          <text class="ob-sub" x="255" y="310" style="font-size:21px">見つけてもらう</text>
+        </g>
+        <g class="ob-sph ob-sph--b">
+          <ellipse class="ob-shadow" cx="745" cy="416" rx="128" ry="19"/>
+          <circle cx="745" cy="250" r="160" fill="url(#obSph)" class="ob-glass"/>
+          <circle cx="745" cy="250" r="146" class="ob-inner"/>
+          <ellipse cx="684" cy="170" rx="48" ry="22" class="ob-hl" transform="rotate(-28 684 170)"/>
+          <text class="ob-name" x="745" y="244" style="font-size:40px">Adctor</text>
+          <text class="ob-sub" x="745" y="282" style="font-size:21px">AIに使われた情報を、</text>
+          <text class="ob-sub" x="745" y="310" style="font-size:21px">対価につなぐ</text>
+        </g>
+        <path class="ob-arc" d="M424 242 A76 76 0 0 1 576 242" marker-end="url(#obArw)"/>
+        <path class="ob-arc ob-arc--back" d="M576 258 A76 76 0 0 1 424 258" marker-end="url(#obArwO)"/>
+        <circle r="6" class="ob-pk"><animateMotion dur="3s" repeatCount="indefinite" path="M424 242 A76 76 0 0 1 576 242"/></circle>
+        <circle r="6" class="ob-pk ob-pk--back"><animateMotion dur="3s" begin="-1.5s" repeatCount="indefinite" path="M576 258 A76 76 0 0 1 424 258"/></circle>
+        <text class="ob-loop" x="500" y="222">情報が、</text><text class="ob-loop" x="500" y="246">AIに届く</text>
+        <text class="ob-loop ob-loop--back" x="500" y="282">価値が、</text><text class="ob-loop ob-loop--back" x="500" y="306">つくり手へ</text>
+      </svg>
+      <svg class="obiz__svg obiz__svg--sp" viewBox="0 0 400 760">
+        <defs>
+          <radialGradient id="obSph" cx=".34" cy=".28" r=".75"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".45" stop-color="#fff" stop-opacity=".14"/><stop offset="1" stop-color="#c2d1ff" stop-opacity=".22"/></radialGradient>
+          <linearGradient id="obPf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".34"/><stop offset="1" stop-color="#fff" stop-opacity=".06"/></linearGradient>
+          <marker id="obArw" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#fff"/></marker>
+          <marker id="obArwO" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#ffb27a"/></marker>
+        </defs>
+        <g class="ob-pf">
+          <ellipse cx="200" cy="676" rx="196" ry="60" class="ob-pf__ring ob-pf__ring--1"/>
+          <ellipse cx="200" cy="670" rx="180" ry="50" fill="url(#obPf)" class="ob-pf__top"/>
+          <text class="ob-base" x="200" y="682" style="font-size:30px">Trillion Bank</text>
+          <text class="ob-base-sub" x="200" y="716" style="font-size:19px">情報の流れを、測り・記録する技術</text>
+        </g>
+        <g class="ob-sph ob-sph--a">
+          <ellipse class="ob-shadow" cx="200" cy="274" rx="102" ry="15"/>
+          <circle cx="200" cy="138" r="116" fill="url(#obSph)" class="ob-glass"/>
+          <circle cx="200" cy="140" r="114" class="ob-inner"/>
+          <ellipse cx="151" cy="76" rx="38" ry="18" class="ob-hl" transform="rotate(-28 151 76)"/>
+          <text class="ob-name" x="200" y="134" style="font-size:37px">AirReach</text>
+          <text class="ob-sub" x="200" y="169" style="font-size:19px">AI検索で、</text>
+          <text class="ob-sub" x="200" y="195" style="font-size:19px">見つけてもらう</text>
+        </g>
+        <g class="ob-sph ob-sph--b">
+          <ellipse class="ob-shadow" cx="200" cy="624" rx="102" ry="15"/>
+          <circle cx="200" cy="492" r="116" fill="url(#obSph)" class="ob-glass"/>
+          <circle cx="200" cy="490" r="114" class="ob-inner"/>
+          <ellipse cx="151" cy="426" rx="38" ry="18" class="ob-hl" transform="rotate(-28 151 426)"/>
+          <text class="ob-name" x="200" y="484" style="font-size:37px">Adctor</text>
+          <text class="ob-sub" x="200" y="519" style="font-size:19px">AIに使われた情報を、</text>
+          <text class="ob-sub" x="200" y="545" style="font-size:19px">対価につなぐ</text>
+        </g>
+        <path class="ob-arc" d="M208 261 A54 54 0 0 1 208 369" marker-end="url(#obArw)"/>
+        <path class="ob-arc ob-arc--back" d="M192 369 A54 54 0 0 1 192 261" marker-end="url(#obArwO)"/>
+        <circle r="6" class="ob-pk"><animateMotion dur="3s" repeatCount="indefinite" path="M208 261 A54 54 0 0 1 208 369"/></circle>
+        <circle r="6" class="ob-pk ob-pk--back"><animateMotion dur="3s" begin="-1.5s" repeatCount="indefinite" path="M192 369 A54 54 0 0 1 192 261"/></circle>
+        <text class="ob-loop" x="318" y="306" style="text-anchor:start">情報が、</text><text class="ob-loop" x="318" y="330" style="text-anchor:start">AIに届く</text>
+        <text class="ob-loop ob-loop--back" x="82" y="306" style="text-anchor:end">価値が、</text><text class="ob-loop ob-loop--back" x="82" y="330" style="text-anchor:end">つくり手へ</text>
+      </svg>
+      </div>
+    </figure>
+    <div class="obiz__listwrap">
+      <ul class="obiz__list">
+        <li class="obiz__row" data-i="0">
+          <a href="https://trillion-bank.jp/#diagnose">
+            <svg class="obiz__ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16 L21 21"/></svg>
+            <span class="obiz__name">AirReach <span class="nb">無料診断</span></span>
+            <span class="obiz__desc">URLを入れるだけで、AI検索での見え方を確かめる</span>
+            <img class="obiz__thumb" src="assets/biz-diagnose.webp" alt="" width="900" height="680" loading="lazy" decoding="async">
+          </a>
+        </li>
+        <li class="obiz__row" data-i="1">
+          <a href="https://trillion-bank.jp/trillionbank/business/hack2/">
+            <svg class="obiz__ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6 H20 V16 H11 L6 20 V16 H4 Z"/></svg>
+            <span class="obiz__name">AirReach Consulting</span>
+            <span class="obiz__desc">質問づくりから改善・再計測まで、一緒に進める</span>
+            <img class="obiz__thumb" src="assets/biz-consulting.webp" alt="" width="900" height="680" loading="lazy" decoding="async">
+          </a>
+        </li>
+        <li class="obiz__row" data-i="2">
+          <a href="https://trillion-bank.jp/lp/airreach-tools/">
+            <svg class="obiz__ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>
+            <span class="obiz__name">AirReach Tools</span>
+            <span class="obiz__desc">チャットで進める、AI検索対策ツール</span>
+            <img class="obiz__thumb" src="assets/biz-tools.webp" alt="" width="900" height="680" loading="lazy" decoding="async">
+          </a>
+        </li>
+        <li class="obiz__row" data-i="3">
+          <a href="https://trillion-bank.jp/trillionbank/business/pay-per-crawl/">
+            <svg class="obiz__ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6 L9 4 V18 L5 20 Z M11 7 L15 5 V19 L11 21 Z M17 8 L21 6"/><path d="M2 12 H22"/></svg>
+            <span class="obiz__name">Adctor</span>
+            <span class="obiz__desc">AIに使われる情報を、合意と対価につなげる（研究開発・限定実証）</span>
+            <img class="obiz__thumb" src="assets/biz-adctor.webp" alt="" width="900" height="680" loading="lazy" decoding="async">
+          </a>
+        </li>
+      </ul>
+      <div class="obiz__peek" aria-hidden="true"><img src="assets/biz-diagnose.webp" alt="" width="900" height="680" loading="lazy" decoding="async"><img src="assets/biz-consulting.webp" alt="" width="900" height="680" loading="lazy" decoding="async"><img src="assets/biz-tools.webp" alt="" width="900" height="680" loading="lazy" decoding="async"><img src="assets/biz-adctor.webp" alt="" width="900" height="680" loading="lazy" decoding="async"></div>
+    </div>
   </div>
 </section>
 

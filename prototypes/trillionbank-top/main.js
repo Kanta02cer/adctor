@@ -95,7 +95,7 @@
   window.addEventListener('scroll', onScrollHeader, { passive: true });
   onScrollHeader();
 
-  const sectionIds = ['top', 'statement', 'business', 'airreach', 'adctor', 'usecases', 'media', 'news', 'company', 'members', 'contact'];
+  const sectionIds = ['top', 'statement', 'business', 'airreach', 'adctor', 'usecases', 'media', 'news', 'company', 'ourbiz', 'members', 'contact'];
   const sections = sectionIds.map((id) => document.getElementById(id)).filter(Boolean);
   if ('IntersectionObserver' in window) {
     const secIO = new IntersectionObserver((entries) => {
@@ -278,9 +278,7 @@
     const mr = memEl ? memEl.getBoundingClientRect() : null;
     const overMembers = !!(mr && mr.top < window.innerHeight * 0.9 && mr.bottom > window.innerHeight * 0.1);
     // Use Cases のカードにも、かぶらないよう退避する
-    const ucEl = document.querySelector('.ucx__list');
-    const ur = ucEl ? ucEl.getBoundingClientRect() : null;
-    const overUc = !!(ur && ur.top < window.innerHeight * 0.9 && ur.bottom > window.innerHeight * 0.1);
+    const overUc = ['.ucx__list', '#ourbiz'].some((s) => { const el = document.querySelector(s); const ur = el ? el.getBoundingClientRect() : null; return !!(ur && ur.top < window.innerHeight * 0.9 && ur.bottom > window.innerHeight * 0.1); });
     mascot.classList.toggle('is-away', ((nearFooter || overBiz || overMembers || overUc) && !mascotOpen) || drawerOpen);
     hunt.classList.toggle('is-away', nearFooter || overBiz || overMembers || overUc || drawerOpen);
   };
