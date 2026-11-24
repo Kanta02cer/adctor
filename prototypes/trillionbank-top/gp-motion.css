@@ -1512,3 +1512,91 @@ t-c:not(.on), .char.tc:not(.on) { color: var(--tint-off, #c5cbd6) !important; }
 @media (prefers-reduced-motion: reduce) { .crew__photo, .crew__text > * { transition: none !important; } }
 .crew__photo img { left: 0; right: 0; top: auto; bottom: 0; width: 100%; height: 94%; max-width: none; translate: none; object-fit: contain; object-position: 50% 100%; }
 .crew__head { width: 100%; }
+
+/* =========================================================================
+   ㉞ 会社：「Company」は理念の言葉の後ろに、うすく大きく（言葉が読みやすいように）
+   ========================================================================= */
+.cov__word { top: calc(50vh - .5em); top: calc(50svh - .5em); color: rgba(255, 255, 255, .09); font-size: clamp(110px, 19vw, 320px); }
+.cov__body { margin-top: calc(clamp(110px, 19vw, 320px) * -.45); }
+.cov__label { color: #fff; font-size: 17px; }
+.cov__lead { font-size: clamp(17px, 1.4vw, 20px); font-weight: 500; }
+
+/* =========================================================================
+   ㉟ 経営メンバー：シンプルな一覧。カードを押すとプロフィールの画面が開く
+   ========================================================================= */
+.lead { background: #fff; padding: clamp(96px, 10vw, 160px) var(--gutter) clamp(96px, 10vw, 160px); }
+.lead__inner { max-width: var(--max); margin: 0 auto; }
+.lead__head .members__ja { margin-top: 14px; font-size: clamp(22px, 2.2vw, 32px); }
+.lead__group { margin-top: clamp(48px, 5vw, 80px); }
+.lead__gh { padding-bottom: 16px; border-bottom: 1px solid var(--line); font-size: 18px; font-weight: 700; }
+.lead__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(32px, 3.4vw, 56px) clamp(20px, 2.4vw, 40px); margin-top: clamp(28px, 3vw, 44px); }
+.lead__card { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "photo photo" "en plus" "name plus" "role role"; column-gap: 12px; }
+.lead__photo { grid-area: photo; position: relative; aspect-ratio: 4 / 4.4; border-radius: 6px; overflow: hidden; background: #e9ebef; }
+.lead__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%; transition: scale .8s var(--gp-emph); }
+.lead__photo--none { display: grid; place-items: center; background: linear-gradient(160deg, #eef1f6, #dfe4ec); }
+.lead__photo--none .mem__mark { width: 46%; }
+.lead__photo--none .mem__mark-f { stroke: rgba(22, 75, 255, .3); }
+.lead__photo--none .mem__mark-w { stroke: var(--blue); }
+.lead__initial { position: absolute; right: 8%; bottom: 2%; font-size: clamp(80px, 8vw, 128px); font-weight: 700; line-height: 1; color: rgba(22, 75, 255, .08); }
+.lead__en { grid-area: en; margin-top: 18px; font-family: var(--font); font-size: 15px; font-weight: 700; color: var(--blue); }
+.lead__name { grid-area: name; margin-top: 4px; font-size: clamp(20px, 1.7vw, 24px); font-weight: 700; letter-spacing: .06em; }
+.lead__role { grid-area: role; margin-top: 8px; font-size: 15px; line-height: 1.7; color: var(--ink-soft); }
+.lead__bio { margin-top: 16px; font-size: 16px; line-height: 1.9; }
+.lead__link { display: inline-flex; align-items: center; min-height: 44px; font-size: 16px; font-weight: 700; color: var(--blue); }
+.lead__open { display: none; }
+/* JSがあるとき：自己紹介は画面で開く。カード全体が押せて、右の「＋」が回る */
+.has-dialog .lead__bio { display: none; }
+.has-dialog .lead__open { grid-area: plus; align-self: center; display: block; position: static; width: 40px; height: 40px; margin-top: 18px; border: 1.5px solid var(--line); border-radius: 50%; background: #fff; cursor: pointer; transition: background-color .3s, border-color .3s, rotate .5s var(--gp-emph); }
+.has-dialog .lead__open::before { content: ""; position: absolute; inset: 0; z-index: 1; }
+.has-dialog .lead__open::after { content: ""; position: relative; display: block; width: 14px; height: 14px; margin: auto; background: linear-gradient(var(--ink), var(--ink)) 50% / 100% 1.6px no-repeat, linear-gradient(var(--ink), var(--ink)) 50% / 1.6px 100% no-repeat; transition: filter .3s; }
+.lead__card:hover .lead__open, .lead__open:focus-visible { background: var(--blue); border-color: var(--blue); rotate: 90deg; }
+.lead__card:hover .lead__open::after, .lead__open:focus-visible::after { filter: invert(1) brightness(2); }
+.lead__card:hover .lead__photo img { scale: 1.05; }
+.lead__card:hover .lead__name { color: var(--blue); }
+.lead__name { transition: color .3s; }
+.lead__open:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+@media (max-width: 899px) { .lead__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .lead__grid { gap: 28px 14px; } .lead__name { font-size: 18px; letter-spacing: .02em; } .lead__role { font-size: 14px; } .lead__en { font-size: 14px; } }
+
+/* プロフィールの画面 */
+html.is-dlg-open { overflow: hidden; }
+.lead-dlg { width: min(92vw, 980px); max-height: min(88vh, 720px); padding: 0; border: 0; border-radius: 16px; background: #fff; color: var(--ink); box-shadow: 0 40px 100px -30px rgba(16, 24, 43, .55); overflow: hidden; }
+.lead-dlg::backdrop { background: rgba(16, 24, 43, .55); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.lead-dlg[open] { animation: dlgIn .45s var(--gp-emph); }
+@keyframes dlgIn { from { opacity: 0; translate: 0 24px; scale: .98; } }
+.lead-dlg__in { position: relative; display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); grid-template-rows: minmax(0, 1fr) auto; height: min(88vh, 720px); }
+.lead-dlg__photo { grid-row: 1 / 3; position: relative; background: #e9ebef; overflow: hidden; }
+.lead-dlg__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+.lead-dlg__photo.lead__photo--none { display: grid; place-items: center; }
+.lead-dlg__body { overflow-y: auto; padding: clamp(32px, 4vw, 56px) clamp(24px, 4vw, 56px) 20px; }
+.lead-dlg__en { font-family: var(--font); font-size: 16px; font-weight: 700; color: var(--blue); }
+.lead-dlg__name { margin-top: 6px; font-size: clamp(26px, 2.6vw, 36px); font-weight: 700; letter-spacing: .06em; }
+.lead-dlg__role { margin-top: 8px; font-size: 16px; color: var(--ink-soft); }
+.lead-dlg__bio { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 16px; line-height: 2; }
+.lead-dlg__nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 clamp(16px, 3vw, 40px) 20px; padding: 10px 12px; border-radius: 999px; background: #f2f4f7; }
+.lead-dlg__count { font-family: var(--font); font-size: 15px; color: var(--muted); }
+.lead-dlg__count b { color: var(--ink); }
+.lead-dlg__arw, .lead-dlg__x { position: relative; width: 44px; height: 44px; border: 0; border-radius: 50%; background: #fff; cursor: pointer; transition: background-color .3s; }
+.lead-dlg__arw::after { content: ""; position: absolute; inset: 0; margin: auto; width: 10px; height: 10px; border: solid var(--ink); border-width: 2px 2px 0 0; rotate: 45deg; translate: -2px 0; }
+.lead-dlg__arw--prev::after { rotate: -135deg; translate: 2px 0; }
+.lead-dlg__arw:hover, .lead-dlg__x:hover { background: var(--blue); }
+.lead-dlg__arw:hover::after { border-color: #fff; }
+.lead-dlg__x { position: absolute; right: 14px; top: 14px; z-index: 2; background: #f2f4f7; }
+.lead-dlg__x::before, .lead-dlg__x::after { content: ""; position: absolute; left: 50%; top: 50%; width: 16px; height: 2px; margin: -1px 0 0 -8px; background: var(--ink); rotate: 45deg; }
+.lead-dlg__x::after { rotate: -45deg; }
+.lead-dlg__x:hover::before, .lead-dlg__x:hover::after { background: #fff; }
+.lead-dlg__in.is-in .lead-dlg__body > *, .lead-dlg__in.is-in .lead-dlg__photo img { animation: dlgSlide .5s var(--gp-emph) both; }
+.lead-dlg__in.from-l .lead-dlg__body > * { animation-name: dlgSlideL; }
+.lead-dlg__in.is-in .lead-dlg__body > :nth-child(2) { animation-delay: .04s; }
+.lead-dlg__in.is-in .lead-dlg__body > :nth-child(3) { animation-delay: .08s; }
+.lead-dlg__in.is-in .lead-dlg__body > :nth-child(4) { animation-delay: .12s; }
+@keyframes dlgSlide { from { opacity: 0; translate: 24px 0; } }
+@keyframes dlgSlideL { from { opacity: 0; translate: -24px 0; } }
+@media (max-width: 760px) {
+  .lead-dlg { width: 100vw; max-width: 100vw; max-height: 100svh; height: 100svh; border-radius: 0; }
+  .lead-dlg__in { grid-template-columns: minmax(0, 1fr); grid-template-rows: 38svh minmax(0, 1fr) auto; height: 100svh; }
+  .lead-dlg__photo { grid-row: auto; }
+  .lead-dlg__body { padding: 24px 20px 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .lead-dlg[open], .lead-dlg__in.is-in * { animation: none !important; } .lead__photo img, .lead__open { transition: none; } }
+.has-dialog .lead__open { width: 44px; height: 44px; margin-top: 16px; }

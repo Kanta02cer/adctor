@@ -387,73 +387,55 @@
 })();
 
 /* =========================================================================
-   ⑬ 取締役・メンバー：画面に止めて、スクロールで一人ずつ。左に写真、右に自己紹介
+   ⑬ 経営メンバー：一覧のカードを押すと、プロフィールの画面が開く（前・次で切り替え）
    ========================================================================= */
 (() => {
   const sec = document.getElementById('members');
-  if (!sec) return;
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
-  const items = Array.from(sec.querySelectorAll('.crew__item'));
-  const index = sec.querySelector('.crew__index');
-  const n = items.length;
-  if (!n) return;
-  let pinned = false;
-  let cur = -1;
-  // 右はしの名前の一覧（押すとその人へ）
-  const btns = items.map((li, i) => {
-    const name = li.querySelector('.crew__name').textContent;
-    const role = li.querySelector('.crew__en').textContent;
-    const item = document.createElement('li');
-    const b = document.createElement('button');
-    b.type = 'button';
-    b.innerHTML = `<span>${String(i + 1).padStart(2, '0')}</span>${name}`;
-    b.setAttribute('aria-label', `${role} ${name}の紹介へ`);
-    b.addEventListener('click', () => go(i));
-    item.appendChild(b);
-    index.appendChild(item);
-    return b;
+  const dlg = document.getElementById('leadDlg');
+  if (!sec || !dlg || typeof dlg.showModal !== 'function') return;
+  sec.classList.add('has-dialog');
+  const cards = Array.from(sec.querySelectorAll('.lead__card'));
+  const n = cards.length;
+  const q = (s) => dlg.querySelector(s);
+  let cur = 0;
+  const pad = (v) => String(v).padStart(2, '0');
+  const fill = (i, dir) => {
+    cur = (i + n) % n;
+    const c = cards[cur];
+    const box = q('.lead-dlg__in');
+    box.classList.remove('is-in', 'from-l', 'from-r');
+    void box.offsetWidth;
+    box.classList.add('is-in', dir < 0 ? 'from-l' : 'from-r');
+    q('.lead-dlg__photo').innerHTML = c.querySelector('.lead__photo').innerHTML;
+    q('.lead-dlg__photo').className = 'lead-dlg__photo' + (c.querySelector('.lead__photo--none') ? ' lead__photo--none' : '');
+    const img = q('.lead-dlg__photo img');
+    if (img) img.loading = 'eager';
+    q('.lead-dlg__en').textContent = c.querySelector('.lead__en').textContent;
+    q('.lead-dlg__name').textContent = c.querySelector('.lead__name').textContent;
+    q('.lead-dlg__role').textContent = c.querySelector('.lead__role').textContent;
+    q('.lead-dlg__bio').innerHTML = c.querySelector('.lead__bio').innerHTML;
+    q('.lead-dlg__count').innerHTML = `<b>${pad(cur + 1)}</b> / ${pad(n)}`;
+  };
+  const open = (i) => {
+    fill(i, 1);
+    dlg.showModal();
+    document.documentElement.classList.add('is-dlg-open');
+  };
+  dlg.addEventListener('close', () => {
+    document.documentElement.classList.remove('is-dlg-open');
+    const b = cards[cur] && cards[cur].querySelector('.lead__open');
+    if (b) b.focus();
   });
-  const set = (k) => {
-    if (k === cur) return;
-    cur = k;
-    items.forEach((li, i) => { li.classList.toggle('is-active', i === k); li.classList.toggle('is-past', i < k); });
-    btns.forEach((b, i) => b.setAttribute('aria-current', i === k ? 'true' : 'false'));
-    sec.style.setProperty('--k', String(k));
-  };
-  const range = () => Math.max(1, sec.offsetHeight - window.innerHeight);
-  const go = (i) => {
-    if (!pinned) { items[i].scrollIntoView({ block: 'center' }); return; }
-    const top = sec.getBoundingClientRect().top + window.scrollY + range() * ((i + 0.5) / n);
-    window.scrollTo({ top, behavior: reduce ? 'instant' : 'smooth' });
-  };
-  const measure = () => {
-    pinned = !reduce && window.innerWidth >= 900 && window.innerHeight >= 620;
-    sec.classList.toggle('is-pinned', pinned);
-    sec.style.height = pinned ? `${Math.round(window.innerHeight * (1 + n * 0.85))}px` : '';
-    if (!pinned) { cur = -1; items.forEach((li) => li.classList.remove('is-active', 'is-past')); }
-  };
-  const update = () => {
-    if (!pinned) return;
-    const r = sec.getBoundingClientRect();
-    if (r.bottom < 0 || r.top > window.innerHeight) return;
-    const p = clamp(-r.top / range(), 0, 0.9999);
-    set(Math.floor(p * n));
-    sec.style.setProperty('--mp', p.toFixed(4));
-  };
-  // スマホなど：一人ずつ、画面に入ったら写真と文が現れる
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) e.target.classList.add('is-in'); }), { threshold: 0.2 });
-    items.forEach((li) => io.observe(li));
-  } else items.forEach((li) => li.classList.add('is-in'));
-  items.forEach((li, i) => li.addEventListener('focusin', () => { if (pinned && cur !== i) go(i); }));
-  let raf = 0;
-  const kick = () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; update(); }); };
-  window.addEventListener('scroll', kick, { passive: true });
-  window.addEventListener('resize', () => { measure(); kick(); });
-  measure();
-  if (pinned) set(0);
-  update();
+  cards.forEach((c, i) => c.querySelector('.lead__open').addEventListener('click', () => open(i)));
+  dlg.addEventListener('click', (e) => {
+    if (e.target === dlg || e.target.closest('[data-close]')) dlg.close();
+    const s = e.target.closest('[data-step]');
+    if (s) fill(cur + Number(s.dataset.step), Number(s.dataset.step));
+  });
+  dlg.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') fill(cur + 1, 1);
+    if (e.key === 'ArrowLeft') fill(cur - 1, -1);
+  });
 })();
 
 /* =========================================================================

@@ -164,33 +164,32 @@ PLACEHOLDER = (
 
 
 def card(m, i, n):
+    """経営メンバーの一覧のカード。押すと、自己紹介の画面（ダイアログ）が開く。"""
     e = html.escape
     mid = e(m['id'])
     if m.get('photo'):
-        media = (f'<img src="assets/members/{mid}-full.webp" alt="{e(m["name"])}の写真" loading="lazy" decoding="async">')
+        media = f'<img src="assets/members/{mid}.webp" alt="{e(m["name"])}の写真" width="{W}" height="{H}" loading="lazy" decoding="async">'
         cls = ''
     else:
-        media = PLACEHOLDER + f'<span class="crew__initial" aria-hidden="true">{e(m["name"][0])}</span>'
-        cls = ' crew__photo--none'
+        media = PLACEHOLDER + f'<span class="lead__initial" aria-hidden="true">{e(m["name"][0])}</span>'
+        cls = ' lead__photo--none'
     link = ''
     if m.get('link'):
-        link = (f'\n            <a class="crew__link" href="{e(m["link"]["href"])}" target="_blank" rel="noopener noreferrer">'
+        link = (f'<a class="lead__link" href="{e(m["link"]["href"])}" target="_blank" rel="noopener noreferrer">'
                 f'{e(m["link"]["label"])}<span class="sr">（新しいタブで開きます）</span></a>')
-    group = '取締役' if m.get('group') == 'board' else 'メンバー'
-    return f'''      <li class="crew__item" data-i="{i}">
-        <article class="crew__card" aria-labelledby="mem-{mid}-name">
-          <div class="crew__photo{cls}">
-            {media}
-          </div>
-          <div class="crew__text">
-            <p class="crew__no"><b>{i + 1:02d}</b> / {n:02d}</p>
-            <p class="crew__en">{e(m['role_en'])}</p>
-            <h3 class="crew__name" id="mem-{mid}-name">{e(m['name'])}</h3>
-            <p class="crew__role"><span class="crew__group">{group}</span>{e(m['role'])}</p>
-            <p class="crew__bio">{e(m['bio'])}</p>{link}
-          </div>
-        </article>
-      </li>'''
+    return f'''          <li class="lead__item">
+            <article class="lead__card" aria-labelledby="mem-{mid}-name">
+              <div class="lead__photo{cls}">{media}</div>
+              <p class="lead__en">{e(m['role_en'])}</p>
+              <h4 class="lead__name" id="mem-{mid}-name">{e(m['name'])}</h4>
+              <p class="lead__role">{e(m['role'])}</p>
+              <button type="button" class="lead__open" data-i="{i}" aria-haspopup="dialog"><span class="sr">{e(m['name'])}のプロフィールを見る</span></button>
+              <div class="lead__bio"><p>{e(m['bio'])}</p>{link}</div>
+            </article>
+          </li>'''
+
+
+GROUPS = [('board', '取締役'), ('member', '執行役員・メンバー')]
 
 
 def main():
@@ -219,7 +218,16 @@ def main():
             print(m['name'])
             process(src, out, session)
 
-    cards = '\n'.join(card(m, i, len(members)) for i, m in enumerate(members))
+    blocks = []
+    i = 0
+    for key, label in GROUPS:
+        group = [m for m in members if m.get('group', 'member') == key]
+        if not group:
+            continue
+        cards = '\n'.join(card(m, i + k, len(members)) for k, m in enumerate(group))
+        i += len(group)
+        blocks.append(f'      <div class="lead__group">\n        <h3 class="lead__gh">{label}</h3>\n        <ul class="lead__grid">\n{cards}\n        </ul>\n      </div>')
+    cards = '\n'.join(blocks)
     block = f'<!-- MEMBERS:START（tools/build_members.py が自動で書き換えます。直接編集しないでください） -->\n{cards}\n      <!-- MEMBERS:END -->'
     idx = os.path.join(ROOT, 'index.html')
     s = open(idx, encoding='utf-8').read()
