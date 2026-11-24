@@ -678,3 +678,31 @@
     }, { passive: true });
   }
 })();
+
+/* =========================================================================
+   ㉓ Use Cases の山札：先頭のカードが順に奥へ回る（見えている間だけ）
+   ========================================================================= */
+(() => {
+  const deck = document.querySelector('.ucdeck');
+  if (!deck) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const co = document.querySelector('.co3 svg');
+  if (reduce) { if (co && co.pauseAnimations) co.pauseAnimations(); return; }
+  const cards = Array.from(deck.querySelectorAll('.ucdeck__card'));
+  let order = cards.map((_, i) => i);
+  let timer = 0;
+  const step = () => {
+    const front = cards[order[0]];
+    front.classList.add('is-out');
+    setTimeout(() => {
+      order = order.slice(1).concat(order[0]);
+      order.forEach((ci, pos) => cards[ci].style.setProperty('--p', String(pos)));
+      front.classList.remove('is-out');
+    }, 420);
+  };
+  const io = new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.isIntersecting && !timer) timer = setInterval(step, 2600);
+    if (!e.isIntersecting && timer) { clearInterval(timer); timer = 0; }
+  }));
+  io.observe(deck);
+})();
