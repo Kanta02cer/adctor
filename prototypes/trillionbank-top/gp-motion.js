@@ -772,7 +772,7 @@
     units.forEach((u, i) => u.classList.toggle('on', i < k));
   };
 
-  const heads = Array.from(document.querySelectorAll('.bz-en, .bz-ja, .bz-svc-title, .obiz__en, .obiz__ja, .members__en, .company__title, .big-title, .contact__title, .media__title'))
+  const heads = Array.from(document.querySelectorAll('.bz-en, .bz-ja, .bz-svc-title, .obiz__en, .obiz__ja, .obiz__big, .obiz__lead, .members__en, .company__title, .big-title, .contact__title, .media__title'))
     .filter((el) => !el.closest('[data-fill]'));
   heads.forEach(split);
   const scenes = Array.from(document.querySelectorAll('.dscene')).map((sc) => ({
@@ -924,8 +924,8 @@
     const r = stage.getBoundingClientRect();
     const vh = window.innerHeight;
     const p = clamp((vh - r.top) / (vh * 0.9), 0, 1);
-    stage.style.setProperty('--tilt', `${(34 - p * 30).toFixed(2)}deg`);
-    stage.style.setProperty('--lift', `${((1 - p) * 60).toFixed(1)}px`);
+    stage.style.setProperty('--tilt', `${(16 - p * 12).toFixed(2)}deg`);
+    stage.style.setProperty('--lift', `${((1 - p) * 24).toFixed(1)}px`);
   };
   window.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(tilt); }, { passive: true });
   tilt();

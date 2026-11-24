@@ -1405,3 +1405,16 @@ t-c:not(.on), .char.tc:not(.on) { color: var(--tint-off, #c5cbd6) !important; }
 }
 @media (prefers-reduced-motion: reduce) { .ob-sph, .ob-pf__ring--2 { animation: none; } .obiz__stage { transform: none; } }
 .obiz__name .nb { display: inline-block; }
+
+/* Our Business：図のあとに、大きな英字と短い文（スクロールで色が付く） */
+.obiz__model { margin-top: clamp(8px, 1.5vw, 24px); }
+.obiz__intro { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 24px clamp(32px, 5vw, 80px); margin-top: clamp(64px, 7vw, 120px); }
+.obiz__big { font-family: var(--font); font-weight: 600; font-size: clamp(72px, 12.5vw, 210px); line-height: .92; letter-spacing: -.045em; }
+.obiz__big span { display: block; white-space: nowrap; }
+.obiz__big span + span { padding-left: .55em; }
+.obiz__lead { padding-bottom: .4em; font-size: clamp(18px, 1.5vw, 22px); font-weight: 700; line-height: 1.9; }
+@media (max-width: 899px) {
+  .obiz__intro { grid-template-columns: minmax(0, 1fr); }
+  .obiz__big { font-size: clamp(64px, 19vw, 120px); }
+  .obiz__big span + span { padding-left: .3em; }
+}
