@@ -268,12 +268,9 @@
     lens.innerHTML = [
       '<svg class="la" viewBox="0 0 160 120"><path class="iso" d="M80 20 L140 50 L80 80 L20 50 Z"/><path class="iso" d="M20 50 L20 62 L80 92 L80 80 Z M140 50 L140 62 L80 92 L80 80 Z"/><path class="ln" d="M50 52 V38 M66 60 V34"/><path class="acc" d="M82 66 V26"/><circle class="ln" cx="104" cy="40" r="15"/><path class="ln" d="M115 51 L128 64"/></svg>',
       '<svg class="lb" viewBox="0 0 160 120"><path class="iso" d="M44 28 L64 18 L64 82 L44 92 Z M74 36 L94 26 L94 90 L74 100 Z M104 44 L124 34 L124 98 L104 108 Z"/><path class="acc" d="M10 62 H44 C54 62 56 52 66 52 C78 52 82 72 96 72 C106 72 108 64 116 64 H150"/><circle class="dot" cx="150" cy="64" r="5"/></svg>',
-      '<span class="bz-lens__chip"></span>',
     ].join('');
     entry.append(orb, lens);
-    const chip = $('.bz-lens__chip', lens);
     const cards = $$('.bz-card', entry);
-    const labels = ['AirReach · 提供中', 'Adctor · 研究開発・限定実証'];
 
     let side = '';
     let lx = 0; let ly = 0; let tx = 0; let ty = 0; let raf = 0;
@@ -288,7 +285,6 @@
       band.classList.toggle('is-flood', !!s);
       band.classList.toggle('is-side-a', s === 'a');
       band.classList.toggle('is-side-b', s === 'b');
-      if (s) chip.textContent = labels[s === 'a' ? 0 : 1];
     };
     const follow = () => {
       raf = 0;
