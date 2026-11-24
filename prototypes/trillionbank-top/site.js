@@ -41,3 +41,20 @@
     } else if (t) { clearInterval(t); t = 0; }
   }), { threshold: 0.3 }).observe(fig);
 })();
+
+/* カード全体を押せるように（写真・名前・説明のどこを押しても、詳しい内容が開く） */
+(() => {
+  const wire = (cardSel, targetSel) => {
+    document.querySelectorAll(cardSel).forEach((card) => {
+      const target = card.querySelector(targetSel);
+      if (!target) return;
+      card.classList.add('is-clickable');
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('a, button') || window.getSelection().toString()) return;
+        target.click();
+      });
+    });
+  };
+  wire('.has-dialog .lead__card', '.lead__open');
+  wire('.uc__card', '.uc__cta');
+})();

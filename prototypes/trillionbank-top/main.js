@@ -480,7 +480,7 @@
   /* ---------- 隠しキーワード：trillion / toriuru ---------- */
   let typed = '';
   window.addEventListener('keydown', (e) => {
-    if (!openingDone && !opening.classList.contains('is-done')) return;
+    if (opening && !openingDone && !opening.classList.contains('is-done')) return;
     if (e.target.closest && e.target.closest('input, textarea')) return;
     if (e.key.length !== 1) return;
     typed = (typed + e.key.toLowerCase()).slice(-12);

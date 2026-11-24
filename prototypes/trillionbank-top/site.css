@@ -417,3 +417,11 @@
 .statement__title { white-space: nowrap; }
 @media (min-width: 1000px) and (min-height: 600px) { .js .hero-pin.is-pinned + .statement .statement__title { font-size: clamp(24px, 2.3vw, 38px); } }
 @media (max-width: 999px) { .statement__title { font-size: min(clamp(28px, 3.9vw, 56px), 7.6vw); } }
+
+/* カード全体を押せる：カーソルを指の形に。押せる範囲が分かるよう、少し浮く */
+.is-clickable { cursor: pointer; }
+.lead__card.is-clickable { padding: 10px; margin: -10px; border-radius: 12px; transition: background-color .3s; }
+.lead__card.is-clickable:hover { background: #f4f6fb; }
+.uc__card.is-clickable { transition: translate .5s var(--gp-out), box-shadow .5s var(--gp-out); }
+.uc__card.is-clickable:hover { box-shadow: 0 50px 90px -50px rgba(16, 24, 43, .6); }
+.has-dialog .lead__open::before { content: none; }
