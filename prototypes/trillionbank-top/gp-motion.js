@@ -270,9 +270,26 @@
       '<svg class="lb" viewBox="0 0 160 120"><path class="iso" d="M44 28 L64 18 L64 82 L44 92 Z M74 36 L94 26 L94 90 L74 100 Z M104 44 L124 34 L124 98 L104 108 Z"/><path class="acc" d="M10 62 H44 C54 62 56 52 66 52 C78 52 82 72 96 72 C106 72 108 64 116 64 H150"/><circle class="dot" cx="150" cy="64" r="5"/></svg>',
     ].join('');
     entry.append(orb, lens);
-    // 透けて見える画像をレンズの中へ
-    const photos = $('.bz-photos', entry);
-    if (photos) { lens.prepend(photos); photos.hidden = false; }
+    // ガラスの玉の中に入口のカードの写しを置き、少し拡大して見せる（裏のページが透けて大きく見える）
+    const ulSrc = $('ul', entry);
+    const mag = document.createElement('div');
+    mag.className = 'bz-mag';
+    const copy = ulSrc.cloneNode(true);
+    copy.querySelectorAll('[id]').forEach((n) => n.removeAttribute('id'));
+    copy.querySelectorAll('a').forEach((a) => { a.removeAttribute('href'); a.setAttribute('tabindex', '-1'); a.removeAttribute('data-cursor'); });
+    mag.appendChild(copy);
+    const rim = document.createElement('span');
+    rim.className = 'bz-lens__rim';
+    lens.prepend(mag);
+    lens.append(rim);
+    const MAG = 1.3;
+    const place = () => {
+      const L = lens.offsetWidth;
+      mag.style.width = `${ulSrc.offsetWidth}px`;
+      const x = L / 2 - (lx - ulSrc.offsetLeft) * MAG;
+      const y = L / 2 - (ly - ulSrc.offsetTop) * MAG;
+      mag.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) scale(${MAG})`;
+    };
     const cards = $$('.bz-card', entry);
 
     let side = '';
@@ -294,9 +311,7 @@
       lx += (tx - lx) * 0.16; ly += (ty - ly) * 0.16;
       lens.style.setProperty('--lx', lx.toFixed(1) + 'px');
       lens.style.setProperty('--ly', ly.toFixed(1) + 'px');
-      // 動いた向きと逆に、中の画像が少し遅れてずれる（奥行き）
-      lens.style.setProperty('--dx', ((tx - lx) * -0.35).toFixed(1) + 'px');
-      lens.style.setProperty('--dy', ((ty - ly) * -0.35).toFixed(1) + 'px');
+      place();
       if (Math.abs(tx - lx) + Math.abs(ty - ly) > 0.3) raf = requestAnimationFrame(follow);
     };
     const toLocal = (e) => { const r = entry.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };

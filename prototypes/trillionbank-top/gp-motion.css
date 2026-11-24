@@ -1202,3 +1202,21 @@ t-c:not(.on), .char.tc:not(.on) { color: var(--tint-off, #c5cbd6) !important; }
   .dscene.is-pinned .dscene__step:not(.is-active) { opacity: 1; }
 }
 @media (max-width: 899px) { .dscene.is-pinned .dscene__en { font-size: 30px; } }
+
+/* =========================================================================
+   ㉖ 事業の入口のレンズ：裏のページ（文字と色）が、ガラス越しに拡大して透ける
+   ========================================================================= */
+@media (min-width: 900px) {
+  .bz-lens > svg { display: none; }
+  .bz-lens { background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0) 58%, rgba(255, 255, 255, .16) 100%), var(--tb-gray); box-shadow: 0 30px 60px -22px rgba(6, 14, 60, .55); }
+  .bz-split.is-side-a .bz-lens { background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0) 58%, rgba(255, 255, 255, .16) 100%), var(--tb); }
+  .bz-split.is-side-b .bz-lens { background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0) 58%, rgba(194, 209, 255, .14) 100%), var(--tb-ink); }
+  .bz-mag { position: absolute; left: 0; top: 0; transform-origin: 0 0; pointer-events: none; }
+  .bz-mag ul { margin: 0; }
+  /* ふちだけ、ガラスの厚みで少しにじんで曲がって見える */
+  .bz-lens__rim {
+    position: absolute; inset: 0; z-index: 1; border-radius: 50%; pointer-events: none;
+    -webkit-backdrop-filter: blur(4px) saturate(1.35) brightness(1.08); backdrop-filter: blur(4px) saturate(1.35) brightness(1.08);
+    -webkit-mask: radial-gradient(circle, transparent 60%, #000 76%); mask: radial-gradient(circle, transparent 60%, #000 76%);
+  }
+}
