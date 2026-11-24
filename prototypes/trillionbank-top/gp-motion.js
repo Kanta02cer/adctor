@@ -485,8 +485,8 @@
     const open = smooth(clamp((vh - r.top) / (vh * 0.85), 0, 1));
     const range = Math.max(1, sc.el.offsetHeight - vh);
     const p = sc.pinned ? clamp(-r.top / range, 0, 1) : 0.5;
-    const ry = -30 + 22 * p + sc.px * 7;
-    const rx = -17 + 5 * p - sc.py * 5;
+    const ry = -15 + 10 * p + sc.px * 5;
+    const rx = -10 + 3 * p - sc.py * 4;
     sc.el.style.setProperty('--open', open.toFixed(3));
     sc.el.style.setProperty('--ry', `${ry.toFixed(2)}deg`);
     sc.el.style.setProperty('--rx', `${rx.toFixed(2)}deg`);
@@ -532,5 +532,67 @@
   window.addEventListener('scroll', kick, { passive: true });
   window.addEventListener('resize', () => { measure(); kick(); });
   measure();
+  update();
+})();
+
+/* =========================================================================
+   ⑱ Use Cases：カードが画面上部に止まり、次のカードが手前に重なる。
+      重なられたカードは少し縮んで暗くなる。カードが見えると右の図が動き出す
+   ========================================================================= */
+(() => {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const wrap = document.querySelector('.ucx');
+  if (!wrap) return;
+  const items = Array.from(wrap.querySelectorAll('.uc'));
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((es) => es.forEach((e) => {
+      if (e.isIntersecting) { e.target.classList.add('is-on'); io.unobserve(e.target); }
+    }), { threshold: 0.35 });
+    items.forEach((li) => io.observe(li));
+  } else {
+    items.forEach((li) => li.classList.add('is-on'));
+  }
+  // 立場のボタン：カーソルが入った位置から青が広がる
+  wrap.querySelectorAll('.ucx__index a').forEach((a) => a.addEventListener('pointerenter', (e) => {
+    const r = a.getBoundingClientRect();
+    a.style.setProperty('--hx', `${e.clientX - r.left}px`);
+    a.style.setProperty('--hy', `${e.clientY - r.top}px`);
+  }));
+  if (reduce) return;
+  wrap.classList.add('is-stack');
+  // カーソルに合わせて、右の図が少し傾く
+  if (fine) {
+    items.forEach((li) => {
+      const card = li.querySelector('.uc__card');
+      const v = li.querySelector('.uc__visual');
+      card.addEventListener('pointermove', (e) => {
+        const r = v.getBoundingClientRect();
+        const x = clamp((e.clientX - r.left) / r.width - 0.5, -0.8, 0.8);
+        const y = clamp((e.clientY - r.top) / r.height - 0.5, -0.8, 0.8);
+        v.style.setProperty('--vy', `${(x * 12).toFixed(2)}deg`);
+        v.style.setProperty('--vx', `${(-y * 9).toFixed(2)}deg`);
+      });
+      card.addEventListener('pointerleave', () => { v.style.setProperty('--vy', '0deg'); v.style.setProperty('--vx', '0deg'); });
+    });
+  }
+  const update = () => {
+    const stack = getComputedStyle(items[0]).position === 'sticky';
+    items.forEach((li, i) => {
+      const next = items[i + 1];
+      let k = 0;
+      if (stack && next) {
+        const a = li.getBoundingClientRect();
+        const b = next.getBoundingClientRect();
+        k = clamp(1 - (b.top - a.top) / a.height, 0, 1);
+      }
+      li.style.setProperty('--k', k.toFixed(3));
+    });
+  };
+  let raf = 0;
+  const kick = () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; update(); }); };
+  window.addEventListener('scroll', kick, { passive: true });
+  window.addEventListener('resize', kick);
   update();
 })();

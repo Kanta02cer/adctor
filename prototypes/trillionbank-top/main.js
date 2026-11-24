@@ -277,8 +277,12 @@
     const memEl = document.getElementById('members');
     const mr = memEl ? memEl.getBoundingClientRect() : null;
     const overMembers = !!(mr && mr.top < window.innerHeight * 0.9 && mr.bottom > window.innerHeight * 0.1);
-    mascot.classList.toggle('is-away', ((nearFooter || overBiz || overMembers) && !mascotOpen) || drawerOpen);
-    hunt.classList.toggle('is-away', nearFooter || overBiz || overMembers || drawerOpen);
+    // Use Cases のカードにも、かぶらないよう退避する
+    const ucEl = document.querySelector('.ucx__list');
+    const ur = ucEl ? ucEl.getBoundingClientRect() : null;
+    const overUc = !!(ur && ur.top < window.innerHeight * 0.9 && ur.bottom > window.innerHeight * 0.1);
+    mascot.classList.toggle('is-away', ((nearFooter || overBiz || overMembers || overUc) && !mascotOpen) || drawerOpen);
+    hunt.classList.toggle('is-away', nearFooter || overBiz || overMembers || overUc || drawerOpen);
   };
 
   let ticking = false;
@@ -320,7 +324,7 @@
     resetBtn.hidden = f === 'all';
   };
   filterBtns.forEach((b) => b.addEventListener('click', () => applyFilter(b.dataset.filter)));
-  resetBtn.addEventListener('click', () => { applyFilter('all'); filterBtns[0].focus(); });
+  if (resetBtn) resetBtn.addEventListener('click', () => { applyFilter('all'); filterBtns[0].focus(); });
 
   /* =========================================================================
      HIDDEN FRAMES（脱出ゲーム）
@@ -506,7 +510,7 @@
     const cur = $('#cursor');
     const curLabel = $('#cursorLabel');
     let mx = -100; let my = -100; let cx = -100; let cy = -100;
-    const darkSel = '.hero, .bz-band--blue, .bz-split.is-flood, .contact, .media, .footer, .drawer, .unlock, .card__img--ink, .card__img--blue, .bubble--accent';
+    const darkSel = '.hero, .bz-band--blue, .bz-split.is-flood, .contact, .media, .footer, .drawer, .unlock, .card__img--ink, .card__img--blue, .bubble--accent, .uc--navy .uc__card, .uc--blue .uc__card';
     window.addEventListener('pointermove', (e) => {
       mx = e.clientX; my = e.clientY;
       cur.classList.add('is-on');
