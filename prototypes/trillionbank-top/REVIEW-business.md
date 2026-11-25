@@ -323,3 +323,9 @@ git revert --no-edit ee595e7
   - adctor-symbol.svg（白い背景用）・adctor-symbol-white.svg（青い背景用）・adctor-logo.png・adctor-logo-white.png：新しく作った Adctor のシンボル。AirReach と同じ青2色（#0052ee・#1e8fe6）と、同じ斜めの帯の形。頭文字の「A」を、横切る薄い青の帯（料金所のバー）で表した
   - preview.png：見本
 - まだサイトには入れていない
+
+### 追加（第27弾）：事業のロゴをサイトに入れた
+
+- メニュー（Business）の2枚のカード、トップとBusinessページの Our Business の一覧（各行の左の印）、Business ページの2枚の大きなカード（右上）、AirReach・Adctor のページの見出し（右上）
+- 背景に合わせて色を変えた版を使う：白い背景には色つき、青い背景には白（airreach-symbol-white.png・adctor-symbol-white.svg）、濃紺の背景には adctor-symbol-navy.svg
+- 公開中の trillion-bank.jp には反映していない（このプロトタイプのみ）

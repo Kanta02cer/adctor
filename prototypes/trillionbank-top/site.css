@@ -440,3 +440,21 @@
 .page--company .values__list li { transition: background-color .35s; }
 .page--company .values__list li:hover { background: rgba(255, 255, 255, .06); }
 .page--company .profile2__note { color: rgba(255, 255, 255, .75); }
+
+/* 事業のロゴ（AirReach・Adctor のシンボル） */
+.mega__thumb--logo { display: grid; place-items: center; }
+.mega__thumb--logo img { width: auto; height: 62%; }
+.mega__card:not(.mega__card--navy) .mega__thumb--logo { background: #fff; }
+.obiz__ico--logo { width: auto; height: 40px; justify-self: center; transition: rotate .6s var(--gp-emph), scale .45s var(--gp-out); }
+.obiz__row.is-on .obiz__ico--logo { rotate: 0deg; scale: 1.15; }
+.pair__logo { position: absolute; right: clamp(28px, 3vw, 44px); top: clamp(28px, 3vw, 44px); height: clamp(64px, 6vw, 88px); }
+.pair__logo img { width: auto; height: 100%; }
+.phero__logo { grid-area: tag; justify-self: end; align-self: start; height: clamp(56px, 6vw, 96px); margin-top: 6px; }
+.phero__logo img { width: auto; height: 100%; }
+@media (max-width: 899px) { .phero__logo { grid-area: crumbs; height: 48px; } }
+.mega__thumb--logo { overflow: hidden; }
+.mega__thumb--logo img { height: 84px !important; max-height: 60%; width: auto; }
+.mega__thumb--logo { width: 100%; align-self: stretch; }
+.mega__thumb--logo img { height: 56% !important; max-height: none; transition: scale .6s var(--gp-emph); }
+.mega__card:hover .mega__thumb--logo img { scale: 1.08; }
+.mega__thumb--logo img { height: 76px !important; }
