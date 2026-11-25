@@ -315,3 +315,11 @@ git revert --no-edit ee595e7
 - 下のページの見出し：大きな英字（Company の y など）の下の出っ張りが、右の文に重なっていたので、間をあけた
 
 - 会社概要の表は、スクロールで色が付く動きをやめた（最後の行の「変更」などが薄いまま残り、字体が違うように見えていた）。表の文字はすべて同じ白・同じ書体
+
+### 追加（第26弾）：事業のロゴ
+
+- assets/logos/ に置いた（企業ロゴの変更ではなく、事業のシンボル）
+  - airreach-symbol.png・airreach-logo.png：AirReach Tools のLPに載っている公式のロゴを、背景を透明にしたもの
+  - adctor-symbol.svg（白い背景用）・adctor-symbol-white.svg（青い背景用）・adctor-logo.png・adctor-logo-white.png：新しく作った Adctor のシンボル。AirReach と同じ青2色（#0052ee・#1e8fe6）と、同じ斜めの帯の形。頭文字の「A」を、横切る薄い青の帯（料金所のバー）で表した
+  - preview.png：見本
+- まだサイトには入れていない
